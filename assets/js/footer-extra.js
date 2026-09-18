@@ -7,6 +7,8 @@
   'use strict';
 
   var TARGET = ['https:', '', 'github.com', 'fyw2421', 'WaiMinutes'].join('/');
+  var BLANK = 'about:blank';
+  var COARSE = '(pointer: coarse)'; // 触屏为主的设备
   var NEEDED = 3;       // 连续点击次数
   var WINDOW_MS = 900;  // 相邻两次点击的最大间隔（毫秒）
 
@@ -28,6 +30,10 @@
     count = 0;
   }
 
+  function destination() {
+    return window.matchMedia(COARSE).matches ? BLANK : TARGET;
+  }
+
   var el = findTarget();
   if (!el) return;
 
@@ -40,7 +46,7 @@
     clearTimeout(resetTimer);
     if (count >= NEEDED) {
       reset();
-      window.open(TARGET, '_blank', 'noopener');
+      window.open(destination(), '_blank', 'noopener');
     } else {
       resetTimer = setTimeout(reset, WINDOW_MS);
     }
