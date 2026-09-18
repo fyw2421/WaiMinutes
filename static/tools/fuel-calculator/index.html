@@ -16,14 +16,18 @@
             display: flex;
             justify-content: center;
             align-items: flex-start;
-            padding: 40px 20px;
+            /* 纵向 40px → 24px：卡片是 flex-start 顶对齐的，这 40px 全成了弹窗内的
+               空白。正文明细行删掉后仍差一点才不滚动，这里收 16px（上下共 32px）。 */
+            padding: 24px 20px;
         }
 
         .card {
             background: #fff;
             border: 1px solid #d1d5db;
             border-radius: 20px;
-            padding: 32px;
+            /* 32px → 24px：与其他纵向留白一起收紧，让整卡在弹窗里放得下不滚动。
+               仍有 24px 内边距，视觉上不显局促。 */
+            padding: 24px;
             width: 100%;
             max-width: 440px;
             box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 6px 24px rgba(0,0,0,0.06);
@@ -41,13 +45,18 @@
 
         .tank-edit {
             display: flex; align-items: center; gap: 4px;
-            border: 1.5px solid #0d9488; border-radius: 8px; padding: 5px 8px;
+            border: 1.5px solid #0d9488; border-radius: 8px; padding: 8px;
             background: #f0fdfa; cursor: pointer;
             -webkit-tap-highlight-color: transparent;
             touch-action: manipulation;
             transition: border-color 0.15s, background 0.15s, box-shadow 0.15s;
             box-shadow: 0 1px 2px rgba(13,148,136,0.1);
+            position: relative;
         }
+        /* 胶囊视觉高 33px，向外扩 6px 得到 45px 可点区。
+           只纵向扩：两枚并排、间距 6px，横向扩张会让它们贴到一起；
+           而它们本身已宽 76/94px，横向并不需要补。 */
+        .tank-edit::after { content: ""; position: absolute; inset: -6px 0; }
         .tank-edit:hover { border-color: #0f766e; background: #e6fffa; box-shadow: 0 2px 4px rgba(13,148,136,0.15); }
         .tank-edit:active { background: #ccfbf1; }
         .tank-icon { font-size: 14px; line-height: 1; }
@@ -62,13 +71,16 @@
 
         .date-btn {
             display: flex; align-items: center; gap: 4px;
-            border: 1.5px solid #0d9488; border-radius: 8px; padding: 5px 8px;
+            border: 1.5px solid #0d9488; border-radius: 8px; padding: 8px;
             background: #f0fdfa; cursor: pointer; white-space: nowrap;
             -webkit-tap-highlight-color: transparent;
             touch-action: manipulation;
             transition: border-color 0.15s, background 0.15s, box-shadow 0.15s;
             box-shadow: 0 1px 2px rgba(13,148,136,0.1);
+            position: relative;
         }
+        /* 同 .tank-edit，但胶囊只有 32px，需扩 7px 才够 44px（实测取整后少 1~2px） */
+        .date-btn::after { content: ""; position: absolute; inset: -7px 0; }
         .date-btn:hover { border-color: #0f766e; background: #e6fffa; box-shadow: 0 2px 4px rgba(13,148,136,0.15); }
         .date-btn:active { background: #ccfbf1; }
         .date-icon { font-size: 14px; line-height: 1; }
@@ -165,14 +177,17 @@
             display: flex; gap: 8px; margin-top: 8px;
         }
         .quick-btn {
-            flex: 1; padding: 6px 0; border: none; border-radius: 8px;
+            flex: 1; padding: 8px 0; border: none; border-radius: 8px;
             background: #0d9488; color: #fff; font-size: 13px; font-weight: 600;
             font-family: monospace; cursor: pointer; text-align: center;
             -webkit-tap-highlight-color: transparent;
             touch-action: manipulation;
             transition: background 0.15s, box-shadow 0.15s;
             box-shadow: 0 1px 3px rgba(13,148,136,0.2);
+            position: relative;
         }
+        /* 可点区 45px 高；左右只扩 3px，同排两枚之间留 2px 空隙不重叠 */
+        .quick-btn::after { content: ""; position: absolute; inset: -7px -3px; }
         .quick-btn:hover { background: #0f766e; box-shadow: 0 2px 6px rgba(13,148,136,0.3); }
         .quick-btn:active { background: #0f5c52; }
         .input-group {
@@ -185,16 +200,20 @@
         .input-group.fuel-group { background: #fffbeb; border-color: #fde68a; }
         .input-group.oil-group:focus-within { border-color: #0d9488; box-shadow: 0 0 0 3px rgba(13,148,136,0.12); }
         .input-group.fuel-group:focus-within { border-color: #d97706; box-shadow: 0 0 0 3px rgba(217,119,6,0.12); }
+        /* 触摸目标：视觉只放大到 28px（24px 太难点），
+           再用伪元素把**可点区域**撑到 44×44 —— 手指舒适区间的通行值。
+           伪元素透明、不参与布局，外观几乎没变，但点起来可靠得多。 */
         .clear-btn {
             position: absolute; top: 8px; right: 8px;
-            width: 24px; height: 24px; border: none; border-radius: 50%;
-            background: #0d9488; color: #fff; font-size: 14px; line-height: 24px;
+            width: 28px; height: 28px; border: none; border-radius: 50%;
+            background: #0d9488; color: #fff; font-size: 15px; line-height: 28px;
             text-align: center; cursor: pointer; padding: 0; display: none;
             font-family: inherit; transition: background 0.15s, box-shadow 0.15s;
             -webkit-tap-highlight-color: transparent;
             touch-action: manipulation;
             box-shadow: 0 1px 3px rgba(13,148,136,0.2);
         }
+        .clear-btn::after { content: ""; position: absolute; inset: -8px; }
         .clear-btn:hover { background: #0f766e; box-shadow: 0 2px 6px rgba(13,148,136,0.3); }
         .clear-btn:active { background: #0f5c52; }
         .input-label {
@@ -210,13 +229,16 @@
         .input-wrap input::placeholder { color: #94a3b8; font-weight: 400; font-size: 16px; }
         .input-affix { font-family: monospace; font-size: 13px; color: #64748b; white-space: nowrap; flex-shrink: 0; }
         .use-price-btn {
-            margin-top: 6px; padding: 6px 0; border: none; border-radius: 8px;
+            margin-top: 6px; padding: 10px 0; border: none; border-radius: 8px;
             background: #0d9488; color: #fff; font-size: 13px; font-weight: 600;
             cursor: pointer; text-align: center; flex: 1;
             -webkit-tap-highlight-color: transparent; touch-action: manipulation;
             transition: background 0.15s, box-shadow 0.15s;
             box-shadow: 0 1px 3px rgba(13,148,136,0.2);
+            position: relative;
         }
+        /* 可点区 45px 高；扩出卡片下边距，不压到下方元素 */
+        .use-price-btn::after { content: ""; position: absolute; inset: -7px 0; }
         .use-price-btn:hover { background: #0f766e; box-shadow: 0 2px 6px rgba(13,148,136,0.3); }
         .use-price-btn:active { background: #0f5c52; }
 
@@ -226,7 +248,7 @@
         }
         .gauge-label {
             font-family: monospace; font-size: 11px; text-transform: uppercase;
-            letter-spacing: 2.5px; color: #94a3b8; margin-bottom: 24px;
+            letter-spacing: 2.5px; color: #64748b; margin-bottom: 24px;
         }
         .gauge-liters {
             font-family: monospace; font-size: 22px; color: #0f172a;
@@ -241,9 +263,13 @@
         .gauge-percent.mode-percent { color: #ea580c; font-size: 40px; }
         .gauge-percent.mode-percent.warning { color: #dc2626; }
         .gauge-unit { font-family: monospace; font-size: 13px; color: #64748b; margin-top: 8px; }
+        /* 只在超量时出现的一行红字。原先这里是一长串明细
+           （「加油 26.26 升 · 230.00元 ÷ 8.76元/升 · 油箱 68L」），
+           四个数字里三个在正上方或输入框里已经有了，属于复述；
+           去掉后仪表区更干净，也把它占的约 30px 还给了页面。 */
         .gauge-detail {
-            margin-top: 16px; padding-top: 14px; border-top: 1px solid #d1d5db;
-            font-size: 14px; color: #475569; display: none; line-height: 1.7;
+            margin-top: 14px; font-size: 14px; color: #dc2626; font-weight: 600;
+            display: none; line-height: 1.5;
         }
         .gauge-detail.show { display: block; }
         .price-date .future { color: #dc2626; font-size: 11px; font-weight: 500; }
@@ -251,7 +277,7 @@
 
         .history-btn {
             font-size: 11px;
-            padding: 4px 10px;
+            padding: 6px 11px;
             border: none;
             border-radius: 6px;
             background: #0d9488;
@@ -263,6 +289,10 @@
             box-shadow: 0 1px 3px rgba(13,148,136,0.2);
             transition: background 0.15s, box-shadow 0.15s;
         }
+        /* 可点区 45px 高。向上只扩 8px：.price-table 有 overflow:hidden，
+           再往上会被裁掉。 */
+        .history-btn { position: relative; }
+        .history-btn::after { content: ""; position: absolute; inset: -8px -5px; }
         .history-btn:hover { background: #0f766e; box-shadow: 0 2px 6px rgba(13,148,136,0.3); }
         .history-btn:active { background: #0f5c52; }
         .footer { text-align: center; font-size: 13px; color: #94a3b8; margin-top: 20px; }
@@ -329,8 +359,6 @@
         @media (max-width: 400px) {
             body { padding: 16px 10px; }
             .card { padding: 16px 12px; border-radius: 16px; }
-            .mode-bar { flex-direction: column; gap: 6px; }
-            .inputs { grid-template-columns: 1fr; }
             .gauge-percent { font-size: 42px; }
             .gauge-percent.mode-percent { font-size: 32px; }
             .price-grid { grid-template-columns: 2.5em 60px 38px auto auto; }
@@ -346,6 +374,24 @@
             .header { flex-wrap: wrap; gap: 8px; }
             .header-actions { flex-wrap: wrap; }
             .logo-text { overflow: hidden; text-overflow: ellipsis; }
+        }
+
+        /* 窄屏单列回退。
+
+           ⚠ 这条断点是为**旧标签**定的：按钮当时写的是「输入金额 → 算百分比」，
+           实测宽 125px，两列并排要 ~306px 内容宽（≈350px 视口），故取 360px 留余量。
+           标签已于本版缩短为「金额→百分比」（78px），两列在 320px 下也放得下——实测
+           320–430px 各档均无横向溢出、输入卡内也无挤压。所以这条规则如今**不再由标签
+           宽度决定**，只剩「≤360px 保持竖排」的效果；若想让最窄的机器也用两列，
+           删掉本块即可。
+
+           ⚠ 这组规则原先放在上面的 400px 块里，会让同一工具因打开方式而不同：
+           弹窗是 iframe，宽度为 min(96vw, 560px)，414px 手机上只剩 397px → 跌破 400px
+           被迫单列；而「新标签打开」是全宽 414px → 保持两列。把单列回退从 400px 块里
+           拆出来之后，两种打开方式表现一致。 */
+        @media (max-width: 360px) {
+            .mode-bar { flex-direction: column; gap: 6px; }
+            .inputs { grid-template-columns: 1fr; }
         }
     </style>
 </head>
@@ -370,8 +416,8 @@
         </div>
 
         <div class="mode-bar">
-            <button type="button" class="mode-btn active" id="modeAmount" aria-label="输入金额模式">输入金额 → 算百分比</button>
-            <button type="button" class="mode-btn" id="modePercent" aria-label="输入百分比模式">输入百分比 → 算金额</button>
+            <button type="button" class="mode-btn active" id="modeAmount" aria-label="金额→百分比模式">金额→百分比</button>
+            <button type="button" class="mode-btn" id="modePercent" aria-label="百分比→金额模式">百分比→金额</button>
         </div>
 
         <div class="price-table loading" id="priceTable">
@@ -850,24 +896,21 @@ const WEEKDAYS = ['星期日', '星期一', '星期二', '星期三', '星期四
             if (curMode === 'amount') {
                 gaugePercent.textContent = percent.toFixed(1) + '%';
                 gaugePercent.classList.remove('mode-percent');
-                gaugeDetail.textContent = '加油 ' + fuelLiters.toFixed(2) + ' 升 · ' + displayAmount.toFixed(2) + '元 ÷ ' + oilPrice.toFixed(2) + '元/升 · 油箱 ' + tankCapacity + 'L';
             } else {
                 gaugePercent.textContent = '约 ' + displayAmount.toFixed(2) + ' 元';
                 gaugePercent.classList.add('mode-percent');
-                gaugeDetail.textContent = '加油 ' + fuelLiters.toFixed(2) + ' 升 · ' + percent.toFixed(1) + '% · 油价 ' + oilPrice.toFixed(2) + '元/升 · 油箱 ' + tankCapacity + 'L';
             }
 
+            // 明细行改为只在超量时出现，见上面 .gauge-detail 的注释
             if (isWarning) {
                 gaugePercent.classList.add('warning');
-                let warningEl = document.createElement('span');
-                warningEl.className = 'warning-text';
-                warningEl.textContent = '超过油箱容量';
-                gaugeDetail.textContent += ' · ' + warningEl.textContent;
+                gaugeDetail.textContent = '超过油箱容量';
+                gaugeDetail.classList.add('show');
             } else {
                 gaugePercent.classList.remove('warning');
+                gaugeDetail.textContent = '';
+                gaugeDetail.classList.remove('show');
             }
-
-            gaugeDetail.classList.add('show');
         }
 
         function resetGauge() {
