@@ -1,0 +1,83 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="530" viewBox="0 0 960 530" role="img" aria-labelledby="t d">
+  <title id="t">状态模式示例（工作状态）UML 类图</title>
+  <desc id="d">工作 聚合 状态；六个具体工作状态继承 状态 并实现写程序</desc>
+  <defs>
+    <style>
+      .box   { fill:#f3e4c4; stroke:#9c8254; stroke-width:1; }
+      .sep   { stroke:#9c8254; stroke-width:1; }
+      .title { font-family:'Microsoft YaHei','PingFang SC','Hiragino Sans GB','Noto Sans SC',sans-serif; font-size:14px; font-weight:700; fill:#1f1f1f; text-anchor:middle; }
+      .member{ font-family:'Microsoft YaHei','PingFang SC','Hiragino Sans GB','Noto Sans SC',sans-serif; font-size:12px; fill:#1f1f1f; }
+      .line  { stroke:#1f1f1f; stroke-width:1.1; fill:none; }
+      .dash  { stroke:#1f1f1f; stroke-width:1; fill:none; stroke-dasharray:5 3; }
+      .hollow{ fill:#ffffff; stroke:#1f1f1f; stroke-width:1.1; stroke-linejoin:round; }
+    </style>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 Z" fill="#1f1f1f"/>
+    </marker>
+    <marker id="openArrow" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M1,1 L10,6 L1,11" fill="none" stroke="#1f1f1f" stroke-width="1.2"/>
+    </marker>
+  </defs>
+
+  <rect width="960" height="530" fill="#ffffff"/>
+
+  <!-- 工作（Context） -->
+  <rect class="box" x="20" y="20" width="240" height="160" rx="2"/>
+  <line class="sep" x1="20" y1="56" x2="260" y2="56"/>
+  <line class="sep" x1="20" y1="122" x2="260" y2="122"/>
+  <text class="title" x="140" y="44">工作</text>
+  <text class="member" x="34" y="84">+钟点 : double</text>
+  <text class="member" x="34" y="106">+任务完成 : bool</text>
+  <text class="member" x="34" y="146">+设置状态(in s : 状态)</text>
+  <text class="member" x="34" y="168">+写程序(in w : 工作)</text>
+
+  <!-- 状态（State） -->
+  <rect class="box" x="400" y="90" width="210" height="90" rx="2"/>
+  <line class="sep" x1="400" y1="120" x2="610" y2="120"/>
+  <text class="title" x="505" y="112">状态</text>
+  <text class="member" x="414" y="146">+写程序(in w : 工作)</text>
+
+  <!-- 聚合：工作 ◇— 状态，箭头落在 状态 左边框中部 -->
+  <path class="line" d="M282 62 L350 62 L350 135 L399 135" marker-end="url(#arrow)"/>
+  <path class="hollow" d="M260 62 L271 53 L282 62 L271 71 Z"/>
+
+  <!-- 状态 ..> 工作 的虚线关联 -->
+  <path class="dash" d="M400 168 L296 168 L296 100 L266 100" marker-end="url(#openArrow)"/>
+
+  <!-- 六个具体状态 -->
+  <rect class="box" x="40" y="330" width="150" height="70" rx="2"/>
+  <line class="sep" x1="40" y1="360" x2="190" y2="360"/>
+  <text class="title" x="115" y="352">上午工作状态</text>
+  <text class="member" x="54" y="384">+写程序(in w : 工作)</text>
+
+  <rect class="box" x="290" y="330" width="150" height="70" rx="2"/>
+  <line class="sep" x1="290" y1="360" x2="440" y2="360"/>
+  <text class="title" x="365" y="352">下午工作状态</text>
+  <text class="member" x="304" y="384">+写程序(in w : 工作)</text>
+
+  <rect class="box" x="590" y="330" width="150" height="70" rx="2"/>
+  <line class="sep" x1="590" y1="360" x2="740" y2="360"/>
+  <text class="title" x="665" y="352">下班状态</text>
+  <text class="member" x="604" y="384">+写程序(in w : 工作)</text>
+
+  <rect class="box" x="165" y="440" width="150" height="70" rx="2"/>
+  <line class="sep" x1="165" y1="470" x2="315" y2="470"/>
+  <text class="title" x="240" y="462">中午工作状态</text>
+  <text class="member" x="179" y="494">+写程序(in w : 工作)</text>
+
+  <rect class="box" x="415" y="440" width="150" height="70" rx="2"/>
+  <line class="sep" x1="415" y1="470" x2="565" y2="470"/>
+  <text class="title" x="490" y="462">傍晚工作状态</text>
+  <text class="member" x="429" y="494">+写程序(in w : 工作)</text>
+
+  <rect class="box" x="760" y="440" width="150" height="70" rx="2"/>
+  <line class="sep" x1="760" y1="470" x2="910" y2="470"/>
+  <text class="title" x="835" y="462">睡眠工作状态</text>
+  <text class="member" x="774" y="494">+写程序(in w : 工作)</text>
+
+  <!-- 继承：六条总线 -->
+  <path class="hollow" d="M505 180 L493 202 L517 202 Z"/>
+  <path class="line" d="M505 202 L505 230"/>
+  <path class="line" d="M115 230 L835 230"/>
+  <path class="line" d="M115 230 L115 330 M240 230 L240 440 M365 230 L365 330 M490 230 L490 440 M665 230 L665 330 M835 230 L835 440"/>
+</svg>

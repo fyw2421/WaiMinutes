@@ -1,0 +1,13 @@
+{{/* Blowfish 的头部扩展点。主题 head.html:238 调用它时传入的是**当前页**
+     （对比 extend-head.html 传入 .Site，无法判断页面），所以能用 .IsHome。
+
+     为什么用 -uncached 版本而不是 extend-head.html：需要 .IsHome 来判断首页，
+     而 extend-head.html 拿到的是 .Site。代价是每页执行一次判断，可忽略。
+
+     JS 用 resources 管线处理（minify + 指纹），与主题自身的做法一致：
+     指纹让文件可被永久缓存，content 变了 URL 就变，不会出现浏览器拿旧脚本。 */}}
+
+{{ if .IsHome }}
+  {{ $js := resources.Get "js/tools-modal.js" | resources.Minify | resources.Fingerprint (site.Params.fingerprintAlgorithm | default "sha512") }}
+  <script defer type="text/javascript" src="{{ $js.RelPermalink }}" integrity="{{ $js.Data.Integrity }}"></script>
+{{ end }}

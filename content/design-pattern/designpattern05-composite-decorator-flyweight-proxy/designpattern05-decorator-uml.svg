@@ -1,0 +1,118 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="620" viewBox="0 0 900 620" role="img" aria-labelledby="t d">
+  <title id="t">装饰模式 UML 类图</title>
+  <desc id="d">ConcreteComponent 与 Decorator 继承 Component；Decorator 持有 Component；两个 ConcreteDecorator 继承 Decorator</desc>
+  <defs>
+    <style>
+      .box   { fill:#f3e4c4; stroke:#9c8254; stroke-width:1; }
+      .note  { fill:#fdfaf3; stroke:#c9b89a; stroke-width:1; }
+      .sep   { stroke:#9c8254; stroke-width:1; }
+      .caption{ font-family:'Microsoft YaHei','PingFang SC','Hiragino Sans GB','Noto Sans SC',sans-serif; font-size:20px; font-weight:700; fill:#1f1f1f; text-anchor:middle; }
+      .title { font-family:'Microsoft YaHei','PingFang SC','Hiragino Sans GB','Noto Sans SC',sans-serif; font-size:15px; font-weight:700; fill:#1f1f1f; text-anchor:middle; }
+      .member{ font-family:'Microsoft YaHei','PingFang SC','Hiragino Sans GB','Noto Sans SC',sans-serif; font-size:12px; fill:#1f1f1f; }
+      .ntext { font-family:'Microsoft YaHei','PingFang SC','Hiragino Sans GB','Noto Sans SC',sans-serif; font-size:12px; fill:#1f1f1f; }
+      .red   { font-family:'Microsoft YaHei','PingFang SC','Hiragino Sans GB','Noto Sans SC',sans-serif; font-size:11px; fill:#a33a3a; }
+      .line  { stroke:#1f1f1f; stroke-width:1.1; fill:none; }
+      .dash  { stroke:#1f1f1f; stroke-width:1; fill:none; stroke-dasharray:5 3; }
+      .hollow{ fill:#ffffff; stroke:#1f1f1f; stroke-width:1.1; stroke-linejoin:round; }
+    </style>
+    <marker id="openArrow" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M1,1 L10,6 L1,11" fill="none" stroke="#1f1f1f" stroke-width="1.2"/>
+    </marker>
+  </defs>
+
+  <rect width="900" height="620" fill="#ffffff"/>
+  <text class="caption" x="450" y="30">装饰模式（Decorator）结构图</text>
+
+  <!-- 顶部注释 -->
+  <g>
+    <path class="note" d="M320 50 H860 L874 64 V110 H320 Z"/>
+    <path class="note" d="M860 50 V64 H874" fill="none"/>
+    <text class="ntext" x="332" y="76">Component 是定义一个对象接口，可以给这些对象动态地添加职责</text>
+  </g>
+
+  <!-- Component -->
+  <rect class="box" x="230" y="120" width="170" height="80" rx="2"/>
+  <line class="sep" x1="230" y1="152" x2="400" y2="152"/>
+  <text class="title" x="315" y="142">Component</text>
+  <text class="member" x="244" y="178">+Operation ()</text>
+
+  <text class="red" x="120" y="205">接口或者抽象类</text>
+  <line class="dash" x1="215" y1="200" x2="228" y2="192"/>
+
+  <!-- ConcreteComponent / Decorator -->
+  <rect class="box" x="90" y="280" width="220" height="90" rx="2"/>
+  <line class="sep" x1="90" y1="312" x2="310" y2="312"/>
+  <text class="title" x="200" y="302">ConcreteComponent</text>
+  <text class="member" x="104" y="340">+Operation ()</text>
+
+  <rect class="box" x="440" y="285" width="180" height="85" rx="2"/>
+  <line class="sep" x1="440" y1="317" x2="620" y2="317"/>
+  <text class="title" x="530" y="307">Decorator</text>
+  <text class="member" x="454" y="343">+Operation ()</text>
+
+  <text class="red" x="20" y="300">被装饰者，</text>
+  <text class="red" x="20" y="316">抽象类，下面</text>
+  <text class="red" x="20" y="332">可以延伸出很多类</text>
+  <text class="red" x="632" y="368">装饰者  抽象类</text>
+  <text class="member" x="625" y="300">-component</text>
+
+  <!-- 右侧注释 -->
+  <g>
+    <path class="note" d="M660 380 H890 L900 390 V500 H660 Z"/>
+    <path class="note" d="M890 380 V390 H900" fill="none"/>
+    <text class="ntext" x="670" y="404">Decorator，装饰抽象类，</text>
+    <text class="ntext" x="670" y="428">继承了Component，从外类</text>
+    <text class="ntext" x="670" y="452">来扩展Component类的功能，</text>
+    <text class="ntext" x="670" y="476">但对于Component来说，是</text>
+    <text class="ntext" x="670" y="496">无需知道Decorator的存在的</text>
+  </g>
+
+  <!-- 两个具体装饰者 -->
+  <rect class="box" x="170" y="420" width="230" height="90" rx="2"/>
+  <line class="sep" x1="170" y1="452" x2="400" y2="452"/>
+  <text class="title" x="285" y="442">ConcreteDecoratorA</text>
+  <text class="member" x="184" y="474">-addedState  :  string</text>
+  <text class="member" x="184" y="496">+Operation ()</text>
+
+  <rect class="box" x="430" y="420" width="230" height="90" rx="2"/>
+  <line class="sep" x1="430" y1="452" x2="660" y2="452"/>
+  <text class="title" x="545" y="442">ConcreteDecoratorB</text>
+  <text class="member" x="444" y="474">+Operation ()</text>
+  <text class="member" x="444" y="496">+AddedBehavior ()</text>
+
+  <!-- 底部注释 -->
+  <g>
+    <path class="note" d="M20 545 H310 L324 559 V614 H20 Z"/>
+    <path class="note" d="M310 545 V559 H324" fill="none"/>
+    <text class="ntext" x="32" y="572">ConcreteComponent 是定义了</text>
+    <text class="ntext" x="32" y="596">一个具体的对象，也可以给这个对象添加一些职责</text>
+  </g>
+  <g>
+    <path class="note" d="M360 540 H700 L714 554 V614 H360 Z"/>
+    <path class="note" d="M700 540 V554 H714" fill="none"/>
+    <text class="ntext" x="372" y="572">ConcreteDecorator 就是具体的装饰对</text>
+    <text class="ntext" x="372" y="596">象，起到给Component 添加职责的功能</text>
+  </g>
+
+  <!-- 关系 -->
+  <line class="dash" x1="430" y1="112" x2="395" y2="126" marker-end="url(#openArrow)"/>
+
+  <!-- 继承：Component 底边分出 ConcreteComponent / Decorator -->
+  <path class="hollow" d="M315 200 L303 222 L327 222 Z"/>
+  <path class="line" d="M315 222 L315 250 L200 250 L200 280"/>
+  <path class="line" d="M315 250 L530 250 L530 285"/>
+
+  <!-- 继承：Decorator 底边分出两个具体装饰者 -->
+  <path class="hollow" d="M530 370 L518 392 L542 392 Z"/>
+  <path class="line" d="M530 392 L530 400 L285 400 L285 420"/>
+  <path class="line" d="M530 400 L545 400 L545 420"/>
+
+  <!-- 聚合：菱形落在 Decorator 右边，箭头指向 Component -->
+  <path class="line" d="M656 327 L670 327 L670 150 L400 150" marker-end="url(#openArrow)"/>
+  <path class="hollow" d="M656 327 L638 310 L620 327 L638 344 Z"/>
+
+  <line class="dash" x1="115" y1="370" x2="115" y2="545" marker-end="url(#openArrow)"/>
+  <line class="dash" x1="350" y1="510" x2="400" y2="536" marker-end="url(#openArrow)"/>
+  <line class="dash" x1="490" y1="510" x2="470" y2="536" marker-end="url(#openArrow)"/>
+  <line class="dash" x1="622" y1="362" x2="660" y2="420" marker-end="url(#openArrow)"/>
+</svg>

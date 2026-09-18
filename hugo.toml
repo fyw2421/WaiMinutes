@@ -1,0 +1,179 @@
+baseURL = 'https://fyw2421.github.io/WaiMinutes/'
+locale = 'zh-CN'
+title = 'Wai Minutes'
+theme = 'blowfish'
+
+# 顶层键。注意它们不是同一类东西：
+#   · hasCJKLanguage / enableEmoji / summaryLength 是 Hugo 自己的根键，由 Hugo 直接消费；
+#   · enableSearch 不是 Hugo 根键——Hugo 会把不认识的顶层键归入 .Site.Params，
+#     而主题读的正是 site.Params.enableSearch，所以写在这里有效。
+# （此前这段注释写作"Blowfish 站点级选项，见主题 params.toml"，与前三个不符。）
+enableSearch = true
+hasCJKLanguage = true
+enableEmoji = true
+summaryLength = 30
+
+# 搜索索引。主题的 layouts/_default/index.json 只有在首页启用了 JSON 输出格式时
+# 才会生成；主题配置里本来有这一条，但本站用的是根目录单文件 hugo.toml，
+# 没有走 config/_default/ 目录，也就没被合进来。
+# 缺了它，public/index.json 不生成，搜索脚本 fetch 不到索引——界面上搜什么都"没反应"。
+[outputs]
+  home = ['HTML', 'RSS', 'JSON']
+
+[pagination]
+  # 每页条数。分页是按条数切的，与列表网格有几列无关——10 条在 3 列网格里会剩下
+  # 1 张卡独占一行、旁边空两格，却仍要把第 11 条挤到下一页。
+  # 取 12：等于当前最大的专题（C++ 笔记 12 篇），且是列数 3 的整数倍，最后一行排满。
+  # 专题继续变长时要同步调大（保持 3 的倍数），否则会重新出现"尾巴只剩一两张"。
+  pagerSize = 12
+
+[taxonomies]
+  tag = 'tags'
+  category = 'categories'
+
+[menu]
+  [[menu.main]]
+    name = 'Home'
+    pageRef = '/'
+    weight = 1
+  [[menu.main]]
+    name = '全部文章'
+    pageRef = '/articles'
+    weight = 2
+  [[menu.main]]
+    name = '专题'
+    # 父级也必须有 url：桌面端模板对无 url 的条目用 tabindex="0"（不跳转），
+    # 但移动端模板无条件输出 href="{{ .URL }}"，空 url 会渲染成 href=""，
+    # 手机上点它会重载当前页并关掉菜单。指向「全部文章」是最接近的现成目标。
+    url = '/articles/'
+    weight = 3
+  [[menu.main]]
+    name = 'C++ 笔记'
+    parent = '专题'
+    pageRef = '/cpp-notes'
+    weight = 1
+  [[menu.main]]
+    name = '数据结构'
+    parent = '专题'
+    pageRef = '/data-structures'
+    weight = 2
+  [[menu.main]]
+    name = '设计模式'
+    parent = '专题'
+    pageRef = '/design-pattern'
+    weight = 3
+  [[menu.main]]
+    name = 'Git 速查'
+    parent = '专题'
+    pageRef = '/git-notes'
+    weight = 4
+  [[menu.main]]
+    name = 'Markdown'
+    parent = '专题'
+    pageRef = '/markdown-notes'
+    weight = 5
+  [[menu.main]]
+    name = '标签'
+    pageRef = '/tags'
+    weight = 10
+  # 顶栏不放源码仓库的入口（曾有一个 GitHub 图标项，已移除）。
+
+[params]
+  # 站点描述：喂 <meta name="description">、og:description 与 JSON-LD。
+  # 原来是旧标语，换成一句真正说明本站内容的话（更适合搜索摘要与分享预览）。
+  description = 'C++、数据结构、设计模式、Git 与 Markdown 的学习笔记合集。'
+  # 主题的「最近的文章」只汇总 mainSections 里这些 section 的文章
+  mainSections = ['cpp-notes', 'data-structures', 'design-pattern', 'git-notes', 'markdown-notes']
+  dateFormat = '2006-01-02'
+  # 页脚版权行。{ year } 是主题 footer.html 支持的占位符，构建时替换成当前年份。
+  # 写成「2018–{ year }」：起始年固定（本站最早的文章是 2018 年），结束年每次构建
+  # 自动更新，所以不用每年手动改。分隔符用的是连接号「–」而不是连字符「-」。
+  copyright = '© 2018–{ year } Wai Minutes'
+
+[params.footer]
+  # 右下角的「由 Hugo & Blowfish 强力驱动」署名。关掉后主题 footer.html 里整段
+  # <p> 都不输出，其中两个外链（gohugo.io / blowfish.page）随之消失——它们只是
+  # 普通 <a>，没有任何 JS 点击处理，所以不存在"要另外删掉的监听"。
+  showThemeAttribution = false
+  # 左下角的版权行，文字取自上面 [params] 的 copyright（含自动年份）。
+  # 与右下角的主题署名是两回事：那个已关掉，这行保留。
+  showCopyright = true
+
+[params.Author]
+  name = 'Wai'
+  # headline 已删除。它只被 profile / hero / background 三种首页布局以及 schema.org
+  # 读取；本站首页用的是 landing 布局（只读 heroCaption / Title / heroLead /
+  # heroButtons），所以那行旧标语在这里从不渲染，留着只会误导。
+
+[params.homepage]
+  layout = 'landing' # valid options: page, profile, hero, card, background, landing
+  # 首页不展示「最近的文章」区块。关掉后整块都不渲染：标题、卡片、以及区块末尾
+  # 那个「更多」按钮；/articles/ 的入口改由顶部菜单的「全部文章」承担。
+  # 下方几个 showRecentItems / showMoreLink 是开关重新打开时用的参数，保持原样。
+  showRecent = false
+  # 卡片网格桌面端是 3 列，取 3 才正好占一行
+  showRecentItems = 3
+  showMoreLink = true
+  showMoreLinkDest = '/articles/'
+  cardView = true
+  cardViewScreenWidth = false
+
+[params.article]
+  showTableOfContents = true
+  showHero = true
+  heroStyle = 'background' # valid options: basic, big, background, thumbAndBackground
+  # 文章标题上方显示面包屑，作为"回到所属专题"的入口：一进页面就能看到，
+  # 不必滚到文章底部（底部已有上一篇／下一篇，那是文章之间的顺序导航）。
+  # 主题的模板会隐藏首尾两项（首页与本篇），所以实际显示的就是「专题 /」那一节。
+  showBreadcrumbs = true
+
+[params.list]
+  cardView = true
+  # 列表页按 weight 排序（主题默认是按日期分组）。各专题的文章在 front matter 里
+  # 已按标题顺序编号，于是分类页里的笔记是按标题从小到大排列的。
+  # 注意：开启后主题不再按年份分组，列表页顶部那个「2018」小标题会消失。
+  # 新增文章时要给它一个 weight（按标题顺序插进现有编号），否则默认 0 会排到最前。
+  orderByWeight = true
+
+[params.taxonomy]
+  showTermCount = true
+  cardView = true
+
+[params.term]
+  cardView = true
+  # 标签词条页（/tags/c++/）显示面包屑，实际渲染成「标签 /」，作为回到标签总览的入口。
+  # 这是本站唯一一个「上一层不是首页」的列表页——其余列表页（专题、/articles/、/tags/）
+  # 的父级都是首页，而主题模板对首尾两项都加 hidden，于是那些页面上只剩一个空的 <ol>，
+  # 开了也看不见东西（首页入口在顶栏，全站每页都有）。所以只开这一处。
+  showBreadcrumbs = true
+
+# Blowfish 依赖的 Markdown 设置（对齐主题 config/_default/markup.toml）
+[markup.goldmark.parser]
+  wrapStandAloneImageWithinParagraph = false
+
+  [markup.goldmark.parser.attribute]
+    block = true
+
+  [markup.goldmark.renderer]
+    unsafe = true
+
+  [markup.goldmark.extensions.passthrough]
+    enable = true
+
+    [markup.goldmark.extensions.passthrough.delimiters]
+      block = [['\[', '\]'], ['$$', '$$']]
+      inline = [['\(', '\)']]
+
+# ⚠ 这一项必须写：主题的 config/_default/markup.toml 里 [highlight] noClasses = false
+# 不会被合并进本站（主题的根级配置不参与合并，已实测），而 Hugo 的默认是 noClasses = true
+# → 代码块会带上 inline 的 monokai 样式，亮色模式下每个代码块都是黑底，
+# 主题的明暗两套高亮 CSS 也被绕过。
+[markup.highlight]
+  noClasses = false
+
+[markup.tableOfContents]
+  startLevel = 2
+  endLevel = 4
+
+[cascade]
+  authors = ['Wai']

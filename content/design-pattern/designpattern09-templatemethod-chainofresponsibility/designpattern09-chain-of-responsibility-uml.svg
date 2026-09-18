@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="700" height="400" viewBox="0 0 700 400" role="img" aria-labelledby="t d">
+  <title id="t">职责链模式 UML 类图</title>
+  <desc id="d">Client 依赖 Handler；Handler 通过 Successor 聚合自身；ConcreteHandler1/2 继承 Handler</desc>
+  <defs>
+    <style>
+      .box   { fill:#f3e4c4; stroke:#9c8254; stroke-width:1.2; }
+      .sep   { stroke:#9c8254; stroke-width:1; }
+      .title { font-family:'Microsoft YaHei','PingFang SC','Hiragino Sans GB','Noto Sans SC',sans-serif; font-size:20px; font-weight:700; fill:#1f1f1f; text-anchor:middle; }
+      .member{ font-family:'Microsoft YaHei','PingFang SC','Hiragino Sans GB','Noto Sans SC',sans-serif; font-size:16px; fill:#1f1f1f; }
+      .label { font-family:'Microsoft YaHei','PingFang SC','Hiragino Sans GB','Noto Sans SC',sans-serif; font-size:15px; fill:#333333; }
+      .line  { stroke:#1f1f1f; stroke-width:1.4; fill:none; }
+      .dash  { stroke:#1f1f1f; stroke-width:1.3; fill:none; stroke-dasharray:6 4; }
+      .hollow{ fill:#ffffff; stroke:#1f1f1f; stroke-width:1.4; stroke-linejoin:round; }
+    </style>
+    <marker id="openArrow" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="9" markerHeight="9" orient="auto-start-reverse">
+      <path d="M1,1 L10,6 L1,11" fill="none" stroke="#1f1f1f" stroke-width="1.4"/>
+    </marker>
+  </defs>
+
+  <rect width="700" height="400" fill="#ffffff"/>
+
+  <!-- Client -->
+  <rect class="box" x="30" y="70" width="150" height="90" rx="2"/>
+  <line class="sep" x1="30" y1="104" x2="180" y2="104"/>
+  <line class="sep" x1="30" y1="132" x2="180" y2="132"/>
+  <text class="title" x="105" y="93">Client</text>
+
+  <!-- Handler -->
+  <rect class="box" x="250" y="55" width="180" height="90" rx="2"/>
+  <line class="sep" x1="250" y1="92" x2="430" y2="92"/>
+  <text class="title" x="340" y="80">Handler</text>
+  <text class="member" x="264" y="118">handleRequest()</text>
+
+  <!-- ConcreteHandler1 / 2 -->
+  <rect class="box" x="110" y="280" width="200" height="90" rx="2"/>
+  <line class="sep" x1="110" y1="317" x2="310" y2="317"/>
+  <text class="title" x="210" y="305">ConcreteHandler1</text>
+  <text class="member" x="124" y="343">handleRequest()</text>
+
+  <rect class="box" x="370" y="280" width="200" height="90" rx="2"/>
+  <line class="sep" x1="370" y1="317" x2="570" y2="317"/>
+  <text class="title" x="470" y="305">ConcreteHandler2</text>
+  <text class="member" x="384" y="343">handleRequest()</text>
+
+  <!-- Client ..> Handler（依赖） -->
+  <line class="dash" x1="182" y1="112" x2="250" y2="112" marker-end="url(#openArrow)"/>
+
+  <!-- Handler 自聚合：Successor -->
+  <path class="line" d="M340 55 L340 20 L560 20 L560 112 L436 112"/>
+  <path class="hollow" d="M436 112 L447 103 L458 112 L447 121 Z"/>
+  <text class="label" x="576" y="118">Successor</text>
+
+  <!-- 继承：ConcreteHandler1/2 继承 Handler -->
+  <path class="line" d="M340 145 L340 175"/>
+  <path class="hollow" d="M340 145 L329 163 L351 163 Z"/>
+  <path class="line" d="M210 175 L470 175 M210 175 L210 280 M470 175 L470 280"/>
+</svg>

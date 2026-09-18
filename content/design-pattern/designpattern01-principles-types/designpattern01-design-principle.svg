@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="520" height="520" viewBox="0 0 520 520" role="img" aria-labelledby="t d">
+  <title id="t">设计原则一览</title>
+  <desc id="d">七项设计原则以放射图形式呈现：单一职责、里氏替换、依赖倒置、接口隔离、迪米特法则、开闭原则</desc>
+  <defs>
+    <style>
+      .ring  { fill:#f7d5d8; stroke:#c07d84; stroke-width:1.2; }
+      .core  { fill:#ffffff; stroke:#c07d84; stroke-width:1.2; }
+      .spoke { stroke:#333333; stroke-width:1; }
+      .bub   { fill:#ffffff; stroke:#333333; stroke-width:1.1; }
+      .bt    { font-family:'Microsoft YaHei','PingFang SC','Hiragino Sans GB','Noto Sans SC',sans-serif; font-size:15px; fill:#1f1f1f; text-anchor:middle; }
+    </style>
+  </defs>
+
+  <rect width="520" height="520" fill="#ffffff"/>
+
+  <!-- 中心圆环 -->
+  <circle class="ring" cx="260" cy="260" r="95"/>
+  <circle class="core" cx="260" cy="260" r="48"/>
+
+  <!-- 六条辐条 -->
+  <g class="spoke">
+    <line x1="260" y1="165" x2="260" y2="110"/>
+    <line x1="342" y1="213" x2="391" y2="184"/>
+    <line x1="342" y1="307" x2="391" y2="336"/>
+    <line x1="260" y1="355" x2="260" y2="410"/>
+    <line x1="178" y1="307" x2="129" y2="336"/>
+    <line x1="178" y1="213" x2="129" y2="184"/>
+  </g>
+
+  <!-- 六个原则气泡 -->
+  <g>
+    <ellipse class="bub" cx="260" cy="70" rx="74" ry="40"/>
+    <text class="bt" x="260" y="64">单一职责</text>
+    <text class="bt" x="260" y="86">原则</text>
+  </g>
+  <g>
+    <ellipse class="bub" cx="424" cy="165" rx="74" ry="40"/>
+    <text class="bt" x="424" y="159">里氏替换</text>
+    <text class="bt" x="424" y="181">原则</text>
+  </g>
+  <g>
+    <ellipse class="bub" cx="424" cy="355" rx="74" ry="40"/>
+    <text class="bt" x="424" y="349">依赖倒置</text>
+    <text class="bt" x="424" y="371">原则</text>
+  </g>
+  <g>
+    <ellipse class="bub" cx="260" cy="450" rx="74" ry="40"/>
+    <text class="bt" x="260" y="444">接口隔离</text>
+    <text class="bt" x="260" y="466">原则</text>
+  </g>
+  <g>
+    <ellipse class="bub" cx="96" cy="355" rx="74" ry="40"/>
+    <text class="bt" x="96" y="349">迪米特</text>
+    <text class="bt" x="96" y="371">法则</text>
+  </g>
+  <g>
+    <ellipse class="bub" cx="96" cy="165" rx="74" ry="40"/>
+    <text class="bt" x="96" y="159">开闭</text>
+    <text class="bt" x="96" y="181">原则</text>
+  </g>
+</svg>

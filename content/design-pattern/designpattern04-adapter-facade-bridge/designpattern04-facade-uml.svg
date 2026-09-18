@@ -1,0 +1,93 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="700" height="620" viewBox="0 0 700 620" role="img" aria-labelledby="t d">
+  <title id="t">外观模式 UML 类图</title>
+  <desc id="d">Client 调用 facade；facade 组合四个子系统类的 Method 方法</desc>
+  <defs>
+    <style>
+      .box   { fill:#f3e4c4; stroke:#9c8254; stroke-width:1; }
+      .note  { fill:#fdfaf3; stroke:#c9b89a; stroke-width:1; }
+      .sub   { fill:#ffffff; stroke:#5a5a5a; stroke-width:1; }
+      .sep   { stroke:#9c8254; stroke-width:1; }
+      .title { font-family:'Microsoft YaHei','PingFang SC','Hiragino Sans GB','Noto Sans SC',sans-serif; font-size:14px; font-weight:700; fill:#1f1f1f; text-anchor:middle; }
+      .member{ font-family:'Microsoft YaHei','PingFang SC','Hiragino Sans GB','Noto Sans SC',sans-serif; font-size:12px; fill:#1f1f1f; }
+      .ntext { font-family:'Microsoft YaHei','PingFang SC','Hiragino Sans GB','Noto Sans SC',sans-serif; font-size:12px; fill:#1f1f1f; }
+      .line  { stroke:#1f1f1f; stroke-width:1.1; fill:none; }
+      .dash  { stroke:#1f1f1f; stroke-width:1; fill:none; stroke-dasharray:5 3; }
+    </style>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 Z" fill="#1f1f1f"/>
+    </marker>
+    <marker id="openArrow" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M1,1 L10,6 L1,11" fill="none" stroke="#1f1f1f" stroke-width="1.2"/>
+    </marker>
+  </defs>
+
+  <rect width="700" height="620" fill="#ffffff"/>
+
+  <!-- 顶部注释（原图：最上方偏右） -->
+  <g>
+    <path class="note" d="M360 30 H650 L664 44 V110 H360 Z"/>
+    <path class="note" d="M650 30 V44 H664" fill="none"/>
+    <text class="ntext" x="374" y="58">facade外观类</text>
+    <text class="ntext" x="374" y="82">知道哪些子系统类负责处理请求</text>
+    <text class="ntext" x="374" y="106">将客户的请求代理给适当的子系统对象</text>
+  </g>
+
+  <!-- Client（原图：垂直中部偏左） -->
+  <rect class="box" x="110" y="160" width="112" height="62" rx="2"/>
+  <line class="sep" x1="110" y1="185" x2="222" y2="185"/>
+  <line class="sep" x1="110" y1="204" x2="222" y2="204"/>
+  <text class="title" x="166" y="177">Client</text>
+
+  <!-- 子系统边界（先画，facade 覆盖其上，与原图一致） -->
+  <rect class="sub" x="30" y="273" width="640" height="217" rx="0"/>
+
+  <!-- facade（原图：中偏右，且跨越子系统边界上沿） -->
+  <rect class="box" x="300" y="235" width="190" height="92" rx="2"/>
+  <line class="sep" x1="300" y1="265" x2="490" y2="265"/>
+  <text class="title" x="395" y="257">facade</text>
+  <text class="member" x="314" y="287">+MethodA()</text>
+  <text class="member" x="314" y="311">+MethodB()</text>
+
+  <!-- 四个子系统 -->
+  <rect class="box" x="60" y="380" width="130" height="74" rx="2"/>
+  <line class="sep" x1="60" y1="408" x2="190" y2="408"/>
+  <text class="title" x="125" y="400">SubSystemOne</text>
+  <text class="member" x="74" y="430">+MethodOne()</text>
+
+  <rect class="box" x="215" y="380" width="130" height="74" rx="2"/>
+  <line class="sep" x1="215" y1="408" x2="345" y2="408"/>
+  <text class="title" x="280" y="400">SubSystemTwo</text>
+  <text class="member" x="229" y="430">+MethodTwo()</text>
+
+  <rect class="box" x="370" y="380" width="150" height="74" rx="2"/>
+  <line class="sep" x1="370" y1="408" x2="520" y2="408"/>
+  <text class="title" x="445" y="400">SubSystemThree</text>
+  <text class="member" x="384" y="430">+MethodThree()</text>
+
+  <rect class="box" x="540" y="380" width="120" height="74" rx="2"/>
+  <line class="sep" x1="540" y1="408" x2="660" y2="408"/>
+  <text class="title" x="600" y="400">SubSystemFour</text>
+  <text class="member" x="554" y="430">+MethodFour()</text>
+
+  <!-- 底部注释 -->
+  <g>
+    <path class="note" d="M100 500 H620 L634 514 V596 H100 Z"/>
+    <path class="note" d="M620 500 V514 H634" fill="none"/>
+    <text class="ntext" x="114" y="530">SubSystem Class子系统类集合实现子系统的功能，</text>
+    <text class="ntext" x="114" y="556">处理Facade对象指派的任务，注意子类中没有</text>
+    <text class="ntext" x="114" y="582">Facade的任何信息，即没有对Facade对象的引用</text>
+  </g>
+
+  <!-- 关系 -->
+  <path class="line" d="M224 180 L395 180 L395 229" marker-end="url(#arrow)"/>
+  <line class="dash" x1="450" y1="114" x2="470" y2="231" marker-end="url(#openArrow)"/>
+
+  <line class="line" x1="395" y1="327" x2="395" y2="350"/>
+  <line class="line" x1="125" y1="350" x2="600" y2="350"/>
+  <line class="line" x1="125" y1="350" x2="125" y2="374" marker-end="url(#arrow)"/>
+  <line class="line" x1="280" y1="350" x2="280" y2="374" marker-end="url(#arrow)"/>
+  <line class="line" x1="445" y1="350" x2="445" y2="374" marker-end="url(#arrow)"/>
+  <line class="line" x1="600" y1="350" x2="600" y2="374" marker-end="url(#arrow)"/>
+
+  <line class="dash" x1="300" y1="454" x2="390" y2="500" marker-end="url(#openArrow)"/>
+</svg>

@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="540" height="96" viewBox="0 0 540 96" role="img" aria-labelledby="t d">
+  <title id="t">隐式类型转换的推导过程</title>
+  <desc id="d">由 fn(Student&amp;) 与 Student(const string&amp;) 推得 fn(string)；由 fn(string) 与 string(char*) 推得 fn("Jenny")；再由 fn("Jenny") 推得 fn(Student&amp;)</desc>
+  <defs>
+    <style>
+      .sym  { font-family:'Microsoft YaHei','PingFang SC','Noto Sans SC',sans-serif; font-size:15px; fill:#1f1f1f; }
+      .code { font-family:Consolas,'Cascadia Mono',Menlo,monospace; font-size:15px; fill:#1f1f1f; }
+      .op   { font-family:Consolas,'Cascadia Mono',Menlo,monospace; font-size:15px; fill:#9c8254; }
+    </style>
+  </defs>
+  <rect width="540" height="96" fill="#ffffff"/>
+
+  <text class="sym"  x="16" y="30">∴</text>
+  <text class="code" x="48" y="30">fn(Student&amp;)</text>
+  <text class="op"   x="172" y="30">+</text>
+  <text class="code" x="197" y="30">Student(const string&amp;)</text>
+  <text class="op"   x="400" y="30">=&gt;</text>
+  <text class="code" x="432" y="30">fn(string)</text>
+
+  <text class="sym"  x="16" y="58">∴</text>
+  <text class="code" x="48" y="58">fn(string)</text>
+  <text class="op"   x="172" y="58">+</text>
+  <text class="code" x="197" y="58">string(char*)</text>
+  <text class="op"   x="400" y="58">=&gt;</text>
+  <text class="code" x="432" y="58">fn("Jenny")</text>
+
+  <text class="sym"  x="16" y="86">∵</text>
+  <text class="code" x="48" y="86">fn("Jenny")</text>
+  <text class="op"   x="172" y="86">=&gt;</text>
+  <text class="code" x="197" y="86">fn(Student&amp;)</text>
+</svg>

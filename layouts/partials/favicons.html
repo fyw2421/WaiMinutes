@@ -1,0 +1,21 @@
+{{/* Blowfish 的 favicon 扩展点：这个 partial 存在时，主题 head.html 会调用它
+     （themes/blowfish/layouts/partials/head.html:214）。
+
+     ⚠ 一旦本文件存在，head.html 里那个 {{ else }} 分支就永远不执行，而其中四项
+     （apple-touch-icon、32x32、16x16、site.webmanifest）只写在那里。所以必须在这里
+     补齐，否则 iOS/Android 主屏图标与 PWA manifest 会全站消失——文件仍被复制到
+     public/，但没有任何页面引用它们。
+
+     ⚠ 引用到的是**本站自己的**那套图标，不是主题自带的那套。同名文件会被
+     static/ 覆盖 themes/blowfish/static/，theme 那套（河豚图案）还留在主题目录里，
+     但本站 static/ 里的同名文件优先生效。这套图标由 scripts/make-icons.py 生成，
+     改配色或形状请改脚本后重跑，不要手改这些二进制文件。
+
+     SVG 放在最前：支持的浏览器（现代 Chrome/Firefox/Safari）会优先用它，任何尺寸
+     都清晰；不支持的退回下面的 .ico 与 PNG。 */}}
+<link rel="icon" type="image/svg+xml" href="{{ "favicon.svg" | relURL }}">
+<link rel="icon" href="{{ "favicon.ico" | relURL }}" sizes="any">
+<link rel="apple-touch-icon" sizes="180x180" href="{{ "apple-touch-icon.png" | relURL }}">
+<link rel="icon" type="image/png" sizes="32x32" href="{{ "favicon-32x32.png" | relURL }}">
+<link rel="icon" type="image/png" sizes="16x16" href="{{ "favicon-16x16.png" | relURL }}">
+<link rel="manifest" href="{{ "site.webmanifest" | relURL }}">

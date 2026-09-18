@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="570" height="286" viewBox="0 0 570 286" role="img" aria-labelledby="t d">
+  <title id="t">数据的构成层次</title>
+  <desc id="d">数据由若干数据对象组成，每个数据对象由若干数据元素组成，每个数据元素又由若干数据项组成</desc>
+  <defs>
+    <style>
+      .ln    { stroke:#333333; stroke-width:1.2; fill:none; }
+      .txt   { font-family:'Microsoft YaHei','PingFang SC','Noto Sans SC',sans-serif; font-size:13px; fill:#1f1f1f; text-anchor:middle; }
+      .yellow{ fill:#ffffcc; stroke:#333333; stroke-width:1.2; }
+      .cyan  { fill:#ccffff; stroke:#333333; stroke-width:1.2; }
+      .gray  { fill:#e8e8e8; stroke:#333333; stroke-width:1.2; }
+      .white { fill:#ffffff; stroke:#333333; stroke-width:1.2; }
+    </style>
+  </defs>
+  <rect width="570" height="286" fill="#ffffff"/>
+
+  <!-- 第 1 层 -->
+  <rect class="yellow" x="200" y="8" width="120" height="26"/>
+  <text class="txt" x="260" y="26">数据</text>
+
+  <path class="ln" d="M260 34 L260 62 M130 62 L390 62 M130 62 L130 84 M390 62 L390 84"/>
+
+  <!-- 第 2 层 -->
+  <rect class="cyan" x="70" y="84" width="120" height="26"/>
+  <text class="txt" x="130" y="102">数据对象</text>
+  <rect class="cyan" x="330" y="84" width="120" height="26"/>
+  <text class="txt" x="390" y="102">数据对象</text>
+
+  <path class="ln" d="M130 110 L130 138 M73 138 L183 138 M73 138 L73 166 M183 138 L183 166"/>
+  <path class="ln" d="M390 110 L390 138 M367 138 L477 138 M367 138 L367 166 M477 138 L477 166"/>
+
+  <!-- 第 3 层 -->
+  <rect class="gray" x="30" y="166" width="86" height="26"/>
+  <text class="txt" x="73" y="184">数据元素</text>
+  <rect class="gray" x="140" y="166" width="86" height="26"/>
+  <text class="txt" x="183" y="184">数据元素</text>
+  <rect class="gray" x="324" y="166" width="86" height="26"/>
+  <text class="txt" x="367" y="184">数据元素</text>
+  <rect class="gray" x="434" y="166" width="86" height="26"/>
+  <text class="txt" x="477" y="184">数据元素</text>
+
+  <path class="ln" d="M73 192 L73 214 M39 214 L103 214 M39 214 L39 240 M103 214 L103 240"/>
+  <path class="ln" d="M183 192 L183 214 M159 214 L223 214 M159 214 L159 240 M223 214 L223 240"/>
+  <path class="ln" d="M367 192 L367 214 M343 214 L407 214 M343 214 L343 240 M407 214 L407 240"/>
+  <path class="ln" d="M477 192 L477 214 M453 214 L517 214 M453 214 L453 240 M517 214 L517 240"/>
+
+  <!-- 第 4 层 -->
+  <rect class="white" x="10" y="240" width="58" height="26"/>
+  <text class="txt" x="39" y="258">数据项1</text>
+  <rect class="white" x="74" y="240" width="58" height="26"/>
+  <text class="txt" x="103" y="258">数据项2</text>
+
+  <rect class="white" x="130" y="240" width="58" height="26"/>
+  <text class="txt" x="159" y="258">数据项1</text>
+  <rect class="white" x="194" y="240" width="58" height="26"/>
+  <text class="txt" x="223" y="258">数据项2</text>
+
+  <rect class="white" x="314" y="240" width="58" height="26"/>
+  <text class="txt" x="343" y="258">数据项1</text>
+  <rect class="white" x="378" y="240" width="58" height="26"/>
+  <text class="txt" x="407" y="258">数据项2</text>
+
+  <rect class="white" x="424" y="240" width="58" height="26"/>
+  <text class="txt" x="453" y="258">数据项1</text>
+  <rect class="white" x="488" y="240" width="58" height="26"/>
+  <text class="txt" x="517" y="258">数据项2</text>
+</svg>

@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="480" viewBox="0 0 1000 480" role="img" aria-labelledby="t d">
+  <title id="t">备忘录模式 UML 类图</title>
+  <desc id="d">Originator 创建并使用 Memento；Caretaker 聚合 Memento 并负责保存</desc>
+  <defs>
+    <style>
+      .box   { fill:#f3e4c4; stroke:#9c8254; stroke-width:1.2; }
+      .note  { fill:#fdfaf3; stroke:#c9b89a; stroke-width:1.2; }
+      .sep   { stroke:#9c8254; stroke-width:1; }
+      .title { font-family:'Microsoft YaHei','PingFang SC','Hiragino Sans GB','Noto Sans SC',sans-serif; font-size:20px; font-weight:700; fill:#1f1f1f; text-anchor:middle; }
+      .member{ font-family:'Microsoft YaHei','PingFang SC','Hiragino Sans GB','Noto Sans SC',sans-serif; font-size:16px; fill:#1f1f1f; }
+      .ntext { font-family:'Microsoft YaHei','PingFang SC','Hiragino Sans GB','Noto Sans SC',sans-serif; font-size:16px; fill:#1f1f1f; }
+      .line  { stroke:#1f1f1f; stroke-width:1.4; fill:none; }
+      .dash  { stroke:#1f1f1f; stroke-width:1.3; fill:none; stroke-dasharray:6 4; }
+      .hollow{ fill:#ffffff; stroke:#1f1f1f; stroke-width:1.4; stroke-linejoin:round; }
+    </style>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 Z" fill="#1f1f1f"/>
+    </marker>
+    <marker id="openArrow" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="9" markerHeight="9" orient="auto-start-reverse">
+      <path d="M1,1 L10,6 L1,11" fill="none" stroke="#1f1f1f" stroke-width="1.4"/>
+    </marker>
+  </defs>
+
+  <rect width="1000" height="480" fill="#ffffff"/>
+
+  <!-- 注释：Memento 的职责 -->
+  <g>
+    <path class="note" d="M340 15 H740 L760 35 V105 H340 Z"/>
+    <path class="note" d="M740 15 V35 H760" fill="none"/>
+    <text class="ntext" x="360" y="45">负责存储Originator对象的内部状态，</text>
+    <text class="ntext" x="360" y="73">并可防止Originator以外的其他对象</text>
+    <text class="ntext" x="360" y="98">访问备忘录Memento</text>
+  </g>
+
+  <!-- Originator -->
+  <rect class="box" x="40" y="150" width="270" height="140" rx="2"/>
+  <line class="sep" x1="40" y1="190" x2="310" y2="190"/>
+  <line class="sep" x1="40" y1="232" x2="310" y2="232"/>
+  <text class="title" x="175" y="173">Originator</text>
+  <text class="member" x="56" y="218">+State</text>
+  <text class="member" x="56" y="262">+SetMemento(m: Memento)</text>
+  <text class="member" x="56" y="286">+CreateMemento()</text>
+
+  <!-- Memento -->
+  <rect class="box" x="420" y="190" width="180" height="90" rx="2"/>
+  <line class="sep" x1="420" y1="230" x2="600" y2="230"/>
+  <text class="title" x="510" y="213">Memento</text>
+  <text class="member" x="436" y="258">+State</text>
+
+  <!-- Caretaker -->
+  <rect class="box" x="700" y="190" width="260" height="90" rx="2"/>
+  <line class="sep" x1="700" y1="230" x2="960" y2="230"/>
+  <text class="title" x="830" y="213">Caretaker</text>
+  <text class="member" x="716" y="258">-Memento : Memento</text>
+
+  <!-- 底部注释 -->
+  <g>
+    <path class="note" d="M30 350 H400 L420 370 V460 H30 Z"/>
+    <path class="note" d="M400 350 V370 H420" fill="none"/>
+    <text class="ntext" x="48" y="380">负责创建一个备忘录Memento，</text>
+    <text class="ntext" x="48" y="408">用以记录当前时刻它的内部状态，</text>
+    <text class="ntext" x="48" y="436">并可使用备忘录回复内部状态</text>
+  </g>
+  <g>
+    <path class="note" d="M700 350 H960 L980 370 V420 H700 Z"/>
+    <path class="note" d="M960 350 V370 H980" fill="none"/>
+    <text class="ntext" x="718" y="392">负责保存好备忘录Memento</text>
+  </g>
+
+  <!-- 关系 -->
+  <line class="dash" x1="310" y1="250" x2="420" y2="250" marker-end="url(#openArrow)"/>
+  <line class="dash" x1="500" y1="105" x2="470" y2="190"/>
+  <line class="dash" x1="150" y1="290" x2="150" y2="350"/>
+  <line class="dash" x1="830" y1="280" x2="830" y2="350"/>
+
+  <!-- Caretaker 聚合 Memento：菱形落在 Caretaker 端，箭头向左指向 Memento -->
+  <line class="line" x1="678" y1="235" x2="600" y2="235" marker-end="url(#arrow)"/>
+  <path class="hollow" d="M700 235 L689 226 L678 235 L689 244 Z"/>
+</svg>

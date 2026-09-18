@@ -1,0 +1,109 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="770" height="360" viewBox="0 0 770 360" role="img" aria-labelledby="t d">
+  <title id="t">中介者模式 UML 类图</title>
+  <desc id="d">Mediator 与 Colleague 为抽象角色；ConcreteMediator 与两个具体同事类分别继承；具体中介者协调各个同事</desc>
+  <defs>
+    <style>
+      .box   { fill:#f3e4c4; stroke:#9c8254; stroke-width:1; }
+      .note  { fill:#fdfaf3; stroke:#c9b89a; stroke-width:1; }
+      .sep   { stroke:#9c8254; stroke-width:1; }
+      .title { font-family:'Microsoft YaHei','PingFang SC','Hiragino Sans GB','Noto Sans SC',sans-serif; font-size:14px; font-weight:700; fill:#1f1f1f; text-anchor:middle; }
+      .titlei{ font-family:'Microsoft YaHei','PingFang SC','Hiragino Sans GB','Noto Sans SC',sans-serif; font-size:14px; font-weight:700; font-style:italic; fill:#1f1f1f; text-anchor:middle; }
+      .member{ font-family:'Microsoft YaHei','PingFang SC','Hiragino Sans GB','Noto Sans SC',sans-serif; font-size:12px; fill:#1f1f1f; }
+      .ntext { font-family:'Microsoft YaHei','PingFang SC','Hiragino Sans GB','Noto Sans SC',sans-serif; font-size:11px; fill:#1f1f1f; }
+      .line  { stroke:#1f1f1f; stroke-width:1.1; fill:none; }
+      .dash  { stroke:#1f1f1f; stroke-width:1; fill:none; stroke-dasharray:5 3; }
+      .hollow{ fill:#ffffff; stroke:#1f1f1f; stroke-width:1.1; stroke-linejoin:round; }
+    </style>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 Z" fill="#1f1f1f"/>
+    </marker>
+    <marker id="openArrow" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M1,1 L10,6 L1,11" fill="none" stroke="#1f1f1f" stroke-width="1.2"/>
+    </marker>
+  </defs>
+
+  <rect width="770" height="360" fill="#ffffff"/>
+
+  <!-- 顶部两条注释 -->
+  <g>
+    <path class="note" d="M20 10 H230 L244 24 V60 H20 Z"/>
+    <path class="note" d="M230 10 V24 H244" fill="none"/>
+    <text class="ntext" x="30" y="32">抽象中介者，定义了同事</text>
+    <text class="ntext" x="30" y="52">对象到中介者对象的接口</text>
+  </g>
+  <g>
+    <path class="note" d="M660 10 H750 L760 20 V52 H660 Z"/>
+    <path class="note" d="M750 10 V20 H760" fill="none"/>
+    <text class="ntext" x="670" y="38">抽象同事类</text>
+  </g>
+
+  <!-- Mediator / Colleague -->
+  <rect class="box" x="260" y="15" width="150" height="60" rx="2"/>
+  <line class="sep" x1="260" y1="38" x2="410" y2="38"/>
+  <line class="sep" x1="260" y1="56" x2="410" y2="56"/>
+  <text class="titlei" x="335" y="31">Mediator</text>
+
+  <rect class="box" x="490" y="15" width="150" height="60" rx="2"/>
+  <line class="sep" x1="490" y1="38" x2="640" y2="38"/>
+  <line class="sep" x1="490" y1="56" x2="640" y2="56"/>
+  <text class="titlei" x="565" y="31">Colleague</text>
+
+  <!-- 三个具体角色 -->
+  <rect class="box" x="200" y="120" width="160" height="70" rx="2"/>
+  <line class="sep" x1="200" y1="145" x2="360" y2="145"/>
+  <line class="sep" x1="200" y1="166" x2="360" y2="166"/>
+  <text class="title" x="280" y="138">ConcreteMediator</text>
+
+  <rect class="box" x="390" y="120" width="170" height="70" rx="2"/>
+  <line class="sep" x1="390" y1="145" x2="560" y2="145"/>
+  <line class="sep" x1="390" y1="166" x2="560" y2="166"/>
+  <text class="title" x="475" y="138">ConcreteColleague 1</text>
+
+  <rect class="box" x="590" y="120" width="160" height="70" rx="2"/>
+  <line class="sep" x1="590" y1="145" x2="750" y2="145"/>
+  <line class="sep" x1="590" y1="166" x2="750" y2="166"/>
+  <text class="title" x="670" y="138">ConcreteColleague 2</text>
+
+  <!-- 底部注释 -->
+  <g>
+    <path class="note" d="M10 250 H280 L294 264 V344 H10 Z"/>
+    <path class="note" d="M280 250 V264 H294" fill="none"/>
+    <text class="ntext" x="20" y="272">具体中介者对象，实现抽象类的方法，</text>
+    <text class="ntext" x="20" y="292">它需要知道所以具体同事类，并从具</text>
+    <text class="ntext" x="20" y="312">体同事接受消息，向具体同事对象发出</text>
+    <text class="ntext" x="20" y="332">命令</text>
+  </g>
+  <g>
+    <path class="note" d="M480 240 H750 L760 250 V340 H480 Z"/>
+    <path class="note" d="M750 240 V250 H760" fill="none"/>
+    <text class="ntext" x="490" y="264">具体同事类，每个具体同事只知道自己的</text>
+    <text class="ntext" x="490" y="286">行为，而不了解其他同事类的情况，</text>
+    <text class="ntext" x="490" y="308">但他们却认识中介者对象</text>
+  </g>
+
+  <!-- 注释引出线：纯虚线，不带箭头 -->
+  <line class="dash" x1="244" y1="38" x2="260" y2="38"/>
+  <line class="dash" x1="660" y1="36" x2="640" y2="36"/>
+
+  <!-- Colleague 持有 Mediator -->
+  <line class="line" x1="490" y1="45" x2="410" y2="45" marker-end="url(#arrow)"/>
+  <text class="member" x="422" y="38">-mediator</text>
+
+  <!-- 继承：ConcreteMediator -> Mediator -->
+  <path class="line" d="M310 120 L310 97"/>
+  <path class="hollow" d="M310 75 L298 97 L322 97 Z"/>
+
+  <!-- 继承：两个具体同事共用横档指向 Colleague -->
+  <path class="hollow" d="M565 75 L553 97 L577 97 Z"/>
+  <path class="line" d="M565 97 L565 110 L475 110 L475 120"/>
+  <path class="line" d="M565 110 L670 110 L670 120"/>
+
+  <!-- 具体中介者协调两个具体同事 -->
+  <path class="line" d="M360 190 L360 215 L475 215 L475 190" marker-end="url(#arrow)"/>
+  <path class="line" d="M475 215 L670 215 L670 190" marker-end="url(#arrow)"/>
+
+  <!-- 底部注释引出线 -->
+  <line class="dash" x1="240" y1="190" x2="220" y2="246"/>
+  <line class="dash" x1="525" y1="190" x2="505" y2="240"/>
+  <line class="dash" x1="670" y1="190" x2="670" y2="236"/>
+</svg>

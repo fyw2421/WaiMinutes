@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="780" height="420" viewBox="0 0 780 420" role="img" aria-labelledby="t d">
+  <title id="t">命令模式示例（烤肉串）UML 类图</title>
+  <desc id="d">客户端类使用服务员（Invoker）；服务员聚合命令；两个具体命令继承命令并调用烤肉串者</desc>
+  <defs>
+    <style>
+      .box   { fill:#f3e4c4; stroke:#9c8254; stroke-width:1; }
+      .sep   { stroke:#9c8254; stroke-width:1; }
+      .title { font-family:'Microsoft YaHei','PingFang SC','Hiragino Sans GB','Noto Sans SC',sans-serif; font-size:14px; font-weight:700; fill:#1f1f1f; text-anchor:middle; }
+      .titlei{ font-family:'Microsoft YaHei','PingFang SC','Hiragino Sans GB','Noto Sans SC',sans-serif; font-size:14px; font-weight:700; font-style:italic; fill:#1f1f1f; text-anchor:middle; }
+      .member{ font-family:'Microsoft YaHei','PingFang SC','Hiragino Sans GB','Noto Sans SC',sans-serif; font-size:12px; fill:#1f1f1f; }
+      .line  { stroke:#1f1f1f; stroke-width:1.1; fill:none; }
+      .dash  { stroke:#1f1f1f; stroke-width:1; fill:none; stroke-dasharray:5 3; }
+      .hollow{ fill:#ffffff; stroke:#1f1f1f; stroke-width:1.1; stroke-linejoin:round; }
+    </style>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 Z" fill="#1f1f1f"/>
+    </marker>
+    <marker id="openArrow" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M1,1 L10,6 L1,11" fill="none" stroke="#1f1f1f" stroke-width="1.2"/>
+    </marker>
+  </defs>
+
+  <rect width="780" height="420" fill="#ffffff"/>
+
+  <!-- 客户端类 -->
+  <rect class="box" x="30" y="40" width="140" height="70" rx="2"/>
+  <line class="sep" x1="30" y1="66" x2="170" y2="66"/>
+  <line class="sep" x1="30" y1="88" x2="170" y2="88"/>
+  <text class="title" x="100" y="58">客户端类</text>
+
+  <!-- 服务员 -->
+  <rect class="box" x="250" y="30" width="280" height="84" rx="2"/>
+  <line class="sep" x1="250" y1="60" x2="530" y2="60"/>
+  <text class="title" x="390" y="50">服务员</text>
+  <text class="member" x="264" y="80">+设置命令(in command  :  命令)</text>
+  <text class="member" x="264" y="102">+通知执行()</text>
+
+  <!-- 命令 -->
+  <rect class="box" x="600" y="34" width="150" height="64" rx="2"/>
+  <line class="sep" x1="600" y1="62" x2="750" y2="62"/>
+  <text class="titlei" x="675" y="54">命令</text>
+  <text class="member" x="614" y="84">+执行命令()</text>
+
+  <!-- 烤肉串者 -->
+  <rect class="box" x="280" y="250" width="150" height="90" rx="2"/>
+  <line class="sep" x1="280" y1="278" x2="430" y2="278"/>
+  <text class="title" x="355" y="270">烤肉串者</text>
+  <text class="member" x="294" y="300">+烤羊肉串()</text>
+  <text class="member" x="294" y="322">+烤鸡翅()</text>
+
+  <!-- 两个具体命令 -->
+  <rect class="box" x="500" y="230" width="130" height="80" rx="2"/>
+  <line class="sep" x1="500" y1="258" x2="630" y2="258"/>
+  <text class="title" x="565" y="250">烤羊肉串命令</text>
+  <text class="member" x="514" y="280">+执行命令()</text>
+
+  <rect class="box" x="660" y="230" width="110" height="80" rx="2"/>
+  <line class="sep" x1="660" y1="258" x2="770" y2="258"/>
+  <text class="title" x="715" y="250">烤鸡翅命令</text>
+  <text class="member" x="674" y="280">+执行命令()</text>
+
+  <!-- 关系 -->
+  <line class="line" x1="172" y1="72" x2="244" y2="72" marker-end="url(#arrow)"/>
+  <line class="line" x1="532" y1="64" x2="594" y2="64" marker-end="url(#arrow)"/>
+  <path class="hollow" d="M532 64 L543 57 L554 64 L543 71 Z"/>
+
+  <path class="line" d="M100 112 L100 295 L274 295" marker-end="url(#arrow)"/>
+
+  <!-- 继承：两个具体命令共用横档指向 命令 底边 -->
+  <path class="hollow" d="M675 98 L663 120 L687 120 Z"/>
+  <path class="line" d="M675 120 L675 150 L565 150 L565 230"/>
+  <path class="line" d="M675 150 L715 150 L715 230"/>
+
+  <path class="dash" d="M520 310 L520 370 L355 370 L355 344" marker-end="url(#openArrow)"/>
+  <path class="dash" d="M700 310 L700 390 L400 390 L400 344" marker-end="url(#openArrow)"/>
+</svg>

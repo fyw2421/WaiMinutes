@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="480" height="250" viewBox="0 0 480 250" role="img" aria-labelledby="t d">
+  <title id="t">git commit 把暂存区提交到版本库</title>
+  <desc id="d">提交后暂存区被清空，readme.txt 与 LICENSE 进入 master 分支，HEAD 仍指向 master</desc>
+  <defs>
+    <style>
+      .panel { fill:#ffffff; stroke:#333333; stroke-width:1.2; }
+      .folder{ fill:#ffffff; stroke:#333333; stroke-width:1.4; }
+      .thick { stroke:#333333; stroke-width:2.6; fill:none; }
+      .pl    { font-family:'Microsoft YaHei','PingFang SC','Noto Sans SC',sans-serif; font-size:13px; fill:#1f1f1f; }
+      .sm    { font-family:'Microsoft YaHei','PingFang SC','Noto Sans SC',sans-serif; font-size:12px; fill:#1f1f1f; }
+      .file  { font-family:'Microsoft YaHei','PingFang SC','Noto Sans SC',sans-serif; font-size:12px; fill:#1f1f1f; }
+    </style>
+    <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 Z" fill="#333333"/>
+    </marker>
+    <g id="doc">
+      <rect x="0" y="0" width="11" height="13" rx="1" fill="#ffffff" stroke="#333333" stroke-width="1"/>
+      <path d="M2.5 4 H8.5 M2.5 6.5 H8.5 M2.5 9 H8.5" stroke="#333333" stroke-width="0.9"/>
+    </g>
+    <g id="tree">
+      <path d="M0 13 L0 0 L7 0 L7 4 L15 4 L15 13 Z" fill="#ffffff" stroke="#333333" stroke-width="1.1"/>
+      <path d="M7 13 L7 62" stroke="#333333" stroke-width="1.1"/>
+      <path d="M7 21 L16 21 M7 37 L16 37 M7 62 L16 62" stroke="#333333" stroke-width="1.1"/>
+      <use href="#doc" x="16" y="14"/>
+      <use href="#doc" x="16" y="32"/>
+      <path d="M16 68 L16 55 L23 55 L23 59 L31 59 L31 68 Z" fill="#ffffff" stroke="#333333" stroke-width="1.1"/>
+      <path d="M23 68 L23 96" stroke="#333333" stroke-width="1.1"/>
+      <path d="M23 76 L32 76 M23 92 L32 92" stroke="#333333" stroke-width="1.1"/>
+      <use href="#doc" x="32" y="69"/>
+      <use href="#doc" x="32" y="85"/>
+    </g>
+  </defs>
+  <rect width="480" height="250" fill="#ffffff"/>
+
+  <!-- 工作区 -->
+  <text class="pl" x="10" y="16">工作区</text>
+  <rect class="panel" x="8" y="22" width="102" height="216"/>
+  <use href="#doc" x="22" y="94"/>
+  <text class="file" x="38" y="105">readme.txt</text>
+  <use href="#doc" x="22" y="126"/>
+  <text class="file" x="38" y="137">LICENSE</text>
+
+  <!-- 版本库 -->
+  <text class="pl" x="186" y="16">版本库</text>
+  <rect class="panel" x="140" y="22" width="332" height="216"/>
+
+  <!-- stage（已提交，暂存区空） -->
+  <path class="folder" d="M152 58 L168 58 L168 44 L224 44 L224 58 L236 58 L236 214 L152 214 Z"/>
+  <text class="sm" x="174" y="56">stage</text>
+
+  <!-- master -->
+  <path class="folder" d="M330 58 L346 58 L346 44 L408 44 L408 58 L470 58 L470 214 L330 214 Z"/>
+  <text class="sm" x="352" y="56">master</text>
+  <use href="#tree" x="338" y="92"/>
+  <text class="file" x="370" y="118">readme.txt</text>
+  <text class="file" x="370" y="134">LICENSE</text>
+
+  <!-- HEAD -->
+  <rect class="panel" x="286" y="30" width="56" height="22"/>
+  <text class="sm" x="314" y="46" text-anchor="middle">HEAD</text>
+  <path class="thick" d="M322 52 L350 72" marker-end="url(#ar)"/>
+
+  <!-- git commit -->
+  <text class="pl" x="238" y="132">git commit</text>
+  <path class="thick" d="M240 146 L326 146" marker-end="url(#ar)"/>
+</svg>

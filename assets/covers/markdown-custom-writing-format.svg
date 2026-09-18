@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1500" height="1000" viewBox="0 0 1500 1000" role="img" aria-labelledby="t d">
+  <title id="t">自定义写作格式</title>
+  <desc id="d">本站约定 · 标题层级 / 特殊格式 / 注意事项</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4a1c30"/><stop offset="0.58" stop-color="#240e18"/><stop offset="1" stop-color="#240e18"/></linearGradient>
+    <radialGradient id="glow" cx="0.5" cy="0" r="0.9"><stop offset="0" stop-color="#d078a8" stop-opacity="0.34"/><stop offset="0.7" stop-color="#d078a8" stop-opacity="0"/></radialGradient>
+    <style>.sans { font-family: 'Microsoft YaHei','PingFang SC','Hiragino Sans GB','Noto Sans SC','Source Han Sans SC',sans-serif; } .mono { font-family: 'Cascadia Mono','Consolas','SFMono-Regular',monospace; }</style>
+  </defs>
+  <rect width="1500" height="1000" fill="url(#bg)"/>
+  <rect width="1500" height="1000" fill="url(#glow)"/>
+  <g opacity="0.5" stroke="#e89cc0" stroke-opacity="0.18" fill="none"><rect x="1090" y="150" width="300" height="300" rx="36"/><rect x="1150" y="210" width="300" height="300" rx="36"/><rect x="1210" y="270" width="300" height="300" rx="36"/></g>
+  <text class="mono" x="80" y="190" fill="#e89cc0" font-size="30" letter-spacing="6">MARKDOWN · 05</text>
+  <text class="sans" x="80" y="312" fill="#f8fafc" font-size="92" font-weight="700">自定义写作格式</text>
+  <text class="sans" x="80" y="384" fill="#c6d3e2" font-size="32">本站约定 · 标题层级 / 特殊格式 / 注意事项</text>
+  <line x1="80" y1="432" x2="240" y2="432" stroke="#e89cc0" stroke-width="4" stroke-linecap="round"/>
+  <g>
+    <rect x="80" y="540" width="420" height="250" rx="28" fill="#ffffff" fill-opacity="0.055" stroke="#e89cc0" stroke-opacity="0.30"/>
+    <text class="mono" x="116" y="600" fill="#e89cc0" fill-opacity="0.65" font-size="26" letter-spacing="4">01</text>
+    <text class="sans" x="116" y="690" fill="#e6edf6" font-size="42" font-weight="600">一级标题</text>
+    <text class="mono" x="116" y="742" fill="#e89cc0" fill-opacity="0.75" font-size="22" letter-spacing="1">H1</text>
+  </g>
+  <g>
+    <rect x="540" y="540" width="420" height="250" rx="28" fill="#ffffff" fill-opacity="0.055" stroke="#e89cc0" stroke-opacity="0.30"/>
+    <text class="mono" x="576" y="600" fill="#e89cc0" fill-opacity="0.65" font-size="26" letter-spacing="4">02</text>
+    <text class="sans" x="576" y="690" fill="#e6edf6" font-size="42" font-weight="600">特殊格式</text>
+    <text class="mono" x="576" y="742" fill="#e89cc0" fill-opacity="0.75" font-size="22" letter-spacing="1">SPECIAL</text>
+  </g>
+  <g>
+    <rect x="1000" y="540" width="420" height="250" rx="28" fill="#ffffff" fill-opacity="0.055" stroke="#e89cc0" stroke-opacity="0.30"/>
+    <text class="mono" x="1036" y="600" fill="#e89cc0" fill-opacity="0.65" font-size="26" letter-spacing="4">03</text>
+    <text class="sans" x="1036" y="690" fill="#e6edf6" font-size="42" font-weight="600">注意事项</text>
+    <text class="mono" x="1036" y="742" fill="#e89cc0" fill-opacity="0.75" font-size="22" letter-spacing="1">NOTES</text>
+  </g>
+  <text class="sans" x="80" y="884" fill="#e89cc0" font-size="32">本站笔记的标题层级与格式约定</text>
+  <text class="mono" x="1420" y="956" fill="#e89cc0" fill-opacity="0.55" font-size="26" text-anchor="end">Wai Minutes</text>
+</svg>

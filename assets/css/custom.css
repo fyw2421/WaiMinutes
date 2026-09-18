@@ -1,0 +1,686 @@
+/* ==========================================================================
+   站点自定义样式
+   主题 head.html 会自动把本文件追加到 css/main.bundle.css 末尾（在 Tailwind 之后），
+   且这些规则不处于 @layer 中，层级上优先于主题工具类，因此不需要 !important。
+   ========================================================================== */
+
+/* ---------- 页面背景：深蓝极光渐变 ---------- */
+
+/* 用 fixed 定位的伪元素实现，而不是背景图 + background-attachment: fixed：
+   移动端 Safari 会忽略 background-attachment，固定定位层则各处表现一致；
+   它只栅格化一次，滚动不重绘，也不影响页面布局。
+
+   每一档三层：
+     1) 顶部蓝光晕   at 50% -8%，从画面外上方打下来
+     2) 右下角青光晕 at 88% 108%，从画面外右下方反打
+     3) 纵向渐变     打底，定整体调性
+   两道光晕色相不同（蓝 / 青）、斜向对打，才有"多色纵深"；单点光晕视觉上仍是
+   一片单色。它们半透明叠加，中段交汇处会更亮一点，这是想要的效果。
+
+   ⚠ 纵向渐变必须留在最后：它不透明，排在它之后的图层会被完全盖住。
+     左上角的太阳/月亮不在这里——它们若放进本图层栈，会被这层不透明的渐变
+     盖住大半（实测只剩极淡一层）。它们单独画在 body::after 上，见下方。
+
+   调参：光晕改 rgb 与 alpha（强度），纵向渐变改三个色标（色相走向）。 */
+/* 亮色档的背景被**刻意压暗**到中明度（#c3d5ef → #93aed6），不再是最初的近白：
+   左上角那颗蓝色太阳是"光晕"而非轮廓，而光晕靠的是比背景更亮——
+   近白底（#eaf1ff）上没有任何颜色能比它更亮，蓝光更不可能（实测把饱和度推到
+   rgb(112 168 242) 仍几乎看不见）。压暗之后蓝光晕才立得住。
+   代价：整体从"清透"变成略深的蓝调，这是选定的取舍。
+   注意这作用于**全站每一页**的亮色模式（背景本就是全站的），
+   已确认文章页正文对比度不受影响（正文 #334155 在压暗底上仍清晰）。 */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-color: #aac2e4;
+  background-image:
+    radial-gradient(60rem 30rem at 50% -8%, rgb(56 130 220 / 0.28), rgb(56 130 220 / 0) 70%),
+    radial-gradient(52rem 28rem at 88% 108%, rgb(34 178 200 / 0.16), rgb(34 178 200 / 0) 70%),
+    linear-gradient(180deg, #c3d5ef 0%, #aac2e4 45%, #93aed6 100%);
+}
+
+/* 暗色档比亮色档更"发光"：底压到近黑，两道 alpha 一起提高（0.5 / 0.3），
+   青蓝的纵深才出得来；再往上就开始发灰发脏了。 */
+.dark body::before {
+  background-color: #0d1730;
+  background-image:
+    radial-gradient(60rem 30rem at 50% -8%, rgb(56 130 220 / 0.5), rgb(56 130 220 / 0) 70%),
+    radial-gradient(52rem 28rem at 88% 108%, rgb(34 178 200 / 0.3), rgb(34 178 200 / 0) 70%),
+    linear-gradient(180deg, #16244a 0%, #0d1730 55%, #060a14 100%);
+}
+
+@media print {
+  body::before {
+    display: none;
+  }
+}
+
+/* ---------- 左上角的天体：亮色是蓝色太阳，暗色是月亮 ---------- */
+
+/* 两者都是**光晕**（一团由内向外衰减的光），不是画出来的轮廓。
+   放在 body::after 而不是 body::before 的图层栈里：后者的纵向渐变不透明，
+   会把天体盖掉大半——实测放在 before 时亮色只剩极淡一层，几乎看不出是个光源。
+   放在 after 上则直接叠在整幅背景之上，轮廓与亮度都保得住。
+
+   为什么亮色必须压暗底、暗色不用：光晕的本质是"比周围更亮"。暗色的底是近黑
+   （#0d1730），亮蓝一叠就出来；亮色的底原本近白（#eaf1ff），没有比白更亮的东西，
+   所以先把亮色底压到中明度（见上方 body::before），蓝光才立得住。
+
+   ⚠ 纯装饰：pointer-events: none，伪元素不进无障碍树（无需 aria-hidden），
+     z-index: -1 位于正文之下。打印时隐藏（见文件末尾）。 */
+body::after {
+  content: "";
+  position: fixed;
+  left: -3%;
+  top: -4%;
+  width: 22rem;
+  height: 22rem;
+  z-index: -1;
+  pointer-events: none;
+  background-repeat: no-repeat;
+  display: none; /* 默认不显示；两档各自打开并给出图样 */
+}
+
+/* 亮色：蓝色太阳。尺寸与位置固定为 22rem（rem 而非百分比：百分比按视口算，
+   换个屏宽光晕就跟着跑）。0→30% 是高 alpha 的"日面"，之后过渡到蓝再消失，
+   所以看到的是一颗有边界的光团，而不是弥散一片。 */
+html:not(.dark) body::after {
+  display: block;
+  /* 0→30% 是高 alpha 的"日面"（近纯白 → 淡青白），30%→76% 过渡到蓝再消失。
+     日面给的 alpha 比月亮更实，因为亮底上必须靠"更白更实"而不是"更亮"来区分。 */
+  background-image: radial-gradient(closest-side, rgb(255 255 255 / 1) 0%, rgb(236 246 255 / 0.98) 30%, rgb(186 216 252 / 0.62) 48%, rgb(140 182 246 / 0.18) 66%, rgb(130 175 242 / 0) 78%);
+}
+
+.dark body::after {
+  display: block;
+  /* 月晕：紧凑的一团，而不是弥散半屏。
+     第一段 0→42% 是"月"的本体（近纯白 → 淡蓝），保持较高 alpha 让边界可感；
+     42% 之后快速衰减到透明，所以视觉上是一颗有轮廓的光团，而非一片亮区。 */
+  background-image: radial-gradient(closest-side, rgb(232 244 255 / 1) 0%, rgb(214 234 255 / 0.92) 26%, rgb(168 205 250 / 0.45) 42%, rgb(120 165 225 / 0.12) 62%, rgb(95 145 210 / 0) 78%);
+}
+
+/* 窄屏：尺寸收小，且**下移到顶栏之下**。手机上顶栏横跨整行（站点名 + 图标 + 汉堡），
+   天体留在左上角无论怎么缩都会与站点名相交（实测 390px 下 240px 的光团正好压在
+   「Wai Minutes」上）。下移后它落在内容区左上角的空白里，不再与顶栏打架。 */
+@media (max-width: 639px) {
+  body::after {
+    left: -10%;
+    top: 64px;
+    width: 14rem;
+    height: 14rem;
+  }
+}
+
+@media print {
+  body::after {
+    display: none;
+  }
+}
+
+/* ---------- 卡片表面 ---------- */
+
+/* 主题卡片底色是半透明白（bg-white/85、bg-white/60），直接叠在深蓝极光背景上会透出
+   灰味。这里只抬高不透明度，让卡片依然是干净的白色表面；边框、圆角、阴影都沿用主题。
+
+   卡片保持不透明表面，不做毛玻璃：玻璃感要求背后有可糊的细节，而页面背景是平滑
+   渐变——模糊对平滑渐变是恒等变换，糊不出任何差别。"动态背景 + 毛玻璃"才是成立的
+   组合；静态平滑背景上做玻璃，只会在性能和正文对比度上白付代价。（主题给短代码
+   卡片自带的 backdrop-blur-xl 因此在下面被显式关掉。） */
+
+/* 文章卡片：首页「最近的文章」、文章列表页、标签页 */
+html:not(.dark) [class~="bg-white/85"] {
+  background-color: rgb(255 255 255 / 0.94);
+}
+
+/* 短代码卡片（feature / stat）与标签胶囊 */
+html:not(.dark) [class~="bg-white/60"] {
+  background-color: rgb(255 255 255 / 0.9);
+}
+
+/* 标签总览卡片主题没有给底色，补一个与其它卡片一致的表面 */
+html:not(.dark) [class~="border-2"][class~="shadow-2xl"] {
+  background-color: rgb(255 255 255 / 0.9);
+}
+
+/* 标签总览卡片的圆角：主题给的是 rounded（0.25rem），只有文章卡片
+   rounded-lg（--radius-lg = 0.5rem）的一半，看上去像"几乎没圆角"。
+   对齐到同一个 token，全站卡片圆角就一致了。
+   不加 html:not(.dark) 前缀——明暗两档都要生效。 */
+[class~="border-2"][class~="shadow-2xl"] {
+  border-radius: var(--radius-lg);
+}
+
+/* 卡片底色已接近不透明，主题自带的 backdrop-blur 看不出效果，去掉可省一点 GPU */
+[class~="bg-white/60"] {
+  backdrop-filter: none;
+}
+
+/* 暗色模式：卡片用中性灰（rgb 38 38 38），不再用偏蓝的深藏青。
+   原先卡片是 rgb(22 31 48)，与页面底色同属蓝系——页面是深蓝渐变
+   （#16244a → #0d1730 → #060a14），卡片只比它亮一点、色相相同，
+   于是边界几乎看不出来。换成中性灰后明度和色相同时拉开，卡片才立得住。
+   保留 0.92 的透明度：页面顶部的光晕能透出极少一点，不至于死板。
+   三处选择器对应本文件上方归为一类的三种卡片表面；调浓淡改这三个数即可。 */
+.dark [class~="bg-white/85"] {
+  background-color: rgb(38 38 38 / 0.92);
+}
+
+.dark [class~="bg-white/60"] {
+  background-color: rgb(38 38 38 / 0.92);
+}
+
+.dark [class~="border-2"][class~="shadow-2xl"] {
+  background-color: rgb(38 38 38 / 0.92);
+}
+
+/* ---------- 首页主标题：专题色渐变 ---------- */
+
+/* 取色自 assets/covers/ 的五套专题配色。它们共用同一明度网格（都是 #e8xxxx），
+   本身就是一套调好的色板；按色相排成一条日落渐变，正好是「汇点成线」的视觉
+   隐喻：五个专题色是点，渐变是把它们连起来的那条线。
+   金色(35°)与琥珀(28°)只差 7°，相邻摆放会糊成一块，所以并入金色、减到四档，
+   断点位置按色相距离分配（45°/30°/35° → 0/41%/68%/100%）。
+
+   选择器带 div.text-center > 前缀：404 页标题的 class 与首页完全相同，唯一的
+   区别是它的父元素为 section 而不是 div。想让 404 一起变色就删掉这个前缀。 */
+div.text-center > .landing-rise-1 {
+  background-image: linear-gradient(
+    90deg,
+    #5f7a1a 0%,
+    #a87a10 41%,
+    #c0392b 68%,
+    #9c2f6e 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* 暗色档直接用封面原色：它们本来就是为深色背景画的，在 #0c1322 上有 9:1 以上。
+   亮色档必须加深——封面原色放在近白页面上只有约 1.4:1，会糊掉，加深后约 4.5:1。
+   两档色相顺序一致，切换明暗时看到的仍是同一套东西。 */
+.dark div.text-center > .landing-rise-1 {
+  background-image: linear-gradient(
+    90deg,
+    #cfe08e 0%,
+    #e8c48e 41%,
+    #e8a39d 68%,
+    #e89cc0 100%
+  );
+}
+
+/* 退路：浏览器不支持 background-clip: text 时，color: transparent 会让整行标题
+   直接消失，所以显式退回实色。打印与系统强制配色模式同理。 */
+@supports not ((-webkit-background-clip: text) or (background-clip: text)) {
+  div.text-center > .landing-rise-1 {
+    background-image: none;
+    color: #2563eb;
+  }
+}
+
+@media print {
+  div.text-center > .landing-rise-1 {
+    background-image: none;
+    color: #000;
+  }
+}
+
+@media (forced-colors: active) {
+  div.text-center > .landing-rise-1 {
+    background-image: none;
+    color: CanvasText;
+  }
+}
+
+/* ---------- 首页主标题：中文字距与字号 ---------- */
+
+/* 主题给这个标题加了 tracking-tighter（-0.05em），那是给拉丁字母调的：字母可以
+   互相靠近一点。汉字是等宽方块字，负字距会让相邻笔画贴到一起、字面糊成一片。
+   这里改成轻微的正字距，既抵消挤迫感，又留一点呼吸空间。想更松就调大这个数，
+   想更紧就调小；设成 normal 即完全取消主题的收紧。 */
+div.text-center > .landing-rise-1 {
+  letter-spacing: 0.02em;
+}
+
+/* 字号比主题小一档：主题是 text-5xl（3rem）／ sm:text-7xl（4.5rem），
+   这里收到 2.25rem ／ 3.75rem，与标题缩短为四个字相配。
+   断点沿用主题的 640px，保持同样的响应式节奏。
+   Tailwind 的 text-* 工具类在预编译产物里不一定存在，所以在这里直接写 font-size。 */
+div.text-center > .landing-rise-1 {
+  font-size: 2.25rem;
+}
+
+@media (min-width: 640px) {
+  div.text-center > .landing-rise-1 {
+    font-size: 3.75rem;
+  }
+}
+
+/* ---------- 专题卡：用主题自带的网格，无需覆盖 ---------- */
+
+/* 容器用的是主题 feature-grid 短代码自带的网格类（display:grid + gap-4 +
+   sm:grid-cols-2 + lg:grid-cols-3）。五张卡各带一张同比例的封面，高度一致，
+   默认的 align-items: stretch 就让整行齐平，所以这里不再需要任何规则。
+   保留这段注释只为记下走过的路，免得以后反复：
+
+   · 曾用 CSS 多列做过瀑布流，已撤掉：多列是按列高平衡分配条目的，增删一个专题
+     会让已有卡片挪位（导航型网格最忌这个）；阅读顺序也从横向逐行变成纵向逐列；
+     条目少时平衡还容易难看（4 张配 3 列会分成 2/1/1，右边空一块）。
+   · 曾加过 align-items: start，用来保留"有封面 / 无封面"的高度差；现在五张都有
+     封面、高度一致，那一条也随之删掉。 */
+
+/* ---------- 专题卡：顶部色带 + 扁平箭头 ---------- */
+
+/* 色带由 feature 短代码生成（layouts/shortcodes/feature.html）。用 HTML + CSS 而不是
+   图片，因为两条要求图片做不到：
+     · 高度要适应内容——图片高度由宽高比决定，只有 padding + line-height 才能让
+       高度跟着那一行文字走；
+     · 要显示文章数量——数量在构建时从 content/ 实数，写进静态 SVG 就会过期。
+
+   配色（渐变底、顶部光晕、强调色）由短代码在构建时从该专题第一篇的 featureimage
+   里读出，通过内联 style 注入，所以不在这里写死；这里只管排版。
+   类名放进工具类不可行：主题的 Tailwind 是预编译提交的，站点级新类必须走本文件。 */
+
+/* 色带：专题名居中、文章数量靠右。
+   用三列网格（1fr auto 1fr）而不是 space-between：两侧等宽的 1fr 让标题在色带上
+   真正居中，数量落在第 3 列靠右；space-between 会把标题挤到左边，与"封面内容对齐
+   方式不变"冲突。align-items: baseline 让 18px 的数字落在 24px 标题的基线上。
+   单行内容，所以高度就是上下 padding 加一行文字，随内容走。 */
+.topic-band {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: baseline;
+  padding: 0.9rem 1.5rem;
+}
+
+/* 专题名。字号字重回到色带刚做好时的值：加粗与放大是给描述文字的，
+   不是给这里的（一度误加在这上面）。 */
+.topic-band__name {
+  /* 必须显式指定第 2 列：网格的自动放置会把没指定列的元素塞进第 1 列，
+     那样标题会变成"在左侧那一格里居中"，而不是整条色带居中。 */
+  grid-column: 2;
+  justify-self: center;
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 700;
+  line-height: 1.25;
+  color: #f8fafc;
+}
+
+/* 卡片描述：1rem，常规字重（加粗试过，观感不合适，保持不加粗）。
+   行高沿用短代码里的 leading-6（1.5rem = 24px），对 1rem 而言是 1.5 倍，合适。
+   每行容量：桌面三列时文字栏约 197px，16px 下约 12 个汉字——
+   content/_index.md 里的手动断行按这个宽度写，就不会被自动折行。 */
+.topic-desc {
+  font-size: 1rem;
+}
+
+/* 卡片与内容区都做成竖向 flex，为的是把底部那一行压到卡片底边：
+   同一行里各卡描述的行数不同（网格的 stretch 会把它们拉成等高），若不做这一步，
+   描述短的那张底行会浮在中段——"到卡片底边的距离"就各卡不一。
+   margin-top: auto 吃掉剩余空间，把底行推到内容区底部。
+   position: relative 是给铺满整卡的伪元素当定位基准。 */
+.topic-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  /* system-ui 打头：拉丁字母用系统界面字体（Windows 上是 Segoe UI），这是"用系统字体"。
+     问题在于界面字体不含汉字，汉字必须点名，否则会落到浏览器的"脚本默认字体"——
+     那可能是宋体，而且未必带真正的 Bold（合成加粗很弱），于是"黑体"和"加粗"都会失准。
+     字体族是逐字形回退的：拉丁走 system-ui，汉字落到后面点名的雅黑／苹方，
+     两者各取所需。 */
+  font-family: system-ui, "Microsoft YaHei", "PingFang SC", "Hiragino Sans GB",
+    "Noto Sans SC", sans-serif;
+}
+
+.topic-card__body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  /* 正文左对齐。这一条不是多余的：landing 布局的内容区带 sm:text-center，
+     卡片里的文字本来是继承它才居中的。色带上的专题名保持那个居中不变，
+     所以下面 .topic-band 不设 text-align。 */
+  text-align: left;
+}
+
+/* 文章数量：色带右端，纯白。
+   字号比专题名（1.5rem）小两档：1.5 → 1.25 → 1.125rem。
+   等宽数字让位数对齐。 */
+.topic-count {
+  grid-column: 3;
+  justify-self: end;
+  font-size: 1.125rem;
+  font-variant-numeric: tabular-nums;
+  color: #fff;
+}
+
+/* 链接本身已经没有可见内容（箭头去掉了），只剩无障碍名和下面这层铺满整卡的伪元素：
+   点卡片任何位置都走这个链接。可点范围是整张卡，而视觉上什么都不多画。
+   代价：这层盖住了描述文字，文字无法被选中；导航卡可以接受。 */
+.topic-link::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+}
+
+/* 键盘聚焦时高亮整张卡：点击范围是整卡，焦点指示也应该落在整卡上，
+   否则键盘用户只能看到链接那个 1px 的空盒子被框住。
+   :has() 不支持时只是少一个高亮，焦点本身仍在链接上，不影响可用性。 */
+.topic-card:has(.topic-link:focus-visible) {
+  outline: 2px solid rgb(var(--color-primary-500));
+  outline-offset: 2px;
+}
+
+/* ---------- 顶栏：字号调大 ---------- */
+
+/* 锚点是主题自己的 .main-menu（顶栏容器的类名）。站点名与菜单项都没有各自的类，
+   用的是 Tailwind 工具类（text-base / text-sm），所以按属性选择器匹配——
+   主题若改这些类名，这里要跟着改。
+   直接写 font-size 而不换成更大的 text-* 类：主题的 Tailwind 是预编译提交的，
+   更大的档位不一定在产物里（与前面几处同一个约束）。
+   注意：顶栏是全站共用的，这条规则作用于每一页，不只首页。 */
+
+/* 站点名：1rem → 1.25rem。truncate 是它独有的类，用它区分于可能存在的 logo 链接。 */
+.main-menu a[class~="truncate"] {
+  font-size: 1.25rem;
+}
+
+/* 菜单项：0.875rem → 1rem。同一行里的搜索按钮与暗色切换也是 text-sm，
+   一并放大，整条顶栏的视觉节奏才一致。 */
+.main-menu [class~="text-sm"] {
+  font-size: 1rem;
+}
+
+/* ---------- 文章页面包屑：加一枚左箭头 ---------- */
+
+/* 让面包屑读起来像"返回"而不是一段路径。
+   锚点用主题自己的 #single_header（文章头部的 id），面包屑 <ol> 是它的第一个子元素。
+   主题模板把"首页"和"当前页"两节加了 hidden 类（display:none），所以可见的 li
+   只有一个，:not(.hidden) 因此只命中它，不会出现两枚箭头。
+
+   箭头挂在 <a> 上而不是 <li> 上：挂在 li 时伪元素位于链接之外，点箭头没有反应；
+   挂到 a 上它才成为链接的一部分，箭头与文字连成一片可点区域。 */
+#single_header > ol > li:not(.hidden) > a::before {
+  content: "\2190\00a0";
+}
+
+/* 去掉末尾那个孤立的「/」：主题在每个 li 的链接后面都放了分隔符，
+   而"当前页"那一节被隐藏，于是只剩一个没有下文的斜线。
+   本站面包屑只有一个可见节（已核对），所以隐藏可见 li 里的分隔符即可。 */
+#single_header > ol > li:not(.hidden) > span {
+  display: none;
+}
+
+/* 面包屑字号：按"要比文章标题大"的要求定。
+   文章标题是 text-4xl = 2.25rem（36px），所以这里给 2.5rem（40px）。
+   id 选择器的权重高于工具类，不需要 !important。
+   注意这会反转标题层级：专题名会比文章标题更抢眼，且作用于全站文章页。 */
+#single_header > ol {
+  font-size: 2.5rem;
+}
+
+/* ---------- 全部文章（/articles/）：卡片铺满页面宽度 ---------- */
+
+/* /articles/ 走的是 single.html（普通页面），主题给内容套了两道宽度上限：
+     <div class="min-w-0 min-h-0 max-w-fit">        ← single.html:54
+       <div class="article-content max-w-prose">    ← 内层的 prose 上限
+   max-w-fit 就是 fit-content：遇到内部那个 w-full 卡片网格时，它会收缩到网格的
+   max-content 宽度——于是三列卡片比分类页还窄、右侧空出一大片。
+   分类页没有这个问题，list.html 用的是 max-w-prose w-full。
+
+   两个选择器都核对过：
+     · .article-content 在主题里只出现在 _default/single.html，分类页与标签页不用它；
+     · min-w-0 与 max-w-fit 的组合只出现在 single.html:54（卡片摘要的 max-w-fit
+       不带 min-w-0），所以不会误伤卡片里的摘要文字。
+   去掉这两道上限后，网格铺满页面容器（全站统一的上限 max-w-7xl），
+   分类页维持原样不动。 */
+/* 只作用于 /articles/：判据是 .articles-page 这个专用类——它写在
+   content/articles.md 里、包住 list 短代码，所以不含歧义。
+
+   ⚠ 不要用 .article-content 自己当判据：它出现在 _default/single.html，
+   而**每一篇文章**走的都是 single.html，于是 30 篇文章的正文会被一起放宽，
+   正文行长远超标题（这个错误我犯过一次，审查发现后才改回）。 */
+#main-content div[class~="min-w-0"][class~="max-w-fit"]:has(.articles-page),
+#main-content .article-content:has(.articles-page) {
+  max-width: none;
+}
+
+/* ---------- 页脚版权行居中 ---------- */
+
+/* 主题的页脚底部是 justify-between 的一行（原本左版权、右主题署名）。
+   署名已在 [params.footer] 关掉，只剩版权这一项，靠左会显得孤单、不平衡，
+   改成居中。页脚目前没有菜单（GitHub 入口已改到顶栏），所以这行只有版权文字。
+   锚点：footer.html 里那行唯一的直接 div 子元素（页脚菜单若启用渲染的是 <nav>，
+   不受影响）。 */
+#site-footer > div {
+  justify-content: center;
+}
+
+/* /articles/：去掉 list 短代码自带的那个 H2。
+   页面的 front matter title 已经渲染成 H1「全部文章」，短代码再输出一个同文案的 H2
+   属于重复；隐藏它比改文案更省事，也不改变任何正文内容（display:none 同时会把它
+   从无障碍树里移除，所以不会被读屏重复念一遍）。
+   用 .articles-page 限定，只作用于这一页。 */
+.articles-page > h2 {
+  display: none;
+}
+
+/* ---------- 首页：工具卡片与工具弹窗 ---------- */
+
+/* 网格固定两列（2 个工具并排）。格子不需要 3 列——卡片内宽仅 197px，
+   三列每格只剩 55px，中文标签放不下。 */
+.tools-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+
+/* 数量为奇数时让最后一个铺满整行，避免尾行右侧空一格。
+   这条正是主题 grid-balance 的补位写法（见 compiled/main.css 的
+   `.grid-balance > :last-child:nth-child(odd)`），沿用同一惯例。
+   效果：1 个铺满 / 2 个并排 / 3 个为 2+1（末行铺满）/ 4 个为 2×2。 */
+.tools-grid > :last-child:nth-child(odd) {
+  grid-column: 1 / -1;
+}
+
+.tool-tile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 12px 6px;
+  border: 1px solid rgb(var(--color-neutral-200));
+  border-radius: var(--radius-lg);
+  background-color: rgb(var(--color-neutral-50));
+  text-decoration: none;
+  transition: border-color 0.15s, background-color 0.15s, transform 0.15s;
+}
+
+.tool-tile:hover {
+  border-color: rgb(var(--color-primary-400));
+  transform: translateY(-2px);
+}
+
+.tool-tile:focus-visible {
+  outline: 2px solid rgb(var(--color-primary-500));
+  outline-offset: 2px;
+}
+
+/* 图标尺寸由字号决定：主题的 .icon svg 是 width:1em/height:1em。 */
+.tool-tile__icon {
+  font-size: 28px;
+  line-height: 1;
+  color: rgb(var(--color-primary-600));
+}
+
+.tool-tile__label {
+  font-size: 12px;
+  color: rgb(var(--color-neutral-600));
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+
+.dark .tool-tile {
+  background-color: rgb(255 255 255 / 0.04);
+  border-color: rgb(var(--color-neutral-700));
+}
+
+.dark .tool-tile__icon {
+  color: rgb(var(--color-primary-400));
+}
+
+.dark .tool-tile__label {
+  color: rgb(var(--color-neutral-400));
+}
+
+.tools-empty {
+  margin: 0;
+  font-size: 13px;
+  color: rgb(var(--color-neutral-500));
+}
+
+/* 弹窗容器。宽高都给足：工具卡片原生 440×722px，输入后长到 782px，
+   常见笔记本视口的 90vh 能容纳；窄屏下用 vw 铺满，避免 iframe 内部再产生
+   一层横向滚动。 */
+.tool-dialog {
+  width: min(96vw, 560px);
+  height: min(92vh, 860px);
+  max-width: none;
+  max-height: none;
+  padding: 0;
+  border: none;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background-color: transparent;
+  /* 居中所必需：<dialog> 靠 UA 的 inset:0 + margin:auto 居中，但 Tailwind v4 的
+     preflight 有 `*, ::before, ::after, ::backdrop { margin: 0 }`，把这条
+     margin:auto 归零了，弹窗会被钉在视口左上角（实测 rect x=0,y=0）。这里补回来。 */
+  margin: auto;
+}
+
+.tool-dialog::backdrop {
+  background-color: rgb(0 0 0 / 0.55);
+}
+
+.tool-dialog__bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 14px;
+  background-color: rgb(var(--color-neutral-50));
+  border-bottom: 1px solid rgb(var(--color-neutral-200));
+}
+
+.tool-dialog__title {
+  font-size: 14px;
+  font-weight: 600;
+  color: rgb(var(--color-neutral-700));
+}
+
+.tool-dialog__actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.tool-dialog__open {
+  font-size: 12px;
+  color: rgb(var(--color-primary-600));
+  text-decoration: none;
+}
+
+.tool-dialog__open:hover {
+  text-decoration: underline;
+}
+
+.tool-dialog__close {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background-color: transparent;
+  font-size: 20px;
+  line-height: 1;
+  color: rgb(var(--color-neutral-600));
+  cursor: pointer;
+}
+
+.tool-dialog__close:hover {
+  background-color: rgb(var(--color-neutral-200));
+}
+
+/* 弹窗内部固定浅色：工具自身是浅色 UI，跟随站点暗色会出现
+   浅色工具嵌在深色边框里的割裂感。这是有意为之，不是遗漏。 */
+.tool-dialog__bar {
+  color-scheme: light;
+}
+
+.tool-dialog__body {
+  height: calc(100% - 49px); /* 减去标题栏高度，让 iframe 恰好填满剩余空间 */
+  background-color: #f0f4f5;  /* 与工具自身背景一致，加载中不会闪白/闪黑 */
+}
+
+.tool-frame {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+/* ---------- 404 页：让内容真正垂直居中 ---------- */
+
+/* 主题的 404 模板给 <section> 加了 `grow`，想让它占满剩余高度、把内容居中。
+   但 `grow` 是 flex 子项属性，而它的父元素 <main id="main-content"> 是普通 block
+   （主题 CSS 里 #main-content 只有 scroll-margin-top，没有 display:flex），
+   所以 grow 完全不生效——实测 section 只有内容高度 500px，而 main 高 744px，
+   底部空出 244px，内容整体偏上。
+   这里把 main 变成 flex 纵向容器，section 的 grow 就成立了（实测 section 撑到 744px，
+   标题中心从 230px 落到 352px）。
+   ⚠ 作用范围限定为 404 页：本站没有站点级 404 模板，用的是主题的
+   themes/blowfish/layouts/404.html，而其它页面走 _default/*.html，不会命中这个选择器。
+   若将来新增站点级 404 模板，这段要跟着复查。 */
+#main-content:has(> section > [aria-hidden="true"] > span.text-\[16rem\]) {
+  display: flex;
+  flex-direction: column;
+}
+
+/* 背景里那个巨型 "404" 水印与正文叠在一起：水印字号 16rem/26rem，实测在 1440px 下
+   占 703×416px，正好横跨标题与引语，而它仅 5% 不透明度——既压不住也退不开，
+   于是文字落在数字笔画上糊成一片。
+
+   办法是把它从"绝对定位铺满 + flex 居中"改成**流内**元素：脱离层叠后它自然排在
+   按钮下方，永远不会压住文字。
+   ⚠ 不用 translateY 下移：试过 42%/52% 之类百分比，但那依赖视口高度——内容高度是
+   固定的，视口一变位移量就失准（实测 1280×720 会重新重叠、1440×600 会被切出界）。
+   流内布局没有这个问题：它由内容顺序决定，与视口无关。
+   保留 absolute 会让它继续脱离文档流，所以这里显式改回 static。 */
+#main-content > section > [aria-hidden="true"] {
+  position: static;
+  inset: auto;
+  order: 9;              /* 排到最后一个流内子项之后（按钮的 order 为默认 0） */
+  margin-top: 1.5rem;
+  font-size: 0;          /* 不影响自身尺寸；真正定尺寸的是内部 span */
+}
+
+/* 水印字号在模板里是 text-[16rem] / sm:text-[26rem]，过大：即便移到按钮下方，
+   26rem（416px）也会撑出很长的滚动、或在矮视口里被截断。收小到装饰性尺寸。 */
+#main-content > section > [aria-hidden="true"] > span {
+  font-size: 8rem;
+}
+
+@media (min-width: 640px) {
+  #main-content > section > [aria-hidden="true"] > span {
+    font-size: 12rem;
+  }
+}

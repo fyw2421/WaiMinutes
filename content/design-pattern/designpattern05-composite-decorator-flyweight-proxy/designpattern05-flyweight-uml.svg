@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="860" height="540" viewBox="0 0 860 540" role="img" aria-labelledby="t d">
+  <title id="t">享元模式 UML 类图</title>
+  <desc id="d">FlyweightFactory 聚合 Flyweight；ConcreteFlyweight 与 unsharedConcreteFlyweight 继承 Flyweight；Client 使用工厂与两个具体享元</desc>
+  <defs>
+    <style>
+      .box   { fill:#f3e4c4; stroke:#9c8254; stroke-width:1.2; }
+      .sep   { stroke:#9c8254; stroke-width:1; }
+      .title { font-family:'Microsoft YaHei','PingFang SC','Hiragino Sans GB','Noto Sans SC',sans-serif; font-size:20px; font-weight:700; fill:#1f1f1f; text-anchor:middle; }
+      .titlei{ font-family:'Microsoft YaHei','PingFang SC','Hiragino Sans GB','Noto Sans SC',sans-serif; font-size:20px; font-weight:700; font-style:italic; fill:#1f1f1f; text-anchor:middle; }
+      .member{ font-family:'Microsoft YaHei','PingFang SC','Hiragino Sans GB','Noto Sans SC',sans-serif; font-size:16px; fill:#1f1f1f; }
+      .label { font-family:'Microsoft YaHei','PingFang SC','Hiragino Sans GB','Noto Sans SC',sans-serif; font-size:16px; fill:#333333; }
+      .line  { stroke:#1f1f1f; stroke-width:1.4; fill:none; }
+      .hollow{ fill:#ffffff; stroke:#1f1f1f; stroke-width:1.4; stroke-linejoin:round; }
+    </style>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 Z" fill="#1f1f1f"/>
+    </marker>
+    <marker id="openArrow" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="9" markerHeight="9" orient="auto-start-reverse">
+      <path d="M1,1 L10,6 L1,11" fill="none" stroke="#1f1f1f" stroke-width="1.4"/>
+    </marker>
+  </defs>
+
+  <rect width="860" height="540" fill="#ffffff"/>
+
+  <!-- FlyweightFactory -->
+  <rect class="box" x="30" y="40" width="250" height="90" rx="2"/>
+  <line class="sep" x1="30" y1="76" x2="280" y2="76"/>
+  <text class="title" x="155" y="64">FlyweightFactory</text>
+  <text class="member" x="46" y="104">+GetFlyweight(key)</text>
+
+  <!-- Flyweight -->
+  <rect class="box" x="540" y="40" width="290" height="90" rx="2"/>
+  <line class="sep" x1="540" y1="76" x2="830" y2="76"/>
+  <text class="titlei" x="685" y="64">Flyweight</text>
+  <text class="member" x="556" y="104">+Operation(extrinsicState)</text>
+
+  <!-- 聚合 + 重数标注 -->
+  <line class="line" x1="282" y1="85" x2="540" y2="85" marker-end="url(#openArrow)"/>
+  <path class="hollow" d="M282 85 L293 76 L304 85 L293 94 Z"/>
+  <text class="label" x="300" y="60">+flyweights</text>
+  <text class="label" x="506" y="112">*</text>
+
+  <!-- ConcreteFlyweight / unsharedConcreteFlyweight -->
+  <rect class="box" x="270" y="270" width="250" height="110" rx="2"/>
+  <line class="sep" x1="270" y1="306" x2="520" y2="306"/>
+  <line class="sep" x1="270" y1="340" x2="520" y2="340"/>
+  <text class="title" x="395" y="293">ConcreteFlyweight</text>
+
+  <rect class="box" x="560" y="270" width="270" height="110" rx="2"/>
+  <line class="sep" x1="560" y1="306" x2="830" y2="306"/>
+  <line class="sep" x1="560" y1="340" x2="830" y2="340"/>
+  <text class="title" x="695" y="293">unsharedConcreteFlyweight</text>
+
+  <!-- Client -->
+  <rect class="box" x="40" y="430" width="180" height="100" rx="2"/>
+  <line class="sep" x1="40" y1="466" x2="220" y2="466"/>
+  <line class="sep" x1="40" y1="498" x2="220" y2="498"/>
+  <text class="title" x="130" y="454">Client</text>
+
+  <!-- 继承 -->
+  <!-- 继承：两个具体享元共用一条横档，三角形落在 Flyweight 底边 -->
+  <path class="hollow" d="M685 130 L673 152 L697 152 Z"/>
+  <path class="line" d="M685 152 L685 200 L395 200 L395 270"/>
+  <path class="line" d="M685 200 L695 200 L695 270"/>
+
+  <!-- Client 的依赖/关联 -->
+  <line class="line" x1="130" y1="430" x2="130" y2="130" marker-end="url(#arrow)"/>
+  <path class="line" d="M220 465 L240 465 L240 325 L270 325" marker-end="url(#arrow)"/>
+  <path class="line" d="M220 490 L530 490 L530 325 L560 325" marker-end="url(#arrow)"/>
+</svg>

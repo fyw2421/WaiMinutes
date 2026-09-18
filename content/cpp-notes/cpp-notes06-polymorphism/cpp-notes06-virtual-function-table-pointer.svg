@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="360" height="140" viewBox="0 0 360 140" role="img" aria-labelledby="t d">
+  <title id="t">虚函数表指针</title>
+  <desc id="d">对象 b 的首个成员是指向虚函数表的指针，虚函数表按声明顺序存放 Base::f()、Base::g()、Base::h() 的地址</desc>
+  <defs>
+    <style>
+      .box   { fill:#ffffff; stroke:#1f1f1f; stroke-width:1.2; }
+      .gray  { fill:#d9d9d9; stroke:#1f1f1f; stroke-width:1.2; }
+      .ln    { stroke:#1f1f1f; stroke-width:1.2; fill:none; }
+      .red   { stroke:#a33a3a; stroke-width:2; fill:none; }
+      .lbl   { font-family:'Microsoft YaHei','PingFang SC','Noto Sans SC',sans-serif; font-size:13px; fill:#1f1f1f; }
+      .vfn   { font-family:'Microsoft YaHei','PingFang SC','Noto Sans SC',sans-serif; font-size:13px; font-weight:700; fill:#1f1f1f; text-anchor:middle; }
+    </style>
+  </defs>
+  <rect width="360" height="140" fill="#ffffff"/>
+
+  <text class="lbl" x="30" y="34">&amp;</text>
+  <text class="lbl" x="41" y="34">b</text>
+
+  <!-- 对象本体 -->
+  <rect class="gray" x="40" y="46" width="52" height="18"/>
+  <rect class="box"  x="40" y="64" width="52" height="18"/>
+  <rect class="box"  x="40" y="82" width="52" height="18"/>
+  <rect class="box"  x="40" y="100" width="52" height="18"/>
+  <text class="lbl" x="30" y="62" text-anchor="middle">其</text>
+  <text class="lbl" x="30" y="78" text-anchor="middle">它</text>
+  <text class="lbl" x="30" y="94" text-anchor="middle">成</text>
+  <text class="lbl" x="30" y="110" text-anchor="middle">员</text>
+
+  <!-- 虚函数表 -->
+  <text class="lbl" x="148" y="46">虚函数表</text>
+  <rect class="box" x="130" y="58" width="64" height="34"/>
+  <rect class="box" x="194" y="58" width="64" height="34"/>
+  <rect class="box" x="258" y="58" width="64" height="34"/>
+  <rect class="gray" x="322" y="58" width="34" height="34"/>
+  <text class="vfn" x="162" y="80">Base::f()</text>
+  <text class="vfn" x="226" y="80">Base::g()</text>
+  <text class="vfn" x="290" y="80">Base::h()</text>
+  <text class="lbl" x="334" y="80" text-anchor="middle" fill="#a33a3a">+</text>
+
+  <!-- 指针箭头 -->
+  <path class="red" d="M62 55 C 90 40, 120 46, 128 70" marker-end="url(#arr)"/>
+  <defs>
+    <marker id="arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 Z" fill="#a33a3a"/>
+    </marker>
+  </defs>
+</svg>

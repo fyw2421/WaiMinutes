@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1500" height="1000" viewBox="0 0 1500 1000" role="img" aria-labelledby="t d">
+  <title id="t">设计原则与模式分类</title>
+  <desc id="d">7 大设计原则与 24 种设计模式的分类封面</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#46161f"/>
+      <stop offset="0.58" stop-color="#1b1430"/>
+      <stop offset="1" stop-color="#230b10"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0.5" cy="0" r="0.9">
+      <stop offset="0" stop-color="#c8564f" stop-opacity="0.34"/>
+      <stop offset="0.7" stop-color="#c8564f" stop-opacity="0"/>
+    </radialGradient>
+    <style>
+      .sans { font-family: 'Microsoft YaHei','PingFang SC','Hiragino Sans GB','Noto Sans SC','Source Han Sans SC',sans-serif; }
+      .mono { font-family: 'Cascadia Mono','Consolas','SFMono-Regular',monospace; }
+    </style>
+  </defs>
+
+  <rect width="1500" height="1000" fill="url(#bg)"/>
+  <rect width="1500" height="1000" fill="url(#glow)"/>
+
+  <!-- 背景装饰：三个叠放的圆角“模式”方块 -->
+  <g opacity="0.5" stroke="#e8a39d" stroke-opacity="0.18" fill="none">
+    <rect x="1090" y="150" width="300" height="300" rx="36"/>
+    <rect x="1150" y="210" width="300" height="300" rx="36"/>
+    <rect x="1210" y="270" width="300" height="300" rx="36"/>
+  </g>
+
+  <!-- 标题区 -->
+  <text class="mono" x="80" y="196" fill="#e8a39d" font-size="30" letter-spacing="6">DESIGN PATTERN · 01</text>
+  <text class="sans" x="80" y="316" fill="#f8fafc" font-size="92" font-weight="700">设计原则与模式分类</text>
+  <text class="sans" x="80" y="388" fill="#c6d3e2" font-size="36">7 大设计原则 · 24 种设计模式 · 创建型 / 结构型 / 行为型</text>
+  <line x1="80" y1="436" x2="240" y2="436" stroke="#e8a39d" stroke-width="4" stroke-linecap="round"/>
+
+  <!-- 设计原则标签 -->
+  <g class="sans" font-size="32" fill="#ded7f0">
+    <rect x="80"  y="480" width="200" height="66" rx="33" fill="#ffffff" fill-opacity="0.05" stroke="#e8a39d" stroke-opacity="0.28"/>
+    <text x="112" y="522">单一职责</text>
+    <rect x="300" y="480" width="180" height="66" rx="33" fill="#ffffff" fill-opacity="0.05" stroke="#e8a39d" stroke-opacity="0.28"/>
+    <text x="332" y="522">开闭</text>
+    <rect x="500" y="480" width="230" height="66" rx="33" fill="#ffffff" fill-opacity="0.05" stroke="#e8a39d" stroke-opacity="0.28"/>
+    <text x="532" y="522">里氏替换</text>
+    <rect x="750" y="480" width="230" height="66" rx="33" fill="#ffffff" fill-opacity="0.05" stroke="#e8a39d" stroke-opacity="0.28"/>
+    <text x="782" y="522">依赖倒置</text>
+    <rect x="80"  y="566" width="230" height="66" rx="33" fill="#ffffff" fill-opacity="0.05" stroke="#e8a39d" stroke-opacity="0.28"/>
+    <text x="112" y="608">接口隔离</text>
+    <rect x="330" y="566" width="180" height="66" rx="33" fill="#ffffff" fill-opacity="0.05" stroke="#e8a39d" stroke-opacity="0.28"/>
+    <text x="362" y="608">迪米特</text>
+    <rect x="530" y="566" width="270" height="66" rx="33" fill="#ffffff" fill-opacity="0.05" stroke="#e8a39d" stroke-opacity="0.28"/>
+    <text x="562" y="608">合成/聚合复用</text>
+  </g>
+
+  <!-- 模式分类：三张卡片 -->
+  <g>
+    <rect x="80" y="710" width="420" height="210" rx="28" fill="#ffffff" fill-opacity="0.055" stroke="#e8a39d" stroke-opacity="0.30"/>
+    <text class="sans" x="116" y="784" fill="#e6edf6" font-size="42" font-weight="600">创建型</text>
+    <text class="mono" x="116" y="826" fill="#a99fc4" font-size="26" letter-spacing="2">CREATIONAL</text>
+    <text class="sans" x="116" y="884" fill="#e8a39d" font-size="54" font-weight="700">6 种</text>
+
+    <rect x="540" y="710" width="420" height="210" rx="28" fill="#ffffff" fill-opacity="0.055" stroke="#e8a39d" stroke-opacity="0.30"/>
+    <text class="sans" x="576" y="784" fill="#e6edf6" font-size="42" font-weight="600">结构型</text>
+    <text class="mono" x="576" y="826" fill="#a99fc4" font-size="26" letter-spacing="2">STRUCTURAL</text>
+    <text class="sans" x="576" y="884" fill="#e8a39d" font-size="54" font-weight="700">7 种</text>
+
+    <rect x="1000" y="710" width="420" height="210" rx="28" fill="#ffffff" fill-opacity="0.055" stroke="#e8a39d" stroke-opacity="0.30"/>
+    <text class="sans" x="1036" y="784" fill="#e6edf6" font-size="42" font-weight="600">行为型</text>
+    <text class="mono" x="1036" y="826" fill="#a99fc4" font-size="26" letter-spacing="2">BEHAVIORAL</text>
+    <text class="sans" x="1036" y="884" fill="#e8a39d" font-size="54" font-weight="700">11 种</text>
+  </g>
+
+  <text class="mono" x="1420" y="956" fill="#e8a39d" fill-opacity="0.55" font-size="26" text-anchor="end">Wai Minutes</text>
+</svg>

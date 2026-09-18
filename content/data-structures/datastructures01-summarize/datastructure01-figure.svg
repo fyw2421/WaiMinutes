@@ -1,0 +1,108 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="880" height="516" viewBox="0 0 880 516" role="img" aria-labelledby="t d">
+  <title id="t">数据结构的分类</title>
+  <desc id="d">数据结构按逻辑结构分为线性结构（顺序表、链表、栈、队列）与非线性结构（集合、树、图）；按存储结构分为顺序、链式、索引、散列四种；基本运算为增、删、改、查</desc>
+  <defs>
+    <style>
+      .axis  { stroke:#9a9a9a; stroke-width:1.4; fill:none; }
+      .node  { fill:none; stroke:#9a9a9a; stroke-width:1.6; }
+      .root  { font-family:'Microsoft YaHei','PingFang SC','Noto Sans SC',sans-serif; font-size:24px; font-weight:700; fill:#1f1f1f; text-anchor:middle; }
+      .l1    { font-family:'Microsoft YaHei','PingFang SC','Noto Sans SC',sans-serif; font-size:16px; font-weight:700; fill:#1f1f1f; text-anchor:middle; }
+      .t     { font-family:'Microsoft YaHei','PingFang SC','Noto Sans SC',sans-serif; font-size:15px; fill:#1f1f1f; }
+      .red   { stroke:#c0392b; fill:none; stroke-width:1.4; }
+      .redt  { font-family:'Microsoft YaHei','PingFang SC','Noto Sans SC',sans-serif; font-size:15px; fill:#c0392b; }
+    </style>
+  </defs>
+  <rect width="880" height="516" fill="#ffffff"/>
+
+  <!-- 根 → 一级 -->
+  <path class="axis" d="M170 295 L195 295"/>
+  <path class="axis" d="M195 295 L195 203 Q195 195 203 195 L215 195"/>
+  <path class="axis" d="M195 295 L195 283 Q195 275 203 275 L215 275"/>
+  <path class="axis" d="M195 295 L195 407 Q195 415 203 415 L215 415"/>
+
+  <!-- 逻辑结构 → 线性结构 / 非线性结构 -->
+  <path class="axis" d="M325 185 L350 185"/>
+  <path class="axis" d="M350 185 L350 158 Q350 150 358 150 L375 150"/>
+  <path class="axis" d="M350 185 L350 202 Q350 210 358 210 L375 210"/>
+
+  <!-- 线性表 → 顺序表 / 链表 / 栈 / 队列 -->
+  <path class="axis" d="M510 150 L535 150"/>
+  <path class="axis" d="M535 150 L535 88 Q535 80 543 80 L560 80"/>
+  <path class="axis" d="M535 150 L535 128 Q535 120 543 120 L560 120"/>
+  <path class="axis" d="M535 150 L535 168 Q535 160 543 160 L560 160"/>
+  <path class="axis" d="M535 150 L535 212 Q535 220 543 220 L560 220"/>
+
+  <!-- 栈 / 队列 → 四级 -->
+  <path class="axis" d="M576 160 L615 160"/>
+  <path class="axis" d="M615 160 L615 155 Q615 147 623 147 L640 147"/>
+  <path class="axis" d="M615 160 L615 169 Q615 177 623 177 L640 177"/>
+  <path class="axis" d="M590 220 L615 220"/>
+  <path class="axis" d="M615 220 L615 215 Q615 207 623 207 L640 207"/>
+  <path class="axis" d="M615 220 L615 229 Q615 237 623 237 L640 237"/>
+
+  <!-- 非线性结构 → 集合 / 树 / 图 -->
+  <path class="axis" d="M450 210 L475 210"/>
+  <path class="axis" d="M475 210 L475 193 Q475 185 483 185 L500 185"/>
+  <path class="axis" d="M475 210 L500 210"/>
+  <path class="axis" d="M475 210 L475 237 Q475 245 483 245 L500 245"/>
+
+  <!-- 存储结构 -->
+  <path class="axis" d="M325 275 L350 275"/>
+  <path class="axis" d="M350 275 L350 253 Q350 245 358 245 L375 245"/>
+  <path class="axis" d="M350 275 L375 275"/>
+  <path class="axis" d="M350 275 L350 297 Q350 305 358 305 L375 305"/>
+  <path class="axis" d="M350 275 L350 327 Q350 335 358 335 L375 335"/>
+
+  <!-- 运算 -->
+  <path class="axis" d="M325 415 L350 415"/>
+  <path class="axis" d="M350 415 L350 393 Q350 385 358 385 L375 385"/>
+  <path class="axis" d="M350 415 L375 415"/>
+  <path class="axis" d="M350 415 L350 437 Q350 445 358 445 L375 445"/>
+  <path class="axis" d="M350 415 L350 467 Q350 475 358 475 L375 475"/>
+
+  <!-- 根 -->
+  <rect class="node" x="40" y="265" width="130" height="60" rx="6"/>
+  <text class="root" x="105" y="303">数据结构</text>
+
+  <!-- 一级 -->
+  <rect class="node" x="215" y="175" width="110" height="40" rx="6"/>
+  <text class="l1" x="270" y="200">逻辑结构</text>
+  <rect class="node" x="215" y="255" width="110" height="40" rx="6"/>
+  <text class="l1" x="270" y="280">存储结构</text>
+  <rect class="node" x="215" y="395" width="110" height="40" rx="6"/>
+  <text class="l1" x="270" y="420">运算</text>
+
+  <!-- 逻辑结构 -->
+  <text class="t" x="375" y="155">线性结构（线性表）</text>
+  <text class="t" x="375" y="215">非线性结构</text>
+
+  <text class="t" x="560" y="85">顺序表</text>
+  <text class="t" x="560" y="125">链表</text>
+  <text class="t" x="560" y="165">栈</text>
+  <text class="t" x="640" y="152">顺序栈</text>
+  <text class="t" x="640" y="182">链栈</text>
+  <text class="t" x="560" y="225">队列</text>
+  <text class="t" x="640" y="212">顺序队列</text>
+  <text class="t" x="640" y="242">链队列</text>
+
+  <text class="t" x="500" y="190">集合</text>
+  <text class="t" x="500" y="220">树</text>
+  <text class="t" x="500" y="250">图</text>
+
+  <!-- 存储结构 -->
+  <text class="t" x="375" y="250">顺序存储结构</text>
+  <text class="t" x="375" y="280">链式存储结构</text>
+  <text class="t" x="375" y="310">索引存储结构</text>
+  <text class="t" x="375" y="340">散列存储结构</text>
+
+  <!-- 运算 -->
+  <text class="t" x="375" y="390">增</text>
+  <text class="t" x="375" y="420">删</text>
+  <text class="t" x="375" y="450">改</text>
+  <text class="t" x="375" y="480">查</text>
+
+  <!-- 红色标注 -->
+  <path class="red" d="M612 70 L626 70 L626 100 L612 100"/>
+  <rect class="red" x="636" y="70" width="196" height="30"/>
+  <text class="redt" x="646" y="90">用数组做存储结构的线性表</text>
+</svg>

@@ -1,0 +1,91 @@
+{{/* 覆盖主题的同名短代码：把带 url 的专题卡做成"色带 + 描述 + 扁平箭头"。
+
+     色带的两条硬约束决定了它不能用图片做：
+       · 高度要适应内容——图片高度由宽高比决定，只有 HTML + CSS 能让高度跟着
+         一行文字（padding + line-height）走；
+       · 要显示文章数量——数量必须构建时从 content/ 实数，写进静态 SVG 会过期。
+
+     配色不写死，而是从**该专题第一篇的 featureimage**（assets/covers/*.svg）
+     里读出渐变色标与强调色。这样色带与文档里的封面同源；以后跑
+     .covergen/repalette.ps1 切换冷暖配色，色带会自动跟着变。
+     任何一步取不到（专题不存在、没有文章、封面读不出色标）就退回主题原版卡片。
+
+     主题原版：themes/blowfish/layouts/shortcodes/feature.html
+     主题升级时若原版有改动，这份需要跟着同步。
+
+     主题约定（见 themes/blowfish/CLAUDE.md）：Tailwind 是预编译提交的，所以这里
+     只能用编译产物里已有的工具类——新增的样式都写在 assets/css/custom.css 里。
+     另外 "篇" 这个量词是写死的中文：本覆盖是站点级的，站点只有中文；
+     若将来做多语言，这里要改成走 i18n。 */}}
+{{ $icon := .Get "icon" | default "wand-magic-sparkles" }}
+{{ $title := .Get "title" | default "Feature" }}
+{{ $url := .Get "url" }}
+{{ $label := .Get "label" | default "Learn more" }}
+{{ $headingLevel := .Get "headingLevel" | default "h2" }}
+{{ if not (in (slice "h1" "h2" "h3" "h4" "h5" "h6") $headingLevel) }}
+  {{ $headingLevel = "h2" }}
+{{ end }}
+
+{{/* 从专题第一篇的封面里取出配色。
+     色标（stop-color）在文档里的顺序是：bg 三个，然后是 glow。所以前三个是底色、
+     第四个是光晕色 —— 这条规则只依赖"bg 有三个色标"，五张封面的 bg 都是三档。
+     只取色带用得到的这几个：强调色曾经也提取过，但文章数量移到右下角后不再用它
+     （封面上的强调色是为深色底设计的，放到白色卡片上对比度不足），所以一并去掉。 */}}
+{{ $bandStyle := "" }}
+{{ $bandCount := 0 }}
+{{ with $url }}
+  {{ with site.GetPage (printf "/%s" (strings.TrimSuffix "/" .)) }}
+    {{ $bandCount = len .RegularPages }}
+    {{ with (index .RegularPages 0).Params.featureimage }}
+      {{ with resources.Get . }}
+        {{ $stops := findRESubmatch `stop-color="(#[0-9a-fA-F]{6})"` .Content }}
+        {{ if ge (len $stops) 4 }}
+          {{ $bg0 := index (index $stops 0) 1 }}
+          {{ $bg1 := index (index $stops 1) 1 }}
+          {{ $bg2 := index (index $stops 2) 1 }}
+          {{ $glow := index (index $stops 3) 1 }}
+          {{ $bandStyle = printf "background-image:radial-gradient(70%% 160%% at 50%% 0%%, %s59, transparent),linear-gradient(180deg, %s 0%%, %s 58%%, %s 100%%)" $glow $bg0 $bg1 $bg2 }}
+        {{ end }}
+      {{ end }}
+    {{ end }}
+  {{ end }}
+{{ end }}
+
+<article class="topic-card group overflow-hidden rounded-2xl border border-neutral-200/80 bg-white/60 shadow-sm backdrop-blur-xl transition duration-200 hover:-translate-y-1 hover:border-primary-300 hover:shadow-xl hover:shadow-primary-500/10 dark:border-neutral-800 dark:bg-neutral-900/50 dark:hover:border-primary-700">
+  {{ with $bandStyle }}
+    <div class="topic-band" style="{{ . | safeCSS }}">
+      {{ printf `<%s class="topic-band__name">` $headingLevel | safeHTML }}{{ $title | markdownify }}{{ printf `</%s>` $headingLevel | safeHTML }}
+      {{ with $bandCount }}
+        {{/* 只显示数字。"篇"用 sr-only 保留：视觉上干净，屏幕阅读器读到的仍是
+             "12 篇" 而不是一个孤零零、没有单位的数字。 */}}
+        <span class="topic-count">{{ . }}<span class="sr-only"> 篇</span></span>
+      {{ end }}
+    </div>
+  {{ end }}
+  <div class="topic-card__body p-6">
+    {{ if not $bandStyle }}
+      <span class="mb-5 inline-flex rounded-xl bg-primary-100 p-3 text-primary-600 dark:bg-primary-950 dark:text-primary-400">
+        {{ partial "icon.html" $icon }}
+      </span>
+      {{ printf `<%s class="text-lg font-bold text-neutral-900 dark:text-white">` $headingLevel | safeHTML }}{{ $title | markdownify }}{{ printf `</%s>` $headingLevel | safeHTML }}
+    {{ end }}
+    {{/* 描述里的换行手动生效：先把单个换行翻成 <br> 再交给 markdown。
+         中文没有词边界，自动换行在任何字符处都能断，长句容易在末尾剩一两个字的
+         "孤字"，看着像被截断；手动换行把断点交给写的人。
+         为什么不动全局的 markup hardWraps：那会改变全站 30 篇文章的渲染（段落内的
+         软换行会全部变成硬换行）。
+         别忘了 TrimSpace：.Inner 里带着短代码开闭标签之间的首尾换行，不先去掉，
+         它们也会被翻成 <br>，描述上下就各多一个空行。
+         代价：描述里不能再用块级 markdown（列表、引用等需要换行结构的语法会被这层
+         替换破坏），行内语法（**粗体**、`代码`、链接）照常可用。 */}}
+    <div class="topic-desc leading-6 text-neutral-600 dark:text-neutral-400">{{ .Inner | strings.TrimSpace | replaceRE `\r?\n` "<br>" | markdownify }}</div>
+    {{ with $url }}
+      {{/* 链接没有可见内容：箭头去掉了，整张卡的可点范围靠 custom.css 里
+           .topic-link::after 那层铺满整卡的伪元素。但它不能省——整卡可点意味着它是
+           唯一的可点元素，一个没有无障碍名的链接对屏幕阅读器用户等于空白按钮。 */}}
+      <a class="topic-link" href="{{ . | safeURL }}">
+        <span class="sr-only">{{ $label | markdownify }}</span>
+      </a>
+    {{ end }}
+  </div>
+</article>

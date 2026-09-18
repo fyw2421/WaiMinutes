@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="420" height="440" viewBox="0 0 420 440" role="img" aria-labelledby="t d">
+  <title id="t">基于已有提交创建分支</title>
+  <desc id="d">执行 git checkout -b speedup ariya/speedup 后，新分支 speedup 指向 ariya/speedup 的三次提交，master 仍停留在原提交</desc>
+  <defs>
+    <style>
+      .cmd  { font-family:Consolas,'Cascadia Mono',Menlo,monospace; font-size:15px; fill:#1f1f1f; }
+      .lbl  { font-family:'Microsoft YaHei','PingFang SC','Noto Sans SC',sans-serif; font-size:15px; fill:#1f1f1f; }
+      .node { fill:#ffffff; stroke:#1f1f1f; stroke-width:1.6; }
+      .base { fill:#8c8c8c; stroke:#1f1f1f; stroke-width:1.6; }
+      .ar   { stroke:#1f1f1f; stroke-width:1.8; fill:none; }
+    </style>
+    <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 Z" fill="#1f1f1f"/>
+    </marker>
+  </defs>
+  <rect width="420" height="440" fill="#ffffff"/>
+
+  <text class="cmd" x="30" y="38">git checkout -b speedup ariya/speedup</text>
+  <text class="lbl" x="186" y="112">ariya/speedup</text>
+
+  <circle class="node" cx="215" cy="176" r="18"/>
+  <circle class="node" cx="215" cy="240" r="18"/>
+  <circle class="node" cx="215" cy="304" r="18"/>
+  <circle class="base" cx="92" cy="368" r="18"/>
+
+  <path class="ar" d="M215 282 L215 264" marker-end="url(#ar)"/>
+  <path class="ar" d="M215 218 L215 200" marker-end="url(#ar)"/>
+  <path class="ar" d="M108 358 L197 322" marker-end="url(#ar)"/>
+
+  <text class="lbl" x="64" y="412">master</text>
+</svg>

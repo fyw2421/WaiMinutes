@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="420" height="330" viewBox="0 0 420 330" role="img" aria-labelledby="t d">
+  <title id="t">床和沙发的分解</title>
+  <desc id="d">把 SleeperSofa 拆成 Bed 与 Sofa 两条继承链，两条链各自从 Furniture 继承一份 weight</desc>
+  <defs>
+    <style>
+      .box   { fill:#ffffff; stroke:#1f1f1f; stroke-width:1.2; }
+      .ln    { stroke:#1f1f1f; stroke-width:1.2; fill:none; }
+      .lbl   { font-family:'Microsoft YaHei','PingFang SC','Noto Sans SC',sans-serif; font-size:12px; fill:#1f1f1f; }
+      .ttl   { font-family:'Microsoft YaHei','PingFang SC','Noto Sans SC',sans-serif; font-size:12px; font-weight:700; fill:#1f1f1f; text-anchor:middle; }
+      .cap   { font-family:'Microsoft YaHei','PingFang SC','Noto Sans SC',sans-serif; font-size:13px; fill:#1f1f1f; text-anchor:middle; }
+    </style>
+  </defs>
+  <rect width="420" height="330" fill="#ffffff"/>
+
+  <!-- 左：Furniture / Bed -->
+  <rect class="box" x="52" y="14" width="124" height="68"/>
+  <text class="ttl" x="114" y="32">Furniture（家具）</text>
+  <text class="lbl" x="122" y="62">weight</text>
+  <rect class="box" x="18" y="38" width="88" height="20"/>
+  <text class="lbl" x="62" y="53" text-anchor="middle">getWeight()</text>
+  <rect class="box" x="18" y="64" width="88" height="20"/>
+  <text class="lbl" x="62" y="79" text-anchor="middle">SetWeight()</text>
+
+  <rect class="box" x="62" y="138" width="140" height="52"/>
+  <text class="ttl" x="132" y="160">Bed（床）</text>
+  <text class="lbl" x="140" y="182">weight</text>
+  <rect class="box" x="12" y="164" width="90" height="22"/>
+  <text class="lbl" x="57" y="180" text-anchor="middle">Sleep()</text>
+
+  <!-- 右：Furniture / Sofa -->
+  <rect class="box" x="272" y="14" width="124" height="68"/>
+  <text class="ttl" x="334" y="32">Furniture（家具）</text>
+  <text class="lbl" x="342" y="62">weight</text>
+  <rect class="box" x="238" y="38" width="88" height="20"/>
+  <text class="lbl" x="282" y="53" text-anchor="middle">getWeight()</text>
+  <rect class="box" x="238" y="64" width="88" height="20"/>
+  <text class="lbl" x="282" y="79" text-anchor="middle">SetWeight()</text>
+
+  <rect class="box" x="282" y="138" width="128" height="52"/>
+  <text class="ttl" x="346" y="160">Sofa（沙发）</text>
+  <text class="lbl" x="354" y="182">weight</text>
+  <rect class="box" x="232" y="164" width="98" height="22"/>
+  <text class="lbl" x="281" y="180" text-anchor="middle">WatchTV()</text>
+
+  <!-- SleeperSofa -->
+  <rect class="box" x="170" y="240" width="146" height="52"/>
+  <text class="ttl" x="243" y="260">SleeperSofa</text>
+  <text class="lbl" x="270" y="284" text-anchor="middle">（沙发床）</text>
+  <rect class="box" x="118" y="266" width="98" height="22"/>
+  <text class="lbl" x="167" y="282" text-anchor="middle">FoldOut()</text>
+
+  <!-- 连线 -->
+  <path class="ln" d="M114 82 L132 138"/>
+  <path class="ln" d="M334 82 L346 138"/>
+  <path class="ln" d="M132 190 L212 240"/>
+  <path class="ln" d="M346 190 L274 240"/>
+
+  <text class="cap" x="210" y="318">图 10-6　床和沙发的分解</text>
+</svg>

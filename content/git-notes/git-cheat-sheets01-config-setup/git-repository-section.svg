@@ -1,0 +1,82 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="520" height="250" viewBox="0 0 520 250" role="img" aria-labelledby="t d">
+  <title id="t">工作区、暂存区与版本库</title>
+  <desc id="d">工作区里的改动先经 git add 进入版本库的 stage 暂存区，再经 commit 进入 master 分支；HEAD 指向 master</desc>
+  <defs>
+    <style>
+      .panel { fill:#ffffff; stroke:#333333; stroke-width:1.2; }
+      .folder{ fill:#ffffff; stroke:#333333; stroke-width:1.4; }
+      .bar   { fill:#ffffff; stroke:#333333; stroke-width:1.2; }
+      .solid { fill:#333333; }
+      .thick { stroke:#333333; stroke-width:2.6; fill:none; }
+      .ln    { stroke:#333333; stroke-width:1.1; fill:none; }
+      .pl    { font-family:'Microsoft YaHei','PingFang SC','Noto Sans SC',sans-serif; font-size:13px; fill:#1f1f1f; }
+      .sm    { font-family:'Microsoft YaHei','PingFang SC','Noto Sans SC',sans-serif; font-size:12px; fill:#1f1f1f; }
+    </style>
+    <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 Z" fill="#333333"/>
+    </marker>
+    <g id="doc">
+      <rect x="0" y="0" width="11" height="13" rx="1" fill="#ffffff" stroke="#333333" stroke-width="1"/>
+      <path d="M2.5 4 H8.5 M2.5 6.5 H8.5 M2.5 9 H8.5" stroke="#333333" stroke-width="0.9"/>
+    </g>
+    <g id="tree2">
+      <path d="M0 13 L0 0 L7 0 L7 4 L15 4 L15 13 Z" fill="#ffffff" stroke="#333333" stroke-width="1.1"/>
+      <path d="M7 13 L7 44" stroke="#333333" stroke-width="1.1"/>
+      <path d="M7 21 L16 21 M7 37 L16 37" stroke="#333333" stroke-width="1.1"/>
+      <use href="#doc" x="16" y="14"/>
+      <use href="#doc" x="16" y="30"/>
+    </g>
+    <g id="tree">
+      <path d="M0 13 L0 0 L7 0 L7 4 L15 4 L15 13 Z" fill="#ffffff" stroke="#333333" stroke-width="1.1"/>
+      <path d="M7 13 L7 62" stroke="#333333" stroke-width="1.1"/>
+      <path d="M7 21 L16 21 M7 37 L16 37 M7 62 L16 62" stroke="#333333" stroke-width="1.1"/>
+      <use href="#doc" x="16" y="14"/>
+      <use href="#doc" x="16" y="30"/>
+      <path d="M16 68 L16 55 L23 55 L23 59 L31 59 L31 68 Z" fill="#ffffff" stroke="#333333" stroke-width="1.1"/>
+      <path d="M23 68 L23 96" stroke="#333333" stroke-width="1.1"/>
+      <path d="M23 76 L32 76 M23 92 L32 92" stroke="#333333" stroke-width="1.1"/>
+      <use href="#doc" x="32" y="69"/>
+      <use href="#doc" x="32" y="85"/>
+    </g>
+  </defs>
+  <rect width="520" height="250" fill="#ffffff"/>
+
+  <!-- 工作区 -->
+  <path class="ln" d="M12 16 L12 22 M12 16 L62 16 M62 16 L62 22"/>
+  <text class="pl" x="18" y="12">工作区</text>
+  <rect class="panel" x="12" y="22" width="124" height="216"/>
+  <use href="#tree" x="28" y="76"/>
+  <!-- 滚动条 -->
+  <rect class="bar" x="104" y="34" width="18" height="192" rx="3"/>
+  <rect class="solid" x="107" y="58" width="12" height="56" rx="2"/>
+  <path class="solid" d="M113 42 L107 50 L119 50 Z"/>
+  <path class="solid" d="M113 218 L107 210 L119 210 Z"/>
+
+  <!-- 版本库 -->
+  <path class="ln" d="M204 16 L204 22 M204 16 L254 16 M254 16 L254 22"/>
+  <text class="pl" x="210" y="12">版本库</text>
+  <rect class="panel" x="204" y="22" width="304" height="216"/>
+
+  <!-- stage -->
+  <path class="folder" d="M216 58 L232 58 L232 44 L288 44 L288 58 L300 58 L300 214 L216 214 Z"/>
+  <text class="sm" x="238" y="56">stage</text>
+  <use href="#tree2" x="246" y="140"/>
+
+  <!-- master -->
+  <path class="folder" d="M386 58 L402 58 L402 44 L464 44 L464 58 L500 58 L500 214 L386 214 Z"/>
+  <text class="sm" x="408" y="56">master</text>
+  <use href="#tree" x="404" y="106"/>
+
+  <!-- HEAD -->
+  <rect class="panel" x="336" y="30" width="58" height="22"/>
+  <text class="sm" x="365" y="46" text-anchor="middle">HEAD</text>
+  <path class="thick" d="M374 52 L400 70" marker-end="url(#ar)"/>
+
+  <!-- add -->
+  <text class="pl" x="174" y="118" text-anchor="middle">add</text>
+  <path class="thick" d="M136 126 L212 126" marker-end="url(#ar)"/>
+
+  <!-- commit -->
+  <text class="pl" x="342" y="132" text-anchor="middle">commit</text>
+  <path class="thick" d="M302 140 L382 140" marker-end="url(#ar)"/>
+</svg>

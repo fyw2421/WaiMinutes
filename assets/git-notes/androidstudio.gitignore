@@ -1,0 +1,22 @@
+# Android Studio ingnore list
+
+# Gradle files
+gradlew.bat
+gradlew
+gradle.properties
+/build
+/.gradle
+*.iml
+
+# IDE
+/.idea
+/captures
+/.navigation
+
+# Mac OS
+.DS_Store
+
+# Local configuration file (sdk path, etc)
+local.properties
+.externalNativeBuild
+

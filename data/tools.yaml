@@ -1,0 +1,20 @@
+# 首页「工具」卡片的清单。加新工具只需三步：
+#   1. 把工具文件放到 static/tools/<name>/（自包含的 index.html）
+#   2. 把图标放到 assets/icons/<icon>.svg（须含 fill/stroke="currentColor"）
+#   3. 在下面追加一条
+# 图标的尺寸由字号控制（主题 .icon svg { width:1em; height:1em }），
+# 改大小请调 CSS 里的 font-size，不要改 SVG 的宽高属性。
+#
+# ⚠ url 不要写前导斜杠。本站部署在 /WaiMinutes/ 子路径下，而 Hugo 的 relURL
+# 对以 "/" 开头的输入会把子路径丢掉——实测 `"/tools/x/" | relURL` 得到
+# "/tools/x/"（错，线上 404），而 `"tools/x/" | relURL` 得到
+# "/WaiMinutes/tools/x/"（对）。absURL 有同样的问题。
+# 短代码里用 `{{ .url | relURL }}` 转换后是绝对路径，因此在任何页面调用都对。
+
+- name: 油价计算
+  icon: fuel
+  url: tools/fuel-calculator/
+  # label 是人类可读的描述性元数据，仅供维护者了解工具用途；
+  # 模板不会把它注入 aria-label——图块的可见文字（name）已是正确的链接名，
+  # 另设不包含可见文字的 aria-label 会违反 WCAG 2.5.3 Label in Name。
+  label: 打开汽油百分比计算器

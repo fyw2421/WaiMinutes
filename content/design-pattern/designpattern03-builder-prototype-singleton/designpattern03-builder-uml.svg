@@ -1,0 +1,96 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="660" viewBox="0 0 900 660" role="img" aria-labelledby="t d">
+  <title id="t">建造者模式 UML 类图</title>
+  <desc id="d">Director 聚合 AbstractBuilder；ConcreteBuilder 继承 AbstractBuilder 并产出 Product</desc>
+  <defs>
+    <style>
+      .box   { fill:#f3e4c4; stroke:#9c8254; stroke-width:1; }
+      .note  { fill:#fdfaf3; stroke:#c9b89a; stroke-width:1; }
+      .sep   { stroke:#9c8254; stroke-width:1; }
+      .title { font-family:'Microsoft YaHei','PingFang SC','Hiragino Sans GB','Noto Sans SC',sans-serif; font-size:26px; font-weight:700; fill:#1f1f1f; text-anchor:middle; }
+      .stereo{ font-family:'Microsoft YaHei','PingFang SC','Hiragino Sans GB','Noto Sans SC',sans-serif; font-size:19px; fill:#333333; text-anchor:end; }
+      .member{ font-family:'Microsoft YaHei','PingFang SC','Hiragino Sans GB','Noto Sans SC',sans-serif; font-size:19px; fill:#1f1f1f; }
+      .ntext { font-family:'Microsoft YaHei','PingFang SC','Hiragino Sans GB','Noto Sans SC',sans-serif; font-size:18px; fill:#1f1f1f; }
+      .line  { stroke:#1f1f1f; stroke-width:1.6; fill:none; }
+      .dash  { stroke:#1f1f1f; stroke-width:1.6; fill:none; stroke-dasharray:5 3; }
+      .hollow{ fill:#ffffff; stroke:#1f1f1f; stroke-width:1.6; stroke-linejoin:round; }
+    </style>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 Z" fill="#1f1f1f"/>
+    </marker>
+    <marker id="openArrow" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M1,1 L10,6 L1,11" fill="none" stroke="#1f1f1f" stroke-width="1.2"/>
+    </marker>
+  </defs>
+
+  <rect width="900" height="660" fill="#ffffff"/>
+
+  <!-- 顶部两条注释 -->
+  <g>
+    <path class="note" d="M30 20 H300 L314 34 V92 H30 Z"/>
+    <path class="note" d="M300 20 V34 H314" fill="none"/>
+    <text class="ntext" x="44" y="50">指挥者是构建使用</text>
+    <text class="ntext" x="44" y="76">AbstractBuilder 接口的对象</text>
+  </g>
+  <g>
+    <path class="note" d="M470 20 H860 L874 34 V92 H470 Z"/>
+    <path class="note" d="M860 20 V34 H874" fill="none"/>
+    <text class="ntext" x="484" y="50">为创建一个 Product 对象</text>
+    <text class="ntext" x="484" y="76">的各个部件指定抽象接口</text>
+  </g>
+
+  <!-- Director -->
+  <rect class="box" x="30" y="150" width="270" height="110" rx="2"/>
+  <line class="sep" x1="30" y1="182" x2="300" y2="182"/>
+  <text class="title" x="165" y="172">Director</text>
+  <text class="member" x="44" y="210">+  Construct () : void</text>
+
+  <!-- AbstractBuilder -->
+  <rect class="box" x="470" y="140" width="400" height="180" rx="2"/>
+  <line class="sep" x1="470" y1="172" x2="870" y2="172"/>
+  <line class="sep" x1="470" y1="204" x2="870" y2="204"/>
+  <text class="title" x="670" y="162">AbstractBuilder</text>
+  <text class="stereo" x="860" y="194">{abstract}</text>
+  <text class="member" x="484" y="240">+  BuildPartA ()</text>
+  <text class="member" x="484" y="268">+  BuildPartB ()</text>
+
+  <!-- ConcreteBuilder -->
+  <rect class="box" x="200" y="380" width="360" height="150" rx="2"/>
+  <line class="sep" x1="200" y1="412" x2="560" y2="412"/>
+  <text class="title" x="380" y="402">ConcreteBuilder</text>
+  <text class="member" x="214" y="442">+  BuildPartA ()</text>
+  <text class="member" x="214" y="470">+  BuildPartB ()</text>
+  <text class="member" x="214" y="498">+  GetResult ()   : Product</text>
+
+  <!-- Product -->
+  <rect class="box" x="680" y="420" width="180" height="150" rx="2"/>
+  <line class="sep" x1="680" y1="452" x2="860" y2="452"/>
+  <line class="sep" x1="680" y1="490" x2="860" y2="490"/>
+  <text class="title" x="770" y="442">Product</text>
+
+  <!-- 底部两条注释 -->
+  <g>
+    <path class="note" d="M240 560 H540 L554 574 V626 H240 Z"/>
+    <path class="note" d="M540 560 V574 H554" fill="none"/>
+    <text class="ntext" x="254" y="586">具体建造者</text>
+    <text class="ntext" x="254" y="612">构造和装配各个部件</text>
+  </g>
+  <g>
+    <path class="note" d="M680 590 H860 L874 604 V650 H680 Z"/>
+    <path class="note" d="M860 590 V604 H874" fill="none"/>
+    <text class="ntext" x="694" y="626">具体产品</text>
+  </g>
+
+  <!-- 关系 -->
+  <line class="dash" x1="180" y1="92" x2="180" y2="144" marker-end="url(#openArrow)"/>
+  <line class="dash" x1="670" y1="92" x2="670" y2="134" marker-end="url(#openArrow)"/>
+
+  <line class="line" x1="302" y1="180" x2="464" y2="180" marker-end="url(#arrow)"/>
+  <path class="hollow" d="M302 180 L313 171 L324 180 L313 189 Z"/>
+
+  <path class="line" d="M540 380 L540 344"/>
+  <path class="hollow" d="M540 320 L528 344 L552 344 Z"/>
+
+  <line class="dash" x1="562" y1="470" x2="674" y2="470" marker-end="url(#openArrow)"/>
+  <line class="dash" x1="380" y1="530" x2="380" y2="556" marker-end="url(#openArrow)"/>
+  <line class="dash" x1="770" y1="570" x2="770" y2="586" marker-end="url(#openArrow)"/>
+</svg>

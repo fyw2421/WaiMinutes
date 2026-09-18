@@ -1,0 +1,111 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="820" height="720" viewBox="0 0 820 720" role="img" aria-labelledby="t d">
+  <title id="t">抽象工厂模式 UML 类图</title>
+  <desc id="d">Client 使用 AbstractFactory 与两个产品族抽象；ConcreteFactory1/2 继承 AbstractFactory 并创建各自的 ProductA/ProductB</desc>
+  <defs>
+    <style>
+      .box   { fill:#f3e4c4; stroke:#9c8254; stroke-width:1.2; }
+      .sep   { stroke:#9c8254; stroke-width:1; }
+      .title { font-family:'Microsoft YaHei','PingFang SC','Hiragino Sans GB','Noto Sans SC',sans-serif; font-size:14px; font-weight:700; fill:#1f1f1f; text-anchor:middle; }
+      .titlei{ font-family:'Microsoft YaHei','PingFang SC','Hiragino Sans GB','Noto Sans SC',sans-serif; font-size:14px; font-weight:700; font-style:italic; fill:#1f1f1f; text-anchor:middle; }
+      .member{ font-family:'Microsoft YaHei','PingFang SC','Hiragino Sans GB','Noto Sans SC',sans-serif; font-size:12px; fill:#1f1f1f; }
+      .line  { stroke:#1f1f1f; stroke-width:1.4; fill:none; }
+      .dash  { stroke:#1f1f1f; stroke-width:1.4; fill:none; stroke-dasharray:7 4; }
+      .hollow{ fill:#ffffff; stroke:#1f1f1f; stroke-width:1.4; stroke-linejoin:round; }
+    </style>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 Z" fill="#1f1f1f"/>
+    </marker>
+    <marker id="openArrow" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="9" markerHeight="9" orient="auto-start-reverse">
+      <path d="M1,1 L10,6 L1,11" fill="none" stroke="#1f1f1f" stroke-width="1.4"/>
+    </marker>
+  </defs>
+
+  <rect width="820" height="720" fill="#ffffff"/>
+
+  <!-- Client -->
+  <rect class="box" x="30" y="90" width="200" height="80" rx="2"/>
+  <line class="sep" x1="30" y1="118" x2="230" y2="118"/>
+  <line class="sep" x1="30" y1="146" x2="230" y2="146"/>
+  <text class="title" x="130" y="110">Client</text>
+
+  <!-- AbstractFactory -->
+  <rect class="box" x="490" y="80" width="250" height="105" rx="2"/>
+  <line class="sep" x1="490" y1="112" x2="740" y2="112"/>
+  <text class="titlei" x="615" y="102">AbstractFactory</text>
+  <text class="member" x="504" y="136">+CreateProductA()</text>
+  <text class="member" x="504" y="160">+CreateProductB()</text>
+
+  <!-- AbstractProductA -->
+  <rect class="box" x="110" y="230" width="230" height="80" rx="2"/>
+  <line class="sep" x1="110" y1="258" x2="340" y2="258"/>
+  <line class="sep" x1="110" y1="284" x2="340" y2="284"/>
+  <text class="titlei" x="225" y="250">AbstractProductA</text>
+
+  <!-- 两个具体工厂 -->
+  <rect class="box" x="400" y="240" width="180" height="110" rx="2"/>
+  <line class="sep" x1="400" y1="270" x2="580" y2="270"/>
+  <text class="title" x="490" y="262">ConcreteFactory1</text>
+  <text class="member" x="414" y="294">+CreateProductA()</text>
+  <text class="member" x="414" y="318">+CreateProductB()</text>
+
+  <rect class="box" x="620" y="240" width="180" height="110" rx="2"/>
+  <line class="sep" x1="620" y1="270" x2="800" y2="270"/>
+  <text class="title" x="710" y="262">ConcreteFactory2</text>
+  <text class="member" x="634" y="294">+CreateProductA()</text>
+  <text class="member" x="634" y="318">+CreateProductB()</text>
+
+  <!-- 产品族 A -->
+  <rect class="box" x="60" y="370" width="150" height="70" rx="2"/>
+  <line class="sep" x1="60" y1="396" x2="210" y2="396"/>
+  <line class="sep" x1="60" y1="418" x2="210" y2="418"/>
+  <text class="title" x="135" y="388">ProductA1</text>
+
+  <rect class="box" x="240" y="370" width="150" height="70" rx="2"/>
+  <line class="sep" x1="240" y1="396" x2="390" y2="396"/>
+  <line class="sep" x1="240" y1="418" x2="390" y2="418"/>
+  <text class="title" x="315" y="388">ProductA2</text>
+
+  <!-- AbstractProductB -->
+  <rect class="box" x="110" y="470" width="230" height="80" rx="2"/>
+  <line class="sep" x1="110" y1="498" x2="340" y2="498"/>
+  <line class="sep" x1="110" y1="524" x2="340" y2="524"/>
+  <text class="titlei" x="225" y="490">AbstractProductB</text>
+
+  <!-- 产品族 B -->
+  <rect class="box" x="60" y="600" width="150" height="70" rx="2"/>
+  <line class="sep" x1="60" y1="626" x2="210" y2="626"/>
+  <line class="sep" x1="60" y1="648" x2="210" y2="648"/>
+  <text class="title" x="135" y="618">ProductB1</text>
+
+  <rect class="box" x="240" y="600" width="150" height="70" rx="2"/>
+  <line class="sep" x1="240" y1="626" x2="390" y2="626"/>
+  <line class="sep" x1="240" y1="648" x2="390" y2="648"/>
+  <text class="title" x="315" y="618">ProductB2</text>
+
+  <!-- Client 的关联（原图：一条向右、两条向下） -->
+  <line class="line" x1="232" y1="120" x2="484" y2="120" marker-end="url(#arrow)"/>
+  <line class="line" x1="135" y1="170" x2="135" y2="224" marker-end="url(#arrow)"/>
+  <path class="line" d="M46 170 L46 510 L109 510" marker-end="url(#arrow)"/>
+
+  <!-- 继承：两个具体工厂（原图是折线汇聚到 AbstractFactory 底部） -->
+  <path class="line" d="M450 240 L450 213 L575 213 L575 203"/>
+  <path class="hollow" d="M575 185 L564 203 L586 203 Z"/>
+  <path class="line" d="M700 240 L700 213 L655 213 L655 203"/>
+  <path class="hollow" d="M655 185 L644 203 L666 203 Z"/>
+
+  <!-- 继承：四个具体产品 -->
+  <path class="line" d="M135 332 L135 370"/>
+  <path class="hollow" d="M135 310 L123 332 L147 332 Z"/>
+  <path class="line" d="M315 332 L315 370"/>
+  <path class="hollow" d="M315 310 L303 332 L327 332 Z"/>
+  <path class="line" d="M135 572 L135 600"/>
+  <path class="hollow" d="M135 550 L123 572 L147 572 Z"/>
+  <path class="line" d="M315 572 L315 600"/>
+  <path class="hollow" d="M315 550 L303 572 L327 572 Z"/>
+
+  <!-- 工厂创建产品（原图：粗虚线，落到产品下方再折入） -->
+  <path class="dash" d="M430 350 L430 452 L135 452 L135 444" marker-end="url(#openArrow)"/>
+  <path class="dash" d="M650 350 L650 462 L315 462 L315 444" marker-end="url(#openArrow)"/>
+  <path class="dash" d="M470 350 L470 686 L135 686 L135 674" marker-end="url(#openArrow)"/>
+  <path class="dash" d="M690 350 L690 706 L315 706 L315 674" marker-end="url(#openArrow)"/>
+</svg>

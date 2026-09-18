@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="400" viewBox="0 0 800 400" role="img" aria-labelledby="t d">
+  <title id="t">快进合并与保留分支的合并</title>
+  <desc id="d">左侧 fast-forward 合并后 master 直接前移到分支顶端，历史仍是一条直线；右侧使用 --no-ff 合并会新生成一个合并提交</desc>
+  <defs>
+    <style>
+      .cmd  { font-family:Consolas,'Cascadia Mono',Menlo,monospace; font-size:16px; fill:#1f1f1f; }
+      .lbl  { font-family:'Microsoft YaHei','PingFang SC','Noto Sans SC',sans-serif; font-size:17px; fill:#1f1f1f; }
+      .node { fill:#ffffff; stroke:#1f1f1f; stroke-width:1.8; }
+      .ghost{ fill:#ffffff; stroke:#1f1f1f; stroke-width:1.8; stroke-dasharray:4 4; }
+      .base { fill:#909090; stroke:#1f1f1f; stroke-width:1.8; }
+      .ar   { stroke:#1f1f1f; stroke-width:1.8; fill:none; }
+      .tag  { fill:#d9d9d9; stroke:#1f1f1f; stroke-width:1.4; }
+      .tagt { font-family:'Microsoft YaHei','PingFang SC','Noto Sans SC',sans-serif; font-size:15px; fill:#1f1f1f; text-anchor:middle; }
+    </style>
+    <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 Z" fill="#1f1f1f"/>
+    </marker>
+  </defs>
+  <rect width="800" height="400" fill="#ffffff"/>
+
+  <!-- 左：fast-forward -->
+  <text class="cmd" x="10" y="34">git fetch ariya</text>
+  <text class="cmd" x="10" y="62">git merge ariya/speedup</text>
+  <text class="lbl" x="38" y="180">master</text>
+
+  <circle class="node" cx="140" cy="180" r="17"/>
+  <circle class="node" cx="140" cy="235" r="17"/>
+  <circle class="node" cx="140" cy="290" r="17"/>
+  <circle class="base" cx="140" cy="350" r="17"/>
+  <path class="ar" d="M140 331 L140 309" marker-end="url(#ar)"/>
+  <path class="ar" d="M140 216 L140 201" marker-end="url(#ar)"/>
+  <path class="ar" d="M140 271 L140 254" marker-end="url(#ar)"/>
+
+  <!-- 右：使用 no-ff 合并 -->
+  <text class="cmd" x="418" y="34">git fetch ariya</text>
+  <text class="cmd" x="418" y="62">git merge -no-ff ariya/speedup</text>
+  <text class="lbl" x="392" y="158">master</text>
+
+  <circle class="ghost" cx="508" cy="152" r="17"/>
+  <circle class="node" cx="575" cy="200" r="17"/>
+  <circle class="node" cx="570" cy="255" r="17"/>
+  <circle class="node" cx="565" cy="310" r="17"/>
+  <circle class="base" cx="510" cy="365" r="17"/>
+
+  <path class="ar" d="M527 353 L551 328" marker-end="url(#ar)"/>
+  <path class="ar" d="M566 293 L569 274" marker-end="url(#ar)"/>
+  <path class="ar" d="M571 238 L574 219" marker-end="url(#ar)"/>
+  <path class="ar" d="M560 190 L529 166" marker-end="url(#ar)"/>
+  <path class="ar" d="M509 348 L509 172" marker-end="url(#ar)"/>
+
+  <rect class="tag" x="565" y="100" width="176" height="46"/>
+  <text class="tagt" x="653" y="120">Merge branch</text>
+  <text class="tagt" x="653" y="140">'ariya/speedup'</text>
+</svg>

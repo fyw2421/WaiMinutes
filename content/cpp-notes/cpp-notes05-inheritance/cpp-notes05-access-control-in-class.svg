@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="560" height="184" viewBox="0 0 560 184" role="img" aria-labelledby="t d">
+  <title id="t">基类成员在派生类中的访问控制属性</title>
+  <desc id="d">表 10-1：以 public 继承时成员保持原属性，protected 继承时 public 与 protected 降为 protected，private 继承时 public 与 protected 降为 private，基类私有成员在派生类中一律不可访问（隔离）</desc>
+  <defs>
+    <style>
+      .grid { stroke:#1f1f1f; stroke-width:1.1; fill:none; }
+      .cap  { font-family:'Microsoft YaHei','PingFang SC','Noto Sans SC',sans-serif; font-size:14px; font-weight:700; fill:#1f1f1f; text-anchor:middle; }
+      .hd   { font-family:'Microsoft YaHei','PingFang SC','Noto Sans SC',sans-serif; font-size:13px; font-weight:700; fill:#1f1f1f; text-anchor:middle; }
+      .cell { font-family:'Microsoft YaHei','PingFang SC','Noto Sans SC',sans-serif; font-size:13px; fill:#1f1f1f; text-anchor:middle; }
+      .corner { font-family:'Microsoft YaHei','PingFang SC','Noto Sans SC',sans-serif; font-size:10.5px; fill:#1f1f1f; }
+    </style>
+  </defs>
+  <rect width="560" height="184" fill="#ffffff"/>
+
+  <text class="cap" x="280" y="26">表 10-1　基类成员在派生类中的访问控制属性</text>
+
+  <rect class="grid" x="20" y="44" width="518" height="112"/>
+  <path class="grid" d="M130 44 L130 156 M266 44 L266 156 M402 44 L402 156"/>
+  <path class="grid" d="M20 78 L130 78 M130 78 L538 78 M20 104 L538 104 M20 130 L538 130"/>
+  <path class="grid" d="M20 44 L130 78"/>
+
+  <text class="corner" x="126" y="58" text-anchor="end">基类访问属性</text>
+  <text class="corner" x="25" y="74">继承类型</text>
+
+  <text class="hd" x="198" y="68">public</text>
+  <text class="hd" x="334" y="68">protected</text>
+  <text class="hd" x="470" y="68">private</text>
+
+  <text class="cell" x="75" y="94">public</text>
+  <text class="cell" x="198" y="94">public</text>
+  <text class="cell" x="334" y="94">protected</text>
+  <text class="cell" x="470" y="94">隔离</text>
+
+  <text class="cell" x="75" y="120">protected</text>
+  <text class="cell" x="198" y="120">protected</text>
+  <text class="cell" x="334" y="120">protected</text>
+  <text class="cell" x="470" y="120">隔离</text>
+
+  <text class="cell" x="75" y="146">private</text>
+  <text class="cell" x="198" y="146">private</text>
+  <text class="cell" x="334" y="146">private</text>
+  <text class="cell" x="470" y="146">隔离</text>
+</svg>

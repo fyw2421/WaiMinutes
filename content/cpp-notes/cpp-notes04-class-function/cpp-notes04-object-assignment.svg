@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="320" height="272" viewBox="0 0 320 272" role="img" aria-labelledby="t d">
+  <title id="t">对象赋值</title>
+  <desc id="d">p2 = p1 后，p2 原先引用的 Jenny 对象被释放，p1 与 p2 各自持有一份复制出来的 Randy 对象</desc>
+  <defs>
+    <style>
+      .box   { fill:#ffffff; stroke:#1f1f1f; stroke-width:1.2; }
+      .ln    { stroke:#1f1f1f; stroke-width:1.2; fill:none; }
+      .lbl   { font-family:'Microsoft YaHei','PingFang SC','Noto Sans SC',sans-serif; font-size:13px; fill:#1f1f1f; }
+      .cap   { font-family:'Microsoft YaHei','PingFang SC','Noto Sans SC',sans-serif; font-size:13px; fill:#1f1f1f; text-anchor:middle; }
+    </style>
+    <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 Z" fill="#1f1f1f"/>
+    </marker>
+  </defs>
+  <rect width="320" height="272" fill="#ffffff"/>
+
+  <!-- 被释放的 Jenny（云） -->
+  <path class="box" d="M184 68 A14 14 0 0 1 180 34 A16 16 0 0 1 208 18 A17 17 0 0 1 242 16 A15 15 0 0 1 268 36 A13 13 0 0 1 270 68 Z"/>
+  <text class="lbl" x="225" y="38" text-anchor="middle">释放掉</text>
+  <rect class="box" x="194" y="40" width="66" height="22"/>
+  <text class="lbl" x="227" y="56" text-anchor="middle">Jenny</text>
+  <circle class="ln" cx="280" cy="24" r="4"/>
+  <circle class="ln" cx="291" cy="15" r="2.5"/>
+
+  <!-- p2 / p1 -->
+  <rect class="box" x="16" y="34" width="104" height="72"/>
+  <text class="lbl" x="20" y="26">p2</text>
+  <rect class="box" x="16" y="160" width="104" height="72"/>
+  <text class="lbl" x="20" y="152">p1</text>
+
+  <!-- 复制（p1 -> p2） -->
+  <path class="box" d="M58 160 L58 126 L44 126 L68 106 L92 126 L78 126 L78 160 Z"/>
+  <text class="lbl" x="98" y="154">复制</text>
+
+  <!-- p2 -> 被释放的对象 -->
+  <path class="ln" d="M120 52 L184 52"/>
+  <path class="ln" d="M146 44 L158 60"/>
+
+  <!-- p2 -> Randy -->
+  <path class="ln" d="M120 86 L146 86 L146 130 L187 130" marker-end="url(#ar)"/>
+  <rect class="box" x="188" y="119" width="88" height="24"/>
+  <text class="lbl" x="232" y="136" text-anchor="middle">Randy</text>
+
+  <!-- 复制（下 Randy -> 上 Randy） -->
+  <path class="box" d="M226 196 L226 163 L212 163 L236 143 L260 163 L246 163 L246 196 Z"/>
+  <text class="lbl" x="266" y="192">复制</text>
+  <rect class="box" x="188" y="196" width="88" height="24"/>
+  <text class="lbl" x="232" y="213" text-anchor="middle">Randy</text>
+
+  <!-- p1 -> Randy -->
+  <path class="ln" d="M120 214 L185 214" marker-end="url(#ar)"/>
+
+  <text class="cap" x="160" y="258">图 9-4　对象赋值</text>
+</svg>

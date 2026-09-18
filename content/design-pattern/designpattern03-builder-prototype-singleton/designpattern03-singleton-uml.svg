@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="560" height="280" viewBox="0 0 560 280" role="img" aria-labelledby="t d">
+  <title id="t">单例模式 UML 类图</title>
+  <desc id="d">Singleton 类含私有实例、私有构造与 getInstance 方法，并通过自关联返回自身实例</desc>
+  <defs>
+    <style>
+      .box   { fill:#f3e4c4; stroke:#9c8254; stroke-width:1.2; }
+      .sep   { stroke:#9c8254; stroke-width:1; }
+      .title { font-family:'Microsoft YaHei','PingFang SC','Hiragino Sans GB','Noto Sans SC',sans-serif; font-size:22px; font-weight:700; fill:#1f1f1f; text-anchor:middle; }
+      .member{ font-family:'Microsoft YaHei','PingFang SC','Hiragino Sans GB','Noto Sans SC',sans-serif; font-size:17px; fill:#1f1f1f; }
+      .line  { stroke:#1f1f1f; stroke-width:1.4; fill:none; }
+      .hollow{ fill:#ffffff; stroke:#1f1f1f; stroke-width:1.4; stroke-linejoin:round; }
+    </style>
+  </defs>
+
+  <rect width="560" height="280" fill="#ffffff"/>
+
+  <!-- Singleton 类 -->
+  <rect class="box" x="40" y="30" width="320" height="190" rx="2"/>
+  <line class="sep" x1="40" y1="76" x2="360" y2="76"/>
+  <line class="sep" x1="40" y1="126" x2="360" y2="126"/>
+  <text class="title" x="200" y="61">Singleton</text>
+  <text class="member" x="58" y="106">-  instance : int</text>
+  <text class="member" x="58" y="156">-  Singleton () : void</text>
+  <text class="member" x="58" y="188">+  getInstance() : void</text>
+
+  <!-- 自关联：从右上折回右下，箭头（空心三角）指回类内部 -->
+  <path class="line" d="M410 55 L410 205 L364 205"/>
+  <path class="line" d="M410 55 L364 55"/>
+  <path class="hollow" d="M364 55 L388 44 L388 66 Z"/>
+</svg>

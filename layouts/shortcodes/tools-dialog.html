@@ -1,0 +1,37 @@
+{{/* 首页工具弹窗。与 layouts/shortcodes/tools.html（工具卡片）是两个独立的短代码。
+
+     ⚠ 弹窗必须与 feature-grid 平级调用（在 {{< /feature-grid >}} 之后），
+     既不能放进 feature-grid 内部，也不能嵌在工具卡片里：
+
+     1) 不能放进 feature-grid：它会成为网格的一个直接子元素，把子元素数量从
+        6 变成 7。主题的补位规则是
+        `.grid-balance-3 > :last-child:nth-child(3n+1) { grid-column: 1/-1 }`，
+        7 = 3×2+1 命中该规则，末张专题卡被拉成整行（实测 768px vs 其他 245px）——
+        这是对既有 5 张专题卡的可见回归。`:nth-child()` 会把 display:none 的元素
+        也算进去，所以**无法**用 CSS 把弹窗藏起来规避，只能在 DOM 上移出去。
+
+     2) 也不要嵌在工具卡片里：卡片本身位于 feature-grid 内部，把弹窗留在其中只会
+        让它深埋在网格 DOM 里；弹窗是页面级模态，正确位置是与 feature-grid 平级。
+        （注意：showModal() 打开的 <dialog> 会被提升到 top-layer，不受祖先
+        filter/backdrop-filter/overflow 的包含块或裁剪影响——所以这并不是
+        「会被钉在卡片角上」的问题，只是放置位置的问题。）
+
+     弹窗用原生 <dialog>：Esc 关闭、焦点陷阱、::backdrop 都是浏览器内置的，
+     showModal() 还会把它渲染到 top-layer，不受任何 z-index 堆叠上下文影响。
+     JS 见 assets/js/tools-modal.js（由 extend-head-uncached.html 注入）。 */}}
+<dialog id="tool-dialog" class="tool-dialog" aria-label="工具">
+  <div class="tool-dialog__bar">
+    <span class="tool-dialog__title" id="tool-dialog-title"></span>
+    <div class="tool-dialog__actions">
+      <a class="tool-dialog__open" id="tool-open-external" href="#" target="_blank" rel="noopener noreferrer">
+        新标签打开
+      </a>
+      <button type="button" class="tool-dialog__close" id="tool-close" aria-label="关闭">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+  </div>
+  <div class="tool-dialog__body">
+    <iframe id="tool-frame" class="tool-frame" title="工具" loading="lazy"></iframe>
+  </div>
+</dialog>

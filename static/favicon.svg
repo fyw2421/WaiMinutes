@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512" role="img" aria-label="Wai Minutes">
+  <!-- 由 scripts/make-icons.py 生成，勿手改：改几何/配色请改该脚本后重跑。 -->
+  <defs>
+    <linearGradient id="tile" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#16244a"/>
+      <stop offset="0.55" stop-color="#0d1730"/>
+      <stop offset="1" stop-color="#060a14"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0.5" cy="0" r="0.85">
+      <stop offset="0" stop-color="#3882dc" stop-opacity="0.3"/>
+      <stop offset="1" stop-color="#3882dc" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="line" gradientUnits="userSpaceOnUse" x1="110" y1="0" x2="402" y2="0">
+      <stop offset="0" stop-color="#cfe08e"/>
+      <stop offset="0.41" stop-color="#e8c48e"/>
+      <stop offset="0.68" stop-color="#e8a39d"/>
+      <stop offset="1" stop-color="#e89cc0"/>
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" rx="112" fill="url(#tile)"/>
+  <rect width="512" height="512" rx="112" fill="url(#glow)"/>
+  <polyline points="110,172 198,348 256,204 314,348 402,172" fill="none" stroke="url(#line)" stroke-width="60"
+            stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

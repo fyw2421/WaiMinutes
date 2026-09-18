@@ -1,0 +1,67 @@
+{{/* 覆盖主题的同名钩子：themes/blowfish/layouts/_default/_markup/render-link.html
+
+     本覆盖只做一件事：给「下载类」链接标上 download 属性，点击直接存盘，而不是
+     在浏览器里把源文件当文本打开。其余逻辑（相对路径解析、外链加 target）逐字
+     照抄主题原版——主题升级时若原版有改动，这份需要跟着同步（update-theme.ps1
+     的自检清单里有这一项）。
+
+     ⚠ 为什么用 download 属性，而不是去配 Content-Type：
+       .h / .cpp / .gitignore 这类扩展名没有标准 Web 媒体类型，静态托管方一律按
+       text/plain 返回，而浏览器对 text/plain 是**内联显示**。本站实测：hugo server
+       返回 `text/plain; charset=utf-8`，python http.server 返回 `text/plain`。
+       更关键的是 Content-Type 由托管方决定——Hugo 的 [mediaTypes] 只影响 hugo server，
+       GitHub Pages 有自己的映射表，不读本站配置。download 属性对同源链接强制下载、
+       与 Content-Type 无关，是两种环境下都成立的唯一解法。本站这些文件都是同源的
+       （经 resources.Get 解析成 /WaiMinutes/... 的绝对路径），所以适用。
+
+     判定依据取链接目标 $u.Path 的扩展名，而不是解析后的 $href：扩展名是作者写下的
+     事实，不会因为资源解析失败而漏判（解析失败时 $href 会退化成原始字符串）。
+
+     扩展名清单只收「源码 / 归档 / 配置」——这些浏览器会内联显示、而读者想要存盘的
+     类型。图片（svg/webp/png/jpg）与 pdf 刻意不收：它们本就该在浏览器里看。
+     站点当前有 57 个此类链接（28 个 .h、28 个 .cpp、1 个 .gitignore），全部由这一处
+     覆盖生效；以后新增的下载链接也自动生效，作者无需记得手写属性。 */}}
+{{- $downloadExts := slice
+  "h" "hpp" "hh" "c" "cc" "cpp" "cxx" "inl"
+  "cs" "java" "py" "rb" "go" "rs" "php" "js" "mjs" "ts"
+  "sql" "sh" "bash" "zsh" "bat" "cmd" "ps1" "psd1"
+  "gitignore" "zip" "tar" "gz" "tgz" "bz2" "xz" "7z" "rar"
+-}}
+
+{{/* ---- 以下逻辑照抄主题原版，勿改动语义 ---- */}}
+{{- $u := urls.Parse .Destination -}}
+{{- $href := $u.String -}}
+{{- if strings.HasPrefix $u.String "#" -}}
+  {{- $href = printf "%s#%s" .PageInner.RelPermalink $u.Fragment -}}
+{{- else if and $href (not $u.IsAbs) -}}
+  {{- $path := strings.TrimPrefix "./" $u.Path -}}
+  {{- with or
+    ($.PageInner.GetPage $path)
+    ($.PageInner.Resources.Get $path)
+    (resources.Get $path)
+  -}}
+    {{- $href = .RelPermalink -}}
+    {{- with $u.RawQuery -}}
+      {{- $href = printf "%s?%s" $href . -}}
+    {{- end -}}
+    {{- with $u.Fragment -}}
+      {{- $href = printf "%s#%s" $href . -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+
+{{/* 是否标记为下载：必须是站内链接（外链的 download 会被浏览器忽略，且语义上不该
+     由本站决定别人家文件怎么下载），且扩展名在清单里。 */}}
+{{- $ext := lower (strings.TrimPrefix "." (path.Ext $u.Path)) -}}
+{{- $isDownload := and (not $u.IsAbs) (in $downloadExts $ext) -}}
+
+{{- $forceNewTab := .Page.Params.externalLinkForceNewTab | default (.Page.Site.Params.article.externalLinkForceNewTab | default true) -}}
+{{- $isExternal := or (strings.HasPrefix .Destination "http:") (strings.HasPrefix .Destination "https:") -}}
+{{- $newTab := and $forceNewTab $isExternal -}}
+
+<a href="{{ $href }}" {{ with .Title }}title="{{ . }}"{{ end }}
+  {{- if $newTab }} target="_blank" rel="noreferrer"{{ end }}
+  {{- if $isDownload }} download{{ end }}>
+  {{- .Text | safeHTML -}}
+</a>
+{{- /* Trim EOF */ -}}

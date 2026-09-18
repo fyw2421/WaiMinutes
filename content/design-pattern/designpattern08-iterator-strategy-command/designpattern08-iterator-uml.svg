@@ -1,0 +1,101 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="680" height="480" viewBox="0 0 680 480" role="img" aria-labelledby="t d">
+  <title id="t">迭代器模式 UML 类图</title>
+  <desc id="d">Client 使用 Aggregate 与 Iterator；ConcreteAggregate 继承 Aggregate 并创建 ConcreteIterator；ConcreteIterator 继承 Iterator</desc>
+  <defs>
+    <style>
+      .box   { fill:#f3e4c4; stroke:#9c8254; stroke-width:1; }
+      .note  { fill:#fdfaf3; stroke:#c9b89a; stroke-width:1; }
+      .sep   { stroke:#9c8254; stroke-width:1; }
+      .title { font-family:'Microsoft YaHei','PingFang SC','Hiragino Sans GB','Noto Sans SC',sans-serif; font-size:16px; font-weight:700; fill:#1f1f1f; text-anchor:middle; }
+      .titlei{ font-family:'Microsoft YaHei','PingFang SC','Hiragino Sans GB','Noto Sans SC',sans-serif; font-size:16px; font-weight:700; font-style:italic; fill:#1f1f1f; text-anchor:middle; }
+      .member{ font-family:'Microsoft YaHei','PingFang SC','Hiragino Sans GB','Noto Sans SC',sans-serif; font-size:13px; fill:#1f1f1f; }
+      .ntext { font-family:'Microsoft YaHei','PingFang SC','Hiragino Sans GB','Noto Sans SC',sans-serif; font-size:12px; fill:#1f1f1f; }
+      .line  { stroke:#1f1f1f; stroke-width:1.1; fill:none; }
+      .dash  { stroke:#1f1f1f; stroke-width:1; fill:none; stroke-dasharray:5 3; }
+      .hollow{ fill:#ffffff; stroke:#1f1f1f; stroke-width:1.1; stroke-linejoin:round; }
+    </style>
+    <marker id="openArrow" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M1,1 L10,6 L1,11" fill="none" stroke="#1f1f1f" stroke-width="1.2"/>
+    </marker>
+  </defs>
+
+  <rect width="680" height="480" fill="#ffffff"/>
+
+  <!-- 注释 -->
+  <g>
+    <path class="note" d="M30 15 H140 L154 29 V46 H30 Z"/>
+    <path class="note" d="M140 15 V29 H154" fill="none"/>
+    <text class="ntext" x="42" y="38">聚集抽象类</text>
+  </g>
+  <g>
+    <path class="note" d="M310 10 H660 L674 24 V86 H310 Z"/>
+    <path class="note" d="M660 10 V24 H674" fill="none"/>
+    <text class="ntext" x="322" y="34">迭代抽象类，用于定义得到开始对象，得到下一个对</text>
+    <text class="ntext" x="322" y="56">象，判断是否结尾，当前对象等抽象方法，统一接口</text>
+  </g>
+
+  <!-- Aggregate -->
+  <rect class="box" x="30" y="110" width="190" height="72" rx="2"/>
+  <line class="sep" x1="30" y1="142" x2="220" y2="142"/>
+  <text class="titlei" x="125" y="132">Aggregate</text>
+  <text class="member" x="44" y="166">+CreateIterator(): Iterator</text>
+
+  <!-- Client -->
+  <rect class="box" x="280" y="110" width="120" height="72" rx="2"/>
+  <line class="sep" x1="280" y1="136" x2="400" y2="136"/>
+  <line class="sep" x1="280" y1="158" x2="400" y2="158"/>
+  <text class="title" x="340" y="128">Client</text>
+
+  <!-- Iterator -->
+  <rect class="box" x="460" y="100" width="190" height="132" rx="2"/>
+  <line class="sep" x1="460" y1="132" x2="650" y2="132"/>
+  <text class="titlei" x="555" y="122">Iterator</text>
+  <text class="member" x="474" y="156">+First()</text>
+  <text class="member" x="474" y="178">+Next()</text>
+  <text class="member" x="474" y="200">+IsDone()</text>
+  <text class="member" x="474" y="222">+CurrentItem()</text>
+
+  <!-- ConcreteAggregate -->
+  <rect class="box" x="30" y="320" width="200" height="76" rx="2"/>
+  <line class="sep" x1="30" y1="352" x2="230" y2="352"/>
+  <text class="title" x="130" y="342">ConcreteAggregate</text>
+  <text class="member" x="44" y="376">+CreateIterator(): Iterator</text>
+
+  <!-- ConcreteIterator -->
+  <rect class="box" x="440" y="320" width="210" height="76" rx="2"/>
+  <line class="sep" x1="440" y1="352" x2="650" y2="352"/>
+  <line class="sep" x1="440" y1="376" x2="650" y2="376"/>
+  <text class="title" x="545" y="342">ConcreteIterator</text>
+
+  <!-- 底部注释 -->
+  <g>
+    <path class="note" d="M10 420 H210 L224 434 V452 H10 Z"/>
+    <path class="note" d="M210 420 V434 H224" fill="none"/>
+    <text class="ntext" x="22" y="444">具体聚集类，继承Aggregate</text>
+  </g>
+  <g>
+    <path class="note" d="M410 404 H660 L674 418 V464 H410 Z"/>
+    <path class="note" d="M660 404 V418 H674" fill="none"/>
+    <text class="ntext" x="422" y="428">具体迭代器类，继承Iterator，实现开始</text>
+    <text class="ntext" x="422" y="450">下一个、是否结尾、当前对象等方法</text>
+  </g>
+
+  <!-- 关系 -->
+  <line class="dash" x1="100" y1="46" x2="110" y2="104" marker-end="url(#openArrow)"/>
+  <line class="dash" x1="520" y1="86" x2="540" y2="94" marker-end="url(#openArrow)"/>
+
+  <line class="line" x1="278" y1="130" x2="226" y2="130" marker-end="url(#openArrow)"/>
+  <line class="line" x1="402" y1="130" x2="454" y2="130" marker-end="url(#openArrow)"/>
+
+  <path class="line" d="M130 320 L130 202"/>
+  <path class="hollow" d="M130 182 L119 200 L141 200 Z"/>
+
+  <path class="line" d="M545 320 L545 254"/>
+  <path class="hollow" d="M545 232 L534 252 L556 252 Z"/>
+
+  <line class="dash" x1="232" y1="342" x2="434" y2="342" marker-end="url(#openArrow)"/>
+  <line class="line" x1="438" y1="372" x2="234" y2="372" marker-end="url(#openArrow)"/>
+
+  <line class="dash" x1="120" y1="396" x2="120" y2="416" marker-end="url(#openArrow)"/>
+  <line class="dash" x1="545" y1="396" x2="545" y2="406" marker-end="url(#openArrow)"/>
+</svg>

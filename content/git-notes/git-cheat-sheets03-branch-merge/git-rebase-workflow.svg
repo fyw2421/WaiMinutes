@@ -1,0 +1,82 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="400" viewBox="0 0 1200 400" role="img" aria-labelledby="t d">
+  <title id="t">rebase 前后的提交历史</title>
+  <desc id="d">rebase 前 master 是 A-B-C-D，feature 从 B 分叉出 E、F；rebase 后 E、F 被重新应用到 D 之上，生成新的提交 E'、F'，历史成为一条直线</desc>
+  <defs>
+    <style>
+      .ttl   { font-family:'Microsoft YaHei','PingFang SC','Noto Sans SC',sans-serif; font-size:16px; font-weight:700; fill:#1f1f1f; text-anchor:middle; }
+      .c     { fill:#3b4a6b; stroke:#2c3a55; stroke-width:1.4; }
+      .chot  { fill:#3b4a6b; stroke:#c0392b; stroke-width:4; }
+      .cfade { fill:#ccd5e6; stroke:#ecc7c7; stroke-width:4; }
+      .ctxt  { font-family:'Microsoft YaHei','PingFang SC','Noto Sans SC',sans-serif; font-size:15px; font-weight:700; fill:#ffffff; text-anchor:middle; }
+      .ctxtf { font-family:'Microsoft YaHei','PingFang SC','Noto Sans SC',sans-serif; font-size:15px; font-weight:700; fill:#8e9bb8; text-anchor:middle; }
+      .link  { stroke:#7f9fd4; stroke-width:2; fill:none; }
+      .linkf { stroke:#dbe3f0; stroke-width:2; fill:none; }
+      .branch{ stroke:#7f9fd4; stroke-width:2; fill:none; }
+      .tag   { fill:#ffffff; stroke:#3b4a6b; stroke-width:1.6; }
+      .tagt  { font-family:'Microsoft YaHei','PingFang SC','Noto Sans SC',sans-serif; font-size:14px; fill:#1f1f1f; text-anchor:middle; }
+      .div   { stroke:#cccccc; stroke-width:1.6; }
+    </style>
+  </defs>
+  <rect width="1200" height="400" fill="#ffffff"/>
+
+  <path class="div" d="M600 24 L600 376"/>
+
+  <!-- ===== Before rebase ===== -->
+  <text class="ttl" x="270" y="52">Before rebase</text>
+
+  <path class="link" d="M94 130 L146 130 M194 130 L246 130 M294 130 L346 130"/>
+  <path class="branch" d="M194 130 C 232 130, 183 235, 221 235"/>
+  <path class="link" d="M269 235 L316 235"/>
+
+  <circle class="c" cx="70" cy="130" r="24"/>
+  <text class="ctxt" x="70" y="136">A</text>
+  <circle class="c" cx="170" cy="130" r="24"/>
+  <text class="ctxt" x="170" y="136">B</text>
+  <circle class="c" cx="270" cy="130" r="24"/>
+  <text class="ctxt" x="270" y="136">C</text>
+  <circle class="c" cx="370" cy="130" r="24"/>
+  <text class="ctxt" x="370" y="136">D</text>
+
+  <circle class="chot" cx="245" cy="235" r="24"/>
+  <text class="ctxt" x="245" y="241">E</text>
+  <circle class="chot" cx="340" cy="235" r="24"/>
+  <text class="ctxt" x="340" y="241">F</text>
+
+  <path class="tag" d="M418 118 L490 118 L490 142 L418 142 L410 130 Z"/>
+  <text class="tagt" x="454" y="136">master</text>
+  <path class="tag" d="M423 223 L495 223 L495 247 L423 247 L415 235 Z"/>
+  <text class="tagt" x="459" y="241">feature</text>
+
+  <!-- ===== After rebase ===== -->
+  <text class="ttl" x="870" y="52">After rebase</text>
+
+  <path class="link" d="M664 130 L716 130 M764 130 L816 130 M864 130 L916 130"/>
+  <path class="linkf" d="M764 130 C 802 130, 738 235, 776 235"/>
+  <path class="linkf" d="M824 235 L866 235"/>
+  <path class="link" d="M964 130 C 1002 130, 928 235, 966 235"/>
+  <path class="link" d="M1014 235 L1056 235"/>
+
+  <circle class="c" cx="640" cy="130" r="24"/>
+  <text class="ctxt" x="640" y="136">A</text>
+  <circle class="c" cx="740" cy="130" r="24"/>
+  <text class="ctxt" x="740" y="136">B</text>
+  <circle class="c" cx="840" cy="130" r="24"/>
+  <text class="ctxt" x="840" y="136">C</text>
+  <circle class="c" cx="940" cy="130" r="24"/>
+  <text class="ctxt" x="940" y="136">D</text>
+
+  <circle class="cfade" cx="800" cy="235" r="24"/>
+  <text class="ctxtf" x="800" y="241">E</text>
+  <circle class="cfade" cx="890" cy="235" r="24"/>
+  <text class="ctxtf" x="890" y="241">F</text>
+
+  <circle class="chot" cx="990" cy="235" r="24"/>
+  <text class="ctxt" x="990" y="241">E'</text>
+  <circle class="chot" cx="1080" cy="235" r="24"/>
+  <text class="ctxt" x="1080" y="241">F'</text>
+
+  <path class="tag" d="M988 118 L1060 118 L1060 142 L988 142 L980 130 Z"/>
+  <text class="tagt" x="1024" y="136">master</text>
+  <path class="tag" d="M1123 223 L1195 223 L1195 247 L1123 247 L1115 235 Z"/>
+  <text class="tagt" x="1159" y="241">feature</text>
+</svg>

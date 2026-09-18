@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="920" height="620" viewBox="0 0 920 620" role="img" aria-labelledby="t d">
+  <title id="t">职责链模式示例（请假申请）UML 类图</title>
+  <desc id="d">管理者 自聚合上级；经理/总监/总经理 继承 管理者 并处理 申请</desc>
+  <defs>
+    <style>
+      .box   { fill:#f3e4c4; stroke:#9c8254; stroke-width:1; }
+      .sep   { stroke:#9c8254; stroke-width:1; }
+      .title { font-family:'Microsoft YaHei','PingFang SC','Hiragino Sans GB','Noto Sans SC',sans-serif; font-size:15px; font-weight:700; fill:#1f1f1f; text-anchor:middle; }
+      .titlei{ font-family:'Microsoft YaHei','PingFang SC','Hiragino Sans GB','Noto Sans SC',sans-serif; font-size:15px; font-weight:700; font-style:italic; fill:#1f1f1f; text-anchor:middle; }
+      .member{ font-family:'Microsoft YaHei','PingFang SC','Hiragino Sans GB','Noto Sans SC',sans-serif; font-size:12px; fill:#1f1f1f; }
+      .line  { stroke:#1f1f1f; stroke-width:1.1; fill:none; }
+      .dash  { stroke:#1f1f1f; stroke-width:1.4; fill:none; stroke-dasharray:7 4; }
+      .hollow{ fill:#ffffff; stroke:#1f1f1f; stroke-width:1.1; stroke-linejoin:round; }
+    </style>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 Z" fill="#1f1f1f"/>
+    </marker>
+  </defs>
+
+  <rect width="920" height="620" fill="#ffffff"/>
+
+  <!-- 管理者 -->
+  <rect class="box" x="330" y="60" width="280" height="110" rx="2"/>
+  <line class="sep" x1="330" y1="92" x2="610" y2="92"/>
+  <text class="titlei" x="470" y="82">管理者</text>
+  <text class="member" x="344" y="116">+设置管理者上级()</text>
+  <text class="member" x="344" y="142">+申请请求(in request  :  申请)</text>
+
+  <!-- 自关联（上级） -->
+  <path class="line" d="M390 60 L390 25 L760 25 L760 150 L616 150"/>
+  <path class="hollow" d="M616 150 L627 141 L638 150 L627 159 Z"/>
+  <path class="hollow" d="M390 60 L384 42 L396 42 Z"/>
+
+  <!-- 三个具体管理者 -->
+  <rect class="box" x="30" y="300" width="270" height="100" rx="2"/>
+  <line class="sep" x1="30" y1="332" x2="300" y2="332"/>
+  <text class="title" x="165" y="322">经理</text>
+  <text class="member" x="44" y="358">+申请请求(in request  :  申请)</text>
+
+  <rect class="box" x="340" y="300" width="270" height="100" rx="2"/>
+  <line class="sep" x1="340" y1="332" x2="610" y2="332"/>
+  <text class="title" x="475" y="322">总监</text>
+  <text class="member" x="354" y="358">+申请请求(in request  :  申请)</text>
+
+  <rect class="box" x="650" y="300" width="250" height="100" rx="2"/>
+  <line class="sep" x1="650" y1="332" x2="900" y2="332"/>
+  <text class="title" x="775" y="322">总经理</text>
+  <text class="member" x="664" y="358">+申请请求(in request  :  申请)</text>
+
+  <!-- 申请 -->
+  <rect class="box" x="340" y="470" width="280" height="120" rx="2"/>
+  <line class="sep" x1="340" y1="502" x2="620" y2="502"/>
+  <text class="title" x="480" y="492">申请</text>
+  <text class="member" x="354" y="526">+申请类别  :  string</text>
+  <text class="member" x="354" y="550">+申请内容  :  string</text>
+  <text class="member" x="354" y="574">+数量  :  int</text>
+
+  <!-- 继承 -->
+  <path class="line" d="M470 170 L470 225"/>
+  <path class="hollow" d="M470 170 L459 190 L481 190 Z"/>
+  <path class="line" d="M165 225 L775 225"/>
+  <path class="line" d="M165 225 L165 300 M475 225 L475 300 M775 225 L775 300"/>
+
+  <!-- 处理申请（虚线） -->
+  <path class="dash" d="M165 400 L165 530 L334 530" marker-end="url(#arrow)"/>
+  <line class="dash" x1="475" y1="400" x2="475" y2="464" marker-end="url(#arrow)"/>
+  <path class="dash" d="M775 400 L775 530 L626 530" marker-end="url(#arrow)"/>
+</svg>

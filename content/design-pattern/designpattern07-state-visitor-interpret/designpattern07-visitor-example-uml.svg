@@ -1,0 +1,83 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="620" viewBox="0 0 900 620" role="img" aria-labelledby="t d">
+  <title id="t">访问者模式示例（男人女人反应）UML 类图</title>
+  <desc id="d">客户端使用状态与对象结构；成功/失败继承状态；男人/女人继承 人</desc>
+  <defs>
+    <style>
+      .box   { fill:#f3e4c4; stroke:#9c8254; stroke-width:1; }
+      .sep   { stroke:#9c8254; stroke-width:1; }
+      .title { font-family:'Microsoft YaHei','PingFang SC','Hiragino Sans GB','Noto Sans SC',sans-serif; font-size:15px; font-weight:700; fill:#1f1f1f; text-anchor:middle; }
+      .member{ font-family:'Microsoft YaHei','PingFang SC','Hiragino Sans GB','Noto Sans SC',sans-serif; font-size:12px; fill:#1f1f1f; }
+      .line  { stroke:#1f1f1f; stroke-width:1.1; fill:none; }
+      .hollow{ fill:#ffffff; stroke:#1f1f1f; stroke-width:1.1; stroke-linejoin:round; }
+    </style>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 Z" fill="#1f1f1f"/>
+    </marker>
+  </defs>
+
+  <rect width="900" height="620" fill="#ffffff"/>
+
+  <!-- 客户端 -->
+  <rect class="box" x="30" y="30" width="130" height="90" rx="2"/>
+  <line class="sep" x1="30" y1="60" x2="160" y2="60"/>
+  <line class="sep" x1="30" y1="90" x2="160" y2="90"/>
+  <text class="title" x="95" y="52">客户端</text>
+
+  <!-- 状态 -->
+  <rect class="box" x="330" y="20" width="360" height="124" rx="2"/>
+  <line class="sep" x1="330" y1="52" x2="690" y2="52"/>
+  <line class="sep" x1="330" y1="84" x2="690" y2="84"/>
+  <text class="title" x="510" y="44">状态</text>
+  <text class="member" x="344" y="108">+男人反应(in concreteElementA  :  男人)</text>
+  <text class="member" x="344" y="132">+女人反应(in concreteElementB  :  女人)</text>
+
+  <!-- 成功 / 失败 -->
+  <rect class="box" x="140" y="190" width="320" height="124" rx="2"/>
+  <line class="sep" x1="140" y1="222" x2="460" y2="222"/>
+  <line class="sep" x1="140" y1="254" x2="460" y2="254"/>
+  <text class="title" x="300" y="214">成功</text>
+  <text class="member" x="154" y="278">+男人反应(in concreteElementA  :  男人)</text>
+  <text class="member" x="154" y="302">+女人反应(in concreteElementB  :  女人)</text>
+
+  <rect class="box" x="520" y="190" width="350" height="124" rx="2"/>
+  <line class="sep" x1="520" y1="222" x2="870" y2="222"/>
+  <line class="sep" x1="520" y1="254" x2="870" y2="254"/>
+  <text class="title" x="695" y="214">失败</text>
+  <text class="member" x="534" y="278">+男人反应(in concreteElementA  :  男人)</text>
+  <text class="member" x="534" y="302">+女人反应(in concreteElementB  :  女人)</text>
+
+  <!-- 对象结构 / 人 -->
+  <rect class="box" x="140" y="370" width="140" height="90" rx="2"/>
+  <line class="sep" x1="140" y1="400" x2="280" y2="400"/>
+  <line class="sep" x1="140" y1="430" x2="280" y2="430"/>
+  <text class="title" x="210" y="392">对象结构</text>
+
+  <rect class="box" x="400" y="360" width="230" height="100" rx="2"/>
+  <line class="sep" x1="400" y1="392" x2="630" y2="392"/>
+  <text class="title" x="515" y="382">人</text>
+  <text class="member" x="414" y="420">+接受(in visitor  :  状态)</text>
+
+  <!-- 男人 / 女人 -->
+  <rect class="box" x="270" y="500" width="230" height="100" rx="2"/>
+  <line class="sep" x1="270" y1="532" x2="500" y2="532"/>
+  <text class="title" x="385" y="522">男人</text>
+  <text class="member" x="284" y="560">+接受(in visitor  :  状态)</text>
+
+  <rect class="box" x="530" y="500" width="230" height="100" rx="2"/>
+  <line class="sep" x1="530" y1="532" x2="760" y2="532"/>
+  <text class="title" x="645" y="522">女人</text>
+  <text class="member" x="544" y="560">+接受(in visitor  :  状态)</text>
+
+  <!-- 关系 -->
+  <line class="line" x1="162" y1="60" x2="324" y2="60" marker-end="url(#arrow)"/>
+  <path class="line" d="M60 120 L60 415 L134 415" marker-end="url(#arrow)"/>
+  <line class="line" x1="282" y1="415" x2="394" y2="415" marker-end="url(#arrow)"/>
+
+  <path class="line" d="M510 144 L510 175"/>
+  <path class="hollow" d="M510 144 L499 164 L521 164 Z"/>
+  <path class="line" d="M300 175 L690 175 M300 175 L300 190 M690 175 L690 190"/>
+
+  <path class="line" d="M515 460 L515 480"/>
+  <path class="hollow" d="M515 460 L504 480 L526 480 Z"/>
+  <path class="line" d="M385 480 L645 480 M385 480 L385 500 M645 480 L645 500"/>
+</svg>

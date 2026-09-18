@@ -1,0 +1,52 @@
+{{/* 首页「工具」卡片。
+     与 layouts/shortcodes/feature.html（专题卡）是两个独立的短代码，互不影响：
+     那个管 5 张专题卡，这个只管工具。
+
+     ⚠ 工具必须用 iframe 加载，不能内联进来。工具的 CSS 里有**无作用域**的
+     `* { margin:0; padding:0; box-sizing:border-box }` 和
+     `body { display:flex; background:#f0f4f5 }`——内联会打掉全站 Tailwind 的
+     所有间距，并在暗色模式下把整页背景覆盖成浅色。iframe 是隔离它的唯一手段
+     （工具部署在本站 static/ 下，同源，无跨域限制）。
+
+     图块用 <a href> 而不是 <button>：JS 未加载时点击仍能跳转到工具页（渐进增强），
+     且保留中键新标签、复制链接、被搜索引擎抓取这些原生链接行为。
+
+     弹窗 DOM 由 layouts/shortcodes/tools-dialog.html 输出而非放进全局挂载点——
+     它只在首页需要，放挂载点会让全站每页都多出这段无用标记。弹窗之所以**不能**
+     放在本短代码里，是因为本短代码被调用在 feature-grid 内部，会成为一个网格
+     子元素而打乱主题的 :nth-child 补位规则——详见 tools-dialog.html 的注释。 */}}
+
+{{ $tools := hugo.Data.tools }}
+
+<article class="topic-card tools-card group overflow-hidden rounded-2xl border border-neutral-200/80 bg-white/60 shadow-sm backdrop-blur-xl transition duration-200 hover:-translate-y-1 hover:border-primary-300 hover:shadow-xl hover:shadow-primary-500/10 dark:border-neutral-800 dark:bg-neutral-900/50 dark:hover:border-primary-700">
+  {{/* 色带：结构与专题卡一致（三列网格让标题居中、数量靠右），
+       但颜色写死不从封面提取——工具没有封面，且青色是专题卡未占用的色相。
+       色值取自工具自身 UI 的主色 #0d9488，形成呼应。 */}}
+  <div class="topic-band tools-band" style="background-image:linear-gradient(180deg, #0f3f3c 0%, #0b2b29 100%)">
+    <h2 class="topic-band__name">工具</h2>
+    <span class="topic-count">{{ len (or $tools slice) }}<span class="sr-only"> 个</span></span>
+  </div>
+
+  <div class="topic-card__body tools-card__body p-6">
+    {{ if $tools }}
+      <div class="tools-grid">
+        {{ range $tools }}
+          {{/* relURL 是必需的：它把清单里的相对路径（tools/fuel-calculator/）
+               转成带子路径的绝对路径（/WaiMinutes/tools/fuel-calculator/）。
+               清单里的 url 不能带前导斜杠，否则 relURL 会丢掉子路径——详见
+               data/tools.yaml 的注释。 */}}
+          {{/* 不加 aria-label：可见文字（.name，如「油价计算」）本身就是正确的链接名。
+               若设一个不包含可见文字的 aria-label（如清单里的 .label「打开汽油百分比
+               计算器」），语音控制用户按可见文字就无法激活该链接，违反 WCAG 2.5.3
+               Label in Name（A 级）。 */}}
+          <a class="tool-tile" href="{{ .url | relURL }}" data-tool-url="{{ .url | relURL }}">
+            <span class="tool-tile__icon">{{ partial "icon.html" .icon }}</span>
+            <span class="tool-tile__label">{{ .name }}</span>
+          </a>
+        {{ end }}
+      </div>
+    {{ else }}
+      <p class="tools-empty">工具待添加</p>
+    {{ end }}
+  </div>
+</article>

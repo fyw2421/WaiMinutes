@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="224" height="196" viewBox="0 0 224 196" role="img" aria-labelledby="t d">
+  <title id="t">虚拟继承的 SleeperSofa 对象</title>
+  <desc id="d">虚拟继承后，SleeperSofa 对象本体中 Furniture 部分只出现一次，随后依次是 Bed 部分、Sofa 部分、SleeperSofa 部分</desc>
+  <defs>
+    <style>
+      .box  { fill:#ffffff; stroke:#1f1f1f; stroke-width:1.2; }
+      .ln   { stroke:#1f1f1f; stroke-width:1.2; fill:none; }
+      .part { font-family:'Microsoft YaHei','PingFang SC','Noto Sans SC',sans-serif; font-size:11px; font-weight:700; fill:#1f1f1f; }
+      .mem  { font-family:'Microsoft YaHei','PingFang SC','Noto Sans SC',sans-serif; font-size:11px; fill:#1f1f1f; }
+      .cap  { font-family:'Microsoft YaHei','PingFang SC','Noto Sans SC',sans-serif; font-size:11px; fill:#1f1f1f; text-anchor:middle; }
+    </style>
+  </defs>
+  <rect width="224" height="196" fill="#ffffff"/>
+
+  <rect class="box" x="48" y="14" width="128" height="128"/>
+  <path class="ln" d="M48 58 L176 58 M48 86 L176 86 M48 114 L176 114"/>
+
+  <text class="part" x="56" y="34">Furniture 部分</text>
+  <text class="mem"  x="68" y="52">weight</text>
+  <text class="part" x="56" y="76">Bed 部分</text>
+  <text class="part" x="56" y="104">Sofa 部分</text>
+  <text class="part" x="56" y="132">SleeperSofa 部分</text>
+
+  <text class="cap" x="112" y="172">图 10-8　虚拟继承的 SleeperSofa 对象</text>
+</svg>

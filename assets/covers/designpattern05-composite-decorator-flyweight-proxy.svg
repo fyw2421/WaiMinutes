@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1500" height="1000" viewBox="0 0 1500 1000" role="img" aria-labelledby="t d">
+  <title id="t">组合模式、装饰模式、享元模式、代理模式</title>
+  <desc id="d">设计模式 05：组合模式、装饰模式、享元模式、代理模式 的封面</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#46161f"/><stop offset="0.58" stop-color="#230b10"/><stop offset="1" stop-color="#230b10"/></linearGradient>
+    <radialGradient id="glow" cx="0.5" cy="0" r="0.9"><stop offset="0" stop-color="#c8564f" stop-opacity="0.34"/><stop offset="0.7" stop-color="#c8564f" stop-opacity="0"/></radialGradient>
+    <style>.sans { font-family: 'Microsoft YaHei','PingFang SC','Hiragino Sans GB','Noto Sans SC','Source Han Sans SC',sans-serif; } .mono { font-family: 'Cascadia Mono','Consolas','SFMono-Regular',monospace; }</style>
+  </defs>
+  <rect width="1500" height="1000" fill="url(#bg)"/>
+  <rect width="1500" height="1000" fill="url(#glow)"/>
+  <g opacity="0.5" stroke="#e8a39d" stroke-opacity="0.18" fill="none"><rect x="1090" y="150" width="300" height="300" rx="36"/><rect x="1150" y="210" width="300" height="300" rx="36"/><rect x="1210" y="270" width="300" height="300" rx="36"/></g>
+  <text class="mono" x="80" y="190" fill="#e8a39d" font-size="30" letter-spacing="6">DESIGN PATTERN · 05</text>
+  <text class="sans" x="80" y="300" fill="#f8fafc" font-size="82" font-weight="700">组合模式 · 装饰模式</text>
+  <text class="sans" x="80" y="395" fill="#f8fafc" font-size="82" font-weight="700">享元模式 · 代理模式</text>
+  <text class="sans" x="80" y="500" fill="#c6d3e2" font-size="32">结构型模式 · 4 种 · 定义 / 结构 / 用法 / 示例</text>
+  <line x1="80" y1="546" x2="240" y2="546" stroke="#e8a39d" stroke-width="4" stroke-linecap="round"/>
+  <g>
+    <rect x="80" y="540" width="305" height="250" rx="28" fill="#ffffff" fill-opacity="0.055" stroke="#e8a39d" stroke-opacity="0.30"/>
+    <text class="mono" x="116" y="600" fill="#e8a39d" fill-opacity="0.65" font-size="26" letter-spacing="4">01</text>
+    <text class="sans" x="116" y="690" fill="#e6edf6" font-size="42" font-weight="600">组合模式</text>
+    <text class="mono" x="116" y="742" fill="#e8a39d" fill-opacity="0.75" font-size="22" letter-spacing="1">COMPOSITE</text>
+  </g>
+  <g>
+    <rect x="425" y="540" width="305" height="250" rx="28" fill="#ffffff" fill-opacity="0.055" stroke="#e8a39d" stroke-opacity="0.30"/>
+    <text class="mono" x="461" y="600" fill="#e8a39d" fill-opacity="0.65" font-size="26" letter-spacing="4">02</text>
+    <text class="sans" x="461" y="690" fill="#e6edf6" font-size="42" font-weight="600">装饰模式</text>
+    <text class="mono" x="461" y="742" fill="#e8a39d" fill-opacity="0.75" font-size="22" letter-spacing="1">DECORATOR</text>
+  </g>
+  <g>
+    <rect x="770" y="540" width="305" height="250" rx="28" fill="#ffffff" fill-opacity="0.055" stroke="#e8a39d" stroke-opacity="0.30"/>
+    <text class="mono" x="806" y="600" fill="#e8a39d" fill-opacity="0.65" font-size="26" letter-spacing="4">03</text>
+    <text class="sans" x="806" y="690" fill="#e6edf6" font-size="42" font-weight="600">享元模式</text>
+    <text class="mono" x="806" y="742" fill="#e8a39d" fill-opacity="0.75" font-size="22" letter-spacing="1">FLYWEIGHT</text>
+  </g>
+  <g>
+    <rect x="1115" y="540" width="305" height="250" rx="28" fill="#ffffff" fill-opacity="0.055" stroke="#e8a39d" stroke-opacity="0.30"/>
+    <text class="mono" x="1151" y="600" fill="#e8a39d" fill-opacity="0.65" font-size="26" letter-spacing="4">04</text>
+    <text class="sans" x="1151" y="690" fill="#e6edf6" font-size="42" font-weight="600">代理模式</text>
+    <text class="mono" x="1151" y="742" fill="#e8a39d" fill-opacity="0.75" font-size="22" letter-spacing="1">PROXY</text>
+  </g>
+  <text class="sans" x="80" y="884" fill="#e8a39d" font-size="32">每节含：定义 · 结构 · 用法 · 示例（含完整 C++ 实现与 UML 类图）</text>
+  <text class="mono" x="1420" y="956" fill="#e8a39d" fill-opacity="0.55" font-size="26" text-anchor="end">Wai Minutes</text>
+</svg>

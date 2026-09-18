@@ -1,0 +1,85 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="520" viewBox="0 0 720 520" role="img" aria-labelledby="t d">
+  <title id="t">适配器模式 UML 类图</title>
+  <desc id="d">Client 使用 Target 接口；Adapter 继承 Target 并持有 Adaptee；Adaptee 提供需要适配的接口</desc>
+  <defs>
+    <style>
+      .box   { fill:#f3e4c4; stroke:#9c8254; stroke-width:1; }
+      .note  { fill:#fdfaf3; stroke:#c9b89a; stroke-width:1; }
+      .sep   { stroke:#9c8254; stroke-width:1; }
+      .title { font-family:'Microsoft YaHei','PingFang SC','Hiragino Sans GB','Noto Sans SC',sans-serif; font-size:14px; font-weight:700; fill:#1f1f1f; text-anchor:middle; }
+      .stereo{ font-family:'Microsoft YaHei','PingFang SC','Hiragino Sans GB','Noto Sans SC',sans-serif; font-size:12px; fill:#333333; text-anchor:end; }
+      .member{ font-family:'Microsoft YaHei','PingFang SC','Hiragino Sans GB','Noto Sans SC',sans-serif; font-size:13px; fill:#1f1f1f; }
+      .ntext { font-family:'Microsoft YaHei','PingFang SC','Hiragino Sans GB','Noto Sans SC',sans-serif; font-size:11px; fill:#1f1f1f; }
+      .line  { stroke:#1f1f1f; stroke-width:1.1; fill:none; }
+      .dash  { stroke:#1f1f1f; stroke-width:1; fill:none; stroke-dasharray:5 3; }
+      .hollow{ fill:#ffffff; stroke:#1f1f1f; stroke-width:1.1; stroke-linejoin:round; }
+    </style>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 Z" fill="#1f1f1f"/>
+    </marker>
+    <marker id="openArrow" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M1,1 L10,6 L1,11" fill="none" stroke="#1f1f1f" stroke-width="1.2"/>
+    </marker>
+  </defs>
+
+  <rect width="720" height="520" fill="#ffffff"/>
+
+  <!-- 顶部注释 -->
+  <g>
+    <path class="note" d="M200 20 H540 L554 34 V54 H200 Z"/>
+    <path class="note" d="M540 20 V34 H554" fill="none"/>
+    <text class="ntext" x="212" y="44">这个类中的接口才是客户所期待的类</text>
+  </g>
+
+  <!-- Client -->
+  <rect class="box" x="30" y="120" width="120" height="70" rx="2"/>
+  <line class="sep" x1="30" y1="146" x2="150" y2="146"/>
+  <line class="sep" x1="30" y1="168" x2="150" y2="168"/>
+  <text class="title" x="90" y="138">Client</text>
+
+  <!-- Target -->
+  <rect class="box" x="200" y="110" width="240" height="110" rx="2"/>
+  <line class="sep" x1="200" y1="146" x2="440" y2="146"/>
+  <line class="sep" x1="200" y1="168" x2="440" y2="168"/>
+  <text class="title" x="320" y="138">Target</text>
+  <text class="stereo" x="428" y="184">{abstract}</text>
+  <text class="member" x="214" y="206">+  Request ()</text>
+
+  <!-- Adapter -->
+  <rect class="box" x="220" y="300" width="200" height="80" rx="2"/>
+  <line class="sep" x1="220" y1="328" x2="420" y2="328"/>
+  <text class="title" x="320" y="320">Adapter</text>
+  <text class="member" x="234" y="354">+  Request ()</text>
+
+  <!-- Adaptee -->
+  <rect class="box" x="470" y="300" width="220" height="80" rx="2"/>
+  <line class="sep" x1="470" y1="328" x2="690" y2="328"/>
+  <text class="title" x="580" y="320">Adaptee</text>
+  <text class="member" x="484" y="354">+  SpecificRequest ()</text>
+
+  <!-- 底部注释 -->
+  <g>
+    <path class="note" d="M20 430 H280 L294 444 V500 H20 Z"/>
+    <path class="note" d="M280 430 V444 H294" fill="none"/>
+    <text class="ntext" x="32" y="456">在适配器内部包装一个被适配对象</text>
+    <text class="ntext" x="32" y="478">即 Adaptee，把源接口转换为目标接口</text>
+  </g>
+  <g>
+    <path class="note" d="M430 430 H700 L714 444 V510 H430 Z"/>
+    <path class="note" d="M700 430 V444 H714" fill="none"/>
+    <text class="ntext" x="442" y="456">需要适配的类</text>
+    <text class="ntext" x="442" y="478">其中的接口并不是 Client 所期待的接口</text>
+    <text class="ntext" x="442" y="500">所以需要被适配</text>
+  </g>
+
+  <!-- 关系 -->
+  <line class="line" x1="152" y1="150" x2="194" y2="150" marker-end="url(#arrow)"/>
+  <line class="dash" x1="350" y1="54" x2="350" y2="104" marker-end="url(#openArrow)"/>
+
+  <path class="line" d="M320 300 L320 258"/>
+  <path class="hollow" d="M320 238 L309 258 L331 258 Z"/>
+
+  <line class="line" x1="422" y1="336" x2="464" y2="336" marker-end="url(#arrow)"/>
+  <line class="dash" x1="290" y1="380" x2="290" y2="426" marker-end="url(#openArrow)"/>
+  <line class="dash" x1="580" y1="380" x2="580" y2="426" marker-end="url(#openArrow)"/>
+</svg>

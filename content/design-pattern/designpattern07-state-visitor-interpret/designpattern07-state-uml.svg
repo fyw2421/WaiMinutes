@@ -1,0 +1,97 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="780" height="510" viewBox="0 0 780 510" role="img" aria-labelledby="t d">
+  <title id="t">状态模式 UML 类图</title>
+  <desc id="d">Context 聚合 State；ConcreteStateA/B 继承 State 并实现 Handle</desc>
+  <defs>
+    <style>
+      .frame { fill:none; stroke:#4a4a4a; stroke-width:1; }
+      .framet{ fill:#ffffff; stroke:#4a4a4a; stroke-width:1; }
+      .flabel{ font-family:'Microsoft YaHei','PingFang SC','Hiragino Sans GB','Noto Sans SC',sans-serif; font-size:12px; fill:#1f1f1f; }
+      .box   { fill:#f3e4c4; stroke:#9c8254; stroke-width:1; }
+      .note  { fill:#fdfaf3; stroke:#c9b89a; stroke-width:1; }
+      .sep   { stroke:#9c8254; stroke-width:1; }
+      .title { font-family:'Microsoft YaHei','PingFang SC','Hiragino Sans GB','Noto Sans SC',sans-serif; font-size:14px; font-weight:700; fill:#1f1f1f; text-anchor:middle; }
+      .member{ font-family:'Microsoft YaHei','PingFang SC','Hiragino Sans GB','Noto Sans SC',sans-serif; font-size:12px; fill:#1f1f1f; }
+      .ntext { font-family:'Microsoft YaHei','PingFang SC','Hiragino Sans GB','Noto Sans SC',sans-serif; font-size:11px; fill:#1f1f1f; }
+      .line  { stroke:#1f1f1f; stroke-width:1.1; fill:none; }
+      .dash  { stroke:#1f1f1f; stroke-width:1; fill:none; stroke-dasharray:5 3; }
+      .hollow{ fill:#ffffff; stroke:#1f1f1f; stroke-width:1.1; stroke-linejoin:round; }
+    </style>
+    <marker id="openArrow" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M1,1 L10,6 L1,11" fill="none" stroke="#1f1f1f" stroke-width="1.2"/>
+    </marker>
+  </defs>
+
+  <rect width="780" height="510" fill="#ffffff"/>
+
+  <!-- UML 框架 -->
+  <rect class="frame" x="16" y="16" width="748" height="480" rx="2"/>
+  <rect class="framet" x="16" y="16" width="128" height="20"/>
+  <text class="flabel" x="24" y="31">class StatePattern</text>
+
+  <!-- Context -->
+  <rect class="box" x="40" y="70" width="160" height="150" rx="2"/>
+  <line class="sep" x1="40" y1="98" x2="200" y2="98"/>
+  <line class="sep" x1="40" y1="122" x2="200" y2="122"/>
+  <text class="title" x="120" y="90">Context</text>
+  <text class="member" x="54" y="116">-state: State</text>
+  <text class="member" x="54" y="144">+Context(State)</text>
+  <text class="member" x="54" y="164">+Request(): void</text>
+  <text class="member" x="54" y="184">+property</text>
+  <text class="member" x="54" y="204">+State(): State</text>
+
+  <!-- State -->
+  <rect class="box" x="340" y="90" width="180" height="76" rx="2"/>
+  <line class="sep" x1="340" y1="118" x2="520" y2="118"/>
+  <text class="title" x="430" y="110">State</text>
+  <text class="member" x="354" y="142">+ Handle(Context): void</text>
+
+  <!-- 右上注释 -->
+  <g>
+    <path class="note" d="M570 70 H742 L756 84 V144 H570 Z"/>
+    <path class="note" d="M742 70 V84 H756" fill="none"/>
+    <text class="ntext" x="580" y="96">抽象状态类，定义一个接</text>
+    <text class="ntext" x="580" y="116">口以封装与Context的一个特</text>
+    <text class="ntext" x="580" y="136">定状态相关的行为</text>
+  </g>
+
+  <!-- 左下注释 -->
+  <g>
+    <path class="note" d="M30 260 H180 L194 274 V340 H30 Z"/>
+    <path class="note" d="M180 260 V274 H194" fill="none"/>
+    <text class="ntext" x="40" y="286">维护一个ConcreteState</text>
+    <text class="ntext" x="40" y="306">子类的实例，这个实</text>
+    <text class="ntext" x="40" y="326">例定义当前的状态</text>
+  </g>
+
+  <!-- ConcreteStateB / A -->
+  <rect class="box" x="230" y="300" width="190" height="76" rx="2"/>
+  <line class="sep" x1="230" y1="328" x2="420" y2="328"/>
+  <text class="title" x="325" y="320">ConcreteStateB</text>
+  <text class="member" x="244" y="352">+ Handle(Context): void</text>
+
+  <rect class="box" x="440" y="300" width="190" height="76" rx="2"/>
+  <line class="sep" x1="440" y1="328" x2="630" y2="328"/>
+  <text class="title" x="535" y="320">ConcreteStateA</text>
+  <text class="member" x="454" y="352">+ Handle(Context): void</text>
+
+  <!-- 底部注释 -->
+  <g>
+    <path class="note" d="M330 410 H700 L714 424 V472 H330 Z"/>
+    <path class="note" d="M700 410 V424 H714" fill="none"/>
+    <text class="ntext" x="342" y="436">具体状态，每一个子类实现一个与Context的</text>
+    <text class="ntext" x="342" y="458">一个状态相关的行为</text>
+  </g>
+
+  <!-- 关系 -->
+  <line class="line" x1="202" y1="110" x2="334" y2="110" marker-end="url(#openArrow)"/>
+  <path class="hollow" d="M202 110 L213 103 L224 110 L213 117 Z"/>
+
+  <line class="dash" x1="568" y1="116" x2="524" y2="116" marker-end="url(#openArrow)"/>
+
+  <path class="line" d="M430 166 L430 200 M325 200 L535 200 M325 200 L325 296 M535 200 L535 296"/>
+  <path class="hollow" d="M430 166 L419 186 L441 186 Z"/>
+
+  <line class="dash" x1="110" y1="220" x2="110" y2="256" marker-end="url(#openArrow)"/>
+  <line class="dash" x1="325" y1="376" x2="380" y2="406" marker-end="url(#openArrow)"/>
+  <line class="dash" x1="535" y1="376" x2="520" y2="406" marker-end="url(#openArrow)"/>
+</svg>

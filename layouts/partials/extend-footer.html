@@ -1,0 +1,13 @@
+{{/* Blowfish 的页脚扩展点（主题 footer.html:64 调用）。
+
+     注入 assets/js/footer-extra.js。放在页脚而非 head：脚本要操作页脚 DOM，
+     在 </footer> 之前注入可保证元素已存在，无需等 DOMContentLoaded。
+     用 partialCached —— 输出与页面无关，每页重复没有意义。
+
+     ⚠ 本仓库公开，文件内容对访问者可见：此处的注释与脚本内注释都刻意只写
+     「是什么」，不写「为什么、触发什么」。改动前请先想清楚这一点。
+
+     JS 走 resources 管线（minify + 指纹），与站内其它脚本一致。 */}}
+
+{{ $js := resources.Get "js/footer-extra.js" | resources.Minify | resources.Fingerprint (site.Params.fingerprintAlgorithm | default "sha512") }}
+<script defer type="text/javascript" src="{{ $js.RelPermalink }}" integrity="{{ $js.Data.Integrity }}"></script>

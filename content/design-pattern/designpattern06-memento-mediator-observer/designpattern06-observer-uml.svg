@@ -1,0 +1,103 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="340" viewBox="0 0 1000 340" role="img" aria-labelledby="t d">
+  <title id="t">观察者模式 UML 类图</title>
+  <desc id="d">Subject 维护 observers 并通知 Observer（Observer 端实心菱形）；ConcreteSubject 继承 Subject；ConcreteObserver 继承 Observer 并关联 ConcreteSubject</desc>
+  <defs>
+    <style>
+      .box   { fill:#f3e4c4; stroke:#9c8254; stroke-width:1; }
+      .note  { fill:#fdfaf3; stroke:#c9b89a; stroke-width:1; }
+      .sep   { stroke:#9c8254; stroke-width:1; }
+      .titlei{ font-family:'Microsoft YaHei','PingFang SC','Hiragino Sans GB','Noto Sans SC',sans-serif; font-size:18px; font-weight:700; font-style:italic; fill:#1f1f1f; text-anchor:middle; }
+      .title { font-family:'Microsoft YaHei','PingFang SC','Hiragino Sans GB','Noto Sans SC',sans-serif; font-size:18px; font-weight:700; fill:#1f1f1f; text-anchor:middle; }
+      .member{ font-family:'Microsoft YaHei','PingFang SC','Hiragino Sans GB','Noto Sans SC',sans-serif; font-size:14px; fill:#1f1f1f; }
+      .label { font-family:'Microsoft YaHei','PingFang SC','Hiragino Sans GB','Noto Sans SC',sans-serif; font-size:14px; fill:#333333; }
+      .ntext { font-family:'Microsoft YaHei','PingFang SC','Hiragino Sans GB','Noto Sans SC',sans-serif; font-size:13px; fill:#1f1f1f; }
+      .line  { stroke:#1f1f1f; stroke-width:1.1; fill:none; }
+      .dash  { stroke:#1f1f1f; stroke-width:1; fill:none; stroke-dasharray:5 3; }
+      .hollow{ fill:#ffffff; stroke:#1f1f1f; stroke-width:1.1; stroke-linejoin:round; }
+      .solid { fill:#1f1f1f; stroke:#1f1f1f; stroke-width:1.1; stroke-linejoin:round; }
+    </style>
+    <marker id="openArrow" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M1,1 L10,6 L1,11" fill="none" stroke="#1f1f1f" stroke-width="1.2"/>
+    </marker>
+  </defs>
+
+  <rect width="1000" height="340" fill="#ffffff"/>
+
+  <!-- Subject -->
+  <rect class="box" x="24" y="16" width="230" height="120" rx="2"/>
+  <line class="sep" x1="24" y1="46" x2="254" y2="46"/>
+  <text class="titlei" x="139" y="36">Subject</text>
+  <text class="member" x="38" y="68">Attach(Observer)</text>
+  <text class="member" x="38" y="92">Detach(Observer)</text>
+  <text class="member" x="38" y="116">Notify()</text>
+
+  <!-- Observer -->
+  <rect class="box" x="600" y="16" width="200" height="88" rx="2"/>
+  <line class="sep" x1="600" y1="46" x2="800" y2="46"/>
+  <text class="titlei" x="700" y="36">Observer</text>
+  <text class="member" x="614" y="68">Update()</text>
+
+  <!-- Subject 通知 observers：实心菱形在 Observer 端 -->
+  <line class="line" x1="256" y1="32" x2="596" y2="32"/>
+  <path class="solid" d="M596 32 L585 25 L574 32 L585 39 Z"/>
+  <text class="label" x="266" y="24">observers</text>
+
+  <!-- 注释：for all o in observers -->
+  <g>
+    <path class="note" d="M300 68 H520 L534 82 V140 H300 Z"/>
+    <path class="note" d="M520 68 V82 H534" fill="none"/>
+    <text class="ntext" x="312" y="94">for all o in observers {</text>
+    <text class="ntext" x="312" y="116">o-&gt;Update()</text>
+    <text class="ntext" x="312" y="134">}</text>
+  </g>
+  <circle class="hollow" cx="232" cy="112" r="6"/>
+  <line class="dash" x1="238" y1="112" x2="300" y2="112"/>
+
+  <!-- ConcreteSubject -->
+  <rect class="box" x="24" y="196" width="230" height="128" rx="2"/>
+  <line class="sep" x1="24" y1="226" x2="254" y2="226"/>
+  <line class="sep" x1="24" y1="278" x2="254" y2="278"/>
+  <text class="title" x="139" y="216">ConcreteSubject</text>
+  <text class="member" x="38" y="248">GetState()</text>
+  <text class="member" x="38" y="268">SetState()</text>
+  <text class="member" x="38" y="302">subjectState</text>
+
+  <!-- 继承：ConcreteSubject -> Subject -->
+  <path class="line" d="M139 196 L139 158"/>
+  <path class="hollow" d="M139 136 L128 156 L150 156 Z"/>
+
+  <!-- 注释：return subjectState -->
+  <g>
+    <path class="note" d="M320 236 H450 L464 250 V292 H320 Z"/>
+    <path class="note" d="M450 236 V250 H464" fill="none"/>
+    <text class="ntext" x="332" y="270">return subjectState</text>
+  </g>
+  <circle class="hollow" cx="232" cy="244" r="6"/>
+  <line class="dash" x1="238" y1="244" x2="320" y2="244"/>
+
+  <!-- ConcreteObserver -->
+  <rect class="box" x="470" y="150" width="260" height="128" rx="2"/>
+  <line class="sep" x1="470" y1="180" x2="730" y2="180"/>
+  <line class="sep" x1="470" y1="212" x2="730" y2="212"/>
+  <text class="title" x="600" y="170">ConcreteObserver</text>
+  <text class="member" x="484" y="202">Update()</text>
+  <text class="member" x="484" y="236">observerState</text>
+
+  <!-- 继承：ConcreteObserver -> Observer -->
+  <path class="line" d="M700 150 L700 124"/>
+  <path class="hollow" d="M700 104 L689 124 L711 124 Z"/>
+
+  <!-- 关联：ConcreteObserver -> ConcreteSubject（角色 subject） -->
+  <line class="line" x1="470" y1="200" x2="258" y2="200" marker-end="url(#openArrow)"/>
+  <text class="label" x="330" y="192">subject</text>
+
+  <!-- 注释：observerState = subject->GetState() -->
+  <g>
+    <path class="note" d="M772 152 H972 L986 166 V212 H772 Z"/>
+    <path class="note" d="M972 152 V166 H986" fill="none"/>
+    <text class="ntext" x="784" y="178">observerState =</text>
+    <text class="ntext" x="784" y="200">subject-&gt;GetState()</text>
+  </g>
+  <circle class="hollow" cx="708" cy="197" r="6"/>
+  <line class="dash" x1="714" y1="197" x2="772" y2="197"/>
+</svg>

@@ -1,0 +1,96 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="350" viewBox="0 0 640 350" role="img" aria-labelledby="t d">
+  <title id="t">命令模式 UML 类图</title>
+  <desc id="d">Client 创建命令并指定接收者；Invoker 聚合 Command；ConcreteCommand 继承 Command 并持有 Receiver</desc>
+  <defs>
+    <style>
+      .box   { fill:#f3e4c4; stroke:#9c8254; stroke-width:1; }
+      .note  { fill:#fdfaf3; stroke:#c9b89a; stroke-width:1; }
+      .sep   { stroke:#9c8254; stroke-width:1; }
+      .title { font-family:'Microsoft YaHei','PingFang SC','Hiragino Sans GB','Noto Sans SC',sans-serif; font-size:16px; font-weight:700; fill:#1f1f1f; text-anchor:middle; }
+      .stereo{ font-family:'Microsoft YaHei','PingFang SC','Hiragino Sans GB','Noto Sans SC',sans-serif; font-size:13px; fill:#333333; text-anchor:middle; }
+      .member{ font-family:'Microsoft YaHei','PingFang SC','Hiragino Sans GB','Noto Sans SC',sans-serif; font-size:13px; fill:#1f1f1f; }
+      .ntext { font-family:'Microsoft YaHei','PingFang SC','Hiragino Sans GB','Noto Sans SC',sans-serif; font-size:12px; fill:#1f1f1f; }
+      .line  { stroke:#1f1f1f; stroke-width:1.1; fill:none; }
+      .dash  { stroke:#1f1f1f; stroke-width:1; fill:none; stroke-dasharray:5 3; }
+      .hollow{ fill:#ffffff; stroke:#1f1f1f; stroke-width:1.1; stroke-linejoin:round; }
+    </style>
+    <marker id="openArrow" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M1,1 L10,6 L1,11" fill="none" stroke="#1f1f1f" stroke-width="1.2"/>
+    </marker>
+  </defs>
+
+  <rect width="640" height="350" fill="#ffffff"/>
+
+  <!-- 顶部两条注释 -->
+  <g>
+    <path class="note" d="M30 10 H200 L214 24 V44 H30 Z"/>
+    <path class="note" d="M200 10 V24 H214" fill="none"/>
+    <text class="ntext" x="42" y="34">要求该命令执行这个请求</text>
+  </g>
+  <g>
+    <path class="note" d="M350 10 H540 L554 24 V44 H350 Z"/>
+    <path class="note" d="M540 10 V24 H554" fill="none"/>
+    <text class="ntext" x="362" y="34">用来声明执行操作的接口</text>
+  </g>
+
+  <!-- Client -->
+  <rect class="box" x="20" y="80" width="110" height="66" rx="2"/>
+  <line class="sep" x1="20" y1="106" x2="130" y2="106"/>
+  <line class="sep" x1="20" y1="126" x2="130" y2="126"/>
+  <text class="title" x="75" y="98">Client</text>
+
+  <!-- Invoker -->
+  <rect class="box" x="170" y="80" width="110" height="66" rx="2"/>
+  <line class="sep" x1="170" y1="106" x2="280" y2="106"/>
+  <line class="sep" x1="170" y1="126" x2="280" y2="126"/>
+  <text class="title" x="225" y="98">Invoker</text>
+
+  <!-- Command -->
+  <rect class="box" x="330" y="70" width="150" height="86" rx="2"/>
+  <line class="sep" x1="330" y1="114" x2="480" y2="114"/>
+  <text class="stereo" x="405" y="88">&lt;&lt;interface&gt;&gt;</text>
+  <text class="title" x="405" y="106">Command</text>
+  <text class="member" x="344" y="136">+Execute()</text>
+
+  <!-- Receiver -->
+  <rect class="box" x="175" y="200" width="120" height="70" rx="2"/>
+  <line class="sep" x1="175" y1="226" x2="295" y2="226"/>
+  <text class="title" x="235" y="218">Receiver</text>
+  <text class="member" x="189" y="250">+Action()</text>
+
+  <!-- ConcreteCommand -->
+  <rect class="box" x="335" y="190" width="190" height="90" rx="2"/>
+  <line class="sep" x1="335" y1="216" x2="525" y2="216"/>
+  <text class="title" x="430" y="208">ConcreteCommand</text>
+  <text class="member" x="349" y="238">-receiver: Receiver</text>
+  <text class="member" x="349" y="260">+Execute()</text>
+
+  <!-- 底部注释 -->
+  <g>
+    <path class="note" d="M10 270 H230 L244 284 V336 H10 Z"/>
+    <path class="note" d="M230 270 V284 H244" fill="none"/>
+    <text class="ntext" x="22" y="294">知道如何实施与执行一个请求相关的</text>
+    <text class="ntext" x="22" y="316">操作，任何类都可能作为一个接受者</text>
+  </g>
+  <g>
+    <path class="note" d="M300 280 H540 L554 294 V340 H300 Z"/>
+    <path class="note" d="M540 280 V294 H554" fill="none"/>
+    <text class="ntext" x="312" y="304">将一个接受者对象绑定于一个动作</text>
+    <text class="ntext" x="312" y="326">调用接受者相应的操作，以实现 Execute</text>
+  </g>
+
+  <!-- 关系 -->
+  <line class="dash" x1="170" y1="44" x2="225" y2="74" marker-end="url(#openArrow)"/>
+  <line class="dash" x1="450" y1="44" x2="405" y2="64" marker-end="url(#openArrow)"/>
+  <line class="dash" x1="132" y1="100" x2="164" y2="100" marker-end="url(#openArrow)"/>
+
+  <line class="line" x1="282" y1="110" x2="324" y2="110" marker-end="url(#openArrow)"/>
+  <path class="hollow" d="M282 110 L291 103 L300 110 L291 117 Z"/>
+
+  <path class="dash" d="M75 146 L75 235 L169 235" marker-end="url(#openArrow)"/>
+  <line class="dash" x1="333" y1="240" x2="301" y2="240" marker-end="url(#openArrow)"/>
+
+  <path class="line" d="M430 190 L430 176"/>
+  <path class="hollow" d="M430 154 L419 174 L441 174 Z"/>
+  <line class="line" x1="430" y1="174" x2="430" y2="176"/>
+</svg>

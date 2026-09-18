@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="440" height="200" viewBox="0 0 440 200" role="img" aria-labelledby="t d">
+  <title id="t">派生类对象本体</title>
+  <desc id="d">派生类 B 的对象在内存中先排布基类部分（a、b），再排布派生部分（c）</desc>
+  <defs>
+    <style>
+      .box   { fill:#ffffff; stroke:#1f1f1f; stroke-width:1.2; }
+      .ln    { stroke:#1f1f1f; stroke-width:1.2; fill:none; }
+      .lbl   { font-family:'Microsoft YaHei','PingFang SC','Noto Sans SC',sans-serif; font-size:13px; fill:#1f1f1f; }
+      .cap   { font-family:'Microsoft YaHei','PingFang SC','Noto Sans SC',sans-serif; font-size:13px; fill:#1f1f1f; text-anchor:middle; }
+    </style>
+  </defs>
+  <rect width="440" height="200" fill="#ffffff"/>
+
+  <!-- BaseClass -->
+  <text class="lbl" x="30" y="28">BaseClass</text>
+  <rect class="box" x="28" y="40" width="102" height="78"/>
+  <path class="ln" d="M28 79 L130 79"/>
+  <text class="lbl" x="14" y="66">a</text>
+  <text class="lbl" x="14" y="106">b</text>
+
+  <!-- B -->
+  <text class="lbl" x="202" y="28">B</text>
+  <rect class="box" x="200" y="40" width="105" height="122"/>
+  <path class="ln" d="M200 79 L305 79 M200 121 L305 121"/>
+  <text class="lbl" x="186" y="66">a</text>
+  <text class="lbl" x="186" y="106">b</text>
+  <text class="lbl" x="186" y="146">c</text>
+
+  <!-- 花括号 -->
+  <path class="ln" d="M315 42 Q 329 42 329 60 Q 329 78 337 80 Q 329 82 329 100 Q 329 118 315 118"/>
+  <path class="ln" d="M315 123 Q 329 123 329 132 Q 329 141 337 142.5 Q 329 144 329 153 Q 329 162 315 162"/>
+  <text class="lbl" x="344" y="86">基类部分</text>
+  <text class="lbl" x="344" y="148">派生部分</text>
+
+  <text class="cap" x="220" y="190">图 10-2　派生类对象本体</text>
+</svg>

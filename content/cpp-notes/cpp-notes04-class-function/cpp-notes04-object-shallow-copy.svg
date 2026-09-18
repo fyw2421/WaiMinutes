@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="300" height="252" viewBox="0 0 300 252" role="img" aria-labelledby="t d">
+  <title id="t">对象本体的复制</title>
+  <desc id="d">p1 与 p2 的浅拷贝都指向同一个 Randy 对象本体</desc>
+  <defs>
+    <style>
+      .box   { fill:#ffffff; stroke:#1f1f1f; stroke-width:1.2; }
+      .ln    { stroke:#1f1f1f; stroke-width:1.2; fill:none; }
+      .lbl   { font-family:'Microsoft YaHei','PingFang SC','Noto Sans SC',sans-serif; font-size:13px; fill:#1f1f1f; }
+      .cap   { font-family:'Microsoft YaHei','PingFang SC','Noto Sans SC',sans-serif; font-size:13px; fill:#1f1f1f; text-anchor:middle; }
+    </style>
+    <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 Z" fill="#1f1f1f"/>
+    </marker>
+  </defs>
+  <rect width="300" height="252" fill="#ffffff"/>
+
+  <rect class="box" x="20" y="30" width="92" height="66"/>
+  <text class="lbl" x="24" y="22">p1</text>
+
+  <rect class="box" x="20" y="160" width="92" height="66"/>
+  <text class="lbl" x="24" y="152">p2</text>
+
+  <rect class="box" x="168" y="80" width="116" height="36"/>
+  <text class="lbl" x="226" y="103" text-anchor="middle">Randy</text>
+
+  <path class="ln" d="M112 64 L165 92" marker-end="url(#ar)"/>
+  <path class="ln" d="M112 192 L134 192 L134 100 L165 100" marker-end="url(#ar)"/>
+
+  <text class="cap" x="150" y="240">图 9-3　对象本体的复制</text>
+</svg>
