@@ -5,10 +5,10 @@ title: "积微知远"
 {{< feature-grid >}}
 {{< tools >}}
 {{< feature title="C++ 笔记" url="cpp-notes/" label="查看 C++ 笔记" >}}
-命名·预处理<br>继承·多态<br>STL<br>智能指针·异常
+命名 · 预处理<br>继承 · 多态<br>STL<br>智能指针 · 异常
 {{< /feature >}}
 {{< feature title="Git 速查" url="git-notes/" label="查看 Git 笔记" >}}
-安装配置<br>提交·回退<br>分支与合并
+安装配置<br>提交 · 回退<br>分支与合并
 {{< /feature >}}
 {{< feature title="Markdown" url="markdown-notes/" label="查看 Markdown 笔记" >}}
 基础语法<br>扩展语法<br>公式写法<br>编号规则
