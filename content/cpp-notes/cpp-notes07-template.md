@@ -6,11 +6,13 @@ date: 2018-05-22
 tags: ["C++"]
 featureimage: "covers/cpp-notes07-template.svg"
 ---
-## 一、函数模板(Function Template)
+# 一、函数模板(Function Template)
+
+## (一) 函数模板(Function Template)
 
 　　函数模板是通用的函数描述,它们使用通用类型来定义函数,其中通用类型可用具体的类型(int,double)来替换.通过将通用类型作为参数传递给模板,可使编译器生成该类型的函数.由于模板允许以通用类型的方式编写程序,因此称为通用编程(generic programming)或泛型编程.
 
-### 1.1 函数模板的定义
+### 1. 函数模板的定义
 
 ```cpp
 template <typename 模板形参>
@@ -24,7 +26,7 @@ void swap( T &a , T &b ){
 }
 ```
 
-### 1.2 函数模板的使用
+### 2. 函数模板的使用
 
 　　当编译器发现有一个函数模板名为函数名的调用时,将根据实参类型,生成一个函数,称为模板函数或实例化.
 
@@ -57,7 +59,7 @@ int main(){
 }//====================================
 ```
 
-### 1.3 函数模板的重载
+### 3. 函数模板的重载
 
 ```cpp
 // twotemps.cpp -- using overloaded template functions
@@ -124,11 +126,13 @@ void Show(int a[])
 }
 ```
 
-## 二、函数模板的具体化(specialization)
+# 二、函数模板的具体化(specialization)
+
+## (二) 函数模板的具体化(specialization)
 
 　　隐式实例化、显式实例化和显式具体化统称为具体化.
 
-### 2.1 隐式实例化
+### 4. 隐式实例化
 
 　　编译器使用模板为特定类型生成函数定义时,得到的是模板实例.
 
@@ -147,7 +151,7 @@ int a = 5 , b = 3;
 swap( a, b) ; //implicit instantiation
 ```
 
-### 2.2 显式实例化(instantiation)
+### 5. 显式实例化(instantiation)
 
 　　程序也可以直接命令编译器创建指定的模板实例,称为**显式实例化**(explicit instantiation).
 
@@ -165,7 +169,7 @@ template void swap<char>(char &,char &);
 }
 ```
 
-### 2.3 显式具体化(explicit specialization)
+### 6. 显式具体化(explicit specialization)
 
 ```cpp
 struct job{
@@ -209,7 +213,7 @@ template void swap<job>(job &,job &);
 
 **试图在同一编程单元中使用同一类型的显式实例化和显式具体化是错误的.**
 
-### 2.4 调用顺序
+### 7. 调用顺序
 
 ```cpp
 // twoswap.cpp -- specialization overrides a template
@@ -294,9 +298,11 @@ void Show(job &j)
 
 3. 常规模板(隐式实例化)
 
-## 三、类模板
+# 三、类模板
 
-### 3.1 定义类模板
+## (三) 类模板
+
+### 8. 定义类模板
 
 因为模板不是函数,不能单独编译,必须与特定的模板实例化请求一起使用.
 
@@ -379,7 +385,7 @@ void Show(job &j)
    };
    ```
 
-### 3.2 类模板使用
+### 9. 类模板使用
 
 类模板实例化,根据传递给类模板的实参类型生成模板类.
 
@@ -575,11 +581,11 @@ int main()
 }
 ```
 
-### 3.3 模板参数
+### 10. 模板参数
 
 　　模板参数主要是类型参数和非类型参数(如值参数).
 
-#### 3.3.1 非类型参数
+#### (1) 非类型参数
 
 　　指定特定的类型而不是用通用类型名作参数,称为非类型参数(non-type)或表达式参数(expression)
 
@@ -661,7 +667,7 @@ T ArrayTP<T,n>::operator[](int i) const
   Stack<int> dunkers(13);  //相同的模板类
   ```
 
-#### 3.3.2 参数的类型和数量
+#### (2) 参数的类型和数量
 
 1. 嵌套参数
 
@@ -783,11 +789,11 @@ T ArrayTP<T,n>::operator[](int i) const
    Topo<double> m2;        //T1 is double,T2 is int
    ```
 
-### 3.4 模板具体化
+### 11. 模板具体化
 
 　　与函数模板类似,可以有隐式实例化、显式实例化和显式具体化.
 
-#### 3.4.1 类模板的实例化过程.
+#### (1) 类模板的实例化过程.
 
 　　类模板的实例化过程,是根据具体的模板实参,替换成模板形参而产生对应模板类的过程.
 
@@ -795,7 +801,7 @@ T ArrayTP<T,n>::operator[](int i) const
 
 2. 首次调用模板类成员函数时,对成员函数进行实例化.
 
-#### 3.4.2 隐式实例化
+#### (2) 隐式实例化
 
 ```cpp
 ArrayTP<int,100> stuff; //implicit instantiation
@@ -804,13 +810,13 @@ ArrayTP<double,30> *pt;
 pt = new ArrayTP<double,30>; //编译器在需要对象之前,不会生成类的隐式实例化
 ```
 
-#### 3.4.3 显式实例化
+#### (3) 显式实例化
 
 ```cpp
 template class ArrayTP<string,100>; //声明必须位于模板定义的名空间中.
 ```
 
-#### 3.4.4 显式具体化
+#### (4) 显式具体化
 
 　　用特定类型来替换通用类型.当具体化模板和通用模板都与请求匹配时,编译器将使用具体化版本.
 
@@ -822,7 +828,7 @@ SortedArray<int> scores;   //use general definiation
 SortedArray<char *> dates; //use specilized definiation
 ```
 
-#### 3.4.5 部分具体化
+#### (5) 部分具体化
 
 ```cpp
 //general template
@@ -837,7 +843,7 @@ template <> class Pair<int,int>{};
 //如果有多个模板可供选择,编译器使用具体化程度最高的模板.
 ```
 
-### 3.5 成员模板
+### 12. 成员模板
 
 模板可用作结构、类或模板类的成员
 
@@ -954,7 +960,7 @@ int main(){
 }//====================================
 ```
 
-### 3.6 类模板与友元
+### 13. 类模板与友元
 
 模板的友元分为三类:
 
@@ -964,7 +970,7 @@ int main(){
 
 * 非约束模板友元.即友元的所有具体化都是类的每一个具体化的友元.
 
-#### 3.6.1 非模板友元
+#### (1) 非模板友元
 
 ```cpp
 template <typename T>
@@ -1042,7 +1048,7 @@ int main()
 }
 ```
 
-#### 3.6.2 约束模板友元
+#### (2) 约束模板友元
 
 友元的类型取决于被实例化时的类型,类外声明,实现步骤；
 
@@ -1128,7 +1134,7 @@ int main()
 }
 ```
 
-#### 3.6.3 非约束模板友元
+#### (3) 非约束模板友元
 
 友元的所有具体化都是类的每一个具体化的友元.类内声明
 
@@ -1177,6 +1183,3 @@ int main()
     return 0;
 }
 ```
-
-
-

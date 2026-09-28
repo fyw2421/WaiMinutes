@@ -6,13 +6,13 @@ date: 2018-05-28
 tags: ["Design Pattern"]
 featureimage: "covers/designpattern07-state-visitor-interpret.svg"
 ---
-## 四、State Pattern
+# 四、State Pattern
 
-### 4.1 Definition
+## (一) Definition
 
 　　**状态模式**当一个对象的行为取决于它的状态,并且必须在运行时刻根据状态改变它的行为,可以考虑使用状态模式.
 
-### 4.2 Structure
+## (二) Structure
 
 ![StatePatternUML](designpattern07-state-uml.svg)
 
@@ -28,13 +28,13 @@ featureimage: "covers/designpattern07-state-visitor-interpret.svg"
 
   具体状态类,每一个子 类实现一个与Context的一个状态相关的行为.
 
-### 4.3 Usage
+## (三) Usage
 
 1. 状态模式主要解决的是当控制一个对象状态转换的条件表达式过于复杂时的情况.把状态的判断逻辑转移到表示不同状态的一系列类中,可以把复杂的判 断逻辑简单化.(简单来说,就是把各种if else 转变成了一个个的具体状态,原来if else 每种情况下的操作现在转换到了某个具体状态中)
 
 2. 当一个对象行为取决于它的状态,并且它必须在运行时刻根据状态改变它的行为时,就可以考虑使用状态模式了
 
-### 4.4 Example
+## (四) Example
 
 ![StatePatternExampleUML](designpattern07-state-example-uml.svg)
 
@@ -134,7 +134,6 @@ CWork::CWork(){
     mTime = 9;
 }
 
-
 #endif // STATEPATTERN_H
 ```
 
@@ -161,13 +160,13 @@ Time: 10 , forcenoon work....
 Time: 22 , Sleeping....
 ```
 
-## 五、Visitor Pattern
+# 五、Visitor Pattern
 
-### 5.1 Definition
+## (一) Definition
 
 　　**访问者模式**适用于数据结构稳定的系统.他把数据结构和作用于数据结构上的操作分离,使操作集合.
 
-### 5.2 Structure
+## (二) Structure
 
 ![VisitorPatternUML](designpattern07-visitor-uml.svg)
 
@@ -191,7 +190,7 @@ Time: 22 , Sleeping....
 
   能枚举它的元素,可以提供一个高层的接口以允许访问者访问它的元素.
 
-### 5.3 Usage
+## (三) Usage
 
 1. 访问者模式的目的
 
@@ -205,7 +204,7 @@ Time: 22 , Sleeping....
 
    使得增加新的数据结构变得困难了
 
-### 5.4 Example
+## (四) Example
 
 ![VisitorPatternExampleUML](designpattern07-visitor-example-uml.svg)
 
@@ -294,8 +293,6 @@ public:
     }
 };
 
-
-
 //objectStructure
 class CObjectStructure{
 public:
@@ -363,13 +360,13 @@ CMan CAmativeness give gift
 CWomen CAmativeness smile always
 ```
 
-## 六、Interpreter Pattern
+# 六、Interpreter Pattern
 
-### 6.1 Definition
+## (一) Definition
 
 　　**解释器模式**给定一个语言,定义它的文法的一种表示,并定义一个解释器,这个解释器使用该表示来解释语言中的句子.
 
-### 6.2 Structure
+## (二) Structure
 
 ![InterpreterPatternUML](designpattern07-interpreter-uml.svg)
 
@@ -389,7 +386,7 @@ CWomen CAmativeness smile always
 
   包含解释器之外的一些全局信息
 
-### 6.3 Usage
+## (三) Usage
 
 1. 解释器模式需要解决的问题
 
@@ -407,7 +404,7 @@ CWomen CAmativeness smile always
 
    解释器模式为文法中的每一条规则至少定义了一个类,因此包含许多规则的文法可能难以管理和维护.建议当文法非常复杂时,使用其他的技术如语法分析程序或编译器生成器来处理.
 
-### 6.4 Example
+## (四) Example
 
 **Src Downloads**  &rarr; [InterpreterPattern.h](design-pattern/InterpreterPattern.h) and [InterpreterPatternClient.cpp](design-pattern/InterpreterPatternClient.cpp)
 
@@ -555,4 +552,3 @@ medium 3 5 6 3 5 2 3 5 6
 high 1
 medium 6 5 1 3 2
 ```
-

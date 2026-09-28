@@ -6,13 +6,13 @@ date: 2018-05-28
 tags: ["Design Pattern"]
 featureimage: "covers/designpattern04-adapter-facade-bridge.svg"
 ---
-## 一、Adapter Pattern
+# 一、Adapter Pattern
 
-### 1.1 Definition
+## (一) Definition
 
 　　**适配器模式**将一个类的接口转换成客户希望的另外一个接口.Adapter模式使得原来由于接口不兼容而不能一起工作的那些类可以一起工作.
 
-### 1.2 Structure
+## (二) Structure
 
 ![AdapterPatternUML](designpattern04-adapter-uml.svg)
 
@@ -28,7 +28,7 @@ featureimage: "covers/designpattern04-adapter-facade-bridge.svg"
 
   通过在内部包装一个Adaptee对象,把源接口转换成目标接口
 
-### 1.3 Usage
+## (三) Usage
 
 1. 在想使用一个已存在的类,但是如果他的接口,也就是它的方法和你的要求不相同时,就应该考虑用适配器模式.
 
@@ -36,7 +36,7 @@ featureimage: "covers/designpattern04-adapter-facade-bridge.svg"
 
 3. 要在双方都不太容易修改的时候再使用适配器模式适配,而不是一有不同就使用它.
 
-### 1.4 Example
+## (四) Example
 
 **Src Downloads**  &rarr; [MinAdapterPattern.h](design-pattern/MinAdapterPattern.h) and [MinAdapterPatternClient.cpp](design-pattern/MinAdapterPatternClient.cpp)
 
@@ -97,7 +97,7 @@ int main(){
 }
 ```
 
-### 1.5 Example-Foreign Center
+## (五) Example-Foreign Center
 
 **Src Downloads**  &rarr; [AdapterPattern.h](design-pattern/AdapterPattern.h) and [AdapterPatternClient.cpp](design-pattern/AdapterPatternClient.cpp)
 
@@ -211,18 +211,17 @@ int main(){
 }
 ```
 
-## 二、Facade Pattern
+# 二、Facade Pattern
 
-### 2.1 Definition
+## (一) Definition
 
 　　**外观模式**为子系统中的一组接口提供一个一致的界面,使用户使用起来更加方便.
 
-### 2.2 Structure
+## (二) Structure
 
 ![FacadePatternUML](designpattern04-facade-uml.svg)
 
-
-### 2.3 Usage
+## (三) Usage
 
 * 首先,在设计初期阶段,应该要有意识的将不同的两个层分离
 
@@ -230,7 +229,7 @@ int main(){
 
 * 第三,在维护一个遗留的大型系统时,可能这个系统已经非常难以维护和扩展了,但因为它包含非常重要的功能,新的需求开发必须要依赖于它.此时用外观模式Facade也是非常合适的.
 
-### 2.4 Example
+## (四) Example
 
 **Src Downloads**  &rarr; [FacadePattern.h](design-pattern/FacadePattern.h) and [FacadePatternClient.cpp](design-pattern/FacadePatternClient.cpp)
 
@@ -299,19 +298,19 @@ int main(){
 }
 ```
 
-## 三、Bridge Pattern
+# 三、Bridge Pattern
 
-### 3.1 Definition
+## (一) Definition
 
 　　**桥接模式**将抽象部分与它的实现部分分离,使他们都可以独立地变化.
 
 　　不是让抽象基类与具体类分离,而是现实系统可能有多角度分类,每一种分类都有可能变化.将这种多角度分离出来让它们独立变化,减少它们之间的耦合性.
 
-### 3.2 Structure
+## (二) Structure
 
 ![BridgePatternUML](designpattern04-bridge-uml.svg)
 
-### 3.3 Example
+## (三) Example
 
 **Src Downloads**  &rarr; [BridgePattern.h](design-pattern/BridgePattern.h) and [BridgePatternClient.cpp](design-pattern/BridgePatternClient.cpp)
 
@@ -419,4 +418,3 @@ int main(){
     return 1;
 }
 ```
-

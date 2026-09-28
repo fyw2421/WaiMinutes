@@ -73,6 +73,16 @@ summaryLength = 30
     pageRef = '/markdown-notes'
     weight = 5
   [[menu.main]]
+    name = '软件配置'
+    parent = '专题'
+    pageRef = '/software-config'
+    weight = 6
+  [[menu.main]]
+    name = 'TypeScript'
+    parent = '专题'
+    pageRef = '/typescript-notes'
+    weight = 7
+  [[menu.main]]
     name = '标签'
     pageRef = '/tags'
     weight = 10
@@ -81,10 +91,11 @@ summaryLength = 30
 [params]
   # 站点描述：喂 <meta name="description">、og:description 与 JSON-LD。
   # 原来是旧标语，换成一句真正说明本站内容的话（更适合搜索摘要与分享预览）。
-  description = 'C++、数据结构、设计模式、Git 与 Markdown 的学习笔记合集。'
+  description = 'C++、数据结构、设计模式、Git、Markdown 与软件配置的学习笔记合集。'
   # 主题的「最近的文章」只汇总 mainSections 里这些 section 的文章
-  mainSections = ['cpp-notes', 'data-structures', 'design-pattern', 'git-notes', 'markdown-notes']
+  mainSections = ['cpp-notes', 'data-structures', 'design-pattern', 'git-notes', 'markdown-notes', 'software-config']
   dateFormat = '2006-01-02'
+  enableCodeCopy = true
   # 页脚版权行。{ year } 是主题 footer.html 支持的占位符，构建时替换成当前年份。
   # 写成「2018–{ year }」：起始年固定（本站最早的文章是 2018 年），结束年每次构建
   # 自动更新，所以不用每年手动改。分隔符用的是连接号「–」而不是连字符「-」。
@@ -172,7 +183,7 @@ summaryLength = 30
   noClasses = false
 
 [markup.tableOfContents]
-  startLevel = 2
+  startLevel = 1
   endLevel = 4
 
 [cascade]

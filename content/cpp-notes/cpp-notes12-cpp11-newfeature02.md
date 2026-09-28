@@ -6,11 +6,11 @@ date: 2018-05-22
 tags: ["C++"]
 featureimage: "covers/cpp-notes12-cpp11-newfeature02.svg"
 ---
-## 一、Lambda表达式
+# 一、Lambda表达式
 
 　　C++11的一大亮点就是引入了Lambda表达式.利用Lambda表达式,可以方便的定义和创建匿名函数.
 
-### 1.1 Lambda表达式的声明
+## (一) Lambda表达式的声明
 
 ```cpp
 //完整声明
@@ -25,7 +25,7 @@ featureimage: "covers/cpp-notes12-cpp11-newfeature02.svg"
 [capture list] {function body}
 ```
 
-### 1.2 capture list(捕获外部变量列表)
+## (二) capture list(捕获外部变量列表)
 
 捕获列表能按如下方式传递:
 
@@ -67,7 +67,7 @@ by_ref_lambda: 12
 */
 ```
 
-### 1.3 params list(形参列表)
+## (三) params list(形参列表)
 
 Lambda表达式的参数和普通函数的参数类似,还有一些限制,主要有以下几点:
 
@@ -110,13 +110,12 @@ Lambda表达式的参数和普通函数的参数类似,还有一些限制,主要
 
     auto func3 = [](int x) ->function<int(int)> { return [=](int y) { return x + y; }; };
 
-
     std::function<void(int x)> f_display_42 = [](int x) { print_num(x); };
     f_display_42(44);
 }
 ```
 
-### 1.4 specifiers(可选的指定符序列)
+## (四) specifiers(可选的指定符序列)
 
    * mutable: 允许 body 修改以复制捕获的参数,及调用其非 const 成员函数.在使用该修饰符时,参数列表不可省略(即使参数为空)
 
@@ -145,7 +144,7 @@ f(); // 输出:124
 
 > http://zh.cppreference.com/w/cpp/language/lambda
 
-### 1.5 函数指针/函数符/Lambda函数比较
+## (五) 函数指针/函数符/Lambda函数比较
 
 ```cpp
 //=====================================
@@ -231,7 +230,7 @@ Div13 Count: 30030
 */
 ```
 
-### 1.6 lambda优势
+## (六) lambda优势
 
 代码简洁,在定义处使用
 
@@ -282,7 +281,7 @@ Count of numbers divisible by 13 : 30132
 **/
 ```
 
-### 1.7 lambda多次调用
+## (七) lambda多次调用
 
 ```cpp
 //给lambda指定名称
@@ -295,9 +294,10 @@ count3 = count_if( n2.begin(), n2.end() ,mod3);
 //像常规函数一样调用,mod3的实际类型取决于编译器.
 bool result = mod3( 10 );
 ```
-## 二、右值引用
 
-### 2.1 左值和右值
+# 二、右值引用
+
+## (一) 左值和右值
 
 1. 左值
 
@@ -376,13 +376,12 @@ int main()
     //Test&  t3 = ReturnRvalue();    //普通左值引用不能绑定到右值
     const Test& t4 = ReturnRvalue(); //常左值引用是个“万能引用”,可以绑定到右值
 
-
     //system("pause");
     return 0;
 }
 ```
 
-### 2.2 左值引用和右值引用
+## (二) 左值引用和右值引用
 
 　　右值引用和左值引用都是属于引用类型.无论是声明一个左值引用还是右值引用,都必须立即进行初始化.
 
@@ -416,11 +415,11 @@ int main()
    int &&r2 = std::move(a);  # 编译通过
    ```
 
-## 三、std::move()
+# 三、std::move()
 
 　　std::move是将对象的状态或者所有权从一个对象转移到另一个对象,只是转移,没有内存的搬迁或者内存拷贝,它唯一的功能是将一个左值强制转化为右值引用,继而可以通过右值引用使用该值,以用于移动语义.从实现上讲,std::move基本等同于一个类型转换:static_cast<T&&>(lvalue);
 
-### 3.1 移动语义
+## (一) 移动语义
 
 ```cpp
 #include <iostream>
@@ -456,8 +455,7 @@ The contents of the vector are "Hello", "Hello"
 
 　　`v.push_back(str);`有对象复制,调用复制构造函数,深拷贝,`v.push_back(std::move(str))`没有内存操作和深拷贝,效率更高,str被清空.
 
-### 3.2 移动构造函数
-
+## (二) 移动构造函数
 
 ```cpp
 #include <iostream>
@@ -532,7 +530,7 @@ call destructor...
 */
 ```
 
-### 3.3 移动赋值运算符
+## (三) 移动赋值运算符
 
 ```cpp
 //assignment operator
@@ -556,7 +554,7 @@ Str &Str::oprator=(const Str &&s){
 }
 ```
 
-### 3.4 移动构造函数与移动赋值运算符的使用与生成
+## (四) 移动构造函数与移动赋值运算符的使用与生成
 
 * 如果参数与右值,优先使用移动构造和移动赋值运算符,否则使用复制构造和赋值运算符
 
@@ -564,13 +562,13 @@ Str &Str::oprator=(const Str &&s){
 
 * 如果定义了移动构造函数,编译器不会自动生成构造函数/复制构造函数/赋值操作符.
 
-## 四、包装器(wraper) function
+# 四、包装器(wraper) function
 
 　　`function<>`包装器可以将普通函数,lambad函数,函数对象(函数符)统一分装起来,虽然它们不是相同的类型,但是经过了function模板后,它们可以转化为相同的function的对象
 
 　　可以实现类似函数指针的功能,但却比函数指针更加灵活安全
 
-### 4.1 模板函数做参数被多次实例化
+## (一) 模板函数做参数被多次实例化
 
 ```cpp
 //=====================================
@@ -602,7 +600,6 @@ public:
 
 double dub(double x){ return 2.0*x;}
 double square(double x){return x*x;}
-
 
 int main()
 {
@@ -656,7 +653,7 @@ lambda expression 2:
 
 * 两个lambda表达式实例化两次
 
-### 4.2 使用function包装器减少实例化次数
+## (二) 使用function包装器减少实例化次数
 
 　　模板function是在头文件functional中声明的,它从特征标的角度定义了一个对象,可用于包装调用特征标相同的`普通函数,类成员函数,函数对象(仿函数)或lambda表达式`.
 
@@ -745,7 +742,7 @@ std::function<double(char,int)> fdci;
    }
    ```
 
-### 4.3 function使用示例
+## (三) function使用示例
 
 ```cpp
 //=====================================
@@ -870,7 +867,7 @@ int main(int argc, char *argv[])
 }
 ```
 
-## 五、std::bind
+# 五、std::bind
 
 　　bind是一组用于函数绑定的模板,位于`functional`.在对某个函数进行绑定,可以指定部分参数或全部参,也可以不指定任何参,还可以调整各个参数间的顺序.对于未指定的参,可以使用占位符_1、_2、_3来表示._1表示绑定后的函数的第1个参,_2表示绑定后的函数的第2个参,其他依次类推.
 
@@ -952,6 +949,3 @@ int main()
 }
 
 ```
-
-
-

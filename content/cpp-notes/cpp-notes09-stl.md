@@ -8,19 +8,21 @@ featureimage: "covers/cpp-notes09-stl.svg"
 ---
 　　STL可分为容器(containers)、迭代器(iterators)、空间配置器(allocator)、适配器(adapters)、算法(algorithms)、仿函数(functors)六个部分.
 
-## 一、容器(containers)
+# 一、容器(containers)
+
+## (一) 容器(containers)
 
 　　STL容器对最常用的数据结构提供了支持,这些模板的参数允许我们指定容器中元素的数据类型,实现了数据的存储方式,可以将我们许多重复而乏味的工作简化.
 
 　　容器部分主要由头文件`<vector>,<list>,<deque>,<set>,<map>,<stack>和<queue>`组成.
 
-### 1.1 序列式容器
+### 1. 序列式容器
 
-#### 1.1.1 vector(向量)
+#### (1) vector(向量)
 
 　　底层是数组,随机存取数据元素,在尾部添加和移除很快,在头部和中部插入耗时
 
-#### 1.1.2 list(列表)
+#### (2) list(列表)
 
 　　底层数据结构是双向链表,不提供随机存取数据元素(需要按顺序走到要存取的元素,在任何位置插入和删除都很快,只需要简单的移动一下指针
 
@@ -92,15 +94,15 @@ grungy heavy metal
 */
 ```
 
-#### 1.1.3 deque(双端队列)
+#### (3) deque(双端队列)
 
 　　底层数据结构是数组,可以随机存取数据元素,在数组的头部和尾部插入和删除元素很快
 
-### 1.2 关联容器
+### 2. 关联容器
 
 　　元素位置取决于特定的排序准则,和插入的顺序无关,底层数据结构为二叉树
 
-#### 1.2.1 set(集合)
+#### (1) set(集合)
 
 内部元素依据其值自动排序,set内相同的数值元素只能出现一次
 
@@ -182,15 +184,15 @@ grungy heavy metal
 */
 ```
 
-#### 1.2.2 multiset(多重集合)
+#### (2) multiset(多重集合)
 
 　　内部元素依据其值自动排序,set内允许出现重复的元素
 
-#### 1.2.3 map(映射)
+#### (3) map(映射)
 
 　　map的元素是成对的键值对,内部元素的值依据键自动排序,键只允许出现一次
 
-#### 1.2.4 multimap(多重映射)
+#### (4) multimap(多重映射)
 
 　　多重映射是map的增强版,允许键出现多次
 
@@ -270,27 +272,29 @@ Staten Island
 */
 ```
 
-## 二、适配器(adapters)
+# 二、适配器(adapters)
+
+## (二) 适配器(adapters)
 
 　　适配器是标准库中通用的概念,包括容器适配器、迭代器适配器和函数适配器.
 
-### 2.1 容器适配器
+### 3. 容器适配器
 
 　　并没有提供与元素的保存形式有关的真正数据结构实现,并且适配器不支持迭代器.适配器对容器进行包装,使其表现出另外一种行为
 
-#### 2.1.1 stack(栈)
+#### (1) stack(栈)
 
 　　栈可以使用序列式容器中的vector,deque,list中的任意一种作为其底层的数据结构.默认是使用deque来实现的stack.
 
-#### 2.1.2 queue(队列)
+#### (2) queue(队列)
 
 队列可以使用deque和list中的任意一种作为其底层的数据结构.默认是使用deque来实现queue.
 
-#### 2.1.3 priority_queue(优先队列)
+#### (3) priority_queue(优先队列)
 
 　　优先队列也是一种队列,不过在进入队列之后会对元素进行排序,可以使用vector和deque来实现其底层结构,默认是使用vector来实现priority_queue.
 
-### 2.2 迭代适配器
+### 4. 迭代适配器
 
 　　STL提供了许多基于迭代器的适配器,如back_insert_iterator,front_insert_iterator, inser_iterator, reverse_iterator, istream_iterator, ostream_iterator, istreambuf_iterator, ostreambuf_iterator等.
 
@@ -337,7 +341,7 @@ Explicit use of reverse iterator.
 */
 ```
 
-### 2.3 函数适配器
+### 5. 函数适配器
 
 　　函数适配器是用来让一个函数对象表现出另外一种类型的函数对象的特征.因为,许多情况下,我们所持有的函数对象或普通函数的参数个数或是返回值类型并不是我们想要的,这时候就需要函数适配器来为我们的函数进行适配
 
@@ -356,7 +360,7 @@ expression|effect
 `not_1(op)`         | !op(param)
 `not2(op)`          | !op(param1,param2)
 
-#### 2.3.1 绑定器
+#### (1) 绑定器
 
 　　该类适配器用于将二元函数适配成一元函数
 
@@ -375,7 +379,6 @@ find_if (coll.begin(),coll.end(), bind2nd (greater<int>(),42))`
 //这个例子bind2nd把greater<int>()于42结合起来用来检查大于42的值.
 ```
 
-
 ```cpp
 int a[] = {1, 2, 100, 200};
 
@@ -391,7 +394,7 @@ arr.erase( std::remove_if( arr.begin(),  arr.end(),
     std::bind1st( std::less< int>(), 100)), arr.end());
 ```
 
-#### 2.3.2 取反器
+#### (2) 取反器
 
 　　将函数对象的结果真值求反
 
@@ -405,7 +408,9 @@ arr.erase( std::remove_if( arr.begin(),  arr.end(),
 int* where=find_if(&array[0],&array[100],not1(bind2nd(greater<int>(),200)))
 ```
 
-## 三、迭代器(iterators)
+# 三、迭代器(iterators)
+
+## (三) 迭代器(iterators)
 
 迭代器提供对一个容器中的对象的访问方法.迭代器共分为五种:
 
@@ -425,13 +430,15 @@ for(vector::iterator it = v.begin() ; it != v.end(); it++)
   count<<*it<<endl;
 ```
 
-## 四、算法(algorithms)
+# 四、算法(algorithms)
+
+## (四) 算法(algorithms)
 
 　　STL算法部分主要由头文件`<algorithm>,<numeric>,<functional>`组成.要使用 STL中的算法函数必须包括头文件`<algorithm>`,对于数值算法须包括`<numeric>`,`<functional>`中则定义了一些模板类,用来声明函数对象.
 
 　　[STL中算法大致分为四类](https://blog.csdn.net/tick_tock97/article/details/71316372)
 
-### 4.1 非可变序列算法
+### 6. 非可变序列算法
 
 指不直接改动其所操作的容器内容的算法.
 
@@ -466,7 +473,7 @@ none_of(C\++11) | 检测在给定范围中是否不存在元素满足给定的�
 search         | 在范围 A 中查找第一个与范围 B 等价的子范围的位置
 search_n       |   在给定范围中查找第一个连续 n 个元素都等价于给定值的子范围的位置
 
-### 4.2 可变序列算法
+### 7. 可变序列算法
 
 指能够改动它们所操作的容器内容的算法.
 
@@ -518,7 +525,7 @@ transform(v.begin(),v.end(),l.begin(),square);
 
 ```
 
-### 4.3 排序算法
+### 8. 排序算法
 
 包含对序列进行排序和合并的算法、搜索算法以及有序序列上的集合操作.
 
@@ -549,7 +556,7 @@ bool worthThan(const Review &r1,const Review &v2){
 }
 ```
 
-### 4.4 数值算法
+### 9. 数值算法
 
 对容器内容进行数值计算.
 
@@ -563,8 +570,7 @@ min_element            | 返回给定范围中值最小的元素
 minmax (C\++11)         | 返回两个元素中值最大及最小的元素
 minmax_element (C\++11) | 返回给定范围中值最大及最小的元素
 
-
-### 4.5 sample
+### 10. sample
 
 ```cpp
 //usealgo.cpp -- using several STL elements
@@ -651,7 +657,9 @@ thought: 2
 */
 ```
 
-## 五、仿函数(functors)
+# 五、仿函数(functors)
+
+## (五) 仿函数(functors)
 
 　　仿函数(functor)就是使一个类的使用看上去象一个函数.其实现就是类中实现一个`operator()`,这个类就有了类似函数的行为.
 
@@ -663,8 +671,7 @@ thought: 2
 
 3. 执行速度上仿函数比函数和指针要更快.
 
-
-### 5.1 预定义仿函数
+### 11. 预定义仿函数
 
 operator|functor
 :---:|:---:
@@ -740,7 +747,7 @@ prod:     90.0   97.5  105.0  112.5  120.0
 */
 ```
 
-### 5.2 自定义仿函数
+### 12. 自定义仿函数
 
 ```cpp
 // functor.cpp --- using a functor
@@ -796,6 +803,3 @@ Trimmed lists:
 50 100 90 180 60 88 188
 */
 ```
-
-
-

@@ -81,7 +81,7 @@ themes/blowfish/    Blowfish 主题，已整目录提交进本仓库（不要修
 
 ## (一) 标题编号规则
 
-文章内标题遵循 `markdown-notes/markdown标题编号规则.md` 定义的国家标准格式：
+文章内标题遵循 `markdown-notes/markdown文件格式规则.md` 定义的国家标准格式：
 
 | 级别 | 编号格式 | Markdown 层级 | 示例 |
 | --- | --- | --- | --- |

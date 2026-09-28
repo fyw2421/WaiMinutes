@@ -6,13 +6,13 @@ date: 2018-05-28
 tags: ["Design Pattern"]
 featureimage: "covers/designpattern06-memento-mediator-observer.svg"
 ---
-## 一、Memento Pattern
+# 一、Memento Pattern
 
-### 1.1 Definition
+## (一) Definition
 
 　　**备忘录模式**在不破坏封装性的前提下,捕获一个对象的内部状态,并在该对象之外保存这个状态.这样以后就可将对象恢复到原先保存的状态.
 
-### 1.2 Structure
+## (二) Structure
 
 ![MementoPatternUML](designpattern06-memento-uml.svg)
 
@@ -28,7 +28,7 @@ featureimage: "covers/designpattern06-memento-mediator-observer.svg"
 
   负责保存包备忘录Memento,不能对备忘录的内容进行操作或检查
 
-### 1.3 Usage
+## (三) Usage
 
 1. 什么时候使用？
 
@@ -38,7 +38,7 @@ featureimage: "covers/designpattern06-memento-mediator-observer.svg"
 
    如果在某个系统中使用命令模式时,需要实现命令的撤销功能,那么命令模式可以使用备忘录模式来存储可撤销操作的状态.
 
-### 1.4 Example
+## (四) Example
 
 **Src Downloads**  &rarr; [MementoPattern.h](design-pattern/MementoPattern.h) and [MementoPatternClient.cpp](design-pattern/MementoPatternClient.cpp)
 
@@ -119,7 +119,6 @@ private:
     CRoleStateMemento *mpRoleStateMemento;
 };
 
-
 #endif // MEMENTOPATTERN_H
 ```
 
@@ -172,13 +171,13 @@ Attrack: 100
 Defence: 100
 ```
 
-## 二、Mediator Pattern
+# 二、Mediator Pattern
 
-### 2.1 Definition
+## (一) Definition
 
 　　**中介者模式**用一个中介对象来封装一系列的对象交互.中介者使各对象不需要显示地相互引用,从而使其耦合松散,而且可以独立地改变它们之间的交互.
 
-### 2.2 Structure
+## (二) Structure
 
 ![MediatorPatternUML](designpattern06-mediator-uml.svg)
 
@@ -198,7 +197,7 @@ Defence: 100
 
   具体中介者对象,实现抽象类的方法,它需要知道所有具体同事类,并从具体同事接收消息,向具体同事对象发出命令.
 
-### 2.3 Usage
+## (三) Usage
 
 1. 中介者模式的优点
 
@@ -214,7 +213,7 @@ Defence: 100
 
    中介者模式一般应用于一组对象以定义良好但是复杂的方式进行通信的场合,以及想定制一个分布在多个类中的行为,而又不想生成太多的子类的场合.
 
-### 2.4 Example
+## (四) Example
 
 **Src Downloads**  &rarr; [MediatorPattern.h](design-pattern/MediatorPattern.h) and [MediatorPatternClient.cpp](design-pattern/MediatorPatternClient.cpp)
 
@@ -312,13 +311,13 @@ Colleague A get Message : Are you OK?
 Colleague B get Message : very fine
 ```
 
-## 三、Observer Pattern
+# 三、Observer Pattern
 
-### 3.1 Definition
+## (一) Definition
 
 　　**观察者模式**定义了一种一对多的依赖关系,让多个观察者对象同时监听某一主题对象.这个主题对象在状态发生变化时,会通知所有观察者对象,使他们能够自动更新自己.
 
-### 3.2 Structure
+## (二) Structure
 
 ![ObserverPatternUML](designpattern06-observer-uml.svg)
 
@@ -338,7 +337,7 @@ Colleague B get Message : very fine
 
   具体观察者,实现抽象观察者角色所要求的更新接口,以便使本身的状态与主题的状态相协调.具体观察者角色可以保存一个指向具体主题对象的引用.
 
-### 3.3 Usage
+## (三) Usage
 
 1. 什么时候用观察者模式
 
@@ -348,7 +347,7 @@ Colleague B get Message : very fine
 
    * 当一个抽象模型有两个方面,其中一方面依赖于另一方面,这时用观察者模式可以将这两者封装在独立的对象中使他们各自独立地改变和复用.
 
-### 3.4 Example
+## (四) Example
 
 **Src Downloads**  &rarr; [ObserverPattern.h](design-pattern/ObserverPattern.h) and [ObserverPatternClient.cpp](design-pattern/ObserverPatternClient.cpp)
 
@@ -486,4 +485,3 @@ Boss Come Colleague A Close stock,Continue work
 Boss Come Colleague B Close stock,Continue work
 Boss Come Colleague D Close NBA,Continue work
 ```
-

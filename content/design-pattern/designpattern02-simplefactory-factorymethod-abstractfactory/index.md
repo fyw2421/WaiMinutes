@@ -6,13 +6,13 @@ date: 2018-05-28
 tags: ["Design Pattern"]
 featureimage: "covers/designpattern02-simplefactory-factorymethod-abstractfactory.svg"
 ---
-## 一、Simple Factory Pattern
+# 一、Simple Factory Pattern
 
-### 1.1 Definition
+## (一) Definition
 
 　　**简单工厂模式**用一个工厂来根据输入的条件产生不同的类,根据不同类的virtual函数得到不同的结果
 
-### 1.2 Structure
+## (二) Structure
 
 ![SimpleFactoryPatternUML](designpattern02-simple-factory-uml.svg)
 
@@ -28,7 +28,7 @@ featureimage: "covers/designpattern02-simplefactory-factorymethod-abstractfactor
 
   具体产品类继承自抽象产可以有多个.当需要增加新的产品的时候就增加一个继承自抽象产品类的具体产品类即可.
 
-### 1.3 Usage
+## (三) Usage
 
 1. 优势
 
@@ -38,7 +38,7 @@ featureimage: "covers/designpattern02-simplefactory-factorymethod-abstractfactor
 
    客户端必须知道基类和工厂类,耦合性差
 
-### 1.4 Example
+## (四) Example
 
 **Src Downloads**  &rarr; [SimpleFactoryPattern.h](design-pattern/SimpleFactoryPattern.h) and [SimpleFactoryPatternClient.cpp](design-pattern/SimpleFactoryPatternClient.cpp)
 
@@ -143,13 +143,13 @@ int main(){
 }
 ```
 
-## 二、Factory Method Pattern
+# 二、Factory Method Pattern
 
-### 2.1 Definition
+## (一) Definition
 
 　　**工厂方法模式**定义一个创建产品对象的工厂抽象,每种具体产品类都对应一个生产它的具体工厂类
 
-### 2.2 Structure
+## (二) Structure
 
 ![FactoryMethodPatternUML](designpattern02-factory-method-uml.svg)
 
@@ -161,13 +161,13 @@ int main(){
 
 * 具体产品类(ConcreteProduct)
 
-### 2.3 Usage
+## (三) Usage
 
 　　修正了简单工厂不遵守开放-封闭原则.工厂方法模式把选择判断移到了客户端去实现.
 
 　　当需要增加一种产品的时候,需要做的是:增加一种继承自抽象产品的具体产品类,增加一种继承在抽象工厂的具体工厂类,更改客户端.
 
-### 2.4 Example
+## (四) Example
 
 **Src Downloads**  &rarr; [FactoryMethodPattern.h](design-pattern/FactoryMethodPattern.h) and [FactoryMethodPatternClient.cpp](design-pattern/FactoryMethodPatternClient.cpp)
 
@@ -295,7 +295,7 @@ int main(){
 }
 ```
 
-### 2.5 Example-LeiFeng Factory
+## (五) Example-LeiFeng Factory
 
 **Src Downloads**  &rarr; [LeiFengFactoryMethodPattern.h](design-pattern/LeiFengFactoryMethodPattern.h) and [LeiFengFactoryMethodPattern.cpp](design-pattern/LeiFengFactoryMethodPattern.cpp)
 
@@ -393,7 +393,6 @@ int main(){
     pLeiFeng->wash();
     pLeiFeng->buyRice();
 
-
     if( pLeiFeng != nullptr){
         delete pLeiFeng;
         pLeiFeng = nullptr;
@@ -407,13 +406,13 @@ int main(){
 }
 ```
 
-## 三、Abstract Factory Pattern
+# 三、Abstract Factory Pattern
 
-### 3.1 Definition
+## (一) Definition
 
 　　**抽象工厂模式**提供一个创建一系列相关或互相依赖对象的接口,而无需指定他们具体的类.抽象工厂模式是对工厂方法模式的改进.用于处理产品不只有一类的情况(工厂方法模式下,产品只有User这一类,而抽象工厂模式下,产品包括User和Department两类).
 
-### 3.2 Structure
+## (二) Structure
 
 ![AbstractFactoryPatternUML](designpattern02-abstract-factory-uml.svg)
 
@@ -431,7 +430,7 @@ int main(){
 
   包括抽象产品A所对应的具体产品A1和A2,以及抽象产品B所对应的具体产品B1和B2.
 
-### 3.3 Usage
+## (三) Usage
 
 　　抽象工厂模式是对工厂方法模式的改进.用于处理产品不只有一类的情况(工厂方法模式下,产品只有User这一类,而抽象工厂模式下,产品包括User和Department两类).
 
@@ -445,7 +444,7 @@ int main(){
 
 * 系统提供一个产品类的库,所有的产品以同样的接口出现,从而使客户端不依赖于实现.
 
-### 3.4 Example
+## (四) Example
 
 **Src Downloads**  &rarr; [AbstractFactoryPattern.h](design-pattern/AbstractFactoryPattern.h) and [AbstractFactoryPatternClient.cpp](design-pattern/AbstractFactoryPatternClient.cpp)
 
@@ -624,4 +623,3 @@ int main(){
     return 1;
 }
 ```
-

@@ -6,9 +6,11 @@ date: 2018-05-22
 tags: ["C++"]
 featureimage: "covers/cpp-notes02-iostatements.svg"
 ---
-## 一、流状态(Stream states)
+# 一、流状态(Stream states)
 
-### 1.1 流(stream)
+## (一) 流状态(Stream states)
+
+### 1. 流(stream)
 
 　　流是一种抽象概念,它负责在数据的生产者和数据的消费者之间建立联系,并管理数据的流动.
 
@@ -26,7 +28,7 @@ featureimage: "covers/cpp-notes02-iostatements.svg"
 
 * clog : 类似于cerr,但是有缓冲,缓冲满时被输出.
 
-### 1.2 常用的流状态
+### 2. 常用的流状态
 
 key                     | output
 :---                    | :---
@@ -56,7 +58,7 @@ int main()
 }
 ```
 
-### 1.3 有参数的三个常用的状态流
+### 3. 有参数的三个常用的状态流
 
 function                | output
 :---                    | :---
@@ -100,11 +102,11 @@ int main()
 //-------------------------------------
 ```
 
-### 1.4 ostream方法
+### 4. ostream方法
 
 除了`<<`以外,ostream类还提供了`put()`和`write()`方法.
 
-#### 1.4.1 put
+#### (1) put
 
 ```cpp
 //put()
@@ -116,7 +118,7 @@ cout.put(65); //display A character
 cout.put(66.3); //display B character
 ```
 
-#### 1.4.2 write
+#### (2) write
 
 ```cpp
 //write()
@@ -136,9 +138,9 @@ Kansas
 */
 ```
 
-### 1.5 istream方法
+### 5. istream方法
 
-#### 1.5.1 单字符输入get(char)和ch=cin.get()
+#### (1) 单字符输入get(char)和ch=cin.get()
 
 ```cpp
 //get(char&)
@@ -167,7 +169,7 @@ cin.get(c1).get(c2);
 while( ( ch = cin.get() )!= EOF ){}
 ```
 
-#### 1.5.2 字符串输入getline()和get()
+#### (2) 字符串输入getline()和get()
 
 ```cpp
 istream &get(char *,int streamsize,char delim); //字符串地址,字符串长度,终止符
@@ -204,11 +206,11 @@ istream *getline( char *,int streamsize );  //字符串地址,字符串长度
    cin.get(dessert,ArSize); //dessert接收数据.
    ```
 
-### 1.6 内核格式化
+### 6. 内核格式化
 
 　　C++库提供了sstream提供程序和string之间的I/O;读取string对象中的格式化信息或者将格式化的信息写入string对象称为内核格式化
 
-#### 1.6.1 ostringstream
+#### (1) ostringstream
 
 sstream头文件定义了ostringstream,从ostream派生而来.
 
@@ -245,7 +247,7 @@ gabytes.
 */
 ```
 
-#### 1.6.2 istringstream
+#### (2) istringstream
 
 读取string对象中的格式化信息
 
@@ -305,15 +307,17 @@ int main(){
 }//====================================
 ```
 
-## 二、文件流
+# 二、文件流
 
-### 2.1 文本类型
+## (二) 文件流
+
+### 7. 文本类型
 
 1. 文本文件,其任何内容总是与字符码表(如ASCII码)对应.
 
 2. 二进制文件0/1.
 
-### 2.2 文件打开模式及语句
+### 8. 文件打开模式及语句
 
 statement        | detail
 :---:            | :---:
@@ -402,7 +406,7 @@ int main()
 
 ```
 
-### 2.3 文件读写
+### 9. 文件读写
 
 ```cpp
 ifstream fin;
@@ -446,7 +450,7 @@ int main()
 //====================================
 ```
 
-### 2.4 文件是否打开成功
+### 10. 文件是否打开成功
 
 ```cpp
 //旧式方法,无法检测出以不合适的文件模式打开导致的错误
@@ -470,7 +474,7 @@ fin.open("rat.data");
 fin.close();
 ```
 
-### 2.5 二进制文件的读写
+### 11. 二进制文件的读写
 
 ```cpp
 const int LIM = 20;
@@ -579,11 +583,11 @@ int main()
 
 ```
 
-### 2.6 随机存取(文件定位)
+### 12. 随机存取(文件定位)
 
 　　随机存取是直接移动到文件的任何位置.fstream类继承了两个方法`seekg()`和`seekp()`.fstream使用缓冲区来存储中间数据,因而指针指向的是缓冲区的位置,而不是文件的实际位置.
 
-#### 2.6.1 seekg()
+#### (1) seekg()
 
 将输入流指针移动到指定的文件位置.原型如下
 
@@ -615,7 +619,7 @@ fin.seekg(0,ios_base::end);  //go the end of file
 streampos = fin.tellg();
 ```
 
-#### 2.6.2 seekp()
+#### (2) seekp()
 
 将输出流指针移动到指定的文件位置.原型如下
 
@@ -632,7 +636,7 @@ ostream &seekp(streampos pos);
 streampos tellp();
 ```
 
-#### 2.6.3 文件随机读取sample
+#### (3) 文件随机读取sample
 
 ```cpp
 // random.cpp -- random access to a binary file
@@ -747,9 +751,11 @@ int main()
 
 ```
 
-## 三、素数判定
+# 三、素数判定
 
-### 3.1 筛选法
+## (三) 素数判定
+
+### 13. 筛选法
 
 ```cpp
 //=====================================
@@ -774,7 +780,7 @@ int main(){
 }
 ```
 
-### 3.2 素数定义
+### 14. 素数定义
 
 ```cpp
 //=====================================
@@ -798,7 +804,7 @@ int main(){
 //====================================
 ```
 
-### 3.3 微优化版
+### 15. 微优化版
 
 推导过程:
 
@@ -834,6 +840,3 @@ int main(){
     cout<<m<<" is a prime.\n";
 }//====================================
 ```
-
-
-

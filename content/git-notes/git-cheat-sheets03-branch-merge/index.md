@@ -6,7 +6,7 @@ date: 2018-05-07
 tags: ["git"]
 featureimage: "covers/git-cheat-sheets03-branch-merge.svg"
 ---
-## 一、branch
+# 一、branch
 
 ```bash
 git branch               //查看分支
@@ -17,7 +17,7 @@ git branch -d <name>     //删除分支,用于合并后删除
 git branch -D <name>     //强行删除分支,用于未合并删除
 ```
 
-### branch Strategy
+## (一) branch Strategy
 
 1. master,主分支,有且仅有一个,用于发布或者部署正式版本.
 
@@ -29,23 +29,23 @@ git branch -D <name>     //强行删除分支,用于未合并删除
 
 5. hotfix,修补bug分支,临时性分支,用后删除.
 
-## 二、merge/rebase
+# 二、merge/rebase
 
 [**View More&larr;&larr;&larr;**](http://blog.csdn.net/wh_19910525/article/details/7554489)
 
-### 2.1 merge
+## (一) merge
 
 merge的两种模式
 
-#### 2.1.1 Fast Forward模式
+### 1. Fast Forward模式
 
 如果**创建分支后,master无新提交**,合并分支Git会默认用`Fast forward`模式,master HEAD指针移动到branch HEAD,此过程不会有新的commit.分支历史是线性的.这种模式是直接覆盖,不会产生冲突
 
-#### 2.1.2 non Fast Forward模式
+### 2. non Fast Forward模式
 
 Git就会在merge时生成一个新的commit,从分支历史上就可以看出分支信息.分支历史是非线性的.merge 遇见冲突后会直接停止,等待手动解决冲突并重新提交 commit 后,才能再次 merge
 
-#### 2.1.3 Fast Forward与non Fast Forward图解
+### 3. Fast Forward与non Fast Forward图解
 
 * merge前,创建speedup分支并三次commit
 
@@ -55,7 +55,7 @@ Git就会在merge时生成一个新的commit,从分支历史上就可以看出�
 
 ![fastforward](git-merge-fast-forward-diff.svg)
 
-#### 2.1.4 merge 常用命令
+### 4. merge 常用命令
 
 ```bash
 git merge <name>                //合并某分支到当前分支
@@ -64,11 +64,11 @@ git merge --no-commit dev      //合并但不提交
 git merge --no-ff --no-commit dev //禁fast forward且不提交,建议这种方式merge
 ```
 
-### 2.2 rebase
+## (二) rebase
 
 rebase(变基) 即重新定义分支的版本库状态,遇见冲突后会暂停当前操作,**不能在一个共享的分支上进行Git rebase操作**,所谓共享的分支,即是指那些存在于远端并且允许团队中的其他人进行Pull操作的分支,详见[**Git Rebase原理以及黄金准则**](https://segmentfault.com/a/1190000005937408)
 
-#### 2.2.1 rebase常用命令
+### 1. rebase常用命令
 
 ```bash
 //如果产生冲突或有交互时(git rebase -i commitid)使用
@@ -78,7 +78,7 @@ git rebase --continue   //继续rebase,保存上一条的rebase操作
 git rebase --skip       //跳过,不解决冲突,直接覆盖
 ```
 
-#### 2.2.2 rebase workflow
+### 2. rebase workflow
 
 ![Git rebase workflow](git-rebase-workflow.svg)
 
@@ -93,7 +93,7 @@ git rebase --skip       //跳过,不解决冲突,直接覆盖
 
   Git rebase并不会删除老的提交
 
-## 三、stash
+# 三、stash
 
 git stash当前工作现场“储藏”起来,等以后恢复现场后继续工作,相当于栈
 
@@ -116,7 +116,7 @@ git stash apply //stash恢复法二,恢复后,stash内容并不删除
 git stash drop  //stash恢复法二,删除stash内容
 ```
 
-## 四、tag
+# 四、tag
 
 发布一个版本时,我们通常先在版本库中打一个标签(tag),这样,就唯一确定了打标签时刻的版本.将来无论什么时候,取某个标签的版本,就是把那个打标签的时刻的历史版本取出来.所以,标签也是版本库的一个快照.commit id与tag捆绑,更易标识.
 
@@ -132,9 +132,9 @@ git push origin --tags         //一次性推送全部尚未推送到远程的�
 git push origin :refs/tags/<tagname> //删除一个远程标签
 ```
 
-## 五、submodule/subtree
+# 五、submodule/subtree
 
-### 5.1 submodule
+## (一) submodule
 
 项目的版本库在某些情况下需要引用其他版本库中的文件,子模块可以有自己的版本管理,Git1.5以前管理子项目的方案
 
@@ -164,7 +164,7 @@ git submodule update --remote
 
 * 删除子仓库目录.
 
-### 5.2 subtree
+## (二) subtree
 
 经由 Git Subtree 来维护的子项目代码,对于父项目来说是透明的,所有的开发人员看到的就是一个普通的目录,原来怎么做现在依旧那么做,只需要维护这个 Subtree 的人在合适的时候去做同步代码的操作.每次只能push一个子树到仓库
 
@@ -176,11 +176,11 @@ git subtree push --prefix=ModuleA ModuleA master
 git subtree pull --prefix=ModuleA ModuleA ModuleA master
 ```
 
-### 5.3 差异
+## (三) 差异
 
 git submodule类似于引用,而git subtree类似于拷贝,比如你在一篇博客中想用到你另一篇博客的内容,必须单独提交,git submodule是使用那篇博客的链接,而git subtree则是将内容完全copy过来,所有子模块可以一次提交.
 
-## 六、rebase -i
+# 六、rebase -i
 
 将多次commit合并,只保留部分提交历史
 
@@ -225,7 +225,7 @@ git submodule类似于引用,而git subtree类似于拷贝,比如你在一篇博
    git push -f              //强行推送并覆盖
    ```
 
-## 七、git cherry-pick
+# 七、git cherry-pick
 
 直接摘取某次或某几次commit加到当前分支作为最新一次提交
 
@@ -236,11 +236,10 @@ git cherry-pick commitid
 git cherry-pick commitid1..commitidn
 ```
 
-## 七、Reference sites
+# 七、Reference sites
 
 * [廖雪峰的网站](https://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000)
 
 * [ProGit English](https://git-scm.com/book/en/v2)
 
 * [ProGit zh](https://git-scm.com/book/zh/v2)
-

@@ -6,9 +6,9 @@ date: 2018-05-07
 tags: ["git"]
 featureimage: "covers/git-cheat-sheets01-config-setup.svg"
 ---
-## 一、Install Git Tools
+# 一、Install Git Tools
 
-### 1.1 windows
+## (一) windows
 
 * git-scm
 
@@ -21,7 +21,7 @@ featureimage: "covers/git-cheat-sheets01-config-setup.svg"
   因为TortoiseGit 只是一个程序壳,必须依赖一个 Git Core(git-scm)
 Download from <https://tortoisegit.org/download/>
 
-### 1.2 MacOS
+## (二) MacOS
 
 * 系统自带git
 
@@ -29,7 +29,7 @@ Download from <https://tortoisegit.org/download/>
 
   需翻墙注册Atlassian,翻墙工具Free VPN,从App Store下载.
 
-## 二、Repository Structure
+# 二、Repository Structure
 
 Git是分布式版本控制系统
 
@@ -37,32 +37,32 @@ Git仓库有三个主要组成——工作目录,缓存区和提交历史.
 
 Git和其他版本控制系统如SVN的一个不同之处就是有暂存区的概念.
 
-### 2.1 Working Tree
+## (一) Working Tree
 
 工作区,就是你在电脑里能看到的目录,比如我的learngit文件夹就是一个工作区.
 
-### 2.2 Repository
+## (二) Repository
 
 版本库,工作区有一个隐藏目录.git,这个不算工作区,而是Git的版本库
 
-### 2.3 Stage/Index
+## (三) Stage/Index
 
 Git的版本库里存了很多东西,其中最重要的就是称为stage(或者叫index)的暂存区,还有Git为我们自动创建的第一个分支master,以及指向master的一个指针叫HEAD.
 
 ![GitSections](git-repository-section.svg)
 
-## 三、Git Configuration
+# 三、Git Configuration
 
 配置Git的时候,加上--global是针对当前用户起作用的,如果不加,那只针对当前的仓库起作用
 
-### 3.1 Config Location
+## (一) Config Location
 
 Type|Location
 :---:|:---:
 Global|`C:\Users\XXXX\.gitconfig`
 Repository|`RepositoryFolder\.git\config`
 
-### 3.2 Default Editor
+## (二) Default Editor
 
 ```bash
 //default editor:vim,路径中有空格,所以"\path""
@@ -72,26 +72,26 @@ git config [--global] core.editor "\"D:/Program Files/everedit/EverEdit.exe\""
 git config --unset [--global] core.editor
 ```
 
-### 3.3 Show Config
+## (三) Show Config
 
 ```bash
 git config [--global] -l
 ```
 
-### 3.4 Open Config
+## (四) Open Config
 
 ```bash
 git config [--global] -e
 ```
 
-### 3.5 User/Email
+## (五) User/Email
 
 ```bash
 git config [--global] user.name XXXX
 git config [--global] user.email XXX@YYY.com
 ```
 
-### 3.6 HTTP PWD
+## (六) HTTP PWD
 
 **View** &rrarr;[More](https://git-scm.com/book/zh/v2/Git-%E5%B7%A5%E5%85%B7-%E5%87%AD%E8%AF%81%E5%AD%98%E5%82%A8)
 
@@ -105,7 +105,7 @@ git config [--global] credential.helper store
 git config credential.helper 'cache --timeout 3600'
 ```
 
-### 3.7 Alias
+## (七) Alias
 
 通过修改配置文件来简化命令
 
@@ -135,11 +135,11 @@ git config -e            //用editor打开当前仓库config
 
 配置Git的时候,加上--global是针对当前用户起作用的,如果不加,那只针对当前的仓库起作用.每个仓库的Git配置文件都放在.git/config文件中.而当前用户的Git配置文件放在用户主目录下的一个隐藏文件.gitconfig中,配置别名也可以直接修改这个文件.
 
-## 四、Git Remote
+# 四、Git Remote
 
 一般采用http或者OPenSSH方式与远程仓库通信
 
-### 4.1 HTTP(Recommends)
+## (一) HTTP(Recommends)
 
 ```bash
 git clone https://gitee.com/easypr/EasyPR.git
@@ -147,7 +147,7 @@ git remote add https://gitee.com/easypr/EasyPR.git
 git submodule add https://gitee.com/easypr/EasyPR.git
 ```
 
-### 4.2 OPenSSH
+## (二) OPenSSH
 
 1. **公钥与私钥**
 
@@ -175,7 +175,7 @@ git submodule add https://gitee.com/easypr/EasyPR.git
       git clone git@gitee.com:easypr/EasyPR.git
       ```
 
-## 五、gitignore
+# 五、gitignore
 
 * 忽略某些文件时,需要编写.gitignore.
 
@@ -197,7 +197,7 @@ git submodule add https://gitee.com/easypr/EasyPR.git
 
 * **AndroidStudio gitignore** &rarr;[Download](git-notes/androidstudio.gitignore)
 
-## 六、TortoiseGit Settings
+# 六、TortoiseGit Settings
 
 1. **linked Portable Git**
 
@@ -219,13 +219,10 @@ git submodule add https://gitee.com/easypr/EasyPR.git
 
       TortoiseGit->Settings->Remote->Putty Key
 
-## 七、Reference sites
+# 七、Reference sites
 
 * [廖雪峰的网站](https://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000)
 
 * [ProGit English](https://git-scm.com/book/en/v2)
 
 * [ProGit zh](https://git-scm.com/book/zh/v2)
-
-
-

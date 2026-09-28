@@ -6,9 +6,11 @@ date: 2018-05-22
 tags: ["C++"]
 featureimage: "covers/cpp-notes08-exception.svg"
 ---
-## 一、异常处理
+# 一、异常处理
 
-### 1.1 异常处理步骤
+## (一) 异常处理
+
+### 1. 异常处理步骤
 
 **堆栈解退**
 
@@ -59,7 +61,7 @@ double hmean(double a, double b)
 }
 ```
 
-### 1.2 抛出异常和捕获异常
+### 2. 抛出异常和捕获异常
 
 　　异常抛出后总是沿着函数调用链往上,直到被某个函数捕捉住.一般在函数的声明和定义的头部加上可能抛出的异常集合.
 
@@ -73,7 +75,7 @@ cat(...)             //捕获任何异常
 
 异常机制是基于类型匹配,不是基于参数匹配.
 
-### 1.3 使用异常
+### 3. 使用异常
 
 **Sample01**:
 
@@ -222,7 +224,7 @@ double gmean(double a, double b) throw(bad_gmean)
 
 ```
 
-### 1.4 catch(引用)
+### 4. catch(引用)
 
 引发异常时编译器总是创建一个临时拷贝,即使是catch(引用).原因如下:
 
@@ -253,9 +255,11 @@ catch(bad_1 &be){}  //捕获基类异常,如放在最前面,将不能捕获派�
 catch(...){}        //捕获任何异常
 ```
 
-## 二、异常类(exception)
+# 二、异常类(exception)
 
-### 2.1 异常基类
+## (二) 异常类(exception)
+
+### 5. 异常基类
 
 　　在exception文件中定义了exception类,可以作为其它异常类的基类.有一个虚函数可覆盖
 
@@ -286,11 +290,11 @@ try{
 }
 ```
 
-### 2.2 常用异常类
+### 6. 常用异常类
 
 　　头文件stdexception定义,以公有方式从exception派生.主要包括`logic_error`和`runtime_error`
 
-#### 2.2.1 logic_error类及其派生类
+#### (1) logic_error类及其派生类
 
 ```cpp
 //logic_error类,
@@ -331,7 +335,7 @@ catch(exception &oe)
 }
 ```
 
-#### 2.2.2 runtime_error类及其派生类
+#### (2) runtime_error类及其派生类
 
 在运行期间出现错误.
 
@@ -341,7 +345,7 @@ catch(exception &oe)
 
 * underflow:超过类型可以表示的最小值,比如超过浮点数可以表示的最小值.
 
-#### 2.2.3 bad_alloc和new
+#### (3) bad_alloc和new
 
 对于new产生的内存分配问题,一是返回空指针.二是抛出bad_allocy异常
 
@@ -384,7 +388,9 @@ int main()
 
 ```
 
-## 三、异常注意事项
+# 三、异常注意事项
+
+## (三) 异常注意事项
 
 　　使用异常会增加程序代码,降低程序的运行速度.异常规范不适用于模板,因为模板引发的异常可能随特定的具体化而异.
 
@@ -415,6 +421,3 @@ void test2(int n){
     return;
 }
 ```
-
-
-

@@ -14,9 +14,9 @@ featureimage: "covers/markdown-notes04-formula-mathjax.svg"
 <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
 ```
 
-## 一、Formula
+# 一、Formula
 
-### 1.1 Inline Formula
+## (一) Inline Formula
 
 * **Syntax**:
 
@@ -28,7 +28,7 @@ featureimage: "covers/markdown-notes04-formula-mathjax.svg"
 
    ` $s = \pi r^2$ `
 
-### 1.2 Displayed Formula
+## (二) Displayed Formula
 
 * **Syntax**:
 
@@ -46,7 +46,7 @@ featureimage: "covers/markdown-notes04-formula-mathjax.svg"
   $$
   ```
 
-## 二、Greek Letters List
+# 二、Greek Letters List
 
 请参见下表
 
@@ -77,7 +77,7 @@ featureimage: "covers/markdown-notes04-formula-mathjax.svg"
 `psi`     | `Ψ`  | `\Psi`    | `ψ`   | `\psi`
 `omega`   | `Ω`  | `\Omega`  | `ω`   | `\omega`
 
-## 三、Mathematical Operators List
+# 三、Mathematical Operators List
 
 运算符        | 说明    | 运算符案例    | 案例实现
 :---:         |:---:    |:---:|:---:
@@ -129,7 +129,7 @@ featureimage: "covers/markdown-notes04-formula-mathjax.svg"
 `\uparrow`    | 上箭头  | $ \uparrow $    | `$ \uparrow $`
 `\Uparrow`    | 上箭头  | $ \Uparrow $    | `$ \Uparrow $`
 
-## 四、上标和下标
+# 四、上标和下标
 
 ` ^ `表示上标,` _ `表示下标.如果上下标的内容多于一个字符,要用`{}`把这些内容括起来当成一个整体.上下标是可以嵌套的,也可以同时使用.
 
@@ -144,7 +144,7 @@ Sample|Output
 ` $ \sideset {^2}{ ^3 }{(1+x)}  $ `   | $ \sideset {^2}{ ^3 }{(1+x)} $
 ` $ \sideset{^1_2}{^3_4}\bigotimes $ `| $ \sideset{^1_2}{^3_4}\bigotimes $
 
-## 五、分数表示
+# 五、分数表示
 
 ```markdown
 * $ \frac {分子} {分母} $
@@ -158,7 +158,7 @@ Sample|Output
 
 *注意对于`\frac`的方法,如果分子分母都是单个数,那么大括号`{}`可以省略,如`$\frac12$`表示1/2.*
 
-## 六、各种括号
+# 六、各种括号
 
 　　`()`、`[]`和`|`可以直接表示自己,而`{}`本来用于分组,因此需要用`{}`来表示自身,也可以使用`\lbrace` 和`\rbrace`来表示,其它括号见下面那个表.
 
@@ -192,7 +192,7 @@ $\left. \frac{du}{dx} \right| _{x=0}$
 
 $ \left. \frac{du}{dx} \right\| _{x=0} $
 
-## 七、参考
+# 七、参考
 
 * [**常用数学符号表**](http://www.mohu.org/info/symbols/symbols.htm)
 

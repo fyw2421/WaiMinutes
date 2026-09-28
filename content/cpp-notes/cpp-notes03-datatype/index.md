@@ -9,9 +9,11 @@ featureimage: "covers/cpp-notes03-datatype.svg"
 
 C++数据类型新增或升级
 
-## 一、struct
+# 一、struct
 
-### 1.1 C-struct
+## (一) struct
+
+### 1. C-struct
 
 变量声明时需加struct关键字
 
@@ -44,7 +46,7 @@ void main()
 }
 ```
 
-### 1.2 C-typedef
+### 2. C-typedef
 
 使用typdef重定义类型
 
@@ -77,7 +79,7 @@ void main()
 }
 ```
 
-### 1.3 C++-struct
+### 3. C++-struct
 
 ```cpp
 #include <iostream>
@@ -118,7 +120,7 @@ int main()
 }
 ```
 
-### 1.4 C++ stuct特性
+### 4. C++ stuct特性
 
 C\++ struct与C\++ class极为类似,区别:
 
@@ -136,13 +138,15 @@ C\++ struct与C\++ class极为类似,区别:
 
 　　**建议struct成员只包含基本数据类型,其它特性用class实现.**
 
-## 二、namespace
+# 二、namespace
 
-### 2.1 作用
+## (二) namespace
+
+### 5. 作用
 
 　　组织和重用代码,制定标识符的使用范围,解决同名冲突.
 
-### 2.2 使用
+### 6. 使用
 
 　　在声明一个命名空间时,花括号内不仅可以包括变量,而且还可以包括以下类型:
 
@@ -179,7 +183,7 @@ cout<<nsl::tax()<<endl；
 cout<<nsl::ns2::age<<endl； //需要指定外层的和内层的命名中间名
 ```
 
-### 2.3 Sample
+### 7. Sample
 
 ```cpp
 #include <iostream>
@@ -225,11 +229,13 @@ int main()
 }
 ```
 
-## 三、string
+# 三、string
+
+## (三) string
 
 　　**string是一种自定义的类型,可以自动调整大小.**
 
-### 3.1 string的赋值,比较与添加
+### 8. string的赋值,比较与添加
 
 string可以像普通变量一样进行比较,赋值与添加等等.
 
@@ -262,7 +268,7 @@ output:
   not found
 ```
 
-### 3.2 string与C-String的输入输出
+### 9. string与C-String的输入输出
 
 ```cpp
 #include <iostream>
@@ -292,11 +298,13 @@ int main(){
 }
 ```
 
-## 四、vetor
+# 四、vetor
+
+## (四) vetor
 
 　　vector是C++标准模板库中的部分内容,属于std命名域,头文件vector,**View** &rarr; [**More**](http://blog.chinaunix.net/uid-26000296-id-3785610.html)
 
-### 4.1 声明(构造)
+### 10. 声明(构造)
 
 ```cpp
 vector v               // 创建一个空的vector.
@@ -306,7 +314,7 @@ vector c(n, elem)      // 创建一个含有n个elem拷贝的vector
 vector c(beg,end)      // 创建一个含有n个elem拷贝的vector
 ```
 
-### 4.2 成员函数
+### 11. 成员函数
 
 ```cpp
 c.assign(beg,end)     //将[begin; end)区间中的数据赋值给c
@@ -339,7 +347,7 @@ swap(c1,c2)           // 将c1和c2元素互换.同上操作.
 operator[]            // 返回容器中指定位置的一个引用.
 ```
 
-### 4.3 遍历
+### 12. 遍历
 
 1. 循环控制
 
@@ -357,7 +365,7 @@ operator[]            // 返回容器中指定位置的一个引用.
        cout<<*it<<" ";
    ```
 
-### 4.4 Sample
+### 13. Sample
 
 ```cpp
 //=====================================
@@ -433,17 +441,19 @@ void print(const Mat& a)
 }
 ```
 
-## 五、void *
+# 五、void *
+
+## (五) void *
 
 　　void\*表示“空类型指针”,与void不同,void*表示“任意类型的指针”或表示“该指针与一地址值相关,但是不清楚在此地址上的对象的类型”.
 
-### 5.1 为什么不用void表示任意类型的数据呢？
+### 14. 为什么不用void表示任意类型的数据呢？
 
 　　大家都知道,C/C++是静态类型的语言,定义变量就会分配内存,然而,不同类型的变量所占内存不同,如果定义一个任意类型的变量,如何为其分配内存呢？
 
 　　所以,C、C++中没有任意类型的变量.但是,所有指针类型的变量,无论是int*、char*、string*、Student*等等,他们的内存空间都是相同的(4个字节,与int相同),所以可以定义“任意类型的指针”.
 
-### 5.2 void*指针只支持几种有限的操作*
+### 15. void*指针只支持几种有限的操作*
 
 1. 与另一个指针进行比较；向函数传递void指针或从函数返回void*指针；
 
@@ -465,11 +475,13 @@ void print(const Mat& a)
    }
    ```
 
-## 六、类型转换
+# 六、类型转换
+
+## (六) 类型转换
 
 　　类型转换有c风格的,当然还有c\++风格的.c风格的转换的格式很简单（TYPE）EXPRESSION,但是c风格的类型转换有不少的缺点,有的时候用c风格的转换是不合适的,因为它可以在任意类型之间转换,比如你可以把一个指向const对象的指针转换成指向非const对象的指针,把一个指向基类对象的指针转换成指向一个派生类对象的指针,这两种转换之间的差别是巨大的,但是传统的c语言风格的类型转换没有区分这些.还有一个缺点就是,c风格的转换不容易查找,他由一个括号加上一个标识符组成,而这样的东西在c\++程序里一大堆.所以c++为了克服这些缺点,引进了4新的类型转换操作符.
 
-### 6.1 static_cast
+### 16. static_cast
 
 1. `static_cast<type-id>(expression)`编译期的转化,不能转换掉expression的const、volitale、或者__unaligned属性,`必须是相关类型才能转换`.
 
@@ -514,11 +526,11 @@ pObjB = static_cast<B*>(pObjA);   //强制转换 OK 基类到子类,不安全
 //pObjD = static_cast<D*>(pObjC);   //error 两个无关联之间转换
 ```
 
-### 6.2 const_cast
+### 17. const_cast
 
 　　编译期的转化,去除类型中的const 属性
 
-### 6.3 dynamic_cast
+### 18. dynamic_cast
 
 1. dynamic_cast < type-id > ( expression )运行期的转换,类层次间的上行转换和下行转换,专门针对`虚函数`的继承结构.
 
@@ -551,11 +563,11 @@ void func(B *pb)
 }
 ```
 
-### 6.4 reinterpret_cast
+### 19. reinterpret_cast
 
 　　任何指针都可以转换成其它类型的指针,可用于如char* 到 int*,或者One_class* 到 Unrelated_class* 等的转换,因此可能是不安全的.
 
-### 6.5 类的自动类型转换和强制类型转换
+### 20. 类的自动类型转换和强制类型转换
 
 ```cpp
 // stonewt.h -- definition for the Stonewt class
@@ -579,7 +591,7 @@ public:
 #endif
 ```
 
-#### 6.5.1 隐式类型转换
+#### (1) 隐式类型转换
 
 ```cpp
 Stonewt mycat;
@@ -630,7 +642,7 @@ ok
 
    ![ObjectTypeAutoCast](cpp-notes03-objecttype-auto-cast.svg)
 
-#### 6.5.2 显式类型转换
+#### (2) 显式类型转换
 
 隐式类型转换可以导致意外的类型转换,可以使用explicit来关闭.
 
@@ -647,7 +659,7 @@ mycat = Stonewt(19.6);
 mycat = (Stonewt)19.6;
 ```
 
-#### 6.5.3 单参数构造函数的另一种初始化方式
+#### (3) 单参数构造函数的另一种初始化方式
 
 当构造函数只接受一个参数时,可以用隐式转换初始化对象.
 
@@ -659,7 +671,7 @@ Stonewt pavarotti(260);
 Stonewt pavarotti = Stonewt(260);
 ```
 
-#### 6.5.4 转换函数
+#### (4) 转换函数
 
 ```cpp
 Stonewt wolfe( 285.7);
@@ -715,7 +727,10 @@ Stonewt Poppins(9,2.8);
 double p_wt = Pop;
 }
 ```
-## 七、运行时内存布局(Runtime memory layout)
+
+# 七、运行时内存布局(Runtime memory layout)
+
+## (七) 运行时内存布局(Runtime memory layout)
 
 　　一般而言,操作系统将程序装入内存后,将形成一个随时可以运行的进程空间,将进程空间分四个区域:
 
@@ -726,9 +741,11 @@ double p_wt = Pop;
 代码区(code area)   |存放程序的执行代码,所谓执行代码就是索引了的一个个函数块代码,它由函数定义块的编译得到.
 全局数据区(data area)|存放全局数据、常量、文字量、静态全局量和静态局部量.
 
-## 八、指针与引用(Reference)
+# 八、指针与引用(Reference)
 
-### 8.1 指针限定
+## (八) 指针与引用(Reference)
+
+### 21. 指针限定
 
 **指针变量所占的空间大小总是等同于整型变量的大小**
 
@@ -751,7 +768,7 @@ int main(){
 */
 ```
 
-### 8.2 指针常量与常量指针
+### 22. 指针常量与常量指针
 
 * 指针常量:相对于指针常量而言,指针值不能修改,如 int const *p;
 
@@ -778,7 +795,7 @@ int main(){
 
 * 如果const没有修饰数据类型,直接修饰指针,那么表示指针不能修改,为指针常量,int const *p,int *const p;
 
-### 8.3 引用(Reference)
+### 23. 引用(Reference)
 
 　　从逻辑上理解,引用就是一个别名(alias),**引用定义时必须初始化**.引用相当于一个隐形指针.引用不能操作自身的地址值,只能访问指向的实体.引用与实体的关系,看似直接访问,实为指针的间接访问,是由编译器完成的.
 
@@ -810,12 +827,13 @@ output:
    &rInt: 0021F964   rInt: 8
 ```
 
-### 8.4 指针与引用的差别
+### 24. 指针与引用的差别
 
 　　指针可以操纵两个实体,一个是指针值,一个是指向的值.引用只能操纵一个实体.
 
+# 九、全局数据(Global Data )
 
-## 九、全局数据(Global Data )
+## (九) 全局数据(Global Data )
 
 　　全局数据就是在任何函数的外部声明或者定义的,起到所有函数都可以访问它的作用.
 
@@ -827,9 +845,11 @@ output:
 
 4. 如果定义了一个外部变量,其它文件中的同名静态变量将隐藏该变量.
 
-## 十、静态数据(Static Data)
+# 十、静态数据(Static Data)
 
-### 10.1 static对象的初始化
+## (十) 静态数据(Static Data)
+
+### 25. static对象的初始化
 
 　　C\++规定,**non-local static 对象的初始化发生在main函数执行之前**.但C++没有规定多个non-local static 对象的初始化顺序,尤其是来自**多个编译单元的non-local static对象,他们的初始化顺序是随机的.**
 
@@ -837,15 +857,15 @@ output:
 
 　　在文章的后半部分会看到,local static 对象在单例模式中有着广泛的应用,为了解决local static对象在多线程环境下的重复构造问题,程序员想出了很多方法.而C\++11则在语言的规范中解决了这个问题.**C\++11规定,在一个线程开始local static 对象的初始化后完成初始化前,其他线程执行到这个local static对象的初始化语句就会等待,直到该local static 对象初始化完成.**
 
-### 10.2 静态全局数据(Static Global Data)
+### 26. 静态全局数据(Static Global Data)
 
 　　内部链接性:只在本文件内可见,在其它程序文件中不可见.可以在本文件中隐藏其它文件定义的全局变量.
 
-### 10.2 静态局部数据(static Local Data)
+### 27. 静态局部数据(static Local Data)
 
 　　静态局部变量驻留在全局数据区,默认初始值为0,仅在第一次调用时被初始化.
 
-### 10.4 实例
+### 28. 实例
 
 ```cpp
 //=====================================
@@ -881,7 +901,9 @@ a=6,b=10,n=25
 */
 ```
 
-## 十一、浮点数
+# 十一、浮点数
+
+## (十一) 浮点数
 
 在计算机内部,浮点数分为三段:
 
@@ -917,7 +939,9 @@ output:
   0,10000011,00110011001100110011010
 ```
 
-## 十二、二维数组的动态申请
+# 十二、二维数组的动态申请
+
+## (十二) 二维数组的动态申请
 
 ```cpp
 //方式一
@@ -948,5 +972,3 @@ delete[] ga;
 //优点:连续存储,n可以不知
 //缺点:调用不直观
 ```
-
-
