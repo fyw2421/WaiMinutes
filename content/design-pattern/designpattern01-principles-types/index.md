@@ -6,25 +6,25 @@ date: 2018-05-28
 tags: ["Design Pattern"]
 featureimage: "covers/designpattern01-principles-types.svg"
 ---
-## 一、Design Principles
+# 一、Design Principles
 
 ![DesignPatternPinciple](designpattern01-design-principle.svg)
 
 **View** &rarr; [**More**](https://blog.csdn.net/xiqingnian/article/details/41843885)
 
-### 1.1 Single Reponsibility Principle
+## (一) Single Reponsibility Principle
 
 　　**单一职责原则**:仅有一个导致类变更的原因,即**一个类只负责一项职责**.
 
 　　如果一个类承担的职责过多,某一个职责的变化可能影响其它职责.
 
-### 1.2 Liskov's Substitution Principle(LSP)
+## (二) Liskov's Substitution Principle(LSP)
 
 　　**里氏替换原则**:一个软件实体如果使用了父类,那么一定适用其子类.即**子类型能够替换父类型**
 
 　　父类中凡是已经实现好的方法(相对于抽象方法而言),实际上是在设定一系列的规范和契约,虽然它不强制要求所有的子类必须遵从这些契约,但是如果子类对这些非抽象方法任意修改,就会对整个继承体系造成破坏.而里氏替换原则就是表达了这一层含义.
 
-### 1.3 Open Close Principle
+## (三) Open Close Principle
 
 　　**开放-封闭原则**,软件实体(类/模块/函数)对**扩展开放,对修改封闭**.
 
@@ -32,7 +32,7 @@ featureimage: "covers/designpattern01-principles-types.svg"
 
 　　开闭原则思想是对频繁变化的部分作出抽象,用抽象构建框架,用实现扩展细节.因为抽象灵活性好,适应性广,只要抽象的合理,可以基本保持软件架构的稳定.而软件中易变的细节,我们用从抽象派生的实现类来进行扩展,当软件需要发生变化时,我们只需要根据需求重新派生一个实现类来扩展就可以了.当然前提是我们的抽象要合理,要对需求的变更有前瞻性和预见性才行.
 
-### 1.4 Dependency Inversion Principle
+## (四) Dependency Inversion Principle
 
 　　**依赖倒置原则**:高层模块不应该依赖低层模块,二者都应该依赖其抽象；抽象不应该依赖细节；细节应该依赖抽象.
 
@@ -115,13 +115,13 @@ featureimage: "covers/designpattern01-principles-types.svg"
 
 * 使用继承时遵循里氏替换原则.
 
-### 1.5 Interface Segregation Principle (ISP)
+## (五) Interface Segregation Principle (ISP)
 
 　　**接口隔离原则**:客户端不应该依赖它不需要的接口；一个类对另一个类的依赖应该建立在最小的接口上.
 
 　　接口隔离原则的含义是：建立单一接口,不要建立庞大臃肿的接口,尽量细化接口,接口中的方法尽量少.也就是说,我们要为各个类建立专用的接口,而不要试图去建立一个很庞大的接口供所有依赖它的类去调用.本文例子中,将一个庞大的接口变更为3个专用的接口所采用的就是接口隔离原则.在程序设计中,依赖几个专用的接口要比依赖一个综合的接口更灵活.接口是设计时对外部设定的“契约”,通过分散定义多个接口,可以预防外来变更的扩散,提高系统的灵活性和可维护性.
 
-### 1.6 Law of Demeter
+## (六) Law of Demeter
 
 　　**迪米特法则(最少知道原则)**:一个对象应该对其他对象保持最少的了解
 
@@ -250,11 +250,11 @@ featureimage: "covers/designpattern01-principles-types.svg"
    }
    ```
 
-### 1.7 Composite/Aggregate Reuse Principle
+## (七) Composite/Aggregate Reuse Principle
 
 　　**合成/聚合复用原则**:尽量使用合成/聚合,尽量不要使用类继承
 
-## 二、Pattern Types(24种)
+# 二、Pattern Types(24种)
 
 Types | Name
 :---:|:---
@@ -287,4 +287,3 @@ Behavioral(行为型) | 11种
 -| [Chain of Responsibility(责任链模式)](/WaiMinutes/design-pattern/designpattern09-templatemethod-chainofresponsibility/#十一chain-of-responsibility-pattern)
 
 > [西青年·部落格](https://blog.csdn.net/xiqingnian/article/details/41843885)
-

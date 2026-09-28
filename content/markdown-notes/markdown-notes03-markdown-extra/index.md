@@ -6,7 +6,7 @@ date: 2018-05-02
 tags: ["markdown"]
 featureimage: "covers/markdown-notes03-markdown-extra.svg"
 ---
-## 一、Tables
+# 一、Tables
 
 　　Markdown使用管线图的方式实现表格,表格里面可以使用强调、链接等行内格式.
 
@@ -50,7 +50,7 @@ featureimage: "covers/markdown-notes03-markdown-extra.svg"
   Monday    | pasta     | $6
   Tuesday   | chicken   | $8
 
-## 二、Definition Lists
+# 二、Definition Lists
 
 ```markdown
 Term 1
@@ -67,7 +67,7 @@ Term 3
 > part of definition D
 ```
 
-## 三、Footnotes
+# 三、Footnotes
 
 * **Syntax**:
 
@@ -83,13 +83,13 @@ Term 3
   [^Footnote1]: Here is the *text* of the **footnote**
 
 
-## 四、Table of Content
+# 四、Table of Content
 
 Insert a table of contents using the marker
 
 　　`[TOC]`
 
-## 五、UML Diagrams
+# 五、UML Diagrams
 
 **Markdown绘图有两种方式**
 
@@ -99,7 +99,7 @@ Insert a table of contents using the marker
 
 以下是基于js-sequence-diagrams实现
 
-### 5.1 sequence Diagram
+## (一) sequence Diagram
 
 <pre><code>
 ```sequence
@@ -109,7 +109,7 @@ Bob-->Alice: I am good thanks!
 ```
 </code></pre>
 
-### 5.2 Syntax Diagram
+## (二) Syntax Diagram
 
 ![SequenceDiagramSyntax](markdown-js-sequece-diagrams-gramar.webp "js-sequece-diagrams gramar")
 
@@ -170,7 +170,7 @@ Bob-->Alice: I am good thanks!
 > **Detail**  : < //bramp.github.io/js-sequence-diagrams/>
 
 
-### 5.3 Flow Charts
+## (三) Flow Charts
 
 Markdown基于flowchart.js实现流程图
 
@@ -289,7 +289,7 @@ Markdown基于flowchart.js实现流程图
 
 ![FlowChartsSample02](markdown-flowcharts-sample02.webp)
 
-## 六、引用
+# 六、引用
 
 * [**FedFun**](//blog.csdn.net/whqet/article/details/44281463)
 

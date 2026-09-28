@@ -520,6 +520,16 @@ div.text-center > .landing-rise-1 {
   overflow-wrap: break-word;
 }
 
+/* 代码块保持单行 + 横向滚动
+
+   尝试过 pre-wrap 自动换行，但语法高亮块（如 WezTerm PowerShell 脚本）
+   单行 300+ 字符，pre-wrap 会任意截断行、破坏高亮 span 结构，代码完全不可读。
+   回归 single-line + overflow-x: auto，超出视口时横向滚动。 */
+.article-content pre {
+  white-space: pre;
+  overflow-x: auto;
+}
+
 /* ---------- 全部文章（/articles/）：卡片铺满页面宽度 ---------- */
 
 /* /articles/ 走的是 single.html（普通页面），主题给内容套了两道宽度上限：

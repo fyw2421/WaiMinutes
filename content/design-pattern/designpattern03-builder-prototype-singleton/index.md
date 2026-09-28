@@ -6,13 +6,13 @@ date: 2018-05-28
 tags: ["Design Pattern"]
 featureimage: "covers/designpattern03-builder-prototype-singleton.svg"
 ---
-## 四、Builder Pattern
+# 四、Builder Pattern
 
-### 4.1 Definition
+## (一) Definition
 
 　　**建造者模式**将一个复杂对象的构建和它的实现分离,使得同样的构建过程可以创建不同的实现
 
-### 4.2 Structure
+## (二) Structure
 
 ![BuilderPatternUML](designpattern03-builder-uml.svg)
 
@@ -30,7 +30,7 @@ featureimage: "covers/designpattern03-builder-prototype-singleton.svg"
 
   构建一个使用Builder接口的对象
 
-### 4.3 Usage
+## (三) Usage
 
 1. 什么时候使用建造者模式？
 
@@ -40,7 +40,7 @@ featureimage: "covers/designpattern03-builder-prototype-singleton.svg"
 
    建造者模式的好处就是使得建造代码与实现代码分离,由于建造者隐藏了 该产品是如何组装的,所以若需要改变一个产品的内部实现,只需要再定义一个具体的建造者就可以了
 
-### 4.4 Example
+## (四) Example
 
 **Src Downloads**  &rarr; [BuilderPattern.h](design-pattern/BuilderPattern.h) and [BuilderPatternClient.cpp](design-pattern/BuilderPatternClient.cpp)
 
@@ -154,17 +154,17 @@ int main(){
 }
 ```
 
-## 五、Prototype Pattern
+# 五、Prototype Pattern
 
-### 5.1 Definition
+## (一) Definition
 
 　　**原型模式**用原型示例指定创建对象的种类,并且通过拷贝这些原型创建新的可定制的对象
 
-### 5.2 Structure
+## (二) Structure
 
 ![PrototypePatternUML](designpattern03-prototype-uml.svg)
 
-### 5.3 Usage
+## (三) Usage
 
 * 原型模式实际上就是从一个对象再创建另外一个可定制的对象,而且不需要知道任何创建的细节.
 
@@ -172,7 +172,7 @@ int main(){
 
 * 深复制把引用对象的变量指向复制过的新对象,而不是原有的被引用的对象.
 
-### 5.4 Example
+## (四) Example
 
 **Src Downloads**  &rarr; [PrototypePattern.h](design-pattern/PrototypePattern.h) and [PrototypePatternClient.cpp](design-pattern/PrototypePatternClient.cpp)
 
@@ -248,7 +248,7 @@ Wai
 Wai
 ```
 
-### 5.5 Example-Resume
+## (五) Example-Resume
 
 **Src Downloads**  &rarr; [ResumePrototypePattern.h](design-pattern/ResumePrototypePattern.h) and [ResumePrototypePatternClient.cpp](design-pattern/ResumePrototypePatternClient.cpp)
 
@@ -380,23 +380,23 @@ Work Experience
   2000-20001  ZZZ Company
 ```
 
-## 六、Singleton Pattern
+# 六、Singleton Pattern
 
-### 6.1 Definition
+## (一) Definition
 
 　　**单例模式**保证一个类仅有一个实例,并提供一个访问他的全局访问点
 
-### 6.2 Structure
+## (二) Structure
 
 ![SingletonPatternUML](designpattern03-singleton-uml.svg)
 
-### 6.3 Usage
+## (三) Usage
 
 * 懒汉模式,在需要时初始化,线程不安全,以时间换空间
 
 * 饿汉模式,程序启动时初始化,线程安全,以空间换时间
 
-### 6.4 Example-Lazy
+## (四) Example-Lazy
 
 * C\++规定,non-local static 对象的初始化发生在main函数执行之前
 
@@ -480,7 +480,7 @@ int main(){
 }
 ```
 
-### 6.5 Example-Hungry
+## (五) Example-Hungry
 
 **Src Downloads**  &rarr; [HungrySingletonPattern.h](design-pattern/HungrySingletonPattern.h) and [HungrySingletonPatternClient.cpp](design-pattern/HungrySingletonPatternClient.cpp)
 
@@ -526,5 +526,3 @@ int main(){
     return 1;
 }
 ```
-
-

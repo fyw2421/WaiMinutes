@@ -6,13 +6,13 @@ date: 2018-05-28
 tags: ["Design Pattern"]
 featureimage: "covers/designpattern09-templatemethod-chainofresponsibility.svg"
 ---
-## 十、Template Method Pattern
+# 十、Template Method Pattern
 
-### 10.1 Definition
+## (一) Definition
 
 　　**模板方法模式**把不变的代码部分移到父类中,将可变的代码用virtual留到子类重写.定义一个操作中的算法的骨架,而将一些步骤延迟到子类中.模板方法使得子类可以不改变一个算法的结构即可重定义该算法的某些特定步骤.
 
-### 10.2 Structure
+## (二) Structure
 
 ![TemplateMethodPatternUML](designpattern09-template-method-uml.svg)
 
@@ -24,11 +24,11 @@ featureimage: "covers/designpattern09-templatemethod-chainofresponsibility.svg"
 
   实现父类所定义的一个或多个抽象方法.每一个AbstractClass都可以有任意多个ConcreteClass与之对应,而每一个ConcreteClass都可以给出这些抽象方法（也就是顶级逻辑的组成步骤）的不同实现,从而使得顶级逻辑的实现各不相同.
 
-### 10.3 Usage
+## (三) Usage
 
 　　当不变的和可变的行为在方法的子类实现中混合在一起的时候,不变的行为就会在子类中重复出现.我们通过模板方法模式,把这些行为搬移到单一的地方,这样帮助子类摆脱重复的不变行为的纠缠.
 
-### 10.4 Example
+## (四) Example
 
 **Src Downloads**  &rarr; [TemplateMethodPattern.h](design-pattern/TemplateMethodPattern.h) and [TemplateMethodPatternClient.cpp](design-pattern/TemplateMethodPatternClient.cpp)
 
@@ -66,7 +66,6 @@ protected:
     virtual string answer3() = 0;
 };
 
-
 //ConcreteClass,实现具体步骤
 class CConcretePaperA : public CTestPaper{
 protected:
@@ -82,7 +81,6 @@ protected:
     virtual string answer2(){ return "C"; }
     virtual string answer3(){ return "A"; }
 };
-
 
 #endif // TEMPLATEMETHODPATTERN_H
 ```
@@ -135,13 +133,13 @@ A. 8 B. 4 C. 2 D. 1000
 answer: A
 ```
 
-## 十一、Chain of Responsibility Pattern
+# 十一、Chain of Responsibility Pattern
 
-### 11.1 Definition
+## (一) Definition
 
 　　**责任链模式**使多个对象都有机会处理请求,从而避免请求的发送者和接收者之间的耦合.将这个对象连成一条链,并沿着这条链传递该请求,直到有一个对象处理它为止.
 
-### 11.2 Structure
+## (二) Structure
 
 ![ChainOfResponsibilityPatternUML](designpattern09-chain-of-responsibility-uml.svg)
 
@@ -153,7 +151,7 @@ answer: A
 
   具体的处理请求的接口
 
-### 11.3 Usage
+## (三) Usage
 
 1. 职责链模式的好处
 
@@ -167,7 +165,7 @@ answer: A
 
    一个请求极有可能到了链的末端都得不到处理,或者因为没有正确配置而得不到处理.
 
-### 11.4 Example
+## (四) Example
 
 ![ChainOfResponsibilityPatternExampleUML](designpattern09-chain-of-responsibility-example-uml.svg)
 
@@ -182,7 +180,6 @@ answer: A
 
 #include <iostream>
 using namespace std;
-
 
 //请求类
 class CRequest{
@@ -200,7 +197,6 @@ private:
     string mStrRequestContent;
     int mNumber;
 };
-
 
 //Handler类抽象类,此处为Manager类
 class CManager{
@@ -325,4 +321,3 @@ GeneralManager:Salary Increase Number:1000 was Rej
 ected
 GeneralManager:Promotion Number:1 was Rejected
 ```
-

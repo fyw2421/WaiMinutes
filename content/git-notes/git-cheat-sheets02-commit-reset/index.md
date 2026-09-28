@@ -6,7 +6,7 @@ date: 2018-05-07
 tags: ["git"]
 featureimage: "covers/git-cheat-sheets02-commit-reset.svg"
 ---
-## 一、Create/Clone Repository
+# 一、Create/Clone Repository
 
 ```bash
 mkdir learngit
@@ -16,7 +16,7 @@ git init //创建版本库,生成.git文件夹
 git clone git clone https://gitee.com/easypr/EasyPR.git //克隆
 ```
 
-## 二、Add
+# 二、Add
 
 ```bash
 git add readme.txt
@@ -31,7 +31,7 @@ git add -f XX//强行加入忽略的文件,.gitignore中被排除的文件添加
 
 ![GitAddIndexDrawing](git-add-index-drawing.svg)
 
-## 三、Commit
+# 三、Commit
 
 ```bash
 git commit -m "wrote a reademe file"
@@ -49,7 +49,7 @@ git commit --amend //撤销上一次提交并重新提交,用于提交后发现,
 
 ![GitCommitRepoDrawing](git-commit-repository-drawing.svg)
 
-## 四、log
+# 四、log
 
 日志为第一次提交,到当前版本的所有commit,已删除的commit无法显示
 
@@ -62,7 +62,7 @@ q                         //log超过一屏时,enter继续显示,q退出显示
 
 你看到的一大串类似3628164...882e1e0的是commit id(版本号),和SVN不一样,Git的commit id不是1,2,3……递增的数字,而是一个SHA1计算出来的一个非常大的数字,用十六进制表示,而且你看到的commit id和我的肯定不一样,以你自己的为准.为什么commit id需要用这么一大串数字表示呢？因为Git是分布式的版本控制系统,后面我们还要研究多人在同一个版本库里工作,如果大家都用1,2,3……作为版本号,那肯定就冲突了.
 
-## 五、reflog
+# 五、reflog
 
 ```bash
 git reflog
@@ -70,9 +70,9 @@ git reflog
 
 git reflog 可以查看所有分支的所有操作记录(包括commit和reset的操作),包括已经被删除的commit记录,git log则不能察看已经删除了的commit记录
 
-## 六、Reset/Revert
+# 六、Reset/Revert
 
-### 6.1 HEAD指针
+## (一) HEAD指针
 
 1. 在Git中,用HEAD表示当前版本,上一个版本就是`HEAD^`,上上一个版本就是`HEAD^^`,当然往上100个版本写100个^比较容易数不过来,所以写成`HEAD~100`.
 
@@ -82,7 +82,7 @@ git reflog 可以查看所有分支的所有操作记录(包括commit和reset的
 
 4. `HEAD^`在windows cmd中`^`属特殊字符,应输入`HEAD"^"`
 
-### 6.2 reset
+## (二) reset
 
 ```bash
 git reset [--soft | --mixed | --hard
@@ -95,7 +95,7 @@ git reset --hard [commit id] //回到commit id版本
 
 在未push以前,采用git reset回退.在push代码以后,也使用 reset --hard <commit...> 回退代码到某个版本之前,但是这样会有一个问题,你线上的代码没有变,线上commit,index都没有变,当你把本地代码修改完提交的时候你会发现全是冲突.或慎重使用`git push -f `
 
-### 6.3 revert
+## (三) revert
 
 * git revert用于反转提交,执行revert命令时要求工作树必须是干净的(index为空).
 
@@ -108,7 +108,7 @@ git revert HEAD^          //回到前一个版本
 git revert [commit id]    //回到指定commit id
 ```
 
-### 6.4 reset和revert区别
+## (四) reset和revert区别
 
 1. git revert是用一次新的commit来回滚之前的commit,git reset是直接删除指定的commit.push到线上代码库, reset 删除指定commit以后,你git push可能导致一大堆冲突.但是revert 并不会.
 
@@ -116,13 +116,13 @@ git revert [commit id]    //回到指定commit id
 
 3. reset 是在正常的commit历史中,删除了指定的commit,这时 HEAD 是向后移动了,而 revert 是在正常的commit历史中再commit一次,只不过是反向提交,他的HEAD 是一直向前的.
 
-## 七、status
+# 七、status
 
 ```bash
 git status
 ```
 
-## 八、diff
+# 八、diff
 
 查看文件在工作目录与暂存区的差别
 
@@ -133,7 +133,7 @@ git diff --cached <commit> <filename> //与指定版本文件比较
 git diff <commit> <commit>            //两次commit比较
 ```
 
-## 九、Undo(checkout)
+# 九、Undo(checkout)
 
 ```bash
 git checkout -- readme.txt
@@ -153,7 +153,7 @@ git checkout -- file可以丢弃工作区的修改:
 git reset HEAD file //可以把暂存区的修改撤销掉(unstage),重新放回工作区,也可以回退版本
 ```
 
-## 十、rm
+# 十、rm
 
 1. 从版本库删除
 
@@ -173,7 +173,7 @@ git reset HEAD file //可以把暂存区的修改撤销掉(unstage),重新放回
    git checkout -- readme.txt
    ```
 
-## 十一、remote/push/pull
+# 十一、remote/push/pull
 
 ```bash
 git remote add origin git@server-name:path/repo-name.git//关联一个远程库
@@ -190,12 +190,10 @@ git pull = git fetch + merge to loacal
 
 **push**&rarr;[MorePush](https://www.yiibai.com/git/git_push.html)
 
-## 十二、Reference sites
+# 十二、Reference sites
 
 * [廖雪峰的网站](https://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000)
 
 * [ProGit English](https://git-scm.com/book/en/v2)
 
 * [ProGit zh](https://git-scm.com/book/zh/v2)
-
-

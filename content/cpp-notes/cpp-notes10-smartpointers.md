@@ -6,7 +6,7 @@ date: 2018-05-22
 tags: ["C++"]
 featureimage: "covers/cpp-notes10-smartpointers.svg"
 ---
-## 一、auto_ptr类(C\++98)
+# 一、auto_ptr类(C++98)
 
 　　auto_ptr是一个C\++98中提供的模板类,用来管理动态内存分配的用法.auto_ptr模板定义了类似指针的对象,可以将new获得的地址赋给这种对象.当auto_ptr对象过期时,其析构函数将调用delete来释放内存.因此将new返回的地址赋给auto_ptr对象时,无需释放这些内存.定义在头文件memory中.
 
@@ -26,7 +26,7 @@ auto_ptr<double> pd(new double);
 auto_ptr<string> ps(new string);
 ```
 
-### 1.1 auto_ptr使用注意事项
+## (一) auto_ptr使用注意事项
 
 1. new和delete对象,new[]和delete[]对应,auto_ptr模板使用的是delete,因此只能和new一起使用.
 
@@ -46,7 +46,7 @@ auto_ptr<string> ps(new string);
    vocation = ps ; //ps失去控制权
    ```
 
-### 1.2 auto_ptr解决办法
+## (二) auto_ptr解决办法
 
 * 定义赋值操作符,使之深拷贝.
 
@@ -54,19 +54,19 @@ auto_ptr<string> ps(new string);
 
 * 跟踪智能指针的个数,赋值时加1,过期时减1.仅当最后指针过期时,delete才被调用
 
-## 二、C\++11智能指针
+# 二、C++11智能指针
 
 　　C\++11之后智能指针分为了三种,包含在`<memory>`中
 
-### 2.1 unique_ptr
+## (一) unique_ptr
 
 　　独占指针对象,并保证指针所指对象生命周期与其一致.
 
-### 2.2 shared_ptr
+## (二) shared_ptr
 
 　　共享指针对象,可以赋值给shared_ptr或weak_ptr,指针所指对象在所有相关联的shared_ptr生命周期结束时结束,是强引用.
 
-### 2.3 weak_ptr
+## (三) weak_ptr
 
 　　它不能决定所指对象的生命周期,引用所指对象时,需要lock()成shared_ptr才能使用.
 
@@ -77,9 +77,9 @@ shared_ptr<int> p1 = new int(1024);  //错误,不能隐式转换
 shared_ptr<int> p2(new int(1024));   //这种是直接采用了初始化的形式
 ```
 
-## 三、unique_ptr
+# 三、unique_ptr
 
-### 3.1 new分配内存
+## (一) new分配内存
 
 ```cpp
 //底层实现
@@ -95,7 +95,7 @@ unique_ptr<int> up1(new int(11));  //无法复制的unique_ptr
 unique_ptr<int> up2 = up1;         //不能通过编译,可以通过move实现
 ```
 
-### 3.2 new[]分配的内存
+## (二) new[]分配的内存
 
 ```cpp
 //动态数组
@@ -104,9 +104,9 @@ up[i]=10;      //可以直接使用下标运算符
 up.release(); //自动调用delete[]释放指针
 ```
 
-## 四、shared_ptr
+# 四、shared_ptr
 
-### 4.1 new分配内存
+## (一) new分配内存
 
 ```cpp
 shared_ptr<Base1>	base1(new Base1);
@@ -150,7 +150,7 @@ shared_ptr<T> ptr2(a);
 //这个对象会被delete两次
 ```
 
-### 4.2 new[] 分配内存
+## (二) new[] 分配内存
 
 ```cpp
 //动态数组
@@ -159,7 +159,7 @@ shared_ptr<int> sp(new int[10],[](int *p){delete[] p;});
 *(sp.get() + i ) = 5; //shared_ptr未定义下标运算符
 ```
 
-### 4.3 make_shared
+## (三) make_shared
 
 　　std::make_shared 可以返回一个指定类型的 std::shared_ptr.尽量使用make_shared,不要把原生指针暴露出来.不能使用make_shared定义动态数组,因为不能构造删除器
 
@@ -191,7 +191,7 @@ shared_ptr<string> sp = make_shared<string>("make_shared");
 shared_ptr<vector<int> > spv = make_shared<vector<int> >(10, 2);
 ```
 
-### 4.4 shared_ptr的陷阱(循环引用)
+## (四) shared_ptr的陷阱(循环引用)
 
 　　我们知道shared_ptr最引以为豪的就是其计数功能,实现了只有当无使用者才会释放掉内存.让我们使用起来管理内存十分方便,然而在使用过程中可能会不经意之间造成内存泄漏而且不容易查找.而这个问题就是:循环引用.
 
@@ -226,7 +226,7 @@ int main()
 
 　　举个简单的例子,链表！,一旦尾首相连形成循环链表的时候那么就出现了循环引用,所以使用shared_ptr的时候一定要先判断是否会出现循环引用.
 
-## 五、weak_ptr
+# 五、weak_ptr
 
 　　weak_ptr是一种不控制所指向对象生存期的智能指针,它指向一个shared_ptr管理的对象,却并不拥有该对象.将一个weak_ptr绑定到shared_ptr不会改变shared_ptr的引用计数.一旦最后一个指向对象的shared_ptr被销毁,对象就会被释放,即使有weak_ptr指向对象,对象还是会被释放.
 
@@ -284,6 +284,3 @@ int main()
     return 0;
 }
 ```
-
-
-

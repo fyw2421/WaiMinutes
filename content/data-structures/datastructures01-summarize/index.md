@@ -6,11 +6,11 @@ date: 2018-08-07
 tags: ["Data Structure"]
 featureimage: "covers/datastructures01-summarize.svg"
 ---
-## 一、组成要素
+# 一、组成要素
 
 ![DataStructureFigure](datastructure01-figure.svg)
 
-### 1.1 逻辑结构
+## (一) 逻辑结构
 
 * 线性结构(线性表)
 
@@ -25,7 +25,7 @@ featureimage: "covers/datastructures01-summarize.svg"
   * 树
   * 图
 
-### 1.2 物理结构
+## (二) 物理结构
 
 * 顺序存储结构
 
@@ -38,36 +38,36 @@ featureimage: "covers/datastructures01-summarize.svg"
 * 索引存储结构
 * 散列存储结构
 
-### 1.3 算法
+## (三) 算法
 
 * 增
 * 删
 * 改
 * 查
 
-## 二、构成
+# 二、构成
 
 ![DataStructureConstitute](datastructure01-constitute.svg)
 
-### 2.1 数据项
+## (一) 数据项
 
 最小的数据单位
 
-### 2.2 数据元素
+## (二) 数据元素
 
 是组成数据的、有一定意义的基本单位,主要由数据项构成
 
-### 2.3 数据对象
+## (三) 数据对象
 
 是性质相同的数据元素的集合,是数据的子集,主要由数据元素构成
 
-### 2.3 抽象数据类型
+## (四) 抽象数据类型
 
 一个数学模型以及定义在此模型上的一组操作。其三个组成部分为:数据对象、数据关系和基本操作。可以用抽象数据类型完整定义数据结构
 
-## 三、算法和算法分析
+# 三、算法和算法分析
 
-### 3.1 算法的特性
+## (一) 算法的特性
 
 <center>程序＝数据结构＋算法</center>
 
@@ -91,11 +91,11 @@ featureimage: "covers/datastructures01-summarize.svg"
 
   一个算法有一个或多个输出,这些输出是同输入有着某些特定关系的量
 
-### 3.2 算法分析
+## (二) 算法分析
 
 一个程序的时间复杂度是指该程序的运行时间与问题规模的对应关系
 
-#### 3.2.1 时间复杂度
+### 1. 时间复杂度
 
 * 原操作
 * 频度
@@ -117,11 +117,10 @@ for( i = 1; i <=n;i ++){}
 它们的时间复杂度分别为O(1)、 O(n) 和O(n2)
 ```
 
-#### 3.2.2 空间复杂度
+### 2. 空间复杂度
 
 一个程序的空间复杂度(Space Complexity)指程序运行从开始到结束所需存储量与问题规模的对应关系,记作:
 <center>S(n)=O( f (n))</center>
 其中,ｎ为问题的规模。
 
 > [Xiongchao99的博客](https://blog.csdn.net/Xiongchao99/article/details/74910577)
-

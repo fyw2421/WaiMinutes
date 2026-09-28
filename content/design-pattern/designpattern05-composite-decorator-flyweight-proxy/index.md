@@ -6,13 +6,13 @@ date: 2018-05-28
 tags: ["Design Pattern"]
 featureimage: "covers/designpattern05-composite-decorator-flyweight-proxy.svg"
 ---
-## 四、Composite Pattern
+# 四、Composite Pattern
 
-### 4.1 Definition
+## (一) Definition
 
 　　**组合模式**将对象组合成树形结构以表示“部分-整体”的层次结构.组合模式使得用户对单个对象和组合对象的使用具有一致性.
 
-### 4.2 Structure
+## (二) Structure
 
 ![CompositePatternUML](designpattern05-compostion-uml.svg)
 
@@ -28,7 +28,7 @@ featureimage: "covers/designpattern05-composite-decorator-flyweight-proxy.svg"
 
   组合对象,定义有枝节点行为,用来存储子部件,在Component接口中实现与子部件有关的操作,比如增加Add和删除Remove.
 
-### 4.3 Usage
+## (三) Usage
 
 1. 什么时候使用组合模式？
 
@@ -42,7 +42,7 @@ featureimage: "covers/designpattern05-composite-decorator-flyweight-proxy.svg"
 
    * 组合模式让客户可以一致的使用组合结构和单个对象
 
-### 4.4 Example
+## (四) Example
 
 **Src Downloads**  &rarr; [CompositePattern.h](design-pattern/CompositePattern.h) and [CompositePatternClient.cpp](design-pattern/CompositePatternClient.cpp)
 
@@ -218,9 +218,7 @@ NanJing Branch Company Finance Financial Manage
 HangZhou Branch Company HR Staff Manage
 HangZhou Branch Company Finance Financial Manage
 
-
 Release NanJing Branch Company
-
 
 Organization after release Nanjin branch company
 -BeiJing Parent Company
@@ -234,13 +232,13 @@ Organization after release Nanjin branch company
 ---HangZhou Branch Company Finance
 ```
 
-## 五、Decorator Pattern
+# 五、Decorator Pattern
 
-### 5.1 Definition
+## (一) Definition
 
 　　**装饰模式**动态地给一个对象添加一些额外的职责(不重要的功能,只是偶然一次要执行),就增加功能来说,装饰模式比生成子类更为灵活.
 
-### 5.2 Structure
+## (二) Structure
 
 ![DecoratorPatternUML](designpattern05-decorator-uml.svg)
 
@@ -260,7 +258,7 @@ Organization after release Nanjin branch company
 
   具体的装饰对象,起到给Component添加职责的作用.
 
-### 5.3 Usage
+## (三) Usage
 
 1. 什么时候使用装饰模式？
 
@@ -276,7 +274,7 @@ Organization after release Nanjin branch company
 
    * 有效地把类的核心职责和装饰功能区分开来,而且可以去除相关类中重复的装饰逻辑.
 
-### 5.4 Example
+## (四) Example
 
 **Src Downloads**  &rarr; [DecoratorPattern.h](design-pattern/DecoratorPattern.h) and [DecoratorPatternClient.cpp](design-pattern/DecoratorPatternClient.cpp)
 
@@ -436,13 +434,13 @@ LeatherShoes
 Decorate Cai
 ```
 
-## 六、Flyweight Pattern
+# 六、Flyweight Pattern
 
-### 6.1 Definition
+## (一) Definition
 
 　　**享元模式**运用共享技术有效地支持大量细粒度的对象(对于C\++来说就是共用同一内存,对象指向同一个地方)
 
-### 6.2 Structure
+## (二) Structure
 
 ![FlyweightPatternUML](designpattern05-flyweight-uml.svg)
 
@@ -462,7 +460,7 @@ Decorate Cai
 
   享元工厂,用来创建并管理Flyweight对象.它主要是用来确保合理地共享Flyweight,当用户请求一个Flyweight时,FlyweightFactory对象提供一个已创建的实例或者创建一个（如果不存在的话）.
 
-### 6.3 Usage
+## (三) Usage
 
 1. 什么时候使用享元模式？
 
@@ -474,7 +472,7 @@ Decorate Cai
 
    也就是说,享元模式Flyweight执行时所需的状态是有内部的也可能有外部的,内部状态存储于ConcreteFlyweight对象之中,而外部对象则应该考虑由客户端对象存储或计算,当调用Flyweight对象的操作时,将该状态传递给它.
 
-### 6.4 Example
+## (四) Example
 
 **Src Downloads**  &rarr; [FlyweightPattern.h](design-pattern/FlyweightPattern.h) and [FlyweightPatternClient.cpp](design-pattern/FlyweightPatternClient.cpp)
 
@@ -587,13 +585,13 @@ website category: Product Show User :BigBird
 website category: Test User :QA
 ```
 
-## 七、Proxy Pattern
+# 七、Proxy Pattern
 
-### 7.1 Definition
+## (一) Definition
 
 　　**代理模式**为其他对象提供一种代理以控制对这个对象的访问.根本原理:代理模式其实就是在访问对象的时候引入了一定程度的间接性,因为这种间接性,可以附加多种用途.
 
-### 7.2 Structure
+## (二) Structure
 
 ![ProxyPatternUML](designpattern05-proxy-uml.svg)
 
@@ -613,7 +611,7 @@ website category: Test User :QA
 
   当调用真实的对象的时候,代理处理另外一些事.
 
-### 7.3 Example
+## (三) Example
 
 **Src Downloads**  &rarr; [ProxyPattern.h](design-pattern/ProxyPattern.h) and [ProxyPatternClient.cpp](design-pattern/ProxyPatternClient.cpp)
 
@@ -674,4 +672,3 @@ int main(){
     return 1;
 }
 ```
-

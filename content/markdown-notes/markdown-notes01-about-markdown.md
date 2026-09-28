@@ -6,7 +6,7 @@ date: 2018-05-02
 tags: ["markdown"]
 featureimage: "covers/markdown-notes01-about-markdown.svg"
 ---
-## 一、What is Markdown?
+# 一、What is Markdown?
 
 　　Markdown的目标是实现**易读易写**,成为一种适用于网络的**书写语言**.
 
@@ -16,9 +16,9 @@ featureimage: "covers/markdown-notes01-about-markdown.svg"
 
 　　Markdown是一种用来写作的轻量级「标记语言」,可以轻松转换成html格式、pdf格式,HTML是一种网络文章的发布规范,而Markdown是一种网络文章写作规范.Github、Wordpress、CSDN、简书等行业知名网站均支持Markdown,Markdown已逐渐成为事实上的网络写作规范.
 
-## 二、Why Use Markdown?
+# 二、Why Use Markdown?
 
-### 2.1 Markdown优点
+## (一) Markdown优点
 
 * **专注内容**
 
@@ -40,7 +40,7 @@ featureimage: "covers/markdown-notes01-about-markdown.svg"
 
   兼容html语法、特殊字符自动转换、轻松绘制表格、公式、流程图等.
 
-### 2.2 Markdown缺点
+## (二) Markdown缺点
 
 * **格式难于自定义**
 
@@ -50,7 +50,7 @@ featureimage: "covers/markdown-notes01-about-markdown.svg"
 
   浏览器不会默认编译Markdown,需要额外的编译器进行编译.
 
-## 三、Learn Resource
+# 三、Learn Resource
 
 * [创始人John Gruber网站]( http://daringfireball.net/projects/markdown/syntax)
 
@@ -62,7 +62,7 @@ featureimage: "covers/markdown-notes01-about-markdown.svg"
 
 * [本文出处](http://blog.csdn.net/whqet/article/details/44274215)
 
-## 四、Markdown Editor
+# 四、Markdown Editor
 
 * MacOS ：
 

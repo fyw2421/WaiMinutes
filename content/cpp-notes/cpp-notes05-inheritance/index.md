@@ -6,7 +6,9 @@ date: 2018-05-22
 tags: ["C++"]
 featureimage: "covers/cpp-notes05-inheritance.svg"
 ---
-## 一、派生类对象结构(Derived Object Structure)
+# 一、派生类对象结构(Derived Object Structure)
+
+## (一) 派生类对象结构(Derived Object Structure)
 
 ```cpp
 class BaseClass
@@ -43,9 +45,11 @@ private:
 
 派生类的以上函数初始化时,将默认调用基类的对应函数.
 
-## 二、类内访问控制(Access Control in Class)
+# 二、类内访问控制(Access Control in Class)
 
-### 2.1 访问控制列表
+## (二) 类内访问控制(Access Control in Class)
+
+### 1. 访问控制列表
 
 继承类型/基类访问属性|pulibc|protected|private
 :---:|:---:|:---:|:---:
@@ -55,7 +59,7 @@ private		| private	| private	| 隔离,通过基类访问
 
    ![AccessControlInClass](cpp-notes05-access-control-in-class.svg)
 
-### 2.2 调整访问控制属性
+### 2. 调整访问控制属性
 
 　　通过在派生类中使用using关键字,可以调整public/protected类型成员的访问控制属性.
 
@@ -85,9 +89,11 @@ int main()
 }
 ```
 
-## 三、派生类的构造及构造顺序.
+# 三、派生类的构造及构造顺序.
 
-### 3.1 派生类的构造
+## (三) 派生类的构造及构造顺序.
+
+### 3. 派生类的构造
 
 1. 默认构造函数.
 
@@ -101,17 +107,19 @@ int main()
 
    与构造函数类似,如果父类没有自定义构造函数,派生类将调用父类的默认构造函数,否则调用父类的自定义复制构造函数.对于本体与实体不一致的情况,需要派生类自定义复制构造函数.
 
-### 3.2 构造顺序
+### 4. 构造顺序
 
 　　创建派生类对象时,程序首先调用基类的构造函数.做完了基类的构造之后,接下来要给自身的对象本体分配空间,进而调用各个成员对象的构造函数,如果有多个对象,按照声明顺序进行构造.然后开始执行自身的构造函数.
 
 <center>创建派生类对象----->基类构造----->自身对象构造(按照声明顺序)------>自身构造函数</center>
 
-### 3.3 析构顺序
+### 5. 析构顺序
 
 　　与构造严格相反.
 
-## 四、继承与组合(Compostion)
+# 四、继承与组合(Compostion)
+
+## (四) 继承与组合(Compostion)
 
 类中含有其它对象成员的情形成为组合.
 
@@ -122,9 +130,11 @@ int main()
 组合|成员对象的数据不能直接访问,需要间接访问.
 继承|可以直接访问.基类的功能可能不适用派生类
 
-## 五、多重继承(Multi-Inheritance Structure)
+# 五、多重继承(Multi-Inheritance Structure)
 
-### 5.1 多继承结构
+## (五) 多重继承(Multi-Inheritance Structure)
+
+### 6. 多继承结构
 
 一个类可以从多个基类派生,这样的继承结构成为多重继承(多继承).
 
@@ -180,7 +190,7 @@ Sleeping...
 */
 ```
 
-### 5.2 基类成员名冲突
+### 7. 基类成员名冲突
 
 ```cpp
 int main()
@@ -204,7 +214,7 @@ int main()
 
    这种情况,要求掌握类的所有信息,因此,在基类中出现两个意义相同的实体是不妥当的.
 
-### 5.3 基类分解(BaseClass Decompostion)
+### 8. 基类分解(BaseClass Decompostion)
 
 ![SleepSofaBaseClassDecompostion](cpp-notes05-sleepsofa-baseclass-decompostion.svg)
 
@@ -252,7 +262,7 @@ int main()
 }//====================================
 ```
 
-### 5.4 虚拟继承(Virtual Inheritance)
+### 9. 虚拟继承(Virtual Inheritance)
 
 　　程序f1007.cpp通不过编译是因为遇到了含糊不清,指向Furniture的指针不知道指向哪个Furniture,从道理上讲,SleeperSofa只需对应一个Furniture对象,所以我们希望只有一个Furniture副本.如下图所示:
 
@@ -306,7 +316,7 @@ int main(){
 }//====================================
 ```
 
-### 5.5 虚基类及其派生类的构造函数
+### 10. 虚基类及其派生类的构造函数
 
 1. 建立对象时所指的类成为最(远)派生类.
 
@@ -363,7 +373,7 @@ Member of D1
 */
 ```
 
-### 5.6 多继承对象的构造顺序
+### 11. 多继承对象的构造顺序
 
 **含有多继承的构造函数按下列顺序被调用**:
 
@@ -387,11 +397,13 @@ Member of D1
 
 4. SleeperSofa本身部分
 
-### 5.7 多继承评价(Multi-Inheritance Evalution)
+### 12. 多继承评价(Multi-Inheritance Evalution)
 
 　　在语言中实现多继承并不容易,主要是编译问题、模糊性问题、调试问题.应避免多继承.
 
-## 六、派生类和基类的指针或引用转换.
+# 六、派生类和基类的指针或引用转换.
+
+## (六) 派生类和基类的指针或引用转换.
 
 1. **基类指针(引用)可以在不进行显式类型转换的情况下指向派生类对象**
 
@@ -413,6 +425,3 @@ Member of D1
    参考C++Notes03-六.类型转换
 
 　　总之,**基类指针(引用)可以指向派生类.但是,派生类指针(引用)不可以指向基类.**
-
-
-

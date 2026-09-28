@@ -6,17 +6,17 @@ date: 2018-05-28
 tags: ["Design Pattern"]
 featureimage: "covers/designpattern08-iterator-strategy-command.svg"
 ---
-## 七、Iterator Pattern
+# 七、Iterator Pattern
 
-### 7.1 Definition
+## (一) Definition
 
 　　**迭代器模式**提供一种方法顺序访问一个聚合对象中各个元素,而又不暴露该对象的内部表示.
 
-### 7.2 Structure
+## (二) Structure
 
 ![IteratorPatternUML](designpattern08-iterator-uml.svg)
 
-### 7.3 Usage
+## (三) Usage
 
 1. 什么时候用
 
@@ -30,7 +30,7 @@ featureimage: "covers/designpattern08-iterator-strategy-command.svg"
 
    迭代器模式就是分离了集合对象的遍历行为,抽象出一个迭代器类来负责,这样既可以不暴露集合的内部结构,又可让外部代码透明地访问集合内部的数据.
 
-### 7.4 Example
+## (四) Example
 
 **Src Downloads**  &rarr; [IteratorPattern.h](design-pattern/IteratorPattern.h) and [IteratorPatternClient.cpp](design-pattern/IteratorPatternClient.cpp)
 
@@ -236,18 +236,17 @@ Women buy ticket
 Man buy ticket
 ```
 
-## 八、Strategy Pattern
+# 八、Strategy Pattern
 
-### 8.1 Definition
+## (一) Definition
 
 　　**策略模式**定义了算法家族,分别封装起来,让他们之间可以互相替换,此模式让算法的变化,不会影响到使用算法的客户.
 
-### 8.2 Structure
+## (二) Structure
 
 ![StrategyPatternUML](designpattern08-strategy-uml.svg)
 
-
-### 8.3 Usage
+## (三) Usage
 
 * 策略模式是一种定义一系列算法的方法,从概念上来看,所有这些算法完成的都是相同的工作,只是实现不同,他可以以相同的方式调用所有的算法,减少了各种算法类与使用算法类之间的耦合.
 
@@ -259,7 +258,7 @@ Man buy ticket
 
 * 简单工厂模式需要让客户端认识两个类,而策略模式和简单工厂模式结合的用法,客户端只需要认识一个类Context即可.
 
-### 8.4 Example
+## (四) Example
 
 **Src Downloads**  &rarr; [StrategyPattern.h](design-pattern/StrategyPattern.h) and [StrategyPatternClient.cpp](design-pattern/StrategyPatternClient.cpp)
 
@@ -393,7 +392,7 @@ int main(){
 }
 ```
 
-### 8.5 Example-(Strategy + SimpleFactory)
+## (五) Example-(Strategy + SimpleFactory)
 
 ```cpp
 //策略模式与简单工厂模式相结合
@@ -433,13 +432,13 @@ delete pCombineContext;
  pCombineContext = nullptr;
 ```
 
-## 九、Command Pattern
+# 九、Command Pattern
 
-### 9.1 Definition
+## (一) Definition
 
 　　**命令模式**将一个请求封装为一个对象,从而使你可用不同的请求对客户进行参数化,对请求进行排队或记录请求日志,以及支持可撤销的操作.
 
-### 9.2 Structure
+## (二) Structure
 
 ![CommandPatternUML](designpattern08-command-uml.svg)
 
@@ -459,7 +458,7 @@ delete pCombineContext;
 
   知道如何实施与执行一个与请求相关的操作,任何类都可能作为一个接收者.
 
-### 9.3 Usage
+## (三) Usage
 
 * 命令模式能够较容易地设计一个命令队列.
 
@@ -473,7 +472,7 @@ delete pCombineContext;
 
 * 命令模式把请求一个操作的对象与知道怎么执行一个操作的对象分隔开.
 
-### 9.4 Example
+## (四) Example
 
 ![CommandPatternExampleUML](designpattern08-command-example-uml.svg)
 
@@ -602,4 +601,3 @@ Jul 03 07:11:24 2018
 Barbecuer bake mutton
 Barbecuer bake mutton
 ```
-

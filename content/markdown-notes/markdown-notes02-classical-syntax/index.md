@@ -6,11 +6,11 @@ date: 2018-05-02
 tags: ["markdown"]
 featureimage: "covers/markdown-notes02-classical-syntax.svg"
 ---
-## 一、Phrase Emphasis
+# 一、Phrase Emphasis
 
 Markdown treats asterisks \* and underscores \_ as indicators of emphasis.
 
-### 1.1 Bold
+## (一) Bold
 
 * **Syntax**:
 
@@ -20,7 +20,7 @@ Markdown treats asterisks \* and underscores \_ as indicators of emphasis.
 
 * **Shortcut**: ` ctrl + B `
 
-### 1.2 Italic
+## (二) Italic
 
 * **Syntax**:
 
@@ -30,7 +30,7 @@ Markdown treats asterisks \* and underscores \_ as indicators of emphasis.
 
 * **Shortcut**: `Ctrl + I`
 
-### 1.3 Strikethrough
+## (三) Strikethrough
 
 * **Syntax**:
 
@@ -42,11 +42,11 @@ Markdown treats asterisks \* and underscores \_ as indicators of emphasis.
 
     ~~Markdown strikethrough~~
 
-## 二、Headers
+# 二、Headers
 
 Markdown supports two styles of headers, **Setext** and **Atx**.
 
-### 2.1 Setext-style headers
+## (一) Setext-style headers
 
 Any number of underlining =’s or -’s will work.
 
@@ -58,11 +58,11 @@ This is an H2
 
 **Shortcut**: `Ctrl + R`
 
-## 七、Links
+# 七、Links
 
 Markdown supports two style of links: **inline** and **reference**.
 
-### 7.1 Inline Links
+## (一) Inline Links
 
 * **Syntax**:
 
@@ -77,7 +77,7 @@ Markdown supports two style of links: **inline** and **reference**.
 
   ` [百度](www.baidu.com "百度一下，你就知道" ) `  [百度](www.baidu.com "百度一下，你就知道" )
 
-### 7.2 Reference Links
+## (二) Reference Links
 
 * **Syntax**:
 
@@ -115,11 +115,11 @@ Markdown supports two style of links: **inline** and **reference**.
   [foo]: //example.com/+space+(Optional Title Here)
   ```
 
-## 八、Image
+# 八、Image
 
 　　Markdown uses an image syntax that is intended to resemble the syntax for links, allowing for two styles: **inline** and **reference**.
 
-### 8.1 Inline Image
+## (一) Inline Image
 
 * **Syntax**:
 
@@ -144,7 +144,7 @@ Markdown supports two style of links: **inline** and **reference**.
 
   Test ImagePlace :  < //yotuku.cn/#!/>
 
-### 8.2 Reference Image
+## (二) Reference Image
 
 * **Syntax**:
 
@@ -174,7 +174,7 @@ Markdown supports two style of links: **inline** and **reference**.
   [ ImageReferenceID ]: markdown-syntax-image.webp "soldier"
 
 
-## 九、Backslash Escapes
+# 九、Backslash Escapes
 
 　　Markdown allows you to use backslash escapes to generate literal characters which would otherwise have special meaning in Markdown’s formatting syntax.
 
