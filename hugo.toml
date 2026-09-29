@@ -27,6 +27,13 @@ summaryLength = 30
   # 专题继续变长时要同步调大（保持 3 的倍数），否则会重新出现"尾巴只剩一两张"。
   pagerSize = 12
 
+# 上一篇 / 下一篇。Hugo 默认按 weight **降序**取相邻页（nextPrevInSectionSortOrder
+# 默认 desc），于是第 1 篇的「上一篇」反而指向第 2 篇，全站专题底部分页都是反的。
+# 改 asc：Prev = weight 更小的一篇、Next = weight 更大的一篇，与阅读顺序一致。
+[page]
+  nextPrevInSectionSortOrder = 'asc'
+  nextPrevSortOrder = 'asc'
+
 [taxonomies]
   tag = 'tags'
   category = 'categories'
@@ -91,9 +98,9 @@ summaryLength = 30
 [params]
   # 站点描述：喂 <meta name="description">、og:description 与 JSON-LD。
   # 原来是旧标语，换成一句真正说明本站内容的话（更适合搜索摘要与分享预览）。
-  description = 'C++、数据结构、设计模式、Git、Markdown 与软件配置的学习笔记合集。'
+  description = 'C++、数据结构、设计模式、Git、Markdown、软件配置与 TypeScript 的学习笔记合集。'
   # 主题的「最近的文章」只汇总 mainSections 里这些 section 的文章
-  mainSections = ['cpp-notes', 'data-structures', 'design-pattern', 'git-notes', 'markdown-notes', 'software-config']
+  mainSections = ['cpp-notes', 'data-structures', 'design-pattern', 'git-notes', 'markdown-notes', 'software-config', 'typescript-notes']
   dateFormat = '2006-01-02'
   enableCodeCopy = true
   # 页脚版权行。{ year } 是主题 footer.html 支持的占位符，构建时替换成当前年份。

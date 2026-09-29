@@ -1,6 +1,6 @@
 ---
 title: "WezTerm 安装与配置指南"
-weight: 7
+weight: 8
 description: "Windows 上 Cmder 风格的单实例多标签终端"
 date: 2026-09-18
 tags: ["software-config"]

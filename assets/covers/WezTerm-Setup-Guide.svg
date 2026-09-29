@@ -9,7 +9,7 @@
   <rect width="1500" height="1000" fill="url(#bg)"/>
   <rect width="1500" height="1000" fill="url(#glow)"/>
   <g opacity="0.5" stroke="#a86ec8" stroke-opacity="0.18" fill="none"><rect x="1090" y="150" width="300" height="300" rx="36"/><rect x="1150" y="210" width="300" height="300" rx="36"/><rect x="1210" y="270" width="300" height="300" rx="36"/></g>
-  <text class="mono" x="80" y="190" fill="#a86ec8" font-size="30" letter-spacing="6">SOFTWARE CONFIG · 07</text>
+  <text class="mono" x="80" y="190" fill="#a86ec8" font-size="30" letter-spacing="6">SOFTWARE CONFIG · 08</text>
   <text class="sans" x="80" y="312" fill="#f8fafc" font-size="92" font-weight="700">WezTerm 安装与配置指南</text>
   <text class="sans" x="80" y="384" fill="#c6d3e2" font-size="32">目录结构 · 单实例 · 右键菜单</text>
   <line x1="80" y1="432" x2="240" y2="432" stroke="#a86ec8" stroke-width="4" stroke-linecap="round"/>  <g>

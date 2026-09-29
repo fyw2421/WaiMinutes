@@ -64,7 +64,41 @@ git merge --no-commit dev      //合并但不提交
 git merge --no-ff --no-commit dev //禁fast forward且不提交,建议这种方式merge
 ```
 
-## (二) rebase
+### 5. squash 合并
+
+squash合并可以将多个提交压缩成一个提交再合并,保持主分支历史简洁
+
+```bash
+git merge --squash <branch>     //将目标分支的提交压缩合并到当前分支
+git merge --squash dev          //将dev分支的所有提交压缩成一个
+git commit -m "合并dev分支功能"  //压缩后需要手动提交
+```
+
+**典型工作流**:
+
+```bash
+# 1. 切换到主分支
+git checkout main
+
+# 2. 将开发分支的提交压缩合并
+git merge --squash feature/login
+
+# 3. 提交压缩后的合并
+git commit -m "feat: 新增登录功能"
+
+# 4. 删除已合并的分支
+git branch -d feature/login
+```
+
+**squash与普通merge的区别**:
+
+| 方式 | 命令 | 历史记录 | 适用场景 |
+|------|------|----------|----------|
+| 普通merge | `git merge dev` | 保留所有提交记录 | 需要完整追溯历史 |
+| squash merge | `git merge --squash dev` | 压缩成一个提交 | 主分支保持简洁 |
+| no-ff merge | `git merge --no-ff dev` | 保留分支信息 | 需要标记分支合并点 |
+
+## (二)rebase
 
 rebase(变基) 即重新定义分支的版本库状态,遇见冲突后会暂停当前操作,**不能在一个共享的分支上进行Git rebase操作**,所谓共享的分支,即是指那些存在于远端并且允许团队中的其他人进行Pull操作的分支,详见[**Git Rebase原理以及黄金准则**](https://segmentfault.com/a/1190000005937408)
 

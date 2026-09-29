@@ -1,6 +1,6 @@
 ---
 title: "OpenCode 安装使用教程"
-weight: 2
+weight: 3
 description: "OpenCode 的安装、桌面端与 CLI 配置"
 date: 2026-09-18
 tags: ["software-config"]

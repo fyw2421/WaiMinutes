@@ -1,6 +1,6 @@
 ---
 title: "npm 更改默认安装位置"
-weight: 6
+weight: 7
 description: "将 npm 全局路径从 C 盘迁移到其他盘"
 date: 2026-09-18
 tags: ["software-config"]

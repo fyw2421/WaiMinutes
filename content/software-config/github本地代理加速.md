@@ -1,6 +1,6 @@
 ---
 title: "GitHub 本地代理加速"
-weight: 4
+weight: 5
 description: "DevSideCar 代理软件的安装与 GitHub 加速配置"
 date: 2026-09-18
 tags: ["software-config"]

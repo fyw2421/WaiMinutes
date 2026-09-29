@@ -53,11 +53,77 @@ git commit --amend //撤销上一次提交并重新提交,用于提交后发现,
 
 日志为第一次提交,到当前版本的所有commit,已删除的commit无法显示
 
+## (一)基本用法
+
 ```bash
-git log //多行
-git log --pretty=oneline  //log单行显示
-git log --oneline         //log单行显示
-q                         //log超过一屏时,enter继续显示,q退出显示
+git log                    //多行显示完整日志
+git log --pretty=oneline   //log单行显示
+git log --oneline          //log单行显示(更简洁)
+q                          //log超过一屏时,enter继续显示,q退出显示
+```
+
+## (二)查看特定分支
+
+```bash
+git log develop --oneline          //查看develop分支的提交历史
+git log origin/main --oneline      //查看远程main分支的提交历史
+git log feature/login --oneline    //查看feature/login分支的提交历史
+git log develop -5                 //查看develop分支最近5次提交
+git log develop -10 --oneline      //查看develop分支最近10次提交
+```
+
+## (三)搜索提交
+
+```bash
+git log --grep="关键字"           //按提交信息搜索
+git log --grep="fix"              //搜索包含"fix"的提交
+git log --grep="bug" --grep="error" --all-match  //同时满足多个关键词
+git log --grep="登录"             //支持中文搜索
+```
+
+## (四)按作者搜索
+
+```bash
+git log --author="张三"           //按作者搜索
+git log --author="zhangsan"      //按作者名搜索
+git log --author="张三" --oneline //按作者搜索并单行显示
+```
+
+## (五)按时间筛选
+
+```bash
+git log --since="2024-01-01"                //2024年之后的提交
+git log --until="2024-12-31"                //2024年之前的提交
+git log --since="2 weeks ago"               //最近两周的提交
+git log --since="2024-01-01" --until="2024-06-30"  //指定时间范围
+```
+
+## (六)按文件搜索
+
+```bash
+git log -- path/to/file      //查看某文件的提交历史
+git log -- README.md         //查看README.md的修改历史
+git log -- src/              //查看src目录的提交历史
+git log -p -- README.md      //查看某文件的详细修改内容
+```
+
+## (七)高级过滤
+
+```bash
+git log --no-merges          //排除合并提交
+git log --merges             //只显示合并提交
+git log --diff-filter=A      //只显示新增文件的提交
+git log --diff-filter=D      //只显示删除文件的提交
+git log --stat               //显示每次提交的文件修改统计
+git log --shortstat          //显示简短的修改统计
+```
+
+## (八)格式化输出
+
+```bash
+git log --pretty=format:"%h - %an, %ar : %s"  //自定义输出格式
+git log --pretty=format:"%h %s" --graph         //带图形的提交历史
+git log --graph --oneline --decorate            //图形化显示分支和标签
 ```
 
 你看到的一大串类似3628164...882e1e0的是commit id(版本号),和SVN不一样,Git的commit id不是1,2,3……递增的数字,而是一个SHA1计算出来的一个非常大的数字,用十六进制表示,而且你看到的commit id和我的肯定不一样,以你自己的为准.为什么commit id需要用这么一大串数字表示呢？因为Git是分布式的版本控制系统,后面我们还要研究多人在同一个版本库里工作,如果大家都用1,2,3……作为版本号,那肯定就冲突了.
