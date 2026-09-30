@@ -1,6 +1,6 @@
 # Wai Minutes
 
-个人技术笔记站点：C++、数据结构、设计模式、Git 与 Markdown 的学习笔记。
+个人技术笔记站点：C++、数据结构、设计模式、Git、JavaScript、Markdown、软件配置与 TypeScript 的学习笔记。
 
 用 [Hugo](https://gohugo.io/) + [Blowfish](https://github.com/nunocoracao/blowfish) 主题构建，托管在 GitHub Pages。
 
@@ -8,7 +8,7 @@
 
 # 一、站点概览
 
-- **首页**：5 张专题卡（CSS 网格）+ 工具卡（油价计算），工具通过弹窗 iframe 打开
+- **首页**：8 张专题卡（CSS 网格）+ 工具卡（油价计算），工具通过弹窗 iframe 打开
 - **专题页**：每专题文章列表，带封面 SVG，支持按标题排序
 - **全部文章**（/articles/）：卡片铺满页面宽度
 - **搜索**：前端模糊搜索（Cmd/Ctrl+K 或 `/` 键触发），`index.json` 由 Hugo 构建时生成
@@ -18,13 +18,14 @@
 # 二、目录结构
 
 ```
-content/            30 篇文章 + 各专题的目录页（19 篇是 leaf bundle，自带配图）
+content/            135 篇文章（9 个专题目录，27 篇是 leaf bundle，自带配图）
 assets/
   css/custom.css    站点全部自定义样式（背景、卡片、主题覆盖都在这里）
-  covers/           30 篇专题文章的封面 SVG（与文章同名）
+  covers/           67 张专题封面 SVG（与文章同名；TypeScript 68 章共用一张）
   icons/            站点自有的图标（覆盖主题同名文件）
   js/               站点自有的脚本（tools-modal.js、footer-extra.js）
   design-pattern/   设计模式专题的可下载 C++ 源码（56 个 .h/.cpp 文件）
+  datastructure/    数据结构专题的可下载 C++ 源码（12 个 .h + 10 个 .cpp）
   git-notes/        Git 专题附加文件（.gitignore 模板）
 data/tools.yaml     首页「工具」卡片的清单（加新工具改这个）
 layouts/            对主题模板的覆盖与扩展（见下方说明）
@@ -69,15 +70,21 @@ themes/blowfish/    Blowfish 主题，已整目录提交进本仓库（不要修
 
 # 三、内容组织
 
-5 个专题目录（`content/` 下），各专题的文章按 `weight` 排序（`[params.list] orderByWeight = true`）：
+9 个专题目录（`content/` 下），各专题的文章按 `weight` 排序（`[params.list] orderByWeight = true`）：
 
 | 专题 | 文章数 | 文章目录 |
 | --- | --- | --- |
 | C++ 笔记 | 12 篇 | `cpp-notes/` |
-| 数据结构 | 1 篇 | `data-structures/` |
+| 数据结构 | 8 篇 | `data-structures/` |
 | 设计模式 | 9 篇 | `design-pattern/` |
 | Git 速查 | 3 篇 | `git-notes/` |
-| Markdown | 5 篇 | `markdown-notes/` |
+| JavaScript | 14 篇 | `javascript/` |
+| Markdown | 6 篇 | `markdown-notes/` |
+| 产品手册 | 5 篇 | `manuals/` |
+| 软件配置 | 9 篇 | `software-config/` |
+| TypeScript | 69 篇 | `typescript-notes/` |
+
+合计 135 篇（TypeScript 69 篇 = 68 章 + 1 张章节目录页 `typescript-tutorial.md`）。
 
 ## (一) 标题编号规则
 
@@ -91,13 +98,12 @@ themes/blowfish/    Blowfish 主题，已整目录提交进本仓库（不要修
 | 四级标题 | `(1)` `(2)` `(3)` | H4 (`####`) | `#### (1) 变量命名` |
 | 五级标题 | `①` `②` `③` | H5 (`#####`) | `#####` |
 
-当前文章的 markdown 层级偏高一档（实际用 H2/H3 渲染 H1/H2 编号），修正 pending。
-
 ## (二) 其他
 
-- 每篇专题文章带一张封面 SVG，放在 `assets/covers/`，与文章同名
-- 19 篇是 **leaf bundle**（目录自带 `index.md`/`_index.md` 和封面），其余是单文件
-- 新增文章时：建目录或文件 + 放封面 SVG + 在专题 `_index.md` 的描述中添加条目（≤4 行，每行 ≤7 个汉字，对应窄屏两列卡片的 `min-height` 约束）
+- 每篇专题文章带一张封面 SVG，放在 `assets/covers/`，与文章同名。
+  **例外**：文章数量很多的系列（如 68 章的 TypeScript 教程）可全系列共用一张通用封面
+- **有配图的做成 leaf bundle**（目录自带 `index.md`，配图放同目录），没配图的用单文件 `.md`；目前 27 篇 leaf bundle
+- 新增文章时：建目录或文件 + 放封面 SVG；专题 `_index.md` 的 `description` 是一句主题概述，不逐篇追加条目，仅在专题内容范围变化时更新（若改为多行条目：≤4 行、每行 ≤7 个汉字，对应窄屏两列卡片的 `min-height` 约束）
 
 # 四、本地开发
 
@@ -148,7 +154,8 @@ Blowfish **3.7.0**，以 vendored 方式引入（整目录提交，非 submodule
 分支与发布流程见 [AGENTS.md](AGENTS.md)。核心规则：
 
 - **只在 `develop` 上提交**，永不直接改 `main`
-- 发布时在 `main` 上 `git merge --squash develop`，然后同步回 `develop`
+- 发布时在 `main` 上 `git merge --squash develop` → 提交 → 打附注 tag（`git tag -a vX.Y.Z`）
+  → push `main` 与 tag → **再把 `main` 合回 `develop`**（squash 不留「已合并」记录，省略会导致下次发布冲突）
 
 # 九、依赖
 

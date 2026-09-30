@@ -10,6 +10,9 @@ title: "积微知远"
 {{< feature title="TypeScript" url="typescript-notes/" label="查看 TypeScript 笔记" >}}
 基础类型<br>函数接口<br>泛型装饰器<br>编译选项
 {{< /feature >}}
+{{< feature title="JavaScript" url="javascript/" label="查看 JavaScript 笔记" >}}
+数据类型<br>函数与对象<br>DOM · BOM<br>原型与正则
+{{< /feature >}}
 {{< feature title="设计模式" url="design-pattern/" label="查看设计模式笔记" >}}
 设计原则<br>常见设计模式
 {{< /feature >}}
@@ -24,6 +27,9 @@ title: "积微知远"
 {{< /feature >}}
 {{< feature title="C++ 笔记" url="cpp-notes/" label="查看 C++ 笔记" >}}
 命名 · 预处理<br>继承 · 多态<br>STL<br>智能指针 · 异常
+{{< /feature >}}
+{{< feature title="产品手册" url="manuals/" label="查看产品手册" >}}
+产品说明<br>配对步骤
 {{< /feature >}}
 {{< /feature-grid >}}
 {{< tools-dialog >}}

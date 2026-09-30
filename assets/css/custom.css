@@ -394,7 +394,7 @@ div.text-center > .landing-rise-1 {
    ⚠ 选择器必须带 :has(> .topic-card)。主题的 stats.html 短代码输出的是同一个
    .grid-balance 类，若直接写 .grid-balance 会连统计卡网格的列数一起改掉——
    本站目前没用 stats，但这个误伤没有意义。首页 .grid-balance 的直接子元素是
-   1 张工具卡 + 5 张专题卡（tools.html 与 feature.html 的根都是 .topic-card），
+   1 张工具卡 + 9 张专题卡（tools.html 与 feature.html 的根都是 .topic-card），
    所以这个判据精确命中首页网格。
 
    ⚠ 还要配着缩字号，理由是**余量**而非"放不下"：只改列数时卡宽从 302px 掉到 143px、

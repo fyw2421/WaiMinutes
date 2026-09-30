@@ -1,6 +1,6 @@
 ---
 title: "CDP 别名配置 CLI"
-weight: 5
+weight: 6
 description: "cdp 目录别名工具的 CMD 与 PowerShell 实现"
 date: 2026-09-18
 tags: ["software-config"]

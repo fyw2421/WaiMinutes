@@ -83,12 +83,26 @@ git push origin develop
 
 | 字段 | 格式 | 说明 |
 | --- | --- | --- |
-| `title` | `Markdown{NN} : {英文描述}` 或中文标题 | 文章标题 |
+| `title` | `{专题}{NN} : {描述}`（描述可中可英，如 `JavaScriptNotes01 : 简介`）或中文标题 | 文章标题 |
 | `weight` | 正整数 | 专题内排序 |
 | `description` | 简短描述 | 页描述 / SEO 摘要 |
 | `date` | `YYYY-MM-DD` | 文章日期 |
-| `tags` | `["{分类名}"]` | 与所在专题目录同名 |
+| `tags` | `["{分类名}"]` | 专题分类名，大小写随专题惯例（`JavaScript`、`TypeScript`、`C++`…），不必逐字等于目录名 |
 | `featureimage` | `covers/{文件名}.svg` | 封面 SVG（见下） |
+
+### 文章存放形式（leaf bundle / 散页）
+
+**判断标准是有没有页面资源（配图），不是别的**：
+
+- **有配图 → leaf bundle**：`content/<专题>/<slug>/index.md`，配图与正文放同一目录，
+  正文用相对文件名引用（`![alt](figure01.webp)`）。同目录还会放打包的源码、附件时同理
+- **没配图 → 单文件散页**：`content/<专题>/<slug>.md`，不要为它建目录
+- 两种形式**线上 URL、封面、列表、首页计数完全一致**（Hugo 单页同样输出 `/专题/slug/index.html`），
+  封面都按同名放 `assets/covers/`，所以切换形式不会改变线上地址
+- 新文章按此规则选形式；改已有文章（目录 ↔ 单文件）后必须重新构建核对 URL 未变
+
+当前 27 篇 leaf / 108 篇散页，**全部符合本规则**（每个 leaf 目录都带图，
+没有配图的文章都是散页）。历史遗留情况已清理，不要新建无图目录。
 
 ### 封面 SVG
 
@@ -99,7 +113,7 @@ git push origin develop
   （如 68 章的 `covers/typescript-tutorial.svg`），不必一章一张
 - 统一规格：1500×1000 SVG，深色渐变底 + 顶部光晕
   （背景、光晕、装饰线三色取自同一色相，各专题独立配色）
-- 布局元素：编号标签（`MARKDOWN · NN` 或 `{TOPIC} · NN`）、大标题（82px）、副标题（32px）、装饰线、卡片区（圆角矩形 + 序号 + 中英文标题）、底部说明 + `Wai Minutes` 水印
+- 布局元素：编号标签（`MARKDOWN · NN` 或 `{TOPIC} · NN`）、大标题（92px）、副标题（32px）、装饰线、卡片区（圆角矩形 + 序号 + 中英文标题）、底部说明 + `Wai Minutes` 水印
 - 编号规则中已有的专题文章按序号编号（`01`、`02`...）；参考性文档用描述性标题，序号延后
 - 仅 `scripts/make-icons.py` 生成的 favicon 系列是脚本产出；封面 SVG 需手动编写或按此规范生成
 
@@ -146,6 +160,11 @@ git push origin develop
 
 这些文件都是从主题原版复制后修改的，**主题升级时需跟着同步**——`scripts/update-theme.ps1`
 的自检清单会逐项提醒。
+
+- **`content/articles.md` 页头的统计句 `共 N 篇文章 · M 个专题` 是手写的**：
+  **每增删一篇文章或一个专题，必须同步改这里的数字**（N = 全站文章总数，
+  M = 专题目录数，不含 `tags/`）。该页日期/字数/阅读时长的关闭开关也在这个文件的
+  frontmatter（`showdate` / `showwordcount` / `showreadingtime`，小写）。
 
 ## 工具与附件
 

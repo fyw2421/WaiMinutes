@@ -1,6 +1,6 @@
 ---
 title: "Codex 安装使用教程"
-weight: 3
+weight: 4
 description: "Codex 的安装、环境变量配置与常用命令"
 date: 2026-09-18
 tags: ["software-config"]

@@ -1,6 +1,6 @@
 ---
 title: "Claude Code 安装使用教程"
-weight: 1
+weight: 2
 description: "Claude Code 的安装、环境变量配置与常用命令"
 date: 2026-09-18
 tags: ["software-config"]

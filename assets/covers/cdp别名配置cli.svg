@@ -9,7 +9,7 @@
   <rect width="1500" height="1000" fill="url(#bg)"/>
   <rect width="1500" height="1000" fill="url(#glow)"/>
   <g opacity="0.5" stroke="#e85e5e" stroke-opacity="0.18" fill="none"><rect x="1090" y="150" width="300" height="300" rx="36"/><rect x="1150" y="210" width="300" height="300" rx="36"/><rect x="1210" y="270" width="300" height="300" rx="36"/></g>
-  <text class="mono" x="80" y="190" fill="#e85e5e" font-size="30" letter-spacing="6">SOFTWARE CONFIG · 05</text>
+  <text class="mono" x="80" y="190" fill="#e85e5e" font-size="30" letter-spacing="6">SOFTWARE CONFIG · 06</text>
   <text class="sans" x="80" y="312" fill="#f8fafc" font-size="92" font-weight="700">CDP 别名配置 CLI</text>
   <text class="sans" x="80" y="384" fill="#c6d3e2" font-size="32">文件清单 · CMD 实现 · PowerShell 实现</text>
   <line x1="80" y1="432" x2="240" y2="432" stroke="#e85e5e" stroke-width="4" stroke-linecap="round"/>  <g>
