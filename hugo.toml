@@ -106,7 +106,7 @@ summaryLength = 30
   # 原来是旧标语，换成一句真正说明本站内容的话（更适合搜索摘要与分享预览）。
   description = 'C++、数据结构、设计模式、Git、JavaScript、Markdown、软件配置与 TypeScript 的学习笔记合集。'
   # 主题的「最近的文章」只汇总 mainSections 里这些 section 的文章
-  mainSections = ['cpp-notes', 'data-structures', 'design-pattern', 'git-notes', 'javascript', 'markdown-notes', 'software-config', 'typescript-notes']
+  mainSections = ['cpp-notes', 'data-structures', 'design-pattern', 'git-notes', 'javascript', 'manuals', 'markdown-notes', 'software-config', 'typescript-notes']
   dateFormat = '2006-01-02'
   enableCodeCopy = true
   # 页脚版权行。{ year } 是主题 footer.html 支持的占位符，构建时替换成当前年份。
