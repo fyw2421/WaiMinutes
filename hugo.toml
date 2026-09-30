@@ -44,10 +44,6 @@ summaryLength = 30
     pageRef = '/'
     weight = 1
   [[menu.main]]
-    name = '全部文章'
-    pageRef = '/articles'
-    weight = 2
-  [[menu.main]]
     name = '专题'
     # 父级也必须有 url：桌面端模板对无 url 的条目用 tabindex="0"（不跳转），
     # 但移动端模板无条件输出 href="{{ .URL }}"，空 url 会渲染成 href=""，
@@ -75,20 +71,30 @@ summaryLength = 30
     pageRef = '/git-notes'
     weight = 4
   [[menu.main]]
+    name = 'JavaScript'
+    parent = '专题'
+    pageRef = '/javascript'
+    weight = 5
+  [[menu.main]]
     name = 'Markdown'
     parent = '专题'
     pageRef = '/markdown-notes'
-    weight = 5
+    weight = 6
   [[menu.main]]
     name = '软件配置'
     parent = '专题'
     pageRef = '/software-config'
-    weight = 6
+    weight = 7
   [[menu.main]]
     name = 'TypeScript'
     parent = '专题'
     pageRef = '/typescript-notes'
-    weight = 7
+    weight = 8
+  [[menu.main]]
+    name = '产品手册'
+    parent = '专题'
+    pageRef = '/manuals'
+    weight = 9
   [[menu.main]]
     name = '标签'
     pageRef = '/tags'
@@ -98,9 +104,9 @@ summaryLength = 30
 [params]
   # 站点描述：喂 <meta name="description">、og:description 与 JSON-LD。
   # 原来是旧标语，换成一句真正说明本站内容的话（更适合搜索摘要与分享预览）。
-  description = 'C++、数据结构、设计模式、Git、Markdown、软件配置与 TypeScript 的学习笔记合集。'
+  description = 'C++、数据结构、设计模式、Git、JavaScript、Markdown、软件配置与 TypeScript 的学习笔记合集。'
   # 主题的「最近的文章」只汇总 mainSections 里这些 section 的文章
-  mainSections = ['cpp-notes', 'data-structures', 'design-pattern', 'git-notes', 'markdown-notes', 'software-config', 'typescript-notes']
+  mainSections = ['cpp-notes', 'data-structures', 'design-pattern', 'git-notes', 'javascript', 'markdown-notes', 'software-config', 'typescript-notes']
   dateFormat = '2006-01-02'
   enableCodeCopy = true
   # 页脚版权行。{ year } 是主题 footer.html 支持的占位符，构建时替换成当前年份。
@@ -126,7 +132,7 @@ summaryLength = 30
 [params.homepage]
   layout = 'landing' # valid options: page, profile, hero, card, background, landing
   # 首页不展示「最近的文章」区块。关掉后整块都不渲染：标题、卡片、以及区块末尾
-  # 那个「更多」按钮；/articles/ 的入口改由顶部菜单的「全部文章」承担。
+  # 那个「更多」按钮；/articles/ 的入口只剩顶部菜单「专题」的 url（指向 /articles/）。
   # 下方几个 showRecentItems / showMoreLink 是开关重新打开时用的参数，保持原样。
   showRecent = false
   # 卡片网格桌面端是 3 列，取 3 才正好占一行
