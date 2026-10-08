@@ -59,6 +59,8 @@
         .tank-edit::after { content: ""; position: absolute; inset: -6px 0; }
         .tank-edit:hover { border-color: #0f766e; background: #e6fffa; box-shadow: 0 2px 4px rgba(13,148,136,0.15); }
         .tank-edit:active { background: #ccfbf1; }
+        /* 触屏没有 hover，不给焦点态就看不出这一下点没点中 */
+        .tank-edit:focus-within { border-color: #0f766e; background: #e6fffa; }
         .tank-icon { font-size: 14px; line-height: 1; }
         .tank-input {
             width: 30px; border: none; background: transparent; text-align: center;
@@ -925,6 +927,12 @@ const WEEKDAYS = ['星期日', '星期一', '星期二', '星期三', '星期四
         document.getElementById('oilPrice').addEventListener('input', handleInput);
         document.getElementById('fuelValue').addEventListener('input', handleInput);
         tankInput.addEventListener('input', function() { updateTankCapacity(); handleInput(); });
+        // 0 / 负数 / 空 / 非法输入都会被 updateTankCapacity 兜底成 68，但它不回写输入框，
+        // 会出现「框里写着 0、仪表却显示 of 68L」。失焦提交时统一写回规范值。
+        tankInput.addEventListener('change', function() {
+            updateTankCapacity();
+            tankInput.value = tankCapacity;
+        });
 
         let allInputs = document.querySelectorAll('input[type="number"]');
         for (let i = 0; i < allInputs.length; i++) {
@@ -959,6 +967,11 @@ const WEEKDAYS = ['星期日', '星期一', '星期二', '星期三', '星期四
             useNowPrice();
         });
         dateBadge.addEventListener('click', function() { openCalendar(); });
+        // 胶囊的 ::after 绝对定位盖住了 input（绘制在内联子元素之上），点击只会命中
+        // div 本身，input 永远拿不到焦点——手机上表现为点了不弹键盘。统一转发给 input。
+        document.getElementById('tankEdit').addEventListener('click', function(e) {
+            if (e.target !== tankInput) { tankInput.focus(); }
+        });
         document.getElementById('modeAmount').addEventListener('click', function() { setMode('amount'); });
         document.getElementById('modePercent').addEventListener('click', function() { setMode('percent'); });
 
