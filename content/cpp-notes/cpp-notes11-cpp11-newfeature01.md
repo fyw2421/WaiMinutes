@@ -6,6 +6,7 @@ date: 2018-05-22
 tags: ["C++"]
 featureimage: "covers/cpp-notes11-cpp11-newfeature01.svg"
 ---
+
 # 一、标准化
 
 ## (一) C++ 98 标准

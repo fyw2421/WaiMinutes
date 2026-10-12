@@ -6,6 +6,7 @@ date: 2018-05-22
 tags: ["C++"]
 featureimage: "covers/cpp-notes04-class-function.svg"
 ---
+
 # 一、类的定义(Class define)
 
 ## (一) 类的定义(Class define)
@@ -1005,7 +1006,7 @@ const vector &max(const vector &v1,const vector &v2);
 
 当函数省略了实参,自动使用的一个值.
 
-### 基本规则
+### 36. 基本规则
 
 * 对于带参数列表的函数,必须从右向左添加默认值.
 

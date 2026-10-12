@@ -1,6 +1,6 @@
 {{/* 首页「工具」卡片。
      与 layouts/shortcodes/feature.html（专题卡）是两个独立的短代码，互不影响：
-     那个管 5 张专题卡，这个只管工具。
+     那个管所有专题卡，这个只管工具。
 
      ⚠ 工具必须用 iframe 加载，不能内联进来。工具的 CSS 里有**无作用域**的
      `* { margin:0; padding:0; box-sizing:border-box }` 和
@@ -16,18 +16,29 @@
      放在本短代码里，是因为本短代码被调用在 feature-grid 内部，会成为一个网格
      子元素而打乱主题的 :nth-child 补位规则——详见 tools-dialog.html 的注释。 */}}
 
+{{/* 本文件里所有 tools-* 类都是真正有样式的（tools-grid / tools-empty /
+     tool-tile*，定义见 assets/css/custom.css）。早先这里还并排挂过
+     tools-card / tools-band / tools-card__body 三个类，与 topic-card 等
+     一一对应，但 custom.css 从来没有为它们写过任何规则，运行时代码（主题、
+     JS、static、layouts、构建产物）里也无一处引用——纯死钩子，只会让人误以为
+     工具卡有独立样式。需要给工具卡单独加样式时，直接用 .topic-card 选，或那时
+     再引入新类。
+
+     （docs/superpowers/ 下 2026-09-18 的两份历史设计稿里仍写着这三个类名，
+     那是当时的方案记录，不是现状；查现状请以运行时代码为准。） */}}
+
 {{ $tools := hugo.Data.tools }}
 
-<article class="topic-card tools-card group overflow-hidden rounded-2xl border border-neutral-200/80 bg-white/60 shadow-sm backdrop-blur-xl transition duration-200 hover:-translate-y-1 hover:border-primary-300 hover:shadow-xl hover:shadow-primary-500/10 dark:border-neutral-800 dark:bg-neutral-900/50 dark:hover:border-primary-700">
+<article class="topic-card group overflow-hidden rounded-2xl border border-neutral-200/80 bg-white/60 shadow-sm backdrop-blur-xl transition duration-200 hover:-translate-y-1 hover:border-primary-300 hover:shadow-xl hover:shadow-primary-500/10 dark:border-neutral-800 dark:bg-neutral-900/50 dark:hover:border-primary-700">
   {{/* 色带：结构与专题卡一致（三列网格让标题居中、数量靠右），
        但颜色写死不从封面提取——工具没有封面，且青色是专题卡未占用的色相。
        色值取自工具自身 UI 的主色 #0d9488，形成呼应。 */}}
-  <div class="topic-band tools-band" style="background-image:linear-gradient(180deg, #0f3f3c 0%, #0b2b29 100%)">
+  <div class="topic-band" style="background-image:linear-gradient(180deg, #0f3f3c 0%, #0b2b29 100%)">
     <h2 class="topic-band__name">工具</h2>
     <span class="topic-count">{{ len (or $tools slice) }}<span class="sr-only"> 个</span></span>
   </div>
 
-  <div class="topic-card__body tools-card__body p-6">
+  <div class="topic-card__body p-6">
     {{ if $tools }}
       <div class="tools-grid">
         {{ range $tools }}

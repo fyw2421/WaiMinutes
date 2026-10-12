@@ -6,6 +6,7 @@ date: 2018-05-02
 tags: ["markdown"]
 featureimage: "covers/markdown-notes02-classical-syntax.svg"
 ---
+
 # 一、Phrase Emphasis
 
 Markdown treats asterisks \* and underscores \_ as indicators of emphasis.

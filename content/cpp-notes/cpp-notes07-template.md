@@ -6,6 +6,7 @@ date: 2018-05-22
 tags: ["C++"]
 featureimage: "covers/cpp-notes07-template.svg"
 ---
+
 # 一、函数模板(Function Template)
 
 ## (一) 函数模板(Function Template)

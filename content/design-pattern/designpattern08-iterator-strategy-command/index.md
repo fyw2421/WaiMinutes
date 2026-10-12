@@ -6,6 +6,7 @@ date: 2018-05-28
 tags: ["Design Pattern"]
 featureimage: "covers/designpattern08-iterator-strategy-command.svg"
 ---
+
 # 七、Iterator Pattern
 
 ## (一) Definition

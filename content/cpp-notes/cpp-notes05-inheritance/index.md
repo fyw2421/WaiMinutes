@@ -6,6 +6,7 @@ date: 2018-05-22
 tags: ["C++"]
 featureimage: "covers/cpp-notes05-inheritance.svg"
 ---
+
 # 一、派生类对象结构(Derived Object Structure)
 
 ## (一) 派生类对象结构(Derived Object Structure)
@@ -31,7 +32,7 @@ private:
 
    ![DerivedObjectStructure](cpp-notes05-derived-object-structure.svg)
 
-### 不能被继承的函数
+### 1. 不能被继承的函数
 
 1. 构造函数
 
@@ -49,7 +50,7 @@ private:
 
 ## (二) 类内访问控制(Access Control in Class)
 
-### 1. 访问控制列表
+### 2. 访问控制列表
 
 继承类型/基类访问属性|pulibc|protected|private
 :---:|:---:|:---:|:---:
@@ -59,7 +60,7 @@ private		| private	| private	| 隔离,通过基类访问
 
    ![AccessControlInClass](cpp-notes05-access-control-in-class.svg)
 
-### 2. 调整访问控制属性
+### 3. 调整访问控制属性
 
 　　通过在派生类中使用using关键字,可以调整public/protected类型成员的访问控制属性.
 
@@ -93,7 +94,7 @@ int main()
 
 ## (三) 派生类的构造及构造顺序.
 
-### 3. 派生类的构造
+### 4. 派生类的构造
 
 1. 默认构造函数.
 
@@ -107,13 +108,13 @@ int main()
 
    与构造函数类似,如果父类没有自定义构造函数,派生类将调用父类的默认构造函数,否则调用父类的自定义复制构造函数.对于本体与实体不一致的情况,需要派生类自定义复制构造函数.
 
-### 4. 构造顺序
+### 5. 构造顺序
 
 　　创建派生类对象时,程序首先调用基类的构造函数.做完了基类的构造之后,接下来要给自身的对象本体分配空间,进而调用各个成员对象的构造函数,如果有多个对象,按照声明顺序进行构造.然后开始执行自身的构造函数.
 
 <center>创建派生类对象----->基类构造----->自身对象构造(按照声明顺序)------>自身构造函数</center>
 
-### 5. 析构顺序
+### 6. 析构顺序
 
 　　与构造严格相反.
 
@@ -123,7 +124,7 @@ int main()
 
 类中含有其它对象成员的情形成为组合.
 
-### 区别
+### 7. 区别
 
 类别|特性
 :---:|:---:
@@ -134,7 +135,7 @@ int main()
 
 ## (五) 多重继承(Multi-Inheritance Structure)
 
-### 6. 多继承结构
+### 8. 多继承结构
 
 一个类可以从多个基类派生,这样的继承结构成为多重继承(多继承).
 
@@ -190,7 +191,7 @@ Sleeping...
 */
 ```
 
-### 7. 基类成员名冲突
+### 9. 基类成员名冲突
 
 ```cpp
 int main()
@@ -214,7 +215,7 @@ int main()
 
    这种情况,要求掌握类的所有信息,因此,在基类中出现两个意义相同的实体是不妥当的.
 
-### 8. 基类分解(BaseClass Decompostion)
+### 10. 基类分解(BaseClass Decompostion)
 
 ![SleepSofaBaseClassDecompostion](cpp-notes05-sleepsofa-baseclass-decompostion.svg)
 
@@ -262,7 +263,7 @@ int main()
 }//====================================
 ```
 
-### 9. 虚拟继承(Virtual Inheritance)
+### 11. 虚拟继承(Virtual Inheritance)
 
 　　程序f1007.cpp通不过编译是因为遇到了含糊不清,指向Furniture的指针不知道指向哪个Furniture,从道理上讲,SleeperSofa只需对应一个Furniture对象,所以我们希望只有一个Furniture副本.如下图所示:
 
@@ -316,7 +317,7 @@ int main(){
 }//====================================
 ```
 
-### 10. 虚基类及其派生类的构造函数
+### 12. 虚基类及其派生类的构造函数
 
 1. 建立对象时所指的类成为最(远)派生类.
 
@@ -373,7 +374,7 @@ Member of D1
 */
 ```
 
-### 11. 多继承对象的构造顺序
+### 13. 多继承对象的构造顺序
 
 **含有多继承的构造函数按下列顺序被调用**:
 
@@ -397,7 +398,7 @@ Member of D1
 
 4. SleeperSofa本身部分
 
-### 12. 多继承评价(Multi-Inheritance Evalution)
+### 14. 多继承评价(Multi-Inheritance Evalution)
 
 　　在语言中实现多继承并不容易,主要是编译问题、模糊性问题、调试问题.应避免多继承.
 

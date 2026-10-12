@@ -6,6 +6,7 @@ date: 2018-05-22
 tags: ["C++"]
 featureimage: "covers/cpp-notes12-cpp11-newfeature02.svg"
 ---
+
 # 一、Lambda表达式
 
 　　C++11的一大亮点就是引入了Lambda表达式.利用Lambda表达式,可以方便的定义和创建匿名函数.

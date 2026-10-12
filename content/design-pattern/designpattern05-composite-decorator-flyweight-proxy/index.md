@@ -6,6 +6,7 @@ date: 2018-05-28
 tags: ["Design Pattern"]
 featureimage: "covers/designpattern05-composite-decorator-flyweight-proxy.svg"
 ---
+
 # 四、Composite Pattern
 
 ## (一) Definition

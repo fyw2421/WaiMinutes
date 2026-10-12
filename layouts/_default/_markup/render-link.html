@@ -28,12 +28,16 @@
   "gitignore" "zip" "tar" "gz" "tgz" "bz2" "xz" "7z" "rar"
 -}}
 
-{{/* ---- 以下逻辑照抄主题原版，勿改动语义 ---- */}}
+{{/* ---- 以下逻辑照抄主题原版，勿改动语义 ----
+     唯一的例外是下面这一行 $isProtoRel：主题原版没考虑协议相对链接，
+     而它会让本站的两处判定同时出错（实测 urls.Parse "//host/lib.js" 得到
+     Scheme="" / Host="host" / IsAbs=false）。 */}}
 {{- $u := urls.Parse .Destination -}}
+{{- $isProtoRel := strings.HasPrefix .Destination "//" -}}
 {{- $href := $u.String -}}
 {{- if strings.HasPrefix $u.String "#" -}}
   {{- $href = printf "%s#%s" .PageInner.RelPermalink $u.Fragment -}}
-{{- else if and $href (not $u.IsAbs) -}}
+{{- else if and $href (not $u.IsAbs) (not $isProtoRel) -}}
   {{- $path := strings.TrimPrefix "./" $u.Path -}}
   {{- with or
     ($.PageInner.GetPage $path)
@@ -51,12 +55,35 @@
 {{- end -}}
 
 {{/* 是否标记为下载：必须是站内链接（外链的 download 会被浏览器忽略，且语义上不该
-     由本站决定别人家文件怎么下载），且扩展名在清单里。 */}}
+     由本站决定别人家文件怎么下载），且扩展名在清单里。
+
+     ⚠ 协议相对链接要单独排除。实测 urls.Parse "//cdn.example.com/lib.js" 的结果
+       是 Scheme="" / Host="cdn.example.com" / IsAbs=false —— 它既不像外链那样
+       IsAbs=true，也不像站内链接那样 Host 为空，于是同时骗过了下面两处判定：
+         · 当成站内资源去 GetPage/Resources.Get 解析。绝大多数情况解析不到，
+           href 保持原样还算幸运；但只要目标路径恰好撞上站内某个页面
+           （例如 //cdn.example.com/android/），href 会被**改写成站内地址**，
+           链接直接指到别处去，且没有任何报错。
+         · 当成站内链接加 download。cdn 上的 .js/.zip/.h 都会中招，
+           浏览器试着下载一个本不属于本站的文件。
+       不能用「以 / 开头」来判：站点自身的绝对路径链接（如 /WaiMinutes/static/x.zip）
+       同样不以 / 开头区分，HasPrefix $u.Path "/" 会把站内下载链接一并排除掉。
+       判据只能是协议前缀本身。
+     ⚠ 同样不能用 $u.Host 判：那会把 ftp://host/x.zip 也算进来，而原版对它的
+       处理（IsAbs=true，不加 download、不进资源解析）是正确的。
+
+     ⚠ $isProtoRel 除了排除上面两项，还参与了下面的 $isExternal 判定，所以协议
+       相对链接相对原版共**三项**变化，第三项容易被漏记：
+         1. 不再被改写成站内地址；
+         2. 不再带 download；
+         3. 现在会拿到 target="_blank" rel="noreferrer"（原版只认 http:/https:）。
+       第 3 项是顺带翻转的：协议相对本身就是外链，结果正确，但改动时只盯着 href
+       与 download 两项，日后不要把它当 bug 查回来。*/}}
 {{- $ext := lower (strings.TrimPrefix "." (path.Ext $u.Path)) -}}
-{{- $isDownload := and (not $u.IsAbs) (in $downloadExts $ext) -}}
+{{- $isDownload := and (not $u.IsAbs) (not $isProtoRel) (in $downloadExts $ext) -}}
 
 {{- $forceNewTab := .Page.Params.externalLinkForceNewTab | default (.Page.Site.Params.article.externalLinkForceNewTab | default true) -}}
-{{- $isExternal := or (strings.HasPrefix .Destination "http:") (strings.HasPrefix .Destination "https:") -}}
+{{- $isExternal := or (strings.HasPrefix .Destination "http:") (strings.HasPrefix .Destination "https:") $isProtoRel -}}
 {{- $newTab := and $forceNewTab $isExternal -}}
 
 <a href="{{ $href }}" {{ with .Title }}title="{{ . }}"{{ end }}

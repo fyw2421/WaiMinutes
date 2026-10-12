@@ -1,11 +1,12 @@
 ---
-title: "Git Cheat Sheets 3-2"
+title: "GitCheatSheets02 : 提交与回退"
 weight: 2
 description: "Clone Add Commit log/reflog reset/revert status diff checkout rm remote/push/pull"
 date: 2018-05-07
 tags: ["git"]
 featureimage: "covers/git-cheat-sheets02-commit-reset.svg"
 ---
+
 # 一、Create/Clone Repository
 
 ```bash

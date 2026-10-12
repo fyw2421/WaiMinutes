@@ -79,14 +79,28 @@ def glyph_t(x):
 
 
 def check_safe_zone():
+    """字形**连描边一起**必须落在遮罩安全区内。
+
+    ⚠ 原来只量顶点中心：DOT_R = 0 让 `dx * DOT_R` 恒为 0，px/py 就是顶点本身，
+      描边外扩的 STROKE/2 完全没有参与计算——留下一圈 30px 的盲区，
+      断言比它自称的「改坐标时能立刻发现」弱得多。改成顶点距离 + 描边半宽
+      的保守上界。
+
+      实测（512 视口 / STROKE 60）：顶点最远 168.4，含描边 198.4，
+      安全区 204.8，余量 6.4。所以现有图标本身是合规的，修正断言不会
+      让脚本失败，只是把盲区补上。
+    """
     cx = cy = VIEW / 2
-    worst = 0.0
+    half = STROKE / 2
+    worst_vertex = 0.0
     for x, y in GLYPH:
-        for dx, dy in ((-1, -1), (1, -1), (-1, 1), (1, 1), (0, 0)):
-            px = x + dx * DOT_R * 0.707
-            py = y + dy * DOT_R * 0.707
-            worst = max(worst, ((px - cx) ** 2 + (py - cy) ** 2) ** 0.5)
-    assert worst <= SAFE_RADIUS, f"字形超出遮罩安全区: {worst:.1f} > {SAFE_RADIUS:.1f}"
+        d = ((x - cx) ** 2 + (y - cy) ** 2) ** 0.5
+        worst_vertex = max(worst_vertex, d)
+    worst = worst_vertex + half
+    assert worst <= SAFE_RADIUS, (
+        f"字形(含描边)超出遮罩安全区: {worst:.1f} > {SAFE_RADIUS:.1f}"
+        f"（顶点最远 {worst_vertex:.1f}，描边半宽 {half:.1f}）"
+    )
     return worst
 
 

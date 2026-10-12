@@ -1,11 +1,12 @@
 ---
-title: "Git Cheat Sheets 3-1"
+title: "GitCheatSheets01 : 安装与配置"
 weight: 1
 description: "Install-Tools Repository-Structure gitignore Config HTTP/OpenSSH TortoiseGi-OpenSSH/PuTTy"
 date: 2018-05-07
 tags: ["git"]
 featureimage: "covers/git-cheat-sheets01-config-setup.svg"
 ---
+
 # 一、Install Git Tools
 
 ## (一) windows

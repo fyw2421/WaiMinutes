@@ -6,6 +6,7 @@ date: 2018-05-28
 tags: ["Design Pattern"]
 featureimage: "covers/designpattern06-memento-mediator-observer.svg"
 ---
+
 # 一、Memento Pattern
 
 ## (一) Definition
