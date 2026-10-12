@@ -4,13 +4,16 @@ on:
   push:
     branches:
       - main
+      # develop 也跑构建：否则问题要等到合并进 main 才暴露，而 main 一旦推上去
+      # 就直接部署了。构建失败只是把这次 push 卡住，不会动线上（见 deploy 的 if）。
+      - develop
   # 除 push 外也允许在 Actions 页面手动触发部署
   workflow_dispatch:
 
+# 顶层只给最小权限。deploy 需要的 pages/id-token 在该 job 内单独授予，
+# 避免 build 阶段（会执行仓库里的 Hugo 模板与脚本）也持有写权限。
 permissions:
   contents: read
-  pages: write
-  id-token: write
 
 concurrency:
   group: "pages"
@@ -19,29 +22,43 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
+    # 没有上限时挂起的 hugo 最长可跑 6 小时，白白占额度
+    timeout-minutes: 15
+    permissions:
+      contents: read
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        # 钉到 commit SHA：tag 是可变引用，被改动后同一份工作流会执行不同代码。
+        # 注释里保留版本号便于阅读，升级时按该 tag 重新解析 SHA。
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
       - name: Setup Hugo
-        uses: peaceiris/actions-hugo@v3
+        uses: peaceiris/actions-hugo@2752ce1d29631191ea3f27c23495fa06139a5b78 # v3
         with:
           hugo-version: '0.166.0'
           extended: true
       # 主题（Blowfish 3.7.0）已随仓库提交，无需再联网克隆
       - name: Build
-        run: hugo --minify
+        # --panicOnWarning：AGENTS.md 要求"构建通过且输出零警告"，而 Hugo
+        # 默认把 WARN 留在输出里仍然 exit 0，不加这条 CI 等于没人把关。
+        run: hugo --minify --panicOnWarning
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@56afc609e74202658d3ffba0e8f6dda462b719fa # v3
         with:
           path: ./public
 
   deploy:
+    # 只有 main 才部署：develop 的推送同样会跑完 build，但不碰线上 Pages
+    if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     needs: build
+    timeout-minutes: 10
+    permissions:
+      pages: write
+      id-token: write
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@d6db90164ac5ed86f2b6aed7e0febac5b3c0c03e # v4

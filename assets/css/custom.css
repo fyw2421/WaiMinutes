@@ -273,15 +273,27 @@ div.text-center > .landing-rise-1 {
 /* ---------- 专题卡：网格列数 ---------- */
 
 /* 桌面端沿用主题自带的网格类（display:grid + gap-4 + sm:grid-cols-2 +
-   lg:grid-cols-3）。五张卡各带一张同比例的封面，高度一致，
+   lg:grid-cols-3）。每张卡各带一张同比例的封面，高度一致，
    默认的 align-items: stretch 就让整行齐平，所以桌面端不需要任何规则。
    保留这段注释只为记下走过的路，免得以后反复：
 
    · 曾用 CSS 多列做过瀑布流，已撤掉：多列是按列高平衡分配条目的，增删一个专题
      会让已有卡片挪位（导航型网格最忌这个）；阅读顺序也从横向逐行变成纵向逐列；
      条目少时平衡还容易难看（4 张配 3 列会分成 2/1/1，右边空一块）。
-   · 曾加过 align-items: start，用来保留"有封面 / 无封面"的高度差；现在五张都有
-     封面、高度一致，那一条也随之删掉。 */
+   · 曾加过 align-items: start，用来保留"有封面 / 无封面"的高度差；现在所有卡都有
+     封面、高度一致，那一条也随之删掉。
+
+   ⚠ 网格的直接子节点 = 专题卡 + 1 张工具卡（tools.html 与 feature.html 的根都是
+     .topic-card），所以**这个数会随专题增减变化**，而主题的补位规则按子节点数取模。
+     规则原文在 themes/blowfish/assets/css/main.css（vendored，勿改）：
+       @media (640px–1023.98px) .grid-balance  > :last-child:nth-child(odd)   拉伸
+       @media (≥1024px)        .grid-balance-3> :last-child:nth-child(3n + 1) 拉伸
+     增删专题后必须重算末行效果。当前 11 个子节点（10 专题 + 1 工具）实测：
+       · 360–639px   本文件下方把它改成两列；11 张排 6 行、末行剩 1 张半宽卡
+                      （<640px 区间没有补位规则，那张不会被拉成整行）
+       · 640–1023px  11 为奇数 → 命中 odd 规则，末张被拉成整行（主题的预期行为）
+       · ≥1024px     11 = 3×3+2，不命中 3n+1，末行正常放 2 张
+     也就是说专题数从 10 涨到 12 时，≥1024px 的末行会变成 3n+1 而被拉成整行。 */
 
 /* ---------- 专题卡：顶部色带 + 扁平箭头 ---------- */
 
@@ -387,21 +399,26 @@ div.text-center > .landing-rise-1 {
 
 /* 窄屏改两列。
 
-   主题的断点是 sm:grid-cols-2（≥640px 才生效），所以手机上一律单列：六张卡纵向
-   排开，实测整页 1648px、网格底部在 1452px 处，首屏之外还要再滚 600 多像素才看得全。
-   两列后整页降到 927px、网格底部 732px，首屏内就能看全（只剩页脚要滚）。
+   主题的断点是 sm:grid-cols-2（≥640px 才生效），所以手机上一律单列：11 个子节点
+   （10 专题 + 1 工具）纵向排开，实测整页 2302px、网格底部 2106px。两列后整页降到
+   1445px、网格底部 1249px，省下 857px（Chromium 360×900，2026-10 实测）。
+   ⚠ 卡片变多后已经**放不进首屏**了（900px 视口），这里保留两列的理由变成"少滚 857px"
+     而不是"一屏看全"；若日后专题继续增长，要重新评估是否改三列。
 
    ⚠ 选择器必须带 :has(> .topic-card)。主题的 stats.html 短代码输出的是同一个
    .grid-balance 类，若直接写 .grid-balance 会连统计卡网格的列数一起改掉——
    本站目前没用 stats，但这个误伤没有意义。首页 .grid-balance 的直接子元素是
-   1 张工具卡 + 9 张专题卡（tools.html 与 feature.html 的根都是 .topic-card），
+   1 张工具卡 + 10 张专题卡（tools.html 与 feature.html 的根都是 .topic-card），
    所以这个判据精确命中首页网格。
 
-   ⚠ 还要配着缩字号，理由是**余量**而非"放不下"：只改列数时卡宽从 302px 掉到 143px、
-   描述区剩 117px（360px 机器上是 102px）。当前文案在 16px 下其实刚好塞得进，但最长
-   一行「智能指针·异常」实测 99.9px，距 102px 只剩 2px——各平台字形度量有差异
-   （本机走微软雅黑，Android 走 Noto Sans CJK），换个字体就可能折行。13px 下同样的
-   行只占 81px，留出 21px 余量，内容再长一两个字也稳得住。
+   ⚠ 360–639px 区间**没有补位规则**（主题那条 odd 规则从 640px 才开始），
+   而 11 张排两列是 6 行、末行只剩 1 张半宽卡，右边空一格。要消掉得自己写规则，
+   目前接受这个观感。
+
+   ⚠ 还要配着缩字号，理由是**余量**而非"放不下"。360px 下卡宽 132px、
+   描述区可用宽 106px；16px 时最长一行「智能指针 · 异常」会超宽。当前文案在 13px 下
+   实测该行占 88.8px，余量约 17px。各平台字形度量有差异（本机走微软雅黑，
+   Android 走 Noto Sans CJK），换个字体就可能吃掉这段余量——这也是不回到 16px 的原因。
    （文案缩短之前这里还要紧张：原「命名规范、编译预处理」等五段在 16px 下要占满
    8 行，两列反而比单列更高。）
 
@@ -410,7 +427,8 @@ div.text-center > .landing-rise-1 {
    前面，实测窄屏仍是单列）。
 
    写作约束（给改 content/_index.md 描述的人）：每行 ≤7 个汉字，最多 4 行。
-   7 字是 360px 窄屏的安全线，8 字起只在 ≥390px 成立。 */
+   min-height 兜住 4 行后，当前 10 张专题卡的描述实测**全部正好 4 行**，
+   末行不会参差；7 字是 360px 窄屏的安全线，8 字起只在 ≥390px 成立。 */
 @media (min-width: 360px) and (max-width: 639px) {
   .grid-balance:has(> .topic-card) {
     grid-template-columns: repeat(2, 1fr);
@@ -428,12 +446,13 @@ div.text-center > .landing-rise-1 {
     padding: 0.75rem;
   }
   .topic-desc {
-    /* min-height 兜底：段数不足 4 行的卡（Git 3 段、设计模式 2 段）也撑满 4 行高，
-       否则末行两张卡比上一行矮 21px、底部参差。有了它，写文案时只要不超过 4 行
-       就永远对齐，不必为凑数硬加内容。
+    /* min-height 兜底：描述不足 4 行的卡也撑满 4 行高，否则同一行里矮一截、
+       底部参差。有了它，写文案时只要不超过 4 行就永远对齐，不必为凑数硬加内容。
        4 行这个数是量出来的：工具卡没有描述、自然高 151px 会撑住第一行，
        4 行描述（86px + 色带 44px + 内边距）让全卡到 156px，刚好盖过它——
-       3 行时是 135px，仍比工具卡矮。 */
+       3 行时是 135px，仍比工具卡矮。
+       2026-10 实测：10 张专题卡的描述当前**全部正好 4 行**，所以这一条已经
+       从"补现状"退成"防回退"；新写文案少于 4 行时它仍然生效，别当成冗余删掉。 */
     min-height: calc(4 * 1.35rem);
     font-size: 0.8125rem;
     line-height: 1.35rem;
@@ -442,13 +461,15 @@ div.text-center > .landing-rise-1 {
 
 /* 平板档（640–1023px，主题给两列）的同一处不齐。
 
-   与上面窄屏是同一个成因：描述只写了 2–3 段的卡比写了 4 段的卡矮 24px，
-   于是末行两张卡比上一行短一截（实测 640/767px 均为 209 / 209 / 185）。
-   这里字号是主题原样的 16px、行高 1.5rem，4 行即 6rem。
+   与上面窄屏是同一个成因：描述不足 4 行的卡比写满 4 行的卡矮，于是同一行里
+   两张卡短一截。这里字号是主题原样的 16px、行高 1.5rem，4 行即 6rem。
+   640/768/1023px 实测：6 行 × 每行最大描述都是 4 行，故 11 张卡一律 209px。
 
-   ⚠ 上限取 1023px：≥1024px 是主题的 lg:grid-cols-3 三列，六张卡正好排成两行、
-   每行三张，实测高度已经齐平（209/209），加 min-height 反而会让三列的描述区
-   凭空多出 2 行空白。 */
+   ⚠ 上限取 1023px。≥1024px 是主题的 lg:grid-cols-3 三列，这里再加 min-height
+   反而会让只有 2–3 行描述的卡凭空多出空白。当前 ≥1024px 实测 4 行、每行都恰好
+   含一张 4 行描述的卡，所以三列下也齐平（11 张一律 209px）——但这是文案现状的
+   **巧合**而非规则保证：描述行数一改，某行可能全是 2–3 行而塌下去。
+   真出现不齐时，在这里另开一条 @media (min-width: 1024px) 的规则，别动本条上限。 */
 @media (min-width: 640px) and (max-width: 1023px) {
   .topic-desc {
     min-height: 6rem;
@@ -527,6 +548,24 @@ div.text-center > .landing-rise-1 {
    回归 single-line + overflow-x: auto，超出视口时横向滚动。 */
 .article-content pre {
   white-space: pre;
+  overflow-x: auto;
+}
+
+/* 正文表格：窄屏可横向滚动
+
+   Tailwind preflight 给内容表格的是 `width:100% + table-layout:auto`，
+   且**没有**外层滚动容器（overflow-x:auto 只加在 pre 和代码高亮的
+   .chroma .lntable 上）。于是第一列遇到长内容就会被压缩、逐字折行，
+   极端时把整页撑出横向滚动。改成可滚动块：列宽仍按内容计算，
+   放不下时表格内部横向滚动，页面本身不动。
+
+   为什么不用外层 div 包表格：Markdown 渲染出的 <table> 是 <p> 的兄弟节点，
+   包一层要靠渲染钩子改 DOM；而 table 自身 display:block 即可横向滚动，
+   代价是脱离表格布局上下文——但内容表都是两列纯文本，列宽表现一致。 */
+.article-content table,
+#main-content table {
+  display: block;
+  max-width: 100%;
   overflow-x: auto;
 }
 
@@ -683,10 +722,36 @@ div.text-center > .landing-rise-1 {
   margin: auto;
 }
 
+/* ⚠ 必须挂在 [open] 上，不能直接写进上面的 .tool-dialog：
+     <dialog> 未打开时靠 UA 样式表的 `dialog:not([open]) { display: none }` 隐藏，
+     而**作者样式的 display 无条件胜过 UA 样式表**（与选择器权重无关）。直接写
+     `display: flex` 会让弹窗在关闭状态下也参与布局、常驻可见。
+   纵向弹性布局：让内容区自己占满「弹窗高度 - 标题栏实测高度」。
+   原来靠 `height: calc(100% - 49px)` 写死标题栏高度，而那个 49px 是
+   10px(padding) + 28px(关闭按钮) + 10px(padding) + 1px(border) 算出来的，
+   跟 CSS 里任何一条声明都没有耦合关系——改 padding、换字号、标题换成两行，
+   都会留下一条没人注意的缝。现在标题栏与内容区各占一轨，高度由布局决定。 */
+.tool-dialog[open] {
+  display: flex;
+  flex-direction: column;
+}
+
 .tool-dialog::backdrop {
   background-color: rgb(0 0 0 / 0.55);
 }
 
+/* 模态打开时锁住背景滚动。showModal() 按规范只把背景置为 inert（不能点、不能聚焦），
+   **并不阻止滚动**：在遮罩上滚滚轮或手指拖动没有可滚动的祖先可循，一路传到视口，
+   把背后的首页滚走，所以要显式锁。
+   :has() 不支持时只是不锁（工具照常可用、不卡死），不必另写 JS 兜底。
+   锁后文档滚动条消失，Windows 下内容会向右跳一个滚动条宽度（≈15px），
+   那部分由 tools-modal.js 用 body 的 padding-right 补上。 */
+html:has(#tool-dialog[open]) {
+  overflow: hidden;
+}
+
+/* padding: 10px 14px，border-bottom: 1px。
+   flex: 0 0 auto —— 不参与伸缩，高度完全由自身内容与 padding 决定。 */
 .tool-dialog__bar {
   display: flex;
   align-items: center;
@@ -695,6 +760,7 @@ div.text-center > .landing-rise-1 {
   padding: 10px 14px;
   background-color: rgb(var(--color-neutral-50));
   border-bottom: 1px solid rgb(var(--color-neutral-200));
+  flex: 0 0 auto;
 }
 
 .tool-dialog__title {
@@ -746,7 +812,11 @@ div.text-center > .landing-rise-1 {
 }
 
 .tool-dialog__body {
-  height: calc(100% - 49px); /* 减去标题栏高度，让 iframe 恰好填满剩余空间 */
+  /* flex: 1 1 auto 占满标题栏之外的全部高度，替代原来的 calc(100% - 49px)；
+     min-height: 0 是必需的——默认的 min-height:auto 会让 flex 项不肯缩到
+     内容高度以下，iframe 撑出的固有高度会把内容区顶出弹窗。 */
+  flex: 1 1 auto;
+  min-height: 0;
   background-color: #f0f4f5;  /* 与工具自身背景一致，加载中不会闪白/闪黑 */
 }
 

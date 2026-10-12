@@ -15,6 +15,12 @@ Thumbs.db
 # Dependencies
 node_modules/
 
+# Python 字节码：scripts/ 下多个工具用 python 直接跑，会在同目录生成 __pycache__。
+# 不忽略的话 `git add scripts/` 会把 .pyc 一起入库（AGENTS.md 已为 public/、
+# resources/_gen/、.superpowers/ 写了同类规则，这里补齐）。
+__pycache__/
+*.pyc
+
 # Temporary files
 *.swp
 *.swo

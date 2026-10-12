@@ -25,6 +25,15 @@
 
 ### 发布流程
 
+> ⚠ **第 1 步与第 5 步（要联网的）之前先跑代理检查**，国内直连 GitHub 不稳：
+> ```bash
+> pwsh -File scripts/ensure-proxy.ps1        # 端口不通会自动拉起 dev-sidecar
+> $env:HTTPS_PROXY = 'http://127.0.0.1:31181' # 脚本不改 git config，代理由环境变量传入
+> $env:HTTP_PROXY  = $env:HTTPS_PROXY
+> ```
+> 端口在听**不等于**代理能用（上游节点没连上时 git 仍报 `Failed to connect to
+> github.com port 443 via 127.0.0.1`，本机实测过），所以脚本会穿过代理发一次真实请求再判定。
+
 ```bash
 # 1. 切到 main 并同步远端
 git checkout main
@@ -62,7 +71,7 @@ git push origin develop
 
 | 级别 | 编号格式 | Markdown 层级 | 示例 |
 | --- | --- | --- | --- |
-| 文档标题 | frontmatter `title` | H1 (`#`) | `# 文档标题` |
+| 文档标题 | frontmatter `title` | 不在正文写 | — |
 | 一级标题/章节标题 | `一、` `二、` `三、` | H1 (`#`) | `# 一、常见命名法` |
 | 二级标题/子章节 | `(一)` `(二)` `(三)` | H2 (`##`) | `## (一) 常见命名法` |
 | 三级标题 | `1.` `2.` `3.` | H3 (`###`) | `### 1.1 匈牙利命名法` |
@@ -75,7 +84,7 @@ git push origin develop
 2. **禁止跨级** — H1 后可以是 H1（下一章节）或 H2（子章节），H2 后可以是 H2 或 H3，不可跳级
 3. **标题上下各一个空行** — 标题上方和下方必须各有一个空行，禁止紧贴内容或其他标题
 
-文档结构惯例：`# 文档标题`（H1）或 `# 一、标题`（H1）下全部子标题为 `## (一)`（H2），同级章节为 `# 二、`（H1）。
+文档结构惯例：文档标题**只写在 frontmatter `title` 里，正文不再重复书写**（页面已由 `title` 渲染出标题，正文再写一遍就成了重复的 H1）；正文从章节标题 `# 一、标题`（H1）起，其下子标题为 `## (一)`（H2），同级章节为 `# 二、`（H1）。正文没有章节结构（如通篇只有代码块）时，可以一个标题都不写。
 
 ## 文章 Frontmatter 与封面
 
@@ -101,7 +110,7 @@ git push origin develop
   封面都按同名放 `assets/covers/`，所以切换形式不会改变线上地址
 - 新文章按此规则选形式；改已有文章（目录 ↔ 单文件）后必须重新构建核对 URL 未变
 
-当前 27 篇 leaf / 108 篇散页，**全部符合本规则**（每个 leaf 目录都带图，
+当前 63 篇 leaf / 158 篇散页，**全部符合本规则**（每个 leaf 目录都带图，
 没有配图的文章都是散页）。历史遗留情况已清理，不要新建无图目录。
 
 ### 封面 SVG
@@ -145,6 +154,11 @@ git push origin develop
   ```
 - 提交前**必须**构建通过，且输出**零警告**。
 - CI（`.github/workflows/gh-pages.yml`）用 `hugo --minify` 构建；本地可照此预演。
+- `themes/blowfish/.github/workflows/` 下有 7 个 workflow（build / greetings / stale /
+  test / pages / create-config-zip / hugo-version-update），**永远不会运行**：GitHub 只加载
+  仓库根的 `.github/workflows/`，而主题目录是 vendored 内容。它们不报错、不出现在
+  Actions 列表里，属于正常现象——**不要去修、也不要删**（删了主题升级时会冲突）。
+  本仓库真正的 CI 只有根目录那一个 `gh-pages.yml`。
 
 ## 站点定制的落点
 
@@ -154,6 +168,7 @@ git push origin develop
 | 下载类链接行为 | `layouts/_default/_markup/render-link.html` |
 | favicon、PWA manifest | `layouts/partials/favicons.html` |
 | 首页注入脚本 | `layouts/partials/extend-head-uncached.html` |
+| 面包屑（子专题页的返回入口） | `layouts/partials/breadcrumbs.html` |
 | 任何样式 | `assets/css/custom.css`（主题的 Tailwind 是预编译提交的，站点新类只能写这里） |
 | 工具清单 | `data/tools.yaml` |
 | 站点图标 | 改 `scripts/make-icons.py` 后重跑，**不要手改 `static/` 下的 PNG** |
@@ -179,7 +194,7 @@ git push origin develop
 | --- | --- |
 | `scripts/make-icons.py` | 生成站点图标（需 Python + Pillow） |
 | `scripts/update-theme.ps1` | 更新 vendored 主题（先预览，`-Apply` 才替换） |
-| `scripts/re-migrate-posts.ps1` | ⚠️ **历史脚本，任何情况下都不要重跑**（内含 `throw` 硬拦截）。它按扁平路径生成文章，而其中 19 篇现在是 leaf bundle，重跑会生成重复页面并覆盖 front matter |
+| `scripts/ensure-proxy.ps1` | push 前检查代理：端口不通就拉起 `dev-sidecar`，并穿过代理发真实请求判定可用（退出码 0/1/2） |
 
 ## 用户决策要求
 

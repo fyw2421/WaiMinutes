@@ -18,7 +18,9 @@
   var titleEl = document.getElementById('tool-dialog-title');
   var closeBtn = document.getElementById('tool-close');
   var externalLink = document.getElementById('tool-open-external');
-  if (!dialog || !frame) return; // 不是首页，直接退出
+  // 五个元素都来自 tools-dialog.html；模板与脚本漂移时若只判两个，
+  // 后面的解引用会抛 TypeError，且会把遮罩/Esc 的 close 监听一起注册失败。
+  if (!dialog || !frame || !titleEl || !closeBtn || !externalLink) return;
 
   // <dialog> 在旧浏览器（Safari < 15.4）不存在 showModal，退回直接跳转，
   // 而不是抛错让整个脚本失效。
@@ -31,6 +33,15 @@
     return;
   }
 
+  // 背景滚动由 CSS 的 `html:has(#tool-dialog[open]) { overflow: hidden }` 负责
+  // （见 assets/css/custom.css），这里只补滚动条宽度：必须**在 showModal() 之前**量，
+  // 因为 open 属性一加上滚动条就没了。关闭统一走 dialog 的 close 事件，
+  // 三条路径（关闭按钮、点遮罩、Esc）都覆盖到，不必每处单独还原。
+  function lockScrollbarGap() {
+    var gap = window.innerWidth - document.documentElement.clientWidth;
+    document.body.style.paddingRight = gap > 0 ? gap + 'px' : '';
+  }
+
   function open(tile) {
     var url = tile.getAttribute('data-tool-url') || tile.getAttribute('href');
     // 标题取自图块的可见文字（.tool-tile__label），不用 aria-label：
@@ -41,6 +52,7 @@
     frame.setAttribute('src', url);
     titleEl.textContent = label;
     externalLink.setAttribute('href', url);
+    lockScrollbarGap();
     dialog.showModal();
   }
 
@@ -70,5 +82,6 @@
   // Esc 触发的是原生 close 事件，这里做同样的清理。
   dialog.addEventListener('close', function () {
     frame.setAttribute('src', 'about:blank');
+    document.body.style.paddingRight = '';
   });
 })();

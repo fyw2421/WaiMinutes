@@ -3,12 +3,13 @@
      ⚠ 弹窗必须与 feature-grid 平级调用（在 {{< /feature-grid >}} 之后），
      既不能放进 feature-grid 内部，也不能嵌在工具卡片里：
 
-     1) 不能放进 feature-grid：它会成为网格的一个直接子元素，把子元素数量从
-        6 变成 7。主题的补位规则是
+     1) 不能放进 feature-grid：它会成为网格的一个直接子元素，让子元素数量
+        变成 3n+1（当前是 10 张专题卡 + 弹窗 = 11）。主题的补位规则是
         `.grid-balance-3 > :last-child:nth-child(3n+1) { grid-column: 1/-1 }`，
-        7 = 3×2+1 命中该规则，末张专题卡被拉成整行（实测 768px vs 其他 245px）——
-        这是对既有 5 张专题卡的可见回归。`:nth-child()` 会把 display:none 的元素
-        也算进去，所以**无法**用 CSS 把弹窗藏起来规避，只能在 DOM 上移出去。
+        11 = 3×3+2 不命中，末张卡保持原宽度；一旦专题数变成 3n（如 12 张，
+        弹窗入列后 13 = 3×4+1 命中）就会被拉成整行，而 `:nth-child()` 会把
+        display:none 的元素也算进去，所以**无法**用 CSS 把弹窗藏起来规避，
+        只能在 DOM 上移出去。这是条会随专题增减而失效的约束，改动网格时需重算。
 
      2) 也不要嵌在工具卡片里：卡片本身位于 feature-grid 内部，把弹窗留在其中只会
         让它深埋在网格 DOM 里；弹窗是页面级模态，正确位置是与 feature-grid 平级。
@@ -19,7 +20,17 @@
      弹窗用原生 <dialog>：Esc 关闭、焦点陷阱、::backdrop 都是浏览器内置的，
      showModal() 还会把它渲染到 top-layer，不受任何 z-index 堆叠上下文影响。
      JS 见 assets/js/tools-modal.js（由 extend-head-uncached.html 注入）。 */}}
-<dialog id="tool-dialog" class="tool-dialog" aria-label="工具">
+
+{{/* ⚠ 无障碍名称用 aria-labelledby 指向标题，不要写 aria-label="工具"：
+     按 accname 计算规则，aria-label 的优先级**高于**后代文本，所以原来的
+     aria-label 会把动态标题整个盖掉——不管当前打开的是哪个工具，读屏都只念
+     「工具 对话框」，弹窗标题栏里明明写着具体工具名。
+     换成 aria-labelledby 后名称取自 #tool-dialog-title，而 tools-modal.js 在
+     showModal() **之前**就写了它的 textContent（见该文件 open()），
+     所以弹窗一打开名称就已经是对的；关闭状态下对话框不暴露，无从读到空名称。
+     与该脚本 open() 里对 .tool-tile 的取舍是同一条原则：可见文字优先，
+     别用 aria-label 覆盖它。 */}}
+<dialog id="tool-dialog" class="tool-dialog" aria-labelledby="tool-dialog-title">
   <div class="tool-dialog__bar">
     <span class="tool-dialog__title" id="tool-dialog-title"></span>
     <div class="tool-dialog__actions">

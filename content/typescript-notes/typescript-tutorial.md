@@ -13,7 +13,7 @@ featureimage: "covers/typescript-tutorial.svg"
 
 本教程共分为 68 个章节，涵盖从基础到高级的 TypeScript 完整知识体系。
 
-## 章节列表
+## (一) 章节列表
 
 1. [一、TypeScript 简介]({{< ref "typescript-tutorial-01-introduction" >}})
 2. [二、TypeScript 安装]({{< ref "typescript-tutorial-02-installation" >}})

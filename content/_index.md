@@ -31,6 +31,9 @@ title: "积微知远"
 {{< feature title="产品手册" url="manuals/" label="查看产品手册" >}}
 产品说明<br>配对步骤
 {{< /feature >}}
+{{< feature title="Android" url="android/" label="查看 Android 笔记" >}}
+四大组件<br>UI 控件<br>数据存储<br>常用工具
+{{< /feature >}}
 {{< /feature-grid >}}
 {{< tools-dialog >}}
 

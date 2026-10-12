@@ -8,7 +8,7 @@
 
 # 一、站点概览
 
-- **首页**：8 张专题卡（CSS 网格）+ 工具卡（油价计算），工具通过弹窗 iframe 打开
+- **首页**：10 张专题卡（CSS 网格）+ 工具卡（油价计算），工具通过弹窗 iframe 打开
 - **专题页**：每专题文章列表，带封面 SVG，支持按标题排序
 - **全部文章**（/articles/）：卡片铺满页面宽度
 - **搜索**：前端模糊搜索（Cmd/Ctrl+K 或 `/` 键触发），`index.json` 由 Hugo 构建时生成
@@ -18,10 +18,10 @@
 # 二、目录结构
 
 ```
-content/            135 篇文章（9 个专题目录，27 篇是 leaf bundle，自带配图）
+content/            221 篇文章（10 个专题目录，63 篇是 leaf bundle，自带配图）
 assets/
   css/custom.css    站点全部自定义样式（背景、卡片、主题覆盖都在这里）
-  covers/           67 张专题封面 SVG（与文章同名；TypeScript 68 章共用一张）
+  covers/           70 张专题封面 SVG（与文章同名；TypeScript 68 章共用一张，Android 按基础/进阶/笔记三张）
   icons/            站点自有的图标（覆盖主题同名文件）
   js/               站点自有的脚本（tools-modal.js、footer-extra.js）
   design-pattern/   设计模式专题的可下载 C++ 源码（56 个 .h/.cpp 文件）
@@ -61,6 +61,7 @@ themes/blowfish/    Blowfish 主题，已整目录提交进本仓库（不要修
 | `_default/_markup/render-link.html` | 给下载类链接（`.h` / `.cpp` / `.zip` 等）加 `download` 属性 |
 | `partials/favicons.html` | favicon 与 PWA manifest 的链接 |
 | `partials/extend-head-uncached.html` | 首页工具弹窗的 JS 注入 |
+| `partials/breadcrumbs.html` | 面包屑；Android 三个子专题页改用大号「← Android」返回入口 |
 | `shortcodes/feature.html` | 首页专题卡（色带 + 描述） |
 | `shortcodes/tools.html` | 首页「工具」卡片 |
 | `shortcodes/tools-dialog.html` | 工具弹窗（**必须与 feature-grid 平级**，理由见文件内注释） |
@@ -70,10 +71,11 @@ themes/blowfish/    Blowfish 主题，已整目录提交进本仓库（不要修
 
 # 三、内容组织
 
-9 个专题目录（`content/` 下），各专题的文章按 `weight` 排序（`[params.list] orderByWeight = true`）：
+10 个专题目录（`content/` 下），各专题的文章按 `weight` 排序（`[params.list] orderByWeight = true`）：
 
 | 专题 | 文章数 | 文章目录 |
 | --- | --- | --- |
+| Android | 86 篇 | `android/` |
 | C++ 笔记 | 12 篇 | `cpp-notes/` |
 | 数据结构 | 8 篇 | `data-structures/` |
 | 设计模式 | 9 篇 | `design-pattern/` |
@@ -84,7 +86,7 @@ themes/blowfish/    Blowfish 主题，已整目录提交进本仓库（不要修
 | 软件配置 | 9 篇 | `software-config/` |
 | TypeScript | 69 篇 | `typescript-notes/` |
 
-合计 135 篇（TypeScript 69 篇 = 68 章 + 1 张章节目录页 `typescript-tutorial.md`）。
+合计 221 篇（Android 86 篇 = 基础 44 + 进阶 36 + 笔记 6；TypeScript 69 篇 = 68 章 + 1 张章节目录页 `typescript-tutorial.md`）。
 
 ## (一) 标题编号规则
 
@@ -102,7 +104,7 @@ themes/blowfish/    Blowfish 主题，已整目录提交进本仓库（不要修
 
 - 每篇专题文章带一张封面 SVG，放在 `assets/covers/`，与文章同名。
   **例外**：文章数量很多的系列（如 68 章的 TypeScript 教程）可全系列共用一张通用封面
-- **有配图的做成 leaf bundle**（目录自带 `index.md`，配图放同目录），没配图的用单文件 `.md`；目前 27 篇 leaf bundle
+- **有配图的做成 leaf bundle**（目录自带 `index.md`，配图放同目录），没配图的用单文件 `.md`；目前 63 篇 leaf bundle
 - 新增文章时：建目录或文件 + 放封面 SVG；专题 `_index.md` 的 `description` 是一句主题概述，不逐篇追加条目，仅在专题内容范围变化时更新（若改为多行条目：≤4 行、每行 ≤7 个汉字，对应窄屏两列卡片的 `min-height` 约束）
 
 # 四、本地开发
@@ -142,7 +144,7 @@ hugo server --bind 127.0.0.1 --port 1313
 | --- | --- |
 | `scripts/update-theme.ps1` | 更新 vendored 主题（先预览，`-Apply` 才替换）。主题来源与升级细节见 [THEME.md](THEME.md) |
 | `scripts/make-icons.py` | 生成站点图标（`static/` 下的 favicon 系列与 manifest）。**图标是产物，改样式请改这个脚本再重跑，不要手改 PNG**。需 Python + Pillow |
-| `scripts/re-migrate-posts.ps1` | ⚠️ **历史脚本，不要重跑。** 它把 30 篇 Jekyll 文章按扁平路径生成，而其中 19 篇现在是 leaf bundle，重跑会生成重复页面并覆盖已恢复的 front matter。保留仅供查阅当初的字段映射 |
+| `scripts/ensure-proxy.ps1` | push 前检查代理：端口不通就拉起 `dev-sidecar`，并穿过代理发一次真实请求判定可用（退出码 0 可用 / 1 拉不起来 / 2 端口在听但代理不通）。代理通过环境变量传给 git，**不改 git config** |
 
 # 七、主题
 

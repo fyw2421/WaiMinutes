@@ -1,5 +1,14 @@
 baseURL = 'https://fyw2421.github.io/WaiMinutes/'
+
+# ⚠ 别把它当死键删掉。审查时曾因"模板里没直接读到 locale"判定它无消费方——错。
+# 它填的是 .Site.Language.Locale，主题有两处真正在用：
+#   themes/blowfish/layouts/partials/head.html:3    → <html lang="zh-CN">
+#   themes/blowfish/layouts/partials/schema.html:9,44 → JSON-LD 的 "inLanguage"
+# 两处都靠 `with .Site.Language.Locale` 存在与否来决定**要不要输出该属性**，
+# 所以删掉不会报错、不会告警，只会让全站每页静默丢掉 lang 与 inLanguage。
+# 验证方法：hugo 后 grep '<html lang' 与 '"inLanguage"' 于 public/index.html。
 locale = 'zh-CN'
+
 title = 'Wai Minutes'
 theme = 'blowfish'
 
@@ -96,17 +105,22 @@ summaryLength = 30
     pageRef = '/manuals'
     weight = 9
   [[menu.main]]
+    name = 'Android'
+    parent = '专题'
+    pageRef = '/android'
+    weight = 10
+  [[menu.main]]
     name = '标签'
     pageRef = '/tags'
-    weight = 10
+    weight = 11
   # 顶栏不放源码仓库的入口（曾有一个 GitHub 图标项，已移除）。
 
 [params]
   # 站点描述：喂 <meta name="description">、og:description 与 JSON-LD。
   # 原来是旧标语，换成一句真正说明本站内容的话（更适合搜索摘要与分享预览）。
-  description = 'C++、数据结构、设计模式、Git、JavaScript、Markdown、软件配置与 TypeScript 的学习笔记合集。'
+  description = 'C++、数据结构、设计模式、Git、JavaScript、Markdown、软件配置、TypeScript 与 Android 的学习笔记合集。'
   # 主题的「最近的文章」只汇总 mainSections 里这些 section 的文章
-  mainSections = ['cpp-notes', 'data-structures', 'design-pattern', 'git-notes', 'javascript', 'manuals', 'markdown-notes', 'software-config', 'typescript-notes']
+  mainSections = ['android', 'cpp-notes', 'data-structures', 'design-pattern', 'git-notes', 'javascript', 'manuals', 'markdown-notes', 'software-config', 'typescript-notes']
   dateFormat = '2006-01-02'
   enableCodeCopy = true
   # 页脚版权行。{ year } 是主题 footer.html 支持的占位符，构建时替换成当前年份。
@@ -138,7 +152,10 @@ summaryLength = 30
   # 卡片网格桌面端是 3 列，取 3 才正好占一行
   showRecentItems = 3
   showMoreLink = true
-  showMoreLinkDest = '/articles/'
+  # 不要写前导斜杠：主题用 `| relLangURL` 渲染这个值（recent-articles/main.html:22），
+  # 以 / 开头会丢掉 /WaiMinutes 子路径，线上变 404 —— 与 data/tools.yaml 里
+  # "url 不能带前导斜杠"是同一条规则，只是这里没人踩过，因为 showRecent=false。
+  showMoreLinkDest = 'articles/'
   cardView = true
   cardViewScreenWidth = false
 
