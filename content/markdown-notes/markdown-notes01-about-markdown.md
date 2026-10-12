@@ -6,6 +6,7 @@ date: 2018-05-02
 tags: ["markdown"]
 featureimage: "covers/markdown-notes01-about-markdown.svg"
 ---
+
 # 一、What is Markdown?
 
 　　Markdown的目标是实现**易读易写**,成为一种适用于网络的**书写语言**.

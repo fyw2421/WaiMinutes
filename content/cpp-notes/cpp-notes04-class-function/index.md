@@ -6,6 +6,7 @@ date: 2018-05-22
 tags: ["C++"]
 featureimage: "covers/cpp-notes04-class-function.svg"
 ---
+
 # 一、类的定义(Class define)
 
 ## (一) 类的定义(Class define)

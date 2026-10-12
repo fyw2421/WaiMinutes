@@ -6,6 +6,7 @@ date: 2018-05-22
 tags: ["C++"]
 featureimage: "covers/cpp-notes10-smartpointers.svg"
 ---
+
 # 一、auto_ptr类(C++98)
 
 　　auto_ptr是一个C\++98中提供的模板类,用来管理动态内存分配的用法.auto_ptr模板定义了类似指针的对象,可以将new获得的地址赋给这种对象.当auto_ptr对象过期时,其析构函数将调用delete来释放内存.因此将new返回的地址赋给auto_ptr对象时,无需释放这些内存.定义在头文件memory中.

@@ -6,6 +6,7 @@ date: 2018-05-28
 tags: ["Design Pattern"]
 featureimage: "covers/designpattern04-adapter-facade-bridge.svg"
 ---
+
 # 一、Adapter Pattern
 
 ## (一) Definition

@@ -65,7 +65,11 @@ git push origin develop
 
 ## Markdown 文档格式规则
 
-项目内所有 `.md` 文件的标题必须遵循以下编号格式和排版规则（定义见 `content/markdown-notes/markdown文件格式规则.md`）：
+`content/` 下所有文章（`.md`）的标题必须遵循以下编号格式和排版规则（定义见 `content/markdown-notes/markdown文件格式规则.md`）：
+
+> 本节只约束**文章**。仓库根目录的说明文档（`AGENTS.md`、`README.md`、`THEME.md`）
+> 与 `docs/` 下的过程稿没有 frontmatter，无法「标题只写在 frontmatter 里」，
+> 因此不在本规则范围内——它们按普通 Markdown 习惯写 H1 即可。
 
 ### 编号格式
 

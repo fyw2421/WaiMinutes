@@ -6,6 +6,7 @@ date: 2018-05-28
 tags: ["Design Pattern"]
 featureimage: "covers/designpattern09-templatemethod-chainofresponsibility.svg"
 ---
+
 # 十、Template Method Pattern
 
 ## (一) Definition

@@ -18,9 +18,9 @@
   代理监听的端口，默认 31181。
 
 .PARAMETER ExePath
-  dev-sidecar 可执行文件的完整路径。**留空（默认）则自动探测**：先看环境变量
-  DEVSIDECAR_EXE，再查 PATH，最后试 %LOCALAPPDATA%\Programs\dev-sidecar 与
-  %ProgramFiles%\dev-sidecar。全部找不到就只做检查、不自动启动并退出 1。
+  dev-sidecar 可执行文件的完整路径。留空（默认）则用常用安装目录
+  F:\ProgramFilesNoMove\dev-sidecar\dev-sidecar.exe；该文件不存在就**不拉起**，
+  提示手动启动并退出 1。
 
 .PARAMETER ProbeUrl
   端到端探测的目标地址，默认 https://github.com。必须是 https——
@@ -42,7 +42,7 @@
   # 端口不对时
   pwsh -File scripts/ensure-proxy.ps1 -Port 7890
 
-  # dev-sidecar 装在非默认位置时
+  # dev-sidecar 装在别处时
   pwsh -File scripts/ensure-proxy.ps1 -ExePath 'D:\tools\dev-sidecar\dev-sidecar.exe'
 
   # 探测目标换成别的站点
@@ -55,10 +55,8 @@
 [CmdletBinding()]
 param(
   [int]$Port = 31181,
-  # dev-sidecar 可执行文件的位置。留空则依次尝试：
-  #   $env:DEVSIDECAR_EXE → PATH 里的 dev-sidecar → Get-Command
-  # 找不到就只做检查、不自动启动（不再把某台机器的绝对路径写死在脚本里）。
-  [string]$ExePath = $env:DEVSIDECAR_EXE,
+  # 留空则用下面的常用安装目录；只有确实装在别处时才用 -ExePath 指定
+  [string]$ExePath,
   # 端到端探测目标：必须是 https，才能真正走 CONNECT 而不是只测 TCP
   [string]$ProbeUrl = 'https://github.com',
   # 端口起来后等多久（秒）。dev-sidecar 是 Electron，冷启动要几秒
@@ -128,23 +126,13 @@ if (Test-TcpPort $Port) {
   Write-Warn2 "端口不通，检查 dev-sidecar 是否在运行"
   $running = Get-Process -Name 'dev-sidecar' -ErrorAction SilentlyContinue
   if (-not $running) {
-    # 依次尝试：显式传入 / 环境变量 → PATH → 常见安装位置。
-    # 原先把某台机器的 F:\ProgramFilesNoMove\... 写死成默认值，换机器即失效。
+    # 只认一个常用安装目录。找不到就不拉起，也不去 PATH 或注册表里猜。
     if (-not $ExePath) {
-      $cmd = Get-Command 'dev-sidecar.exe' -ErrorAction SilentlyContinue
-      if ($cmd) { $ExePath = $cmd.Source }
+      $ExePath = 'F:\ProgramFilesNoMove\dev-sidecar\dev-sidecar.exe'
     }
-    if (-not $ExePath) {
-      $candidates = @(
-        (Join-Path $env:LOCALAPPDATA 'Programs\dev-sidecar\dev-sidecar.exe'),
-        (Join-Path $env:ProgramFiles 'dev-sidecar\dev-sidecar.exe')
-      ) | Where-Object { $_ -and (Test-Path -LiteralPath $_) }
-      if ($candidates.Count) { $ExePath = $candidates[0] }
-    }
-    if (-not $ExePath) {
-      Write-Host "   找不到 dev-sidecar 可执行文件，代理无法自动启动。" -ForegroundColor Red
-      Write-Host "   可用 -ExePath 指定，或设环境变量 DEVSIDECAR_EXE，或把 dev-sidecar 加入 PATH。" -ForegroundColor Red
-      Write-Host "   也可以手动启动后重跑本脚本——那时只做检查，不再尝试拉起。" -ForegroundColor Red
+    if (-not (Test-Path -LiteralPath $ExePath)) {
+      Write-Host "   $ExePath 不存在，代理无法自动启动。" -ForegroundColor Red
+      Write-Host "   请手动启动 dev-sidecar 后重跑本脚本，或用 -ExePath 指定路径。" -ForegroundColor Red
       exit 1
     }
     Write-Step "启动 dev-sidecar"

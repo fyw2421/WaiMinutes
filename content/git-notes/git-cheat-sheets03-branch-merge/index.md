@@ -1,11 +1,12 @@
 ---
-title: "Git Cheat Sheets 3-3"
+title: "GitCheatSheets03 : 分支与合并"
 weight: 3
 description: "branch merge/rebase rebase-i stash tag submodule/subtree cherry-pick"
 date: 2018-05-07
 tags: ["git"]
 featureimage: "covers/git-cheat-sheets03-branch-merge.svg"
 ---
+
 # 一、branch
 
 ```bash

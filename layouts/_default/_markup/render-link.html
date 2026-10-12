@@ -70,7 +70,15 @@
        同样不以 / 开头区分，HasPrefix $u.Path "/" 会把站内下载链接一并排除掉。
        判据只能是协议前缀本身。
      ⚠ 同样不能用 $u.Host 判：那会把 ftp://host/x.zip 也算进来，而原版对它的
-       处理（IsAbs=true，不加 download、不进资源解析）是正确的。*/}}
+       处理（IsAbs=true，不加 download、不进资源解析）是正确的。
+
+     ⚠ $isProtoRel 除了排除上面两项，还参与了下面的 $isExternal 判定，所以协议
+       相对链接相对原版共**三项**变化，第三项容易被漏记：
+         1. 不再被改写成站内地址；
+         2. 不再带 download；
+         3. 现在会拿到 target="_blank" rel="noreferrer"（原版只认 http:/https:）。
+       第 3 项是顺带翻转的：协议相对本身就是外链，结果正确，但改动时只盯着 href
+       与 download 两项，日后不要把它当 bug 查回来。*/}}
 {{- $ext := lower (strings.TrimPrefix "." (path.Ext $u.Path)) -}}
 {{- $isDownload := and (not $u.IsAbs) (not $isProtoRel) (in $downloadExts $ext) -}}
 

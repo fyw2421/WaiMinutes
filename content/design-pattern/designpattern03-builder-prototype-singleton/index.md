@@ -6,6 +6,7 @@ date: 2018-05-28
 tags: ["Design Pattern"]
 featureimage: "covers/designpattern03-builder-prototype-singleton.svg"
 ---
+
 # 四、Builder Pattern
 
 ## (一) Definition

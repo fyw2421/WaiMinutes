@@ -6,6 +6,7 @@ date: 2018-08-07
 tags: ["Data Structure"]
 featureimage: "covers/datastructures01-summarize.svg"
 ---
+
 # 一、组成要素
 
 ![DataStructureFigure](datastructure01-figure.svg)

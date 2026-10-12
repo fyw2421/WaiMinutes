@@ -6,6 +6,7 @@ date: 2018-05-22
 tags: ["C++"]
 featureimage: "covers/cpp-notes05-inheritance.svg"
 ---
+
 # 一、派生类对象结构(Derived Object Structure)
 
 ## (一) 派生类对象结构(Derived Object Structure)

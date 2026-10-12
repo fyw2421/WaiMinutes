@@ -6,6 +6,7 @@ date: 2018-05-22
 tags: ["C++"]
 featureimage: "covers/cpp-notes06-polymorphism.svg"
 ---
+
 # 一、多态概念与实现
 
 ## (一) 多态概念与实现

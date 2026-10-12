@@ -19,9 +19,13 @@
 {{/* 本文件里所有 tools-* 类都是真正有样式的（tools-grid / tools-empty /
      tool-tile*，定义见 assets/css/custom.css）。早先这里还并排挂过
      tools-card / tools-band / tools-card__body 三个类，与 topic-card 等
-     一一对应，但 custom.css 从来没有为它们写过任何规则，全仓库（主题、
-     JS、static）也无一处引用——纯死钩子，只会让人误以为工具卡有独立样式。
-     需要给工具卡单独加样式时，直接用 .topic-card 选，或那时再引入新类。 */}}
+     一一对应，但 custom.css 从来没有为它们写过任何规则，运行时代码（主题、
+     JS、static、layouts、构建产物）里也无一处引用——纯死钩子，只会让人误以为
+     工具卡有独立样式。需要给工具卡单独加样式时，直接用 .topic-card 选，或那时
+     再引入新类。
+
+     （docs/superpowers/ 下 2026-09-18 的两份历史设计稿里仍写着这三个类名，
+     那是当时的方案记录，不是现状；查现状请以运行时代码为准。） */}}
 
 {{ $tools := hugo.Data.tools }}
 
