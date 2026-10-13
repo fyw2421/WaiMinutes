@@ -18,10 +18,10 @@
 # 二、目录结构
 
 ```
-content/            221 篇文章（10 个专题目录，63 篇是 leaf bundle，自带配图）
+content/            241 篇文章（11 个专题目录，80 篇是 leaf bundle，自带配图）
 assets/
   css/custom.css    站点全部自定义样式（背景、卡片、主题覆盖都在这里）
-  covers/           70 张专题封面 SVG（与文章同名；TypeScript 68 章共用一张，Android 按基础/进阶/笔记三张）
+  covers/           73 张专题封面 SVG（与文章同名；TypeScript 68 章共用一张，Android 按基础/进阶/笔记三张，Java 按基础/进阶/实战三张）
   icons/            站点自有的图标（覆盖主题同名文件）
   js/               站点自有的脚本（tools-modal.js、footer-extra.js）
   design-pattern/   设计模式专题的可下载 C++ 源码（56 个 .h/.cpp 文件）
@@ -71,7 +71,7 @@ themes/blowfish/    Blowfish 主题，已整目录提交进本仓库（不要修
 
 # 三、内容组织
 
-10 个专题目录（`content/` 下），各专题的文章按 `weight` 排序（`[params.list] orderByWeight = true`）：
+11 个专题目录（`content/` 下），各专题的文章按 `weight` 排序（`[params.list] orderByWeight = true`）：
 
 | 专题 | 文章数 | 文章目录 |
 | --- | --- | --- |
@@ -80,13 +80,14 @@ themes/blowfish/    Blowfish 主题，已整目录提交进本仓库（不要修
 | 数据结构 | 8 篇 | `data-structures/` |
 | 设计模式 | 9 篇 | `design-pattern/` |
 | Git 速查 | 3 篇 | `git-notes/` |
+| Java | 20 篇 | `java/` |
 | JavaScript | 14 篇 | `javascript/` |
 | Markdown | 6 篇 | `markdown-notes/` |
 | 产品手册 | 5 篇 | `manuals/` |
 | 软件配置 | 9 篇 | `software-config/` |
 | TypeScript | 69 篇 | `typescript-notes/` |
 
-合计 221 篇（Android 86 篇 = 基础 44 + 进阶 36 + 笔记 6；TypeScript 69 篇 = 68 章 + 1 张章节目录页 `typescript-tutorial.md`）。
+合计 241 篇（Android 86 篇 = 基础 44 + 进阶 36 + 笔记 6；TypeScript 69 篇 = 68 章 + 1 张章节目录页 `typescript-tutorial.md`；Java 20 篇 = 基础 7 + 进阶 6 + 实战 7）。
 
 ## (一) 标题编号规则
 
@@ -104,7 +105,7 @@ themes/blowfish/    Blowfish 主题，已整目录提交进本仓库（不要修
 
 - 每篇专题文章带一张封面 SVG，放在 `assets/covers/`，与文章同名。
   **例外**：文章数量很多的系列（如 68 章的 TypeScript 教程）可全系列共用一张通用封面
-- **有配图的做成 leaf bundle**（目录自带 `index.md`，配图放同目录），没配图的用单文件 `.md`；目前 63 篇 leaf bundle
+- **有配图的做成 leaf bundle**（目录自带 `index.md`，配图放同目录），没配图的用单文件 `.md`；目前 80 篇 leaf bundle
 - 新增文章时：建目录或文件 + 放封面 SVG；专题 `_index.md` 的 `description` 是一句主题概述，不逐篇追加条目，仅在专题内容范围变化时更新（若改为多行条目：≤4 行、每行 ≤7 个汉字，对应窄屏两列卡片的 `min-height` 约束）
 
 # 四、本地开发
