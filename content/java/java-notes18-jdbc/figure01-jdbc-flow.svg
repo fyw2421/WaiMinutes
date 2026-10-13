@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="820" height="380" viewBox="0 0 820 380" role="img" aria-labelledby="t d">
+  <title id="t">JDBC 的六步基本流程</title>
+  <desc id="d">加载驱动、获取连接、创建预编译语句、设置参数执行、处理结果集、关闭资源。所有资源用 try-with-resources 声明，关闭顺序为 ResultSet、Statement、Connection</desc>
+  <defs>
+    <style>
+      .hd   { font-family:'Microsoft YaHei','PingFang SC','Noto Sans SC',sans-serif; font-size:15px; font-weight:600; fill:#1f1f1f; }
+      .lbl  { font-family:'Microsoft YaHei','PingFang SC','Noto Sans SC',sans-serif; font-size:13px; fill:#1f1f1f; }
+      .code { font-family:Consolas,'Cascadia Mono',Menlo,monospace; font-size:12px; fill:#1f1f1f; }
+      .note { font-family:'Microsoft YaHei','PingFang SC','Noto Sans SC',sans-serif; font-size:11px; fill:#5a6572; }
+      .s1   { fill:#eefaf0; stroke:#5cb87a; stroke-width:1.4; }
+      .s2   { fill:#eef4ff; stroke:#7aa5e8; stroke-width:1.4; }
+      .s3   { fill:#fff6e8; stroke:#e0a458; stroke-width:1.4; }
+      .s4   { fill:#eefaf0; stroke:#5cb87a; stroke-width:1.4; }
+      .s5   { fill:#eef4ff; stroke:#7aa5e8; stroke-width:1.4; }
+      .s6   { fill:#f0f3f7; stroke:#8b98a8; stroke-width:1.4; }
+      .bad  { fill:#fdeeee; stroke:#d98b8b; stroke-width:1.4; }
+      .line { stroke:#7a8899; stroke-width:1.4; fill:none; }
+    </style>
+    <marker id="arw" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#7a8899"/>
+    </marker>
+  </defs>
+  <rect width="820" height="380" fill="#ffffff"/>
+  <text class="hd" x="16" y="24">完整代码骨架</text>
+
+  <rect class="s1" x="16" y="38" width="240" height="40" rx="6"/>
+  <text class="code" x="30" y="56">Class.forName("...Driver");</text>
+  <text class="note" x="30" y="72">JDBC 4.0+ 可省略，靠 SPI 自动发现</text>
+
+  <line x1="260" y1="58" x2="290" y2="58" class="line" marker-end="url(#arw)"/>
+
+  <rect class="s2" x="294" y="38" width="240" height="40" rx="6"/>
+  <text class="code" x="308" y="56">DriverManager.getConnection(url)</text>
+  <text class="note" x="308" y="72">2 · 获取连接（应从连接池取）</text>
+
+  <line x1="414" y1="86" x2="414" y2="104" class="line" marker-end="url(#arw)"/>
+
+  <rect class="s3" x="294" y="108" width="240" height="40" rx="6"/>
+  <text class="code" x="308" y="126">conn.prepareStatement(sql)</text>
+  <text class="note" x="308" y="142">3 · 创建预编译语句</text>
+
+  <line x1="414" y1="156" x2="414" y2="174" class="line" marker-end="url(#arw)"/>
+
+  <rect class="s4" x="294" y="178" width="240" height="40" rx="6"/>
+  <text class="code" x="308" y="196">ps.setString(1, name);</text>
+  <text class="note" x="308" y="212">4 · 绑定参数并执行</text>
+
+  <line x1="414" y1="226" x2="414" y2="244" class="line" marker-end="url(#arw)"/>
+
+  <rect class="s5" x="294" y="248" width="240" height="40" rx="6"/>
+  <text class="code" x="308" y="266">while (rs.next()) { ... }</text>
+  <text class="note" x="308" y="282">5 · 遍历结果集</text>
+
+  <rect class="s6" x="556" y="108" width="248" height="180" rx="7"/>
+  <text class="lbl" x="570" y="132" font-weight="600">6 · 关闭资源</text>
+  <text class="note" x="570" y="156">try-with-resources 按声明逆序关闭：</text>
+  <text class="code" x="570" y="180">ResultSet → Statement</text>
+  <text class="code" x="570" y="200">→ Connection</text>
+  <text class="note" x="570" y="228">全部写成嵌套 try 即可自动管理</text>
+  <text class="note" x="570" y="252">close() 抛出的异常会挂到主异常</text>
+  <text class="note" x="570" y="270">的 suppressed 列表，不覆盖主异常</text>
+
+  <rect class="bad" x="16" y="300" width="788" height="66" rx="7"/>
+  <text class="note" x="30" y="322">★ 三个高频问题</text>
+  <text class="code" x="30" y="342">"SELECT * FROM u WHERE n='" + name + "'"</text>
+  <text class="note" x="330" y="342">字符串拼接 = SQL 注入，必须用 ? 占位符</text>
+  <text class="code" x="30" y="360">int age = rs.getInt("age");</text>
+  <text class="note" x="200" y="360">SQL NULL 会返回 0，必须配合 rs.wasNull() 判断</text>
+</svg>

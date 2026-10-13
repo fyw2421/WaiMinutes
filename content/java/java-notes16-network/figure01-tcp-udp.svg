@@ -1,0 +1,82 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="820" height="380" viewBox="0 0 820 380" role="img" aria-labelledby="t d">
+  <title id="t">TCP 与 UDP 的差异</title>
+  <desc id="d">TCP 面向连接、可靠、有序但按字节流传输故无消息边界；UDP 无连接、不可靠但保留数据报边界，延迟低。TCP 编程必须自行定义消息分隔协议</desc>
+  <defs>
+    <style>
+      .hd   { font-family:'Microsoft YaHei','PingFang SC','Noto Sans SC',sans-serif; font-size:15px; font-weight:600; fill:#1f1f1f; }
+      .lbl  { font-family:'Microsoft YaHei','PingFang SC','Noto Sans SC',sans-serif; font-size:13px; fill:#1f1f1f; }
+      .code { font-family:Consolas,'Cascadia Mono',Menlo,monospace; font-size:12px; fill:#1f1f1f; }
+      .note { font-family:'Microsoft YaHei','PingFang SC','Noto Sans SC',sans-serif; font-size:11px; fill:#5a6572; }
+      .tcp  { fill:#eef4ff; stroke:#7aa5e8; stroke-width:1.6; }
+      .udp  { fill:#fff6e8; stroke:#e0a458; stroke-width:1.6; }
+      .bad  { fill:#fdeeee; stroke:#d98b8b; stroke-width:1.4; }
+      .ok   { fill:#eefaf0; stroke:#5cb87a; stroke-width:1.4; }
+      .line { stroke:#7a8899; stroke-width:1.4; fill:none; }
+    </style>
+    <marker id="arw" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#7a8899"/>
+    </marker>
+  </defs>
+  <rect width="820" height="380" fill="#ffffff"/>
+  <text class="hd" x="16" y="24">同一个应用，两种传输方式</text>
+
+  <!-- TCP -->
+  <rect class="tcp" x="16" y="36" width="386" height="196" rx="8"/>
+  <text class="lbl" x="32" y="60" font-weight="600">TCP　面向连接 · 可靠 · 有序</text>
+
+  <text class="note" x="32" y="82">建立连接（三次握手）后才传数据：</text>
+
+  <rect class="ok" x="32" y="90" width="80" height="26" rx="4"/>
+  <text class="code" x="42" y="108">客户端</text>
+  <line x1="116" y1="103" x2="280" y2="103" class="line" marker-end="url(#arw)" marker-start="url(#arw)"/>
+  <rect class="ok" x="284" y="90" width="80" height="26" rx="4"/>
+  <text class="code" x="294" y="108">服务端</text>
+
+  <text class="note" x="32" y="136">★ 关键特性：按字节流传输，**没有消息边界**</text>
+  <rect class="ok" x="32" y="146" width="356" height="26" rx="4"/>
+  <text class="code" x="42" y="164">发送 3 次：abc | def | ghi</text>
+  <text class="note" x="240" y="164">接收可能是 1 次也可能 3 次</text>
+
+  <rect class="ok" x="32" y="178" width="356" height="26" rx="4"/>
+  <text class="code" x="42" y="196">用 readLine 按行读 —— 每行一条消息</text>
+  <text class="note" x="256" y="196">靠 \n 分隔</text>
+
+  <text class="note" x="32" y="222">协议必须自己定义分隔符或长度字段，否则无法判断消息边界</text>
+
+  <!-- UDP -->
+  <rect class="udp" x="418" y="36" width="386" height="196" rx="8"/>
+  <text class="lbl" x="434" y="60" font-weight="600">UDP　无连接 · 不可靠 · 低延迟</text>
+
+  <text class="note" x="434" y="82">直接发数据报，不需要握手：</text>
+
+  <rect class="ok" x="434" y="90" width="80" height="26" rx="4"/>
+  <text class="code" x="444" y="108">客户端</text>
+  <line x1="518" y1="103" x2="682" y2="103" class="line" marker-end="url(#arw)"/>
+  <rect class="ok" x="688" y="90" width="80" height="26" rx="4"/>
+  <text class="code" x="698" y="108">服务端</text>
+
+  <text class="note" x="434" y="136">★ 关键特性：数据报，**保留消息边界**</text>
+  <rect class="ok" x="434" y="146" width="344" height="26" rx="4"/>
+  <text class="code" x="444" y="164">发 1 个数据报 → 收 1 个数据报</text>
+
+  <rect class="bad" x="434" y="178" width="344" height="26" rx="4"/>
+  <text class="code" x="444" y="196">可能丢失、重复、乱序</text>
+  <text class="note" x="600" y="196">需要自己补</text>
+
+  <text class="note" x="434" y="222">适合：DNS 查询、直播、游戏同步、消息推送</text>
+
+  <line x1="16" y1="248" x2="804" y2="248" stroke="#e0e4e9" stroke-width="1"/>
+  <text class="hd" x="16" y="270">选择</text>
+
+  <rect class="ok" x="16" y="282" width="386" height="84" rx="7"/>
+  <text class="lbl" x="30" y="304" font-weight="600">选 TCP</text>
+  <text class="note" x="30" y="324">HTTP 请求响应、数据库连接、文件传输</text>
+  <text class="note" x="30" y="342">任何"不能丢一个字节"的场景</text>
+  <text class="note" x="30" y="360">代价：三次握手 + 确认重传带来的延迟</text>
+
+  <rect class="ok" x="418" y="282" width="386" height="84" rx="7"/>
+  <text class="lbl" x="432" y="304" font-weight="600">选 UDP</text>
+  <text class="note" x="432" y="324">实时性优先、可容忍少量丢失</text>
+  <text class="note" x="432" y="342">要在业务层自己保证顺序与去重</text>
+  <text class="note" x="432" y="360">QUIC / HTTP3 就是建在 UDP 之上的</text>
+</svg>

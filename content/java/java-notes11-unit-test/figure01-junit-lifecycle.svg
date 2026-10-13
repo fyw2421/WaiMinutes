@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="340" viewBox="0 0 800 340" role="img" aria-labelledby="t d">
+  <title id="t">JUnit 5 的测试生命周期</title>
+  <desc id="d">BeforeAll 每个测试类执行一次，BeforeEach 在每个测试方法前执行，测试方法本身，AfterEach 每个方法后执行，AfterAll 类结束后执行一次</desc>
+  <defs>
+    <style>
+      .hd   { font-family:'Microsoft YaHei','PingFang SC','Noto Sans SC',sans-serif; font-size:15px; font-weight:600; fill:#1f1f1f; }
+      .code { font-family:Consolas,'Cascadia Mono',Menlo,monospace; font-size:13px; fill:#1f1f1f; }
+      .note { font-family:'Microsoft YaHei','PingFang SC','Noto Sans SC',sans-serif; font-size:12px; fill:#5a6572; }
+      .all  { fill:#eef2f6; stroke:#8b98a8; stroke-width:1.4; }
+      .each { fill:#eef4ff; stroke:#7aa5e8; stroke-width:1.4; }
+      .test { fill:#eefaf0; stroke:#5cb87a; stroke-width:1.5; }
+      .warn { fill:#fff6e8; stroke:#e0a458; stroke-width:1.4; }
+      .line { stroke:#9aa7b5; stroke-width:1.2; fill:none; }
+    </style>
+    <marker id="arw" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#7a8899"/>
+    </marker>
+  </defs>
+  <rect width="800" height="340" fill="#ffffff"/>
+  <text class="hd" x="16" y="24">JUnit 5 生命周期：外层一次，内层多次</text>
+
+  <!-- 外框 -->
+  <rect class="all" x="16" y="38" width="768" height="252" rx="10"/>
+  <text class="code" x="30" y="58">@BeforeAll（1 次）</text>
+  <text class="note" x="150" y="58">static，类加载时执行一次（建表、启动容器）</text>
+
+  <!-- 内循环 3 次 -->
+  <text class="code" x="34" y="86">@BeforeEach（每个方法 1 次）</text>
+  <rect class="each" x="34" y="96" width="226" height="30" rx="5"/>
+  <text class="code" x="46" y="116">setUp() 重建 Fixture</text>
+
+  <line class="line" x1="140" y1="126" x2="140" y2="140" stroke="#7a8899" marker-end="url(#arw)"/>
+
+  <rect class="test" x="34" y="140" width="226" height="30" rx="5"/>
+  <text class="code" x="46" y="160">@Test 测试方法 1</text>
+
+  <rect class="each" x="34" y="178" width="226" height="30" rx="5"/>
+  <text class="code" x="46" y="198">@AfterEach 清理</text>
+
+  <text class="code" x="34" y="228">@BeforeEach → @Test 2 → @AfterEach</text>
+  <text class="code" x="34" y="252">@BeforeEach → @Test 3 → @AfterEach</text>
+
+  <!-- 右侧说明 -->
+  <rect class="each" x="290" y="96" width="474" height="112" rx="6"/>
+  <text class="note" x="306" y="120">每个 @BeforeEach 都重建对象，是测试可靠性的基础：</text>
+  <text class="note" x="306" y="142">• 测试之间不共享可变状态，执行顺序无关</text>
+  <text class="note" x="306" y="162">• 单独运行任意一个测试都能通过</text>
+  <text class="note" x="306" y="182">• 反之，若在 @BeforeAll 里创建并在 @Test 里修改，测试会互相污染</text>
+
+  <rect class="warn" x="290" y="222" width="474" height="52" rx="6"/>
+  <text class="note" x="306" y="244">常见错误：把初始化写在 @BeforeAll 又在测试里修改 → 第二个测试起就失败</text>
+  <text class="note" x="306" y="266">正确做法：@BeforeAll 只做一次性的重初始化（如建表），可变状态一律放 @BeforeEach</text>
+</svg>

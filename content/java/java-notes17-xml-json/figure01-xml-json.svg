@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="820" height="400" viewBox="0 0 820 400" role="img" aria-labelledby="t d">
+  <title id="t">XML 与 JSON 的结构对比</title>
+  <desc id="d">同样的数据用 XML 表达冗长且有属性与元素的区分，用 JSON 表达紧凑。XML 支持命名空间、注释与元素顺序，JSON 只有对象数组标量三种结构</desc>
+  <defs>
+    <style>
+      .hd   { font-family:'Microsoft YaHei','PingFang SC','Noto Sans SC',sans-serif; font-size:15px; font-weight:600; fill:#1f1f1f; }
+      .lbl  { font-family:'Microsoft YaHei','PingFang SC','Noto Sans SC',sans-serif; font-size:13px; fill:#1f1f1f; }
+      .code { font-family:Consolas,'Cascadia Mono',Menlo,monospace; font-size:12px; fill:#1f1f1f; }
+      .note { font-family:'Microsoft YaHei','PingFang SC','Noto Sans SC',sans-serif; font-size:11px; fill:#5a6572; }
+      .xml  { fill:#eef4ff; stroke:#7aa5e8; stroke-width:1.5; }
+      .json { fill:#eefaf0; stroke:#5cb87a; stroke-width:1.5; }
+      .warn { fill:#fff6e8; stroke:#e0a458; stroke-width:1.4; }
+      .bad  { fill:#fdeeee; stroke:#d98b8b; stroke-width:1.4; }
+    </style>
+  </defs>
+  <rect width="820" height="400" fill="#ffffff"/>
+  <text class="hd" x="16" y="24">同一份数据，两种表达</text>
+
+  <!-- XML -->
+  <text class="lbl" x="16" y="54" font-weight="600">XML</text>
+  <rect class="xml" x="16" y="64" width="386" height="176" rx="8"/>
+  <text class="code" x="32" y="88">&lt;book id="1"&gt;</text>
+  <text class="code" x="32" y="110">  &lt;title&gt;Java 实战&lt;/title&gt;</text>
+  <text class="code" x="32" y="132">  &lt;author&gt;</text>
+  <text class="code" x="48" y="154">    &lt;name&gt;张三&lt;/name&gt;</text>
+  <text class="code" x="48" y="176">    &lt;country&gt;CN&lt;/country&gt;</text>
+  <text class="code" x="32" y="198">  &lt;/author&gt;</text>
+  <text class="code" x="32" y="220">  &lt;price currency="CNY"&gt;59.00&lt;/price&gt;</text>
+  <text class="code" x="32" y="242">&lt;/book&gt;</text>
+
+  <rect class="warn" x="16" y="250" width="386" height="60" rx="6"/>
+  <text class="note" x="30" y="270">标签名重复书写，体积大；属性与元素两套表达并存</text>
+  <text class="note" x="30" y="288">优势：命名空间、注释、元素顺序语义 —— 配置文件场景不可替代</text>
+  <text class="note" x="30" y="304">pom.xml、Spring bean 定义、老系统 SOAP 报文仍以 XML 为主</text>
+
+  <!-- JSON -->
+  <text class="lbl" x="418" y="54" font-weight="600">JSON</text>
+  <rect class="json" x="418" y="64" width="386" height="176" rx="8"/>
+  <text class="code" x="434" y="88">{</text>
+  <text class="code" x="450" y="110">"id": 1,</text>
+  <text class="code" x="450" y="132">"title": "Java 实战",</text>
+  <text class="code" x="450" y="154">"author": {</text>
+  <text class="code" x="466" y="176">  "name": "张三",</text>
+  <text class="code" x="466" y="198">  "country": "CN"</text>
+  <text class="code" x="450" y="220">},</text>
+  <text class="code" x="450" y="242">"price": 59.00</text>
+  <text class="code" x="434" y="264">}</text>
+
+  <rect class="warn" x="418" y="250" width="386" height="60" rx="6"/>
+  <text class="note" x="432" y="270">无冗余、体积小；三种结构就能表达绝大多数数据</text>
+  <text class="note" x="432" y="288">注意：JSON 里 59.00 会变成 59 —— 金额必须用字符串或 BigDecimal</text>
+  <text class="note" x="432" y="304">新项目的 Web API、缓存、消息报文一律用它</text>
+
+  <line x1="16" y1="322" x2="804" y2="322" stroke="#e0e4e9" stroke-width="1"/>
+  <text class="lbl" x="16" y="344" font-weight="600">三种解析方式</text>
+  <text class="note" x="130" y="344">DOM：整棵树载入内存，适合小文件与 XPath 定位</text>
+  <text class="note" x="400" y="344">SAX：事件流，不可回退</text>
+  <text class="note" x="590" y="344">StAX：事件流，可主动前进，大文件首选</text>
+
+  <rect class="bad" x="16" y="354" width="788" height="40" rx="6"/>
+  <text class="note" x="30" y="374">★ 三种方式默认都会解析外部实体 —— 必须显式关闭，否则 XXE 漏洞可被用来读取服务器文件</text>
+</svg>

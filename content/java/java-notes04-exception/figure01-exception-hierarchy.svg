@@ -1,0 +1,91 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="420" viewBox="0 0 800 420" role="img" aria-labelledby="t d">
+  <title id="t">Java 异常层次结构</title>
+  <desc id="d">Throwable 分为 Error 与 Exception；Exception 分为受检异常与 RuntimeException 及其常见子类。Error 通常不应捕获</desc>
+  <defs>
+    <style>
+      .lbl  { font-family:'Microsoft YaHei','PingFang SC','Noto Sans SC',sans-serif; font-size:13px; fill:#1f1f1f; }
+      .hd   { font-family:'Microsoft YaHei','PingFang SC','Noto Sans SC',sans-serif; font-size:14px; font-weight:600; fill:#1f1f1f; }
+      .note { font-family:'Microsoft YaHei','PingFang SC','Noto Sans SC',sans-serif; font-size:12px; fill:#666; }
+      .root { fill:#eef2f6; stroke:#8b98a8; stroke-width:1.6; }
+      .err  { fill:#fdeeee; stroke:#d98b8b; stroke-width:1.4; }
+      .chk  { fill:#eef4ff; stroke:#7aa5e8; stroke-width:1.4; }
+      .run  { fill:#eefaf0; stroke:#5cb87a; stroke-width:1.4; }
+      .leaf { fill:#ffffff; stroke:#b8c2ce; stroke-width:1.2; }
+      .line { stroke:#9aa7b5; stroke-width:1.2; fill:none; }
+    </style>
+  </defs>
+  <rect width="800" height="420" fill="#ffffff"/>
+
+  <text class="hd" x="16" y="26">Throwable 层次结构</text>
+
+  <!-- Throwable -->
+  <rect class="root" x="330" y="40" width="140" height="32" rx="6"/>
+  <text class="lbl" x="350" y="61">Throwable</text>
+
+  <line class="line" x1="360" y1="72" x2="360" y2="86"/>
+  <line class="line" x1="160" y1="86" x2="640" y2="86"/>
+  <line class="line" x1="160" y1="86" x2="160" y2="98"/>
+  <line class="line" x1="640" y1="86" x2="640" y2="98"/>
+
+  <!-- Error -->
+  <rect class="err" x="90" y="98" width="140" height="30" rx="6"/>
+  <text class="lbl" x="110" y="118">Error</text>
+  <text class="note" x="242" y="118">JVM/系统级严重问题，通常不捕获</text>
+
+  <line class="line" x1="130" y1="128" x2="130" y2="146"/>
+  <line class="line" x1="80" y1="146" x2="180" y2="146"/>
+  <line class="line" x1="80" y1="146" x2="80" y2="158"/>
+  <line class="line" x1="180" y1="146" x2="180" y2="158"/>
+
+  <rect class="leaf" x="30" y="158" width="100" height="28" rx="5"/>
+  <text class="lbl" x="42" y="177">OutOfMemory</text>
+  <rect class="leaf" x="136" y="158" width="94" height="28" rx="5"/>
+  <text class="lbl" x="148" y="177">StackOverflow</text>
+
+  <!-- Exception -->
+  <rect class="chk" x="560" y="98" width="140" height="30" rx="6"/>
+  <text class="lbl" x="580" y="118">Exception</text>
+
+  <line class="line" x1="600" y1="128" x2="600" y2="146"/>
+  <line class="line" x1="500" y1="146" x2="700" y2="146"/>
+  <line class="line" x1="500" y1="146" x2="500" y2="158"/>
+  <line class="line" x1="700" y1="146" x2="700" y2="158"/>
+
+  <!-- 受检 -->
+  <rect class="chk" x="420" y="158" width="160" height="28" rx="5"/>
+  <text class="lbl" x="432" y="177">受检异常（IOException…）</text>
+  <text class="note" x="592" y="177">必须捕获或声明抛出</text>
+
+  <!-- 非受检 -->
+  <rect class="run" x="614" y="158" width="176" height="28" rx="5"/>
+  <text class="lbl" x="622" y="177" style="font-size:12px">非受检（RuntimeException）</text>
+
+  <line class="line" x1="700" y1="186" x2="700" y2="204"/>
+  <line class="line" x1="530" y1="204" x2="800" y2="204"/>
+  <xs N="5"/>
+
+  <!-- Runtime 子类 -->
+  <rect class="leaf" x="400" y="204" width="128" height="26" rx="5"/>
+  <text class="lbl" x="410" y="222">NullPointer</text>
+  <rect class="leaf" x="534" y="204" width="128" height="26" rx="5"/>
+  <text class="lbl" x="544" y="222">ArrayIndexOutOfBounds</text>
+  <rect class="leaf" x="668" y="204" width="128" height="26" rx="5"/>
+  <text class="lbl" x="678" y="222">ClassCast</text>
+
+  <line class="line" x1="600" y1="230" x2="600" y2="248"/>
+  <line class="line" x1="470" y1="248" x2="730" y2="248"/>
+  <line class="line" x1="470" y1="248" x2="470" y2="260"/>
+  <line class="line" x1="730" y1="248" x2="730" y2="260"/>
+
+  <rect class="leaf" x="410" y="260" width="120" height="26" rx="5"/>
+  <text class="lbl" x="420" y="278">IllegalArgument</text>
+  <rect class="leaf" x="670" y="260" width="120" height="26" rx="5"/>
+  <text class="lbl" x="680" y="278">ConcurrentMod…</text>
+
+  <line x1="16" y1="308" x2="784" y2="308" stroke="#e0e4e9" stroke-width="1"/>
+
+  <text class="hd" x="16" y="330">实践要点</text>
+  <text class="note" x="16" y="350">• 真正需要处理的是非受检异常；受检异常常被 throws Exception 敷衍，反而失去意义</text>
+  <text class="note" x="16" y="368">• catch 多分支时子类必须写在父类之前，否则永远匹配不到（编译器不报错）</text>
+  <text class="note" x="16" y="386">• 自定义异常务必传 cause，否则原始堆栈丢失，线上排查无从下手</text>
+</svg>
