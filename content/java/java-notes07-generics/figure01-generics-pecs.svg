@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="820" height="360" viewBox="0 0 820 360" role="img" aria-labelledby="t d">
+  <title id="t">泛型的 PECS 规则</title>
+  <desc id="d">生产者使用 extends 上界通配符以便按更具体类型读取，消费者使用 super 下界通配符以便写入。方法的参数是消费者，返回值是生产者</desc>
+  <defs>
+    <style>
+      .hd   { font-family:'Microsoft YaHei','PingFang SC','Noto Sans SC',sans-serif; font-size:15px; font-weight:600; fill:#1f1f1f; }
+      .lbl  { font-family:'Microsoft YaHei','PingFang SC','Noto Sans SC',sans-serif; font-size:13px; fill:#1f1f1f; }
+      .code { font-family:Consolas,'Cascadia Mono',Menlo,monospace; font-size:13px; fill:#1f1f1f; }
+      .note { font-family:'Microsoft YaHei','PingFang SC','Noto Sans SC',sans-serif; font-size:12px; fill:#666; }
+      .ext  { fill:#eefaf0; stroke:#5cb87a; stroke-width:1.5; }
+      .sup  { fill:#eef4ff; stroke:#7aa5e8; stroke-width:1.5; }
+      .bad  { fill:#fdeeee; stroke:#d98b8b; stroke-width:1.3; }
+      .ok   { fill:#eefaf0; stroke:#5cb87a; stroke-width:1.3; }
+    </style>
+  </defs>
+  <rect width="820" height="360" fill="#ffffff"/>
+
+  <text class="hd" x="16" y="26">PECS：Producer Extends, Consumer Super</text>
+
+  <!-- 左：extends -->
+  <rect class="ext" x="16" y="44" width="384" height="150" rx="8"/>
+  <text class="lbl" x="32" y="68" font-weight="600">List&lt;? extends Number&gt;</text>
+  <text class="note" x="32" y="88">生产者侧：只读，按上界取出</text>
+
+  <rect class="ok" x="32" y="100" width="350" height="32" rx="5"/>
+  <text class="code" x="44" y="121">Number n = list.get(0);</text>
+  <text class="note" x="250" y="121">读：OK</text>
+
+  <rect class="bad" x="32" y="140" width="350" height="32" rx="5"/>
+  <text class="code" x="44" y="161">list.add(1.0);</text>
+  <text class="note" x="250" y="161">写：编译错误</text>
+
+  <!-- 右：super -->
+  <rect class="sup" x="420" y="44" width="384" height="150" rx="8"/>
+  <text class="lbl" x="436" y="68" font-weight="600">List&lt;? super Integer&gt;</text>
+  <text class="note" x="436" y="88">消费者侧：只写，按下界传入</text>
+
+  <rect class="ok" x="436" y="100" width="350" height="32" rx="5"/>
+  <text class="code" x="448" y="121">list.add(1);</text>
+  <text class="note" x="654" y="121">写：OK</text>
+
+  <rect class="bad" x="436" y="140" width="350" height="32" rx="5"/>
+  <text class="code" x="448" y="161">Integer i = list.get(0);</text>
+  <text class="note" x="654" y="161">读：编译错误</text>
+
+  <line x1="16" y1="212" x2="804" y2="212" stroke="#e0e4e9" stroke-width="1"/>
+
+  <text class="hd" x="16" y="234">方法签名上的应用：参数是消费者，返回值是生产者</text>
+
+  <rect class="ok" x="16" y="248" width="788" height="34" rx="5"/>
+  <text class="code" x="30" y="270">public static &lt;T&gt; void copy(List&lt;? super T&gt; dest, List&lt;? extends T&gt; src)</text>
+  <text class="note" x="600" y="270">JDK 标准写法</text>
+
+  <rect class="ok" x="16" y="290" width="788" height="34" rx="5"/>
+  <text class="code" x="30" y="312">public static &lt;T extends Comparable&lt;T&gt;&gt; T max(Collection&lt;? extends T&gt; coll)</text>
+  <text class="note" x="600" y="312">返回值也是生产者</text>
+
+  <text class="note" x="16" y="348">反例：T get(int i) 返回具体类型时用 extends 没有意义——生产者是"写"，方法返回值不做写入</text>
+</svg>

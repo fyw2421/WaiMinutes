@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="820" height="380" viewBox="0 0 820 380" role="img" aria-labelledby="t d">
+  <title id="t">Java 线程状态转换</title>
+  <desc id="d">线程从 NEW 经 start 进入 RUNNABLE，被阻塞时进入 BLOCKED、WAITING 或 TIMED_WAITING，运行时终止进入 TERMINATED。Java 把就绪与运行中合并为 RUNNABLE</desc>
+  <defs>
+    <style>
+      .hd   { font-family:'Microsoft YaHei','PingFang SC','Noto Sans SC',sans-serif; font-size:15px; font-weight:600; fill:#1f1f1f; }
+      .lbl  { font-family:'Microsoft YaHei','PingFang SC','Noto Sans SC',sans-serif; font-size:13px; fill:#1f1f1f; }
+      .code { font-family:Consolas,'Cascadia Mono',Menlo,monospace; font-size:12px; fill:#1f1f1f; }
+      .note { font-family:'Microsoft YaHei','PingFang SC','Noto Sans SC',sans-serif; font-size:11px; fill:#5a6572; }
+      .new  { fill:#f5f7fa; stroke:#8b98a8; stroke-width:1.5; }
+      .run  { fill:#eefaf0; stroke:#5cb87a; stroke-width:1.8; }
+      .blk  { fill:#eef4ff; stroke:#7aa5e8; stroke-width:1.5; }
+      .wait { fill:#fff6e8; stroke:#e0a458; stroke-width:1.5; }
+      .term { fill:#fdeeee; stroke:#d98b8b; stroke-width:1.5; }
+      .line { stroke:#7a8899; stroke-width:1.4; fill:none; }
+    </style>
+    <marker id="arw" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#7a8899"/>
+    </marker>
+  </defs>
+  <rect width="820" height="380" fill="#ffffff"/>
+  <text class="hd" x="16" y="24">线程状态转换</text>
+
+  <!-- NEW -->
+  <rect class="new" x="24" y="52" width="130" height="34" rx="6"/>
+  <text class="code" x="56" y="74">NEW</text>
+  <text class="note" x="24" y="100">已 new，未 start()</text>
+
+  <line x1="158" y1="69" x2="238" y2="69" class="line" marker-end="url(#arw)"/>
+  <text class="code" x="168" y="62">start()</text>
+
+  <!-- RUNNABLE -->
+  <rect class="run" x="242" y="52" width="160" height="34" rx="6"/>
+  <text class="code" x="278" y="74">RUNNABLE</text>
+  <text class="note" x="242" y="100">OS 层面「就绪」和「运行中」都被归到这里</text>
+
+  <!-- BLOCKED / WAITING / TIMED -->
+  <line x1="406" y1="69" x2="486" y2="69" class="line" marker-end="url(#arw)"/>
+  <text class="note" x="408" y="62">锁竞争</text>
+
+  <rect class="blk" x="490" y="52" width="150" height="34" rx="6"/>
+  <text class="code" x="522" y="74">BLOCKED</text>
+  <text class="note" x="490" y="100">等 synchronized 监视器锁</text>
+
+  <line x1="560" y1="90" x2="560" y2="128" class="line" marker-end="url(#arw)"/>
+  <line x1="380" y1="128" x2="560" y2="128" class="line"/>
+  <line x1="380" y1="128" x2="380" y2="90" class="line" marker-end="url(#arw)"/>
+  <text class="note" x="452" y="122">获得锁</text>
+
+  <rect class="wait" x="490" y="160" width="150" height="34" rx="6"/>
+  <text class="code" x="512" y="182">WAITING</text>
+  <text class="note" x="642" y="182" fill="#5a6572">wait() / join() / park()</text>
+  <text class="note" x="642" y="200" fill="#5a6572">无超时，需被显式唤醒</text>
+
+  <rect class="wait" x="242" y="160" width="190" height="34" rx="6"/>
+  <text class="code" x="258" y="182">TIMED_WAITING</text>
+  <text class="note" x="242" y="208">sleep(n) / wait(n) / join(n) — 有超时，到点自动醒</text>
+
+  <line x1="410" y1="90" x2="410" y2="156" class="line" marker-end="url(#arw)"/>
+  <text class="note" x="416" y="120">阻塞等待</text>
+
+  <line x1="338" y1="196" x2="338" y2="128" class="line" marker-end="url(#arw)"/>
+  <line x1="338" y1="128" x2="420" y2="128" class="line"/>
+  <line x1="420" y1="128" x2="420" y2="90" class="line" marker-end="url(#arw)"/>
+  <text class="note" x="344" y="144">超时或被唤醒</text>
+
+  <!-- TERMINATED -->
+  <line x1="322" y1="52" x2="322" y2="28" class="line" marker-end="url(#arw)"/>
+  <line x1="322" y1="28" x2="700" y2="28" class="line"/>
+  <line x1="700" y1="28" x2="700" y2="240" class="line" marker-end="url(#arw)"/>
+
+  <rect class="term" x="625" y="244" width="150" height="34" rx="6"/>
+  <text class="code" x="664" y="266">TERMINATED</text>
+  <text class="note" x="600" y="294">run() 返回或抛出未捕获异常，不可复活</text>
+
+  <line x1="16" y1="320" x2="804" y2="320" stroke="#e0e4e9" stroke-width="1"/>
+  <text class="note" x="16" y="342">要点：Thread.getState() 的 6 种状态是 JVM 视角；WAITING 必须由别的线程 notify/唤醒才会回到 RUNNABLE</text>
+  <text class="note" x="16" y="362">Java 21 起线程可用 isVirtual() 判断是否虚拟线程；虚拟线程不使用 synchronized 跨线程阻塞</text>
+</svg>

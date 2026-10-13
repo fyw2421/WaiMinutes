@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="300" viewBox="0 0 760 300" role="img" aria-labelledby="t d">
+  <title id="t">Java 从源码到执行的完整链路</title>
+  <desc id="d">源码经javac 编译为字节码，字节码装载进 JVM 后由解释器与 JIT 协作执行，最终落地为目标平台机器码</desc>
+  <defs>
+    <style>
+      .lbl  { font-family:'Microsoft YaHei','PingFang SC','Noto Sans SC',sans-serif; font-size:14px; fill:#1f1f1f; }
+      .code { font-family:Consolas,'Cascadia Mono',Menlo,monospace; font-size:14px; fill:#1f1f1f; }
+      .op   { font-family:Consolas,'Cascadia Mono',Menlo,monospace; font-size:14px; fill:#9c8254; }
+      .note { font-family:'Microsoft YaHei','PingFang SC','Noto Sans SC',sans-serif; font-size:13px; fill:#666; }
+      .box  { fill:#f5f7fa; stroke:#c9d2dd; stroke-width:1.5; }
+      .hot  { fill:#fff6e8; stroke:#e0a458; stroke-width:1.5; }
+    </style>
+    <marker id="arw" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#7a8899"/>
+    </marker>
+  </defs>
+  <rect width="760" height="300" fill="#ffffff"/>
+
+  <text class="lbl" x="16" y="26" font-weight="600">从 .java 到机器码：四个阶段</text>
+
+  <!-- 阶段 1 -->
+  <rect class="box" x="16" y="46" width="150" height="66" rx="8"/>
+  <text class="code" x="34" y="72">Hello.java</text>
+  <text class="note" x="34" y="94">人类可读</text>
+
+  <!-- 箭头 -->
+  <line x1="166" y1="70" x2="206" y2="70" stroke="#7a8899" stroke-width="1.5" marker-end="url(#arw)"/>
+  <text class="op" x="170" y="62">javac</text>
+
+  <!-- 阶段 2 -->
+  <rect class="box" x="206" y="46" width="150" height="66" rx="8"/>
+  <text class="code" x="222" y="72">Hello.class</text>
+  <text class="note" x="222" y="94">字节码，与平台无关</text>
+
+  <!-- 箭头 -->
+  <line x1="356" y1="70" x2="396" y2="70" stroke="#7a8899" stroke-width="1.5" marker-end="url(#arw)"/>
+  <text class="op" x="358" y="62">装载</text>
+
+  <!-- JVM 框 -->
+  <rect class="box" x="396" y="40" width="270" height="146" rx="10"/>
+  <text class="lbl" x="412" y="62" font-weight="600">JVM</text>
+
+  <rect class="hot" x="412" y="74" width="238" height="40" rx="6"/>
+  <text class="note" x="424" y="92">解释器逐条执行</text>
+  <text class="note" x="424" y="108">（启动快，热点代码慢）</text>
+
+  <rect class="hot" x="412" y="124" width="238" height="40" rx="6"/>
+  <text class="note" x="424" y="142">JIT 编译热点方法</text>
+  <text class="note" x="424" y="158">（预热后接近原生）</text>
+
+  <!-- 箭头 -->
+  <line x1="666" y1="70" x2="706" y2="70" stroke="#7a8899" stroke-width="1.5" marker-end="url(#arw)"/>
+
+  <!-- 阶段 4 -->
+  <rect class="box" x="706" y="46" width="40" height="66" rx="8"/>
+  <text class="note" x="712" y="76">机器</text>
+  <text class="note" x="712" y="94">码</text>
+
+  <line x1="16" y1="212" x2="744" y2="212" stroke="#e0e4e9" stroke-width="1"/>
+
+  <text class="lbl" x="16" y="234" font-weight="600">关键结论</text>
+  <text class="note" x="16" y="256">• 「一次编写，到处运行」的代价是<tspan font-weight="600">首次运行慢</tspan>：要装载类、校验字节码、JIT 预热</text>
+  <text class="note" x="16" y="276">• 因此短命的命令行工具不适合 JVM，长驻服务才能吃到 JIT 红利</text>
+  <text class="note" x="16" y="294">• 停止垃圾回收会造成停顿（STW），这是 Java 在低延迟场景下面临的挑战</text>
+</svg>

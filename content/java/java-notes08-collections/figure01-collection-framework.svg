@@ -1,0 +1,117 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="840" height="400" viewBox="0 0 840 400" role="img" aria-labelledby="t d">
+  <title id="t">Java 集合框架结构</title>
+  <desc id="d">集合分 Collection 与 Map 两大体系。Collection 下分 List、Set、Queue，Map 为独立体系；下方列出常见选型与五条必须记住的规则</desc>
+  <defs>
+    <style>
+      .hd   { font-family:'Microsoft YaHei','PingFang SC','Noto Sans SC',sans-serif; font-size:15px; font-weight:600; fill:#1f1f1f; }
+      .lbl  { font-family:'Microsoft YaHei','PingFang SC','Noto Sans SC',sans-serif; font-size:13px; fill:#1f1f1f; }
+      .note { font-family:'Microsoft YaHei','PingFang SC','Noto Sans SC',sans-serif; font-size:11px; fill:#5a6572; }
+      .root { fill:#eef2f6; stroke:#8b98a8; stroke-width:1.6; }
+      .col  { fill:#eef4ff; stroke:#7aa5e8; stroke-width:1.4; }
+      .map  { fill:#eefaf0; stroke:#5cb87a; stroke-width:1.4; }
+      .leaf { fill:#ffffff; stroke:#b8c2ce; stroke-width:1.1; }
+      .line { stroke:#9aa7b5; stroke-width:1.1; fill:none; }
+    </style>
+  </defs>
+  <rect width="840" height="400" fill="#ffffff"/>
+  <text class="hd" x="16" y="24">集合框架：两大体系</text>
+
+  <!-- Collection 根 -->
+  <rect class="root" x="16" y="36" width="140" height="28" rx="6"/>
+  <text class="lbl" x="34" y="55">Collection</text>
+  <text class="note" x="164" y="55">extends Iterable，可用增强 for</text>
+
+  <line class="line" x1="70" y1="64" x2="70" y2="78"/>
+  <line class="line" x1="70" y1="78" x2="250" y2="78"/>
+  <line class="line" x1="70" y1="78" x2="70" y2="88"/>
+  <line class="line" x1="160" y1="78" x2="160" y2="88"/>
+  <line class="line" x1="250" y1="78" x2="250" y2="88"/>
+
+  <!-- List -->
+  <rect class="col" x="20" y="88" width="100" height="26" rx="5"/>
+  <text class="lbl" x="32" y="106">List</text>
+  <text class="note" x="128" y="106">有序 · 可重复</text>
+  <line class="line" x1="46" y1="114" x2="46" y2="126"/>
+  <line class="line" x1="22" y1="126" x2="110" y2="126"/>
+  <line class="line" x1="22" y1="126" x2="22" y2="136"/>
+  <line class="line" x1="64" y1="126" x2="64" y2="136"/>
+  <line class="line" x1="104" y1="126" x2="104" y2="136"/>
+  <rect class="leaf" x="4" y="136" width="40" height="22" rx="4"/>
+  <text class="note" x="10" y="151">ArrayList</text>
+  <rect class="leaf" x="48" y="136" width="40" height="22" rx="4"/>
+  <text class="note" x="54" y="151">Linked</text>
+  <rect class="leaf" x="92" y="136" width="36" height="22" rx="4"/>
+  <text class="note" x="98" y="151">COW</text>
+
+  <!-- Set -->
+  <rect class="col" x="128" y="88" width="64" height="26" rx="5"/>
+  <text class="lbl" x="142" y="106">Set</text>
+  <text class="note" x="200" y="106">无重复</text>
+  <line class="line" x1="152" y1="114" x2="152" y2="126"/>
+  <line class="line" x1="116" y1="126" x2="204" y2="126"/>
+  <line class="line" x1="116" y1="126" x2="116" y2="136"/>
+  <line class="line" x1="152" y1="126" x2="152" y2="136"/>
+  <line class="line" x1="200" y1="126" x2="200" y2="136"/>
+  <rect class="leaf" x="98" y="136" width="40" height="22" rx="4"/>
+  <text class="note" x="104" y="151">HashSet</text>
+  <rect class="leaf" x="142" y="136" width="40" height="22" rx="4"/>
+  <text class="note" x="148" y="151">TreeSet</text>
+  <rect class="leaf" x="186" y="136" width="40" height="22" rx="4"/>
+  <text class="note" x="192" y="151">EnumSet</text>
+
+  <!-- Queue -->
+  <rect class="col" x="222" y="88" width="112" height="26" rx="5"/>
+  <text class="lbl" x="234" y="106">Queue / Deque</text>
+  <line class="line" x1="258" y1="114" x2="258" y2="126"/>
+  <line class="line" x1="236" y1="126" x2="322" y2="126"/>
+  <line class="line" x1="236" y1="126" x2="236" y2="136"/>
+  <line class="line" x1="288" y1="126" x2="288" y2="136"/>
+  <line class="line" x1="318" y1="126" x2="318" y2="136"/>
+  <rect class="leaf" x="212" y="136" width="56" height="22" rx="4"/>
+  <text class="note" x="218" y="151">PriorityQ</text>
+  <rect class="leaf" x="272" y="136" width="48" height="22" rx="4"/>
+  <text class="note" x="278" y="151">Deque</text>
+  <rect class="leaf" x="324" y="136" width="44" height="22" rx="4"/>
+  <text class="note" x="330" y="151">Queue</text>
+
+  <!-- Map -->
+  <rect class="root" x="420" y="36" width="108" height="28" rx="6"/>
+  <text class="lbl" x="444" y="55">Map&lt;K,V&gt;</text>
+  <text class="note" x="536" y="55">与 Collection 平级的独立体系</text>
+
+  <line class="line" x1="474" y1="64" x2="474" y2="78"/>
+  <line class="line" x1="474" y1="78" x2="760" y2="78"/>
+  <line class="line" x1="474" y1="78" x2="474" y2="88"/>
+  <line class="line" x1="590" y1="78" x2="590" y2="88"/>
+  <line class="line" x1="706" y1="78" x2="706" y2="88"/>
+  <line class="line" x1="760" y1="78" x2="760" y2="88"/>
+
+  <rect class="map" x="424" y="88" width="100" height="26" rx="5"/>
+  <text class="lbl" x="436" y="106">HashMap</text>
+  <rect class="map" x="530" y="88" width="120" height="26" rx="5"/>
+  <text class="lbl" x="540" y="106">LinkedHashMap</text>
+  <rect class="map" x="656" y="88" width="100" height="26" rx="5"/>
+  <text class="lbl" x="668" y="106">TreeMap</text>
+  <rect class="map" x="700" y="120" width="122" height="24" rx="5"/>
+  <text class="note" x="710" y="137">ConcurrentHashMap</text>
+  <line class="line" x1="706" y1="114" x2="706" y2="120"/>
+  <line class="line" x1="706" y1="114" x2="761" y2="114"/>
+
+  <!-- 选型 -->
+  <line x1="16" y1="178" x2="824" y2="178" stroke="#e0e4e9" stroke-width="1"/>
+  <text class="hd" x="16" y="200">常见选型</text>
+
+  <rect class="leaf" x="16" y="212" width="252" height="28" rx="5"/>
+  <text class="note" x="26" y="230">默认 ArrayList；已知大小时预设容量</text>
+  <rect class="leaf" x="276" y="212" width="262" height="28" rx="5"/>
+  <text class="note" x="286" y="230">去重且要保序 → LinkedHashSet</text>
+  <rect class="leaf" x="546" y="212" width="272" height="28" rx="5"/>
+  <text class="note" x="554" y="230" style="font-size:10px">并发 → ConcurrentHashMap / ConcurrentLinkedQueue</text>
+
+  <text class="hd" x="16" y="268">必须记住的规则</text>
+  <text class="note" x="16" y="290">1. HashMap 不保证遍历顺序；要插入顺序用 LinkedHashMap，要排序用 TreeMap</text>
+  <text class="note" x="16" y="312">2. ConcurrentHashMap 不允许 key/value 为 null（null 无法与"不存在"区分）</text>
+  <text class="note" x="16" y="334">3. 迭代中修改集合抛 ConcurrentModificationException，改用 Iterator.remove() 或 removeIf</text>
+  <text class="note" x="16" y="356">4. 容量按 2 的幂增长：new HashMap&lt;&gt;(17) 实际会调整为 32</text>
+  <text class="note" x="16" y="378">5. Arrays.asList 返回固定长度视图，add/remove 抛异常，需要可变请 new ArrayList&lt;&gt;(…)</text>
+</svg>

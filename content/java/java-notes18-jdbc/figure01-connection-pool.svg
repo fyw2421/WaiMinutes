@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="820" height="380" viewBox="0 0 820 380" role="img" aria-labelledby="t d">
+  <title id="t">JDBC 连接池的借还流程</title>
+  <desc id="d">应用从连接池借连接而非新建，用完归还。池预先建立若干空闲连接，max-lifetime 必须小于数据库 wait_timeout，否则会取到已被数据库断开的死连接</desc>
+  <defs>
+    <style>
+      .hd   { font-family:'Microsoft YaHei','PingFang SC','Noto Sans SC',sans-serif; font-size:15px; font-weight:600; fill:#1f1f1f; }
+      .lbl  { font-family:'Microsoft YaHei','PingFang SC','Noto Sans SC',sans-serif; font-size:13px; fill:#1f1f1f; }
+      .code { font-family:Consolas,'Cascadia Mono',Menlo,monospace; font-size:12px; fill:#1f1f1f; }
+      .note { font-family:'Microsoft YaHei','PingFang SC','Noto Sans SC',sans-serif; font-size:11px; fill:#5a6572; }
+      .app  { fill:#eef4ff; stroke:#7aa5e8; stroke-width:1.5; }
+      .pool { fill:#eefaf0; stroke:#5cb87a; stroke-width:1.6; }
+      .db   { fill:#f0f3f7; stroke:#8b98a8; stroke-width:1.5; }
+      .warn { fill:#fff6e8; stroke:#e0a458; stroke-width:1.4; }
+      .bad  { fill:#fdeeee; stroke:#d98b8b; stroke-width:1.4; }
+      .line { stroke:#7a8899; stroke-width:1.5; fill:none; }
+    </style>
+    <marker id="arw" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#7a8899"/>
+    </marker>
+  </defs>
+  <rect width="820" height="380" fill="#ffffff"/>
+  <text class="hd" x="16" y="24">为什么不能每次查询都新建连接</text>
+  <text class="note" x="16" y="44">建立 TCP 连接 + 认证的开销约几十到几百毫秒，而一次查询本身可能只有几毫秒 —— 开销全花在握手上了</text>
+
+  <!-- 应用 -->
+  <rect class="app" x="16" y="62" width="160" height="140" rx="8"/>
+  <text class="lbl" x="32" y="86" font-weight="600">应用</text>
+  <text class="code" x="32" y="110">1. 借连接</text>
+  <text class="code" x="32" y="132">2. 执行 SQL</text>
+  <text class="code" x="32" y="154">3. 关闭（归还）</text>
+  <text class="note" x="32" y="182">注意第 3 步</text>
+  <text class="note" x="32" y="198">是归还而非销毁</text>
+
+  <!-- 连接池 -->
+  <rect class="pool" x="248" y="56" width="300" height="152" rx="8"/>
+  <text class="lbl" x="264" y="80" font-weight="600">连接池（HikariCP）</text>
+
+  <rect class="pool" x="264" y="92" width="60" height="26" rx="4"/>
+  <text class="note" x="274" y="110">conn1</text>
+  <rect class="pool" x="330" y="92" width="60" height="26" rx="4"/>
+  <text class="note" x="340" y="110">conn2</text>
+  <rect class="pool" x="396" y="92" width="60" height="26" rx="4"/>
+  <text class="note" x="406" y="110">conn3</text>
+  <rect class="pool" x="462" y="92" width="60" height="26" rx="4"/>
+  <text class="note" x="472" y="110">空闲…</text>
+
+  <rect class="app" x="264" y="128" width="124" height="26" rx="4"/>
+  <text class="note" x="274" y="146">使用中</text>
+  <rect class="pool" x="398" y="128" width="124" height="26" rx="4"/>
+  <text class="note" x="408" y="146">正在新建…</text>
+
+  <text class="note" x="264" y="176">minimum-idle：保持的空闲连接数</text>
+  <text class="note" x="264" y="194">maximum-pool-size：上限，超出则等待 connection-timeout</text>
+
+  <line x1="180" y1="100" x2="244" y2="100" class="line" marker-end="url(#arw)"/>
+  <text class="note" x="182" y="92">借</text>
+  <line x1="244" y1="176" x2="180" y2="176" class="line" marker-end="url(#arw)"/>
+  <text class="note" x="186" y="168">还</text>
+
+  <!-- 数据库 -->
+  <rect class="db" x="620" y="88" width="184" height="88" rx="8"/>
+  <text class="lbl" x="636" y="114" font-weight="600">数据库</text>
+  <text class="note" x="636" y="136">wait_timeout = 28800s</text>
+  <text class="note" x="636" y="154">空闲超时主动断连</text>
+  <line x1="552" y1="132" x2="616" y2="132" class="line" marker-end="url(#arw)"/>
+  <line x1="616" y1="156" x2="552" y2="156" class="line" marker-end="url(#arw)"/>
+
+  <rect class="bad" x="16" y="224" width="788" height="68" rx="7"/>
+  <text class="note" x="30" y="246">★ 最常见的坑：数据库会主动断开空闲超时的连接，但连接池不知道</text>
+  <text class="note" x="30" y="266">下次从池里取出这个「死连接」时抛 CommunicationsException，日志里却看不出原因</text>
+  <text class="code" x="30" y="286">解法：max-lifetime 必须小于数据库的 wait_timeout，并留出余量</text>
+
+  <rect class="warn" x="16" y="300" width="788" height="68" rx="7"/>
+  <text class="note" x="30" y="322">maximum-pool-size 不是越大越好。经验公式：连接数 ≈ CPU 核数 × 2 + 有效磁盘数</text>
+  <text class="note" x="30" y="342">池开太大反而让请求在数据库侧排队，把并行变成了串行。多数应用 10–20 就够用</text>
+  <text class="note" x="30" y="362">最终要靠「慢查询日志 + 监控连接等待时长」验证，而不是拍脑袋</text>
+</svg>

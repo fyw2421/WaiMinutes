@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="820" height="340" viewBox="0 0 820 340" role="img" aria-labelledby="t d">
+  <title id="t">Java 的分派规则：方法、静态成员与字段</title>
+  <desc id="d">同一段代码在 Animal a = new Dog() 下，实例方法按实际类型 Dog 分派，静态方法与字段按声明类型 Animal 访问，三者行为不同</desc>
+  <defs>
+    <style>
+      .lbl  { font-family:'Microsoft YaHei','PingFang SC','Noto Sans SC',sans-serif; font-size:14px; fill:#1f1f1f; }
+      .code { font-family:Consolas,'Cascadia Mono',Menlo,monospace; font-size:14px; fill:#1f1f1f; }
+      .note { font-family:'Microsoft YaHei','PingFang SC','Noto Sans SC',sans-serif; font-size:13px; fill:#666; }
+      .hd   { font-family:'Microsoft YaHei','PingFang SC','Noto Sans SC',sans-serif; font-size:15px; font-weight:600; fill:#1f1f1f; }
+      .cls  { fill:#f5f7fa; stroke:#c9d2dd; stroke-width:1.5; }
+      .obj  { fill:#eef4ff; stroke:#7aa5e8; stroke-width:1.5; }
+      .ok   { fill:#eefaf0; stroke:#5cb87a; stroke-width:1.5; }
+      .warn { fill:#fff6e8; stroke:#e0a458; stroke-width:1.5; }
+      .bad  { fill:#fdeeee; stroke:#d98b8b; stroke-width:1.5; }
+    </style>
+    <marker id="arw" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#7a8899"/>
+    </marker>
+  </defs>
+  <rect width="820" height="340" fill="#ffffff"/>
+
+  <text class="hd" x="16" y="26">同一行代码，三种分派结果</text>
+
+  <!-- 声明 -->
+  <rect class="obj" x="16" y="42" width="250" height="40" rx="6"/>
+  <text class="code" x="30" y="68">Animal a = new Dog();</text>
+
+  <line x1="266" y1="62" x2="316" y2="62" stroke="#7a8899" stroke-width="1.5" marker-end="url(#arw)"/>
+
+  <rect class="cls" x="316" y="42" width="200" height="40" rx="6"/>
+  <text class="code" x="332" y="60">a 的声明类型</text>
+  <text class="code" x="332" y="76" fill="#4a6fa5">Animal</text>
+
+  <line x1="516" y1="62" x2="566" y2="62" stroke="#7a8899" stroke-width="1.5" marker-end="url(#arw)"/>
+
+  <rect class="obj" x="566" y="42" width="200" height="40" rx="6"/>
+  <text class="code" x="582" y="60">实际类型（堆上对象）</text>
+  <text class="code" x="582" y="76" fill="#4a6fa5">Dog</text>
+
+  <line x1="16" y1="102" x2="800" y2="102" stroke="#e0e4e9" stroke-width="1"/>
+
+  <!-- 行1 实例方法 -->
+  <rect class="ok" x="16" y="116" width="788" height="56" rx="6"/>
+  <text class="lbl" x="32" y="138" font-weight="600">实例方法　a.speak()</text>
+  <text class="note" x="150" y="138">按【实际类型】分派 → 执行 Dog.speak()　　这就是多态</text>
+  <text class="note" x="150" y="160">运行时才确定调用哪个实现，编译期只看 Animal 有没有该方法</text>
+
+  <!-- 行2 静态方法 -->
+  <rect class="warn" x="16" y="182" width="788" height="56" rx="6"/>
+  <text class="lbl" x="32" y="204" font-weight="600">静态方法　a.create()</text>
+  <text class="note" x="150" y="204">按【声明类型】绑定 → 执行 Animal.create()　　不存在多态</text>
+  <text class="note" x="150" y="226">编译期即确定，与实际类型无关；子类写了同名 static 只是"遮蔽"而非重写</text>
+
+  <!-- 行3 字段 -->
+  <rect class="bad" x="16" y="248" width="788" height="56" rx="6"/>
+  <text class="lbl" x="32" y="270" font-weight="600">字段　a.name</text>
+  <text class="note" x="150" y="270">按【声明类型】访问 → Animal.name　　字段同样没有多态</text>
+  <text class="note" x="150" y="292">若父类没有该字段才编译错误；子类同名字段会被"隐藏"，需要显式强转才取得到</text>
+
+  <text class="note" x="16" y="326">结论：Java 只有实例方法支持多态。字段与静态成员在编译期绑定，是新手最常见的"多态失效"来源。</text>
+</svg>

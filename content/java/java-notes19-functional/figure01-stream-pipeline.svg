@@ -1,0 +1,94 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="820" height="400" viewBox="0 0 820 400" role="img" aria-labelledby="t d">
+  <title id="t">Stream 的三阶段流水线</title>
+  <desc id="d">Stream 由数据源开始，经过若干中间操作形成流水线，遇到终止操作才真正执行计算。中间操作是惰性的，每经过一个就记录一步</desc>
+  <defs>
+    <style>
+      .hd   { font-family:'Microsoft YaHei','PingFang SC','Noto Sans SC',sans-serif; font-size:15px; font-weight:600; fill:#1f1f1f; }
+      .lbl  { font-family:'Microsoft YaHei','PingFang SC','Noto Sans SC',sans-serif; font-size:13px; fill:#1f1f1f; }
+      .code { font-family:Consolas,'Cascadia Mono',Menlo,monospace; font-size:12px; fill:#1f1f1f; }
+      .note { font-family:'Microsoft YaHei','PingFang SC','Noto Sans SC',sans-serif; font-size:11px; fill:#5a6572; }
+      .src  { fill:#f0f3f7; stroke:#8b98a8; stroke-width:1.5; }
+      .mid  { fill:#eef4ff; stroke:#7aa5e8; stroke-width:1.5; }
+      .end  { fill:#eefaf0; stroke:#5cb87a; stroke-width:1.7; }
+      .warn { fill:#fff6e8; stroke:#e0a458; stroke-width:1.4; }
+      .bad  { fill:#fdeeee; stroke:#d98b8b; stroke-width:1.4; }
+      .line { stroke:#7a8899; stroke-width:1.5; fill:none; }
+    </style>
+    <marker id="arw" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#7a8899"/>
+    </marker>
+  </defs>
+  <rect width="820" height="400" fill="#ffffff"/>
+  <text class="hd" x="16" y="24">三个阶段，只有最后一步真正干活</text>
+
+  <!-- 源码 -->
+  <rect class="src" x="16" y="44" width="132" height="52" rx="8"/>
+  <text class="lbl" x="30" y="68" font-weight="600">数据源</text>
+  <text class="code" x="30" y="88">list.stream()</text>
+
+  <line x1="152" y1="70" x2="196" y2="70" class="line" marker-end="url(#arw)"/>
+
+  <!-- 中间操作 -->
+  <rect class="mid" x="200" y="44" width="128" height="52" rx="8"/>
+  <text class="lbl" x="214" y="68" font-weight="600">筛选</text>
+  <text class="code" x="214" y="88">filter(...)</text>
+
+  <line x1="332" y1="70" x2="376" y2="70" class="line" marker-end="url(#arw)"/>
+
+  <rect class="mid" x="380" y="44" width="128" height="52" rx="8"/>
+  <text class="lbl" x="394" y="68" font-weight="600">映射</text>
+  <text class="code" x="394" y="88">map(...)</text>
+
+  <line x1="512" y1="70" x2="556" y2="70" class="line" marker-end="url(#arw)"/>
+
+  <rect class="mid" x="560" y="44" width="128" height="52" rx="8"/>
+  <text class="lbl" x="574" y="68" font-weight="600">排序</text>
+  <text class="code" x="574" y="88">sorted()</text>
+
+  <line x1="692" y1="70" x2="716" y2="70" class="line" marker-end="url(#arw)"/>
+
+  <!-- 终止 -->
+  <rect class="end" x="700" y="130" width="104" height="52" rx="8"/>
+  <text class="lbl" x="716" y="154" font-weight="600">终止操作</text>
+  <text class="code" x="716" y="174">collect()</text>
+  <text class="note" x="700" y="200">此刻才真正执行</text>
+
+  <line x1="624" y1="100" x2="624" y2="130" class="line"/>
+  <line x1="624" y1="130" x2="696" y2="130" class="line" marker-end="url(#arw)"/>
+
+  <!-- 说明 -->
+  <rect class="warn" x="16" y="124" width="664" height="90" rx="8"/>
+  <text class="note" x="30" y="146">中间操作是「惰性」的：不执行计算，只是把这一步记到流水线里</text>
+  <text class="note" x="30" y="168">实际执行时是「逐元素流水线」——每个元素先 filter 再 map，不是先把所有元素过滤完再映射</text>
+  <text class="note" x="30" y="192">所以 filter / map 里的日志会交替出现；需要观察每一步结果时用 peek()</text>
+  <text class="note" x="30" y="210">没有终止操作 → 整个流水线什么都不会做，也不会报错</text>
+
+  <rect class="bad" x="16" y="222" width="788" height="60" rx="8"/>
+  <text class="code" x="30" y="244">Stream&lt;String&gt; s = list.stream().filter(Objects::nonNull);</text>
+  <text class="note" x="440" y="244">← 这行什么也没做，静默返回</text>
+  <text class="code" x="30" y="268">s.forEach(System.out::println);</text>
+  <text class="note" x="330" y="268">← 补上终止操作才生效；且 Stream 是一次性的，用完即失效</text>
+
+  <line x1="16" y1="294" x2="804" y2="294" stroke="#e0e4e9" stroke-width="1"/>
+  <text class="lbl" x="16" y="316" font-weight="600">中间操作分类</text>
+
+  <rect class="mid" x="16" y="326" width="190" height="62" rx="6"/>
+  <text class="note" x="30" y="346">筛选</text>
+  <text class="code" x="30" y="364">filter / distinct</text>
+  <text class="code" x="30" y="382">limit / skip</text>
+
+  <rect class="mid" x="216" y="326" width="190" height="62" rx="6"/>
+  <text class="note" x="230" y="346">映射</text>
+  <text class="code" x="230" y="364">map / flatMap</text>
+  <text class="code" x="230" y="382">mapToInt（免装箱）</text>
+
+  <rect class="mid" x="416" y="326" width="190" height="62" rx="6"/>
+  <text class="note" x="430" y="346">排序与观察</text>
+  <text class="code" x="430" y="364">sorted / distinct</text>
+  <text class="code" x="430" y="382">peek（仅调试用）</text>
+
+  <rect class="end" x="616" y="326" width="188" height="62" rx="6"/>
+  <text class="note" x="630" y="346">终止操作（一次性）</text>
+  <text class="code" x="630" y="364">collect / reduce</text>
+  <text class="code" x="630" y="382">forEach / count</text>
+</svg>

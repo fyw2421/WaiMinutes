@@ -7,20 +7,14 @@ title: "积微知远"
 {{< feature title="软件配置" url="software-config/" label="查看软件配置" >}}
 安装配置<br>环境变量<br>常用软件
 {{< /feature >}}
-{{< feature title="TypeScript" url="typescript-notes/" label="查看 TypeScript 笔记" >}}
-基础类型<br>函数接口<br>泛型装饰器<br>编译选项
-{{< /feature >}}
-{{< feature title="JavaScript" url="javascript/" label="查看 JavaScript 笔记" >}}
-数据类型<br>函数与对象<br>DOM · BOM<br>原型与正则
-{{< /feature >}}
-{{< feature title="设计模式" url="design-pattern/" label="查看设计模式笔记" >}}
-设计原则<br>常见设计模式
+{{< feature title="产品手册" url="manuals/" label="查看产品手册" >}}
+产品说明<br>配对步骤
 {{< /feature >}}
 {{< feature title="数据结构" url="data-structures/" label="查看数据结构笔记" >}}
 数据结构构成<br>实现思路<br>操作复杂度
 {{< /feature >}}
-{{< feature title="Markdown" url="markdown-notes/" label="查看 Markdown 笔记" >}}
-基础语法<br>扩展语法<br>公式写法<br>编号规则
+{{< feature title="设计模式" url="design-pattern/" label="查看设计模式笔记" >}}
+设计原则<br>常见设计模式
 {{< /feature >}}
 {{< feature title="Git 速查" url="git-notes/" label="查看 Git 笔记" >}}
 安装配置<br>提交 · 回退<br>分支与合并
@@ -28,12 +22,20 @@ title: "积微知远"
 {{< feature title="C++ 笔记" url="cpp-notes/" label="查看 C++ 笔记" >}}
 命名 · 预处理<br>继承 · 多态<br>STL<br>智能指针 · 异常
 {{< /feature >}}
-{{< feature title="产品手册" url="manuals/" label="查看产品手册" >}}
-产品说明<br>配对步骤
+{{< feature title="JavaScript" url="javascript/" label="查看 JavaScript 笔记" >}}
+数据类型<br>函数与对象<br>DOM · BOM<br>原型与正则
+{{< /feature >}}
+{{< feature title="TypeScript" url="typescript-notes/" label="查看 TypeScript 笔记" >}}
+基础类型<br>函数接口<br>泛型装饰器<br>编译选项
 {{< /feature >}}
 {{< feature title="Android" url="android/" label="查看 Android 笔记" >}}
 四大组件<br>UI 控件<br>数据存储<br>常用工具
 {{< /feature >}}
+{{< feature title="Java" url="java/" label="查看 Java 笔记" >}}
+基础语法<br>集合并发<br>Maven 构建<br>工程实践
+{{< /feature >}}
+{{< feature title="Markdown" url="markdown-notes/" label="查看 Markdown 笔记" >}}
+基础语法<br>扩展语法<br>公式写法<br>编号规则
+{{< /feature >}}
 {{< /feature-grid >}}
 {{< tools-dialog >}}
-

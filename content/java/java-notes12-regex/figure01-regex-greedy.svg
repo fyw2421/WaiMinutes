@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="820" height="380" viewBox="0 0 820 380" role="img" aria-labelledby="t d">
+  <title id="t">贪婪与非贪婪匹配的对比</title>
+  <desc id="d">用 .+ 匹配尖括号内容时，贪婪匹配吃到最后一个尖括号，非贪婪加问号只吃到第一个尖括号。匹配 HTML 或日志行通常需要非贪婪</desc>
+  <defs>
+    <style>
+      .hd   { font-family:'Microsoft YaHei','PingFang SC','Noto Sans SC',sans-serif; font-size:15px; font-weight:600; fill:#1f1f1f; }
+      .lbl  { font-family:'Microsoft YaHei','PingFang SC','Noto Sans SC',sans-serif; font-size:13px; fill:#1f1f1f; }
+      .code { font-family:Consolas,'Cascadia Mono',Menlo,monospace; font-size:13px; fill:#1f1f1f; }
+      .note { font-family:'Microsoft YaHei','PingFang SC','Noto Sans SC',sans-serif; font-size:12px; fill:#5a6572; }
+      .bad  { fill:#fdeeee; stroke:#d98b8b; stroke-width:1.4; }
+      .ok   { fill:#eefaf0; stroke:#5cb87a; stroke-width:1.4; }
+      .in   { fill:#f5f7fa; stroke:#c9d2dd; stroke-width:1.4; }
+      .hl   { fill:#fff6e8; stroke:#e0a458; stroke-width:1.6; }
+      .line { stroke:#9aa7b5; stroke-width:1.2; fill:none; }
+    </style>
+    <marker id="arw" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#7a8899"/>
+    </marker>
+  </defs>
+  <rect width="820" height="380" fill="#ffffff"/>
+  <text class="hd" x="16" y="24">贪婪 vs 非贪婪：同一个输入，两种结果</text>
+
+  <text class="lbl" x="16" y="56" font-weight="600">输入</text>
+  <rect class="in" x="80" y="38" width="180" height="26" rx="5"/>
+  <text class="code" x="92" y="56">&lt;a&gt;&lt;b&gt;&lt;/a&gt;</text>
+
+  <line x1="278" y1="51" x2="330" y2="51" stroke="#7a8899" stroke-width="1.4" marker-end="url(#arw)"/>
+
+  <text class="note" x="344" y="46">尖括号一共 3 对：&lt;a&gt; 、&lt;b&gt; 、&lt;/a&gt;</text>
+  <text class="note" x="344" y="64">量词默认贪婪，尽量多吃；加 ? 变为非贪婪，能少则少</text>
+
+  <!-- 贪婪 -->
+  <rect class="bad" x="16" y="92" width="788" height="112" rx="8"/>
+  <text class="lbl" x="32" y="116" font-weight="600">贪婪　&lt;.+&gt;</text>
+  <text class="note" x="180" y="116">尽可能多地匹配，直到再吃就匹配不上为止</text>
+
+  <rect class="in" x="32" y="128" width="180" height="26" rx="4"/>
+  <text class="code" x="44" y="146">&lt;a&gt;&lt;b&gt;&lt;/a&gt;</text>
+  <text class="note" x="222" y="146">→ 吃到最后一个 &gt;</text>
+
+  <rect class="hl" x="32" y="162" width="180" height="26" rx="4"/>
+  <text class="code" x="44" y="180">&lt;a&gt;&lt;b&gt;&lt;/a&gt;</text>
+  <text class="note" x="222" y="180">group() 返回这一整段</text>
+
+  <text class="note" x="32" y="200">结果：&lt;a&gt;&lt;b&gt;&lt;/a&gt; —— 把三对尖括号全包进来了，不是想要的第一个标签</text>
+
+  <!-- 非贪婪 -->
+  <rect class="ok" x="16" y="216" width="788" height="112" rx="8"/>
+  <text class="lbl" x="32" y="240" font-weight="600">非贪婪　&lt;.+?&gt;</text>
+  <text class="note" x="196" y="240">遇到第一个可匹配的 &gt; 就停下</text>
+
+  <rect class="in" x="32" y="252" width="180" height="26" rx="4"/>
+  <text class="code" x="44" y="270">&lt;a&gt;&lt;b&gt;&lt;/a&gt;</text>
+  <text class="note" x="222" y="270">吃到第一个 &gt; 就停</text>
+
+  <rect class="hl" x="32" y="286" width="180" height="26" rx="4"/>
+  <text class="code" x="44" y="304">&lt;a&gt;</text>
+  <text class="note" x="222" y="304">group() 返回这一段</text>
+
+  <text class="note" x="32" y="324">结果：&lt;a&gt; —— 取出第一个标签，符合预期</text>
+
+  <text class="note" x="16" y="356">记忆：星号管重复，* 后加问号是"少一点"—— 与 lazy 读法一致；解析 HTML、提取日志字段时几乎总是需要非贪婪</text>
+</svg>
