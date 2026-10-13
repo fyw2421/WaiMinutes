@@ -59,40 +59,46 @@ summaryLength = 30
     # 手机上点它会重载当前页并关掉菜单。指向「全部文章」是最接近的现成目标。
     url = '/articles/'
     weight = 3
-  [[menu.main]]
-    name = 'C++ 笔记'
-    parent = '专题'
-    pageRef = '/cpp-notes'
-    weight = 1
-  [[menu.main]]
-    name = '数据结构'
-    parent = '专题'
-    pageRef = '/data-structures'
-    weight = 2
-  [[menu.main]]
-    name = '设计模式'
-    parent = '专题'
-    pageRef = '/design-pattern'
-    weight = 3
-  [[menu.main]]
-    name = 'Git 速查'
-    parent = '专题'
-    pageRef = '/git-notes'
-    weight = 4
-  [[menu.main]]
-    name = 'JavaScript'
-    parent = '专题'
-    pageRef = '/javascript'
-    weight = 5
-  [[menu.main]]
-    name = 'Markdown'
-    parent = '专题'
-    pageRef = '/markdown-notes'
-    weight = 6
+  # ⚠ 下面这些 weight 不是随手排的：它们必须与首页 content/_index.md 里
+  # feature 短码的书写顺序完全一致（首页第 1 张是「工具」弹窗，不在菜单里）。
+  # 两处顺序不一致会让同一批专题在导航里出现两种排列。改动其中一处时，
+  # 务必同步另一处，并在浏览器里核对下拉顺序。
+  # 对应关系：软件配置 1 · 产品手册 2 · 数据结构 3 · 设计模式 4 · Git 5
+  #           C++ 6 · JavaScript 7 · TypeScript 8 · Android 9 · Java 10 · Markdown 11
   [[menu.main]]
     name = '软件配置'
     parent = '专题'
     pageRef = '/software-config'
+    weight = 1
+  [[menu.main]]
+    name = '产品手册'
+    parent = '专题'
+    pageRef = '/manuals'
+    weight = 2
+  [[menu.main]]
+    name = '数据结构'
+    parent = '专题'
+    pageRef = '/data-structures'
+    weight = 3
+  [[menu.main]]
+    name = '设计模式'
+    parent = '专题'
+    pageRef = '/design-pattern'
+    weight = 4
+  [[menu.main]]
+    name = 'Git 速查'
+    parent = '专题'
+    pageRef = '/git-notes'
+    weight = 5
+  [[menu.main]]
+    name = 'C++ 笔记'
+    parent = '专题'
+    pageRef = '/cpp-notes'
+    weight = 6
+  [[menu.main]]
+    name = 'JavaScript'
+    parent = '专题'
+    pageRef = '/javascript'
     weight = 7
   [[menu.main]]
     name = 'TypeScript'
@@ -100,27 +106,32 @@ summaryLength = 30
     pageRef = '/typescript-notes'
     weight = 8
   [[menu.main]]
-    name = '产品手册'
-    parent = '专题'
-    pageRef = '/manuals'
-    weight = 9
-  [[menu.main]]
     name = 'Android'
     parent = '专题'
     pageRef = '/android'
+    weight = 9
+  [[menu.main]]
+    name = 'Java'
+    parent = '专题'
+    pageRef = '/java'
     weight = 10
+  [[menu.main]]
+    name = 'Markdown'
+    parent = '专题'
+    pageRef = '/markdown-notes'
+    weight = 11
   [[menu.main]]
     name = '标签'
     pageRef = '/tags'
-    weight = 11
+    weight = 12
   # 顶栏不放源码仓库的入口（曾有一个 GitHub 图标项，已移除）。
 
 [params]
   # 站点描述：喂 <meta name="description">、og:description 与 JSON-LD。
   # 原来是旧标语，换成一句真正说明本站内容的话（更适合搜索摘要与分享预览）。
-  description = 'C++、数据结构、设计模式、Git、JavaScript、Markdown、软件配置、TypeScript 与 Android 的学习笔记合集。'
+  description = 'C++、数据结构、设计模式、Git、Java、JavaScript、Markdown、软件配置、TypeScript 与 Android 的学习笔记合集。'
   # 主题的「最近的文章」只汇总 mainSections 里这些 section 的文章
-  mainSections = ['android', 'cpp-notes', 'data-structures', 'design-pattern', 'git-notes', 'javascript', 'manuals', 'markdown-notes', 'software-config', 'typescript-notes']
+  mainSections = ['android', 'cpp-notes', 'data-structures', 'design-pattern', 'git-notes', 'java', 'javascript', 'manuals', 'markdown-notes', 'software-config', 'typescript-notes']
   dateFormat = '2006-01-02'
   enableCodeCopy = true
   # 页脚版权行。{ year } 是主题 footer.html 支持的占位符，构建时替换成当前年份。

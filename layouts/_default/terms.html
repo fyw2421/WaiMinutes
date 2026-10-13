@@ -1,0 +1,73 @@
+{{/* 标签页（/tags/、/categories/）。复制自 themes/blowfish/layouts/_default/terms.html（2026-10-13）。
+
+   相对主题原版只有一处改动，其余与主题逐字一致：
+
+     1. `{{ range .Data.Terms }}` 改成 `{{ range sort .Data.Terms "Page.Params.weight" }}`。
+        主题原版直接 range .Data.Terms，而 Hugo 不会按 weight 自动排这个列表
+        （实测：给 content/tags/<term>/_index.md 加 weight: 99 不起作用，仍是字母序）。
+        必须显式 sort 一次。
+        ⚠ 排序键必须写成 "Page.Params.weight"：.Data.Terms 的元素是 WeightedPages
+          结构体（内含 .Page 与 .Weight），直接写 "Params.weight" 会报
+          "Params is neither a struct field, a method nor a map element"。
+
+     为什么需要定序：标签页列的 11 个标签与 11 个专题一一对应，如果按字母序排，
+     同一批专题在导航里就会出现第三种排列（首页一种、「专题」下拉一种、标签页一种）。
+     统一到首页顺序后，三处一致。
+
+     ⚠ 顺序有三处来源，改动其中一处必须同步另外两处：
+       - 首页        content/_index.md 里 feature 短码的书写顺序
+       - 顶栏下拉    hugo.toml 里 [[menu.main]] 的 weight（专题子项 1..11）
+       - 本页        content/tags/<term>/_index.md 的 weight（1..11）
+       本模板只是把第三处的 weight 真正用起来，不自己维护顺序表。
+
+     ⚠ 标签 slug 由 tag 值推导：小写、空格转连字符（"Data Structure" → data-structure，
+       "C++" → c++）。新增标签时目录名要按这个规则写，否则 weight 挂不上、退回字母序。
+
+     ⚠ 主题升级时需同步：对照 themes/blowfish/layouts/_default/terms.html
+       看有没有新增字段（本仓库是整目录 copy，只改了 range 那一行）。
+*/}}
+{{ define "main" }}
+  {{ .Scratch.Set "scope" "terms" }}
+  {{ $showHero := .Params.showHero | default site.Params.taxonomy.showHero | default false }}
+  {{ if $showHero }}
+    {{ $heroStyle := print "hero/" site.Params.taxonomy.heroStyle ".html" }}
+    {{ if templates.Exists ( printf "partials/%s" $heroStyle ) }}
+      {{ partial $heroStyle . }}
+    {{ else }}
+      {{ partial "hero/basic.html" . }}
+    {{ end }}
+  {{- end -}}
+
+
+  <header class="mt-5">
+    {{ if .Params.showBreadcrumbs | default (site.Params.taxonomy.showBreadcrumbs | default false) }}
+      {{ partial "breadcrumbs.html" . }}
+    {{ end }}
+    <h1 class="mt-5 text-4xl font-extrabold text-neutral-900 dark:text-neutral">{{ .Title }}</h1>
+    <div class="mt-1 mb-2 text-base text-neutral-500 dark:text-neutral-400 print:hidden">
+      {{ partial "article-meta/taxonomy.html" (dict "context" . "scope" "single") }}
+    </div>
+  </header>
+  {{ if .Content }}
+    <section class="flex flex-col max-w-full mt-0 prose dark:prose-invert lg:flex-row">
+      <div class="min-w-0 max-w-prose">
+        {{ .Content }}
+      </div>
+    </section>
+  {{ end }}
+
+  {{ if site.Params.taxonomy.cardView }}
+    <section class="w-full grid gap-4 sm:grid-cols-2 md:grid-cols-3">
+      {{ range sort .Data.Terms "Page.Params.weight" }}
+        {{ partial "term-link/card.html" . }}
+      {{ end }}
+    </section>
+  {{ else }}
+
+    <section class="mt-6 flex max-w-prose flex-wrap gap-2">
+      {{ range sort .Data.Terms "Page.Params.weight" }}
+        {{ partial "term-link/text.html" . }}
+      {{ end }}
+    </section>
+  {{ end }}
+{{ end }}

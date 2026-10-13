@@ -359,7 +359,54 @@ Write-Host '     上面是站点覆盖与新版原版的差异行数；请确认
 
 Write-Host @"
 
-   7) 主题声明的 Hugo 版本区间（本机与 CI 都必须落在区间内）
+   7) terms.html 覆盖是否仍然贴合原版（标签页排序）
+"@ -ForegroundColor Gray
+
+# 站点复制了主题的标签页模板，只把 `range .Data.Terms` 改成
+# `range sort .Data.Terms "Page.Params.weight"`，让 /tags/ 按
+# content/tags/<term>/_index.md 里的 weight 排（与首页、下拉同一顺序），
+# 其余逐字照抄。原版若改了 term-link/card.html 的调用或 cardView 判别，
+# 这份不跟着同步就会悄悄回退——最隐蔽的后果是标签页退回字母序，
+# 同一批专题在导航里出现第三种排列（构建不会报错、不会告警）。
+& git -C $repo diff --no-index --stat -- (Join-Path $themeDir 'layouts/_default/terms.html') (Join-Path $repo 'layouts/_default/terms.html') 2>$null
+Write-Host '     上面是站点覆盖与新版原版的差异行数；请确认差异仍只限于那两处 sort。' -ForegroundColor Gray
+
+Write-Host @"
+
+   8) 三处专题顺序是否仍然同步（首页 / 顶栏下拉 / 标签页）
+"@ -ForegroundColor Gray
+
+# 这三处顺序必须一致，但它们分散在三个地方、各自的机制也不同：
+#   首页     content/_index.md 里 feature 短码的书写顺序
+#   顶栏下拉  hugo.toml 里 [[menu.main]] 的 weight
+#   标签页    content/tags/<term>/_index.md 的 weight（经 terms.html 的 sort 生效）
+# 任何一处漏改都不会报错，只会让用户在不同入口看到不同的排列。
+$orderCheck = @'
+$expected = @('软件配置','产品手册','数据结构','设计模式','Git 速查','C++ 笔记','JavaScript','TypeScript','Android','Java','Markdown')
+$toml = Get-Content (Join-Path $PWD 'hugo.toml') -Raw
+$menuNames = [regex]::Matches($toml, "name\s*=\s*'([^']+)'\s*\r?\n\s*parent\s*=\s*'专题'[\s\S]*?weight\s*=\s*(\d+)") |
+            Sort-Object { [int]$_.Groups[2].Value } | ForEach-Object { $_.Groups[1].Value }
+if (($menuNames -join '|') -eq ($expected -join '|')) {
+  Write-Ok '     顶栏下拉顺序与期望一致'
+} else {
+  Write-Warn2 '     顶栏下拉顺序对不上，期望：' + ($expected -join ' / ')
+  Write-Warn2 '     实际：' + ($menuNames -join ' / ')
+}
+$tagW = @{}
+Get-ChildItem (Join-Path $PWD 'content\tags') -Directory -ErrorAction SilentlyContinue | ForEach-Object {
+  $f = Join-Path $_.FullName '_index.md'
+  if (Test-Path $f) {
+    $m = [regex]::Match((Get-Content $f -Raw), 'weight:\s*(\d+)')
+    if ($m.Success) { $tagW[$_.Name] = [int]$m.Groups[1].Value }
+  }
+}
+Write-Host ("     标签页 weight 数：" + $tagW.Count + "（期望 " + $expected.Count + "）") -ForegroundColor Gray
+'@
+Invoke-Expression $orderCheck
+
+Write-Host @"
+
+   9) 主题声明的 Hugo 版本区间（本机与 CI 都必须落在区间内）
 "@ -ForegroundColor Gray
 
 # 主题在自己的 config.toml 里用 [module.hugoVersion] 声明兼容区间（这是少数几个
