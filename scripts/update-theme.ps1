@@ -347,19 +347,7 @@ Write-Host '     上面是站点覆盖与新版原版的差异行数；请确认
 
 Write-Host @"
 
-   6) breadcrumbs.html 覆盖是否仍然贴合原版
-"@ -ForegroundColor Gray
-
-# 站点复制了主题的面包屑 partial，只改了 /android/ 子专题页的返回入口
-# （大号「← Android」）与判别条件，其余逐字照抄原版。原版若改了 crumb 模板的
-# 字段或首尾 hidden 规则，这份不跟着同步就会悄悄回退——
-# 最隐蔽的后果是子专题页的返回入口整个消失（Hugo 不会报错）。
-& git -C $repo diff --no-index --stat -- (Join-Path $themeDir 'layouts/partials/breadcrumbs.html') (Join-Path $repo 'layouts/partials/breadcrumbs.html') 2>$null
-Write-Host '     上面是站点覆盖与新版原版的差异行数；请确认差异仍只限于子专题返回入口那部分。' -ForegroundColor Gray
-
-Write-Host @"
-
-   7) terms.html 覆盖是否仍然贴合原版（标签页排序）
+   6) terms.html 覆盖是否仍然贴合原版（标签页排序）
 "@ -ForegroundColor Gray
 
 # 站点复制了主题的标签页模板，只把 `range .Data.Terms` 改成
@@ -373,7 +361,7 @@ Write-Host '     上面是站点覆盖与新版原版的差异行数；请确认
 
 Write-Host @"
 
-   8) 三处专题顺序是否仍然同步（首页 / 顶栏下拉 / 标签页）
+   7) 三处专题顺序是否仍然同步（首页 / 顶栏下拉 / 标签页）
 "@ -ForegroundColor Gray
 
 # 这三处顺序必须一致，但它们分散在三个地方、各自的机制也不同：
@@ -406,7 +394,7 @@ Invoke-Expression $orderCheck
 
 Write-Host @"
 
-   9) 主题声明的 Hugo 版本区间（本机与 CI 都必须落在区间内）
+   8) 主题声明的 Hugo 版本区间（本机与 CI 都必须落在区间内）
 "@ -ForegroundColor Gray
 
 # 主题在自己的 config.toml 里用 [module.hugoVersion] 声明兼容区间（这是少数几个
@@ -449,7 +437,7 @@ if (Test-Path $themeModuleCfg) {
 
 Write-Host @"
 
-   8) 主题的根级配置键（不会合入站点，必须按需手工搬到 hugo.toml）
+   9) 主题的根级配置键（不会合入站点，必须按需手工搬到 hugo.toml）
 "@ -ForegroundColor Gray
 
 # 主题根级键（来自 config/_default/hugo.toml 与 markup.toml）——这些写在主题里
@@ -487,7 +475,7 @@ foreach ($item in $rootKeys) {
 
 Write-Host @"
 
-   9) 别忘了
+   10) 别忘了
       · .github/workflows/gh-pages.yml 里那句注释写着主题版本号，手工更新一下。
       · 检查 diff：git diff --stat themes/blowfish
       · 发布前目视核对 assets/css/custom.css 依赖的主题类名是否还在

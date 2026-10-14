@@ -18,10 +18,10 @@
 # 二、目录结构
 
 ```
-content/            241 篇文章（11 个专题目录，80 篇是 leaf bundle，自带配图）
+content/            183 篇文章（11 个专题目录，46 篇是 leaf bundle，自带配图）
 assets/
   css/custom.css    站点全部自定义样式（背景、卡片、主题覆盖都在这里）
-  covers/           73 张专题封面 SVG（与文章同名；TypeScript 68 章共用一张，Android 按基础/进阶/笔记三张，Java 按基础/进阶/实战三张）
+  covers/           73 张专题封面 SVG（与文章同名；TypeScript 68 章共用一张，Android 按起步/界面与架构/数据与工程三张，Java 按基础/进阶/实战三张）
   icons/            站点自有的图标（覆盖主题同名文件）
   js/               站点自有的脚本（tools-modal.js、footer-extra.js）
   design-pattern/   设计模式专题的可下载 C++ 源码（56 个 .h/.cpp 文件）
@@ -61,7 +61,6 @@ themes/blowfish/    Blowfish 主题，已整目录提交进本仓库（不要修
 | `_default/_markup/render-link.html` | 给下载类链接（`.h` / `.cpp` / `.zip` 等）加 `download` 属性 |
 | `partials/favicons.html` | favicon 与 PWA manifest 的链接 |
 | `partials/extend-head-uncached.html` | 首页工具弹窗的 JS 注入 |
-| `partials/breadcrumbs.html` | 面包屑；Android 三个子专题页改用大号「← Android」返回入口 |
 | `shortcodes/feature.html` | 首页专题卡（色带 + 描述） |
 | `shortcodes/tools.html` | 首页「工具」卡片 |
 | `shortcodes/tools-dialog.html` | 工具弹窗（**必须与 feature-grid 平级**，理由见文件内注释） |
@@ -75,7 +74,7 @@ themes/blowfish/    Blowfish 主题，已整目录提交进本仓库（不要修
 
 | 专题 | 文章数 | 文章目录 |
 | --- | --- | --- |
-| Android | 86 篇 | `android/` |
+| Android | 28 篇 | `android/` |
 | C++ 笔记 | 12 篇 | `cpp-notes/` |
 | 数据结构 | 8 篇 | `data-structures/` |
 | 设计模式 | 9 篇 | `design-pattern/` |
@@ -87,7 +86,7 @@ themes/blowfish/    Blowfish 主题，已整目录提交进本仓库（不要修
 | 软件配置 | 9 篇 | `software-config/` |
 | TypeScript | 69 篇 | `typescript-notes/` |
 
-合计 241 篇（Android 86 篇 = 基础 44 + 进阶 36 + 笔记 6；TypeScript 69 篇 = 68 章 + 1 张章节目录页 `typescript-tutorial.md`；Java 20 篇 = 基础 7 + 进阶 6 + 实战 7）。
+合计 183 篇（Android 28 篇 = 起步 5 + UI 7 + 架构 6 + 数据与系统 6 + 工程 4；TypeScript 69 篇 = 68 章 + 1 张章节目录页 `typescript-tutorial.md`；Java 20 篇 = 基础 7 + 进阶 6 + 实战 7）。
 
 ## (一) 标题编号规则
 

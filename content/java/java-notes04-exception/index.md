@@ -74,17 +74,51 @@ catch (Exception e) {
 }
 ```
 
-自定义异常**必须接收并保存 `cause`**，否则原始堆栈丢失，排查时无从下手。
+## (三) 自定义异常
+
+需要区分「哪一类失败」时，才值得自定义异常——比如让调用方一眼看出是**业务失败**（下单失败、余额不足）还是**系统故障**（数据库连不上）。
+
+### 继承哪个父类
 
 ```java
+// 业务异常：调用方无法通过重试解决 → 继承 RuntimeException（非受检）
 public class BizException extends RuntimeException {
-    public BizException(String msg, Throwable cause) {
-        super(msg, cause);
-    }
+    public BizException(String msg) { super(msg); }
+
+    // ★每个构造器都提供接收 cause 的版本，强制把原始异常传下去
+    public BizException(String msg, Throwable cause) { super(msg, cause); }
+}
+
+// 系统异常：调用方能通过重试/降级解决 → 继承 Exception（受检，强制处理）
+public class InfraException extends Exception {
+    public InfraException(String msg, Throwable cause) { super(msg, cause); }
 }
 ```
 
-## (三) 不要用异常控制正常流程
+**`cause` 是自定义异常的生命线**。只写 `super(msg)` 不传 `cause`，原始堆栈就断了——线上排查时只能看到 `BizException: 查询用户失败`，看不到底下的 `SQLException`，等于把线索扔了。
+
+```java
+// 反例：丢失 cause
+public BizException(String msg) { super(msg); }
+throw new BizException("查询失败");          // 底层异常永远看不到
+
+// 正例
+public BizException(String msg, Throwable cause) { super(msg, cause); }
+throw new BizException("查询失败", e);        // getCause() 能一路挖到底
+```
+
+### 命名与职责
+
+| 做法 | 说明 |
+| --- | --- |
+| 命名带 `Exception` 后缀 | `BizException`、`OrderNotFoundException`，符合通用约定 |
+| 按业务模块分包 | `com.example.order.exception.OrderException`，不要全扔一个包 |
+| 一个类只表达一类失败 | 别把"下单失败"和"退款失败"混进同一个异常类 |
+| 需要携带额外信息时加字段 | 如 `errorCode`，序列化与日志才有意义 |
+
+**不要为每个错误码都建一个异常类**——那会迅速膨胀成上百个类，多数只差一个字符串。真正的分界线是：**调用方是否需要用不同的方式处理它**。
+
+## (四) 不要用异常控制正常流程
 
 ```java
 // 反例：用异常做分支判断，频繁抛栈很慢

@@ -9,7 +9,92 @@ tags: ["Java"]
 
 # 一、搭建开发环境
 
-## (一) 第一个程序
+## (一) 选版本与安装 JDK
+
+Java 每半年发一个版本，但**只有其中一部分是 LTS（长期支持）**，其余版本的支持周期很短。学新特性可以尝鲜，生产环境应当只上 LTS。
+
+| 版本 | 类型 | 说明 |
+| --- | --- | --- |
+| 25 | LTS | 当前最新 LTS，支持到 2031 年 |
+| 21 | LTS | 虚拟线程正式版，生态已成熟 |
+| 17 | LTS | 不少框架以它为兼容基线 |
+| 11 | LTS | 老项目常见的基线版本 |
+| 8 | LTS | 仅供维护已无法升级的老系统 |
+
+**新项目直接选 25**；已有项目跟随它既有的基线版本，不要为了"追新"去升级——本教程涉及的新语法在 17 及以上都能用。
+
+发行版推荐 [Eclipse Temurin](https://adoptium.net/temurin/releases/)（Adoptium）：免费、跨平台、LTS 版本齐全。也可用 Oracle 官方发行版，见 [dev.java/download](https://dev.java/download/)；JDK 17 起用于生产的许可条款需要留意。
+
+安装时**要装 JDK，不是 JRE**：
+
+- **JDK**（Java Development Kit）含 `javac` 编译器，开发与运行都需要
+- **JRE**（Java Runtime Environment）只有虚拟机，不含 `javac`，**只能运行不能编译**
+
+装完在终端验证，**两条命令都要有输出**：
+
+```bash
+java -version     # 运行时
+javac -version    # 编译器
+```
+
+如果 `java` 正常但 `javac` 报"不是内部或外部命令"，说明 PATH 里少了 JDK 的 `bin` 目录——几乎所有"能运行不能编译"的怪问题都出在这里。
+
+### 环境变量
+
+| 变量 | 作用 |
+| --- | --- |
+| `JAVA_HOME` | 指向 JDK 安装的**根目录**（不是 `bin` 目录） |
+| `PATH` | 需包含 `%JAVA_HOME%\bin`（Windows）或 `$JAVA_HOME/bin`（macOS / Linux） |
+
+多数安装器会自动配好。需要手动设置时，Windows 上最常见的错误是把 `JAVA_HOME` 指到 bin 目录——后面拼路径就成了 `bin\bin`，命令依然找不到。
+
+macOS / Linux 用包管理器更省事：
+
+```bash
+brew install --cask temurin@21        # macOS
+sudo apt install openjdk-21-jdk       # Debian / Ubuntu
+```
+
+### 装了多个 JDK 时
+
+`java -version` 显示的未必是你以为的那一个——它只按 PATH 的**先后顺序**取第一个。终端里临时切版本可以直接写完整路径：
+
+```bash
+"/Library/Java/JavaVirtualMachines/temurin-21.jdk/Contents/Home/bin/java" -version
+```
+
+想长期管理多版本，用 [SDKMAN!](https://sdkman.io/)（macOS / Linux）或同类的版本管理器切换，避免反复改系统环境变量。
+
+### 选一个 IDE
+
+命令行适合"改一行、跑一下"的小程序，但代码超过几百行、开始有多个文件时，没有 IDE 会很痛苦：**没有补全、没有跳转、找不到引用、改错名字只能靠编译报错告诉你**。
+
+| IDE | 适合 | 说明 |
+| --- | --- | --- |
+| **IntelliJ IDEA** | Java 主力开发 | 社区版功能已足够写 Java（静态检查、调试、重构都有），写 Spring/数据库功能更强 |
+| **VS Code** | 轻量、习惯通用编辑器 | 靠扩展获得 Java 支持，配置略繁琐，但界面熟悉、启动快 |
+| **Eclipse** | 维护老项目 | 存量项目常是它，现在的新项目不推荐 |
+
+**IDEA 社区版不需要付费**就能完成本章及后续所有内容，不要一上来就买 Ultimate。
+
+无论用哪个，**IDE 只是编辑器**——它背后调用的还是你装的那个 JDK 的 `javac`。IDE 能编译成功但命令行 `javac` 失败，通常说明**两者用的不是同一个 JDK**（IDE 自带或另配了一个）。这是新手最常见的"代码没错却跑不起来"，排查时先看 IDE 设置里的 JDK 路径。
+
+### VS Code 快速上手
+
+1. 安装 [Extension Pack for Java](https://code.visualstudio.com/docs/languages/java)（VS Code 文档里的 Java 一节，装齐了调试与格式化插件）
+2. **指定 JDK**：按 `Ctrl+Shift+P` → 输入 `Java: Configure Java Runtime` → 选自己装的那个，**不要选 IDE 内置的**
+3. 用 **File → Open Folder** 打开**项目根目录**（不是单个 `.java` 文件），否则包结构和依赖都识别不了
+4. `Main.java` 上点 `Run` 旁的三角，或按 `F5` 调试
+
+### IDEA 快速上手
+
+1. 首次启动选 **New Project → JDK**（选自己装的那个，不是 "Download JDK"）
+2. 项目结构默认就是 Maven/Gradle 标准布局：源码放 `src/main/java`，测试放 `src/test/java`——**不要自创目录**，否则后续 Maven 一节会接不上
+3. 右键 `Main.java` → `Run 'Main.main()'`
+
+本教程后续所有代码都可以先在命令行验证一遍，再搬进 IDE——**能独立跑起来的代码，出了问题才知道是 IDE 配置还是代码本身**。
+
+## (二) 第一个程序
 
 ```java
 public class Main {
@@ -32,7 +117,7 @@ public static void main(String[] args)
 
 四个部分写错任何一个都启动不了，且编译器不会给出足够友好的提示——所以遇到"找不到主类"时先回头核对签名。
 
-## (二) jshell：不用建项目就能试代码
+## (三) jshell：不用建项目就能试代码
 
 ```bash
 $ jshell
@@ -45,7 +130,7 @@ hi
 
 `jshell` 直接连接运行中的 JVM，适合验证语法、试 API、演示教学。退出用 `/exit`。
 
-## (三) 命令行运行参数
+## (四) 命令行运行参数
 
 ```java
 public class Main {
@@ -393,6 +478,8 @@ System.arraycopy(a, 0, copy, 0, a.length);
 
 # 六、参考资料
 
+- [Eclipse Temurin 下载页](https://adoptium.net/temurin/releases/) — 免费跨平台的 JDK 发行版与各 LTS 版本
+- [dev.java 下载页](https://dev.java/download/) — Oracle 官方 JDK 下载入口与许可说明
 - [Java 官方教程：语言基础](https://docs.oracle.com/javase/tutorial/java/language_basics/index.html) — 基本类型、变量、运算符与流程控制的官方说明
 - [Java 官方教程：入门](https://docs.oracle.com/javase/tutorial/java/nutsandbolts/index.html) — `main` 方法、类与对象、数组、流程控制
 - [Java 语言规范 JLS（SE 22）](https://docs.oracle.com/javase/specs/jls/se22/html/index.html) — 数值转换规则（第 5.1 节）、`switch` 表达式语法（第 15.28 节）
