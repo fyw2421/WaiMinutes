@@ -311,6 +311,66 @@ class Order3 { public String id; }        // 字符串原样保留
 
 顺带澄清一个常见误解：用 `Map<String, Object>`（无类型）反序列化时，Jackson 会按 `Integer → Long → BigInteger` 逐级尝试，**大整数不会丢精度**；会丢的是**浮点字段**。雪花 ID 这类场景的真正风险在于字段被声明成了 `double`/`Double`。
 
+## (二) 字符编码
+
+「乱码」几乎都源于同一件事：**字节与字符的转换时字符集没对上**。字节本身没有"中文"的概念，`0xE4 0xBD` 只是三个字节，按 UTF-8 解是一个汉字，按 GBK 解可能是另一个字或乱码。
+
+### 读写都要指定字符集
+
+```java
+// 反例：new String(bytes) 用平台默认字符集，服务器换台机器就乱码
+String s = new String(bytes);
+
+// 正例：两个方向都显式指定
+String s = new String(bytes, StandardCharsets.UTF_8);
+out.write(text.getBytes(StandardCharsets.UTF_8));
+```
+
+**永远用 `StandardCharsets.UTF_8` 常量，不要写字符串 `"UTF-8"`**——后者每次调用都会新建一个对象（因为它不是编译期常量），且写错时只有运行期才发现。
+
+### XML 自己会声明编码
+
+XML 文档头部可以自带 `encoding`：
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<book>…</book>
+```
+
+解析器会**以文档声明为准**，而不是你的默认设置。这带来两个坑：
+
+- 文档声明了 `GBK`，实际文件是 UTF-8 → 解析器按 GBK 解，必然乱码
+- 声明与真实字节流不一致时，**解析可能直接失败**，不会报错提示
+
+所以跨系统传输 XML 时，声明必须与实际编码严格一致。`StAX` 读取流时也可显式指定：
+
+```java
+XMLStreamReader reader = factory.createXMLStreamReader(
+        new InputStreamReader(in, StandardCharsets.UTF_8));
+```
+
+### Jackson 的字符集
+
+`ObjectMapper` 默认按 UTF-8 处理 JSON 字符串，但**写字节流时要自己保证**：
+
+```java
+mapper.writeValue(file, obj);                              // Jackson 内部处理
+byte[] bytes = mapper.writeValueAsBytes(obj);              // 字节流，无需指定
+String json = mapper.writeValueAsString(obj);              // 已是 String
+```
+
+真正需要小心的是**绕过 Jackson 直接拼字节**的路径，比如手工拼 `"Content-Type: application/json;charset=UTF-8"` 却没把请求体编码对。
+
+### BOM 与源文件编码
+
+**BOM**（字节序标记）是文件开头的隐形字节，很多解析器会把 `ï»¿` 当成内容的一部分，导致第一个字段解析失败。Jackson 有开关可处理：
+
+```java
+mapper.enable(JsonParser.Feature.ALLOW_UNQUOTED_FIELD_NAMES);   // 另一个常见坑
+```
+
+关于 **Java 源文件编码**：Java 18 起（JEP 400）**默认按 UTF-8 读源文件**，此前是平台默认（中文 Windows 上是 GBK）。所以同一份代码在不同机器上编译行为可能不同——迁到 JDK 18+ 后这个坑自动消失，但老项目的构建脚本仍要留意。
+
 # 五、参考资料
 
 - [Java SE 22 API 文档](https://docs.oracle.com/en/java/javase/22/docs/api/) — `javax.xml.parsers`、`java.io` 等的完整契约；注意标准库不含 JSON API

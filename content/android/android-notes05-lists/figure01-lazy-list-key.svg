@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="840" height="400" viewBox="0 0 840 400" role="img" aria-labelledby="t d">
+  <title id="t">LazyColumn 的惰性测量与 key 的作用</title>
+  <desc id="d">LazyColumn 只测量可见区域加缓冲区，随滚动动态回收与创建；key 决定列表项的身份，缺失时状态会按位置复用而错位</desc>
+  <defs>
+    <style>
+      .hd   { font-family:'Microsoft YaHei','PingFang SC','Noto Sans SC',sans-serif; font-size:15px; font-weight:600; fill:#1f1f1f; }
+      .lbl  { font-family:'Microsoft YaHei','PingFang SC','Noto Sans SC',sans-serif; font-size:13px; fill:#1f1f1f; }
+      .code { font-family:Consolas,'Cascadia Mono',Menlo,monospace; font-size:12px; fill:#1f1f1f; }
+      .note { font-family:'Microsoft YaHei','PingFang SC','Noto Sans SC',sans-serif; font-size:11px; fill:#5a6572; }
+      .win  { fill:#f5f7fa; stroke:#c9d2dd; stroke-width:1.4; }
+      .vis  { fill:#eefaf0; stroke:#5cb87a; stroke-width:1.5; }
+      .buf  { fill:#eef4ff; stroke:#7aa5e8; stroke-width:1.5; }
+      .off  { fill:#ffffff; stroke:#dfe4ea; stroke-width:1.2; stroke-dasharray:4 3; }
+      .bad  { fill:#fdeeee; stroke:#d98b8b; stroke-width:1.4; }
+      .ok   { fill:#eefaf0; stroke:#5cb87a; stroke-width:1.4; }
+      .line { stroke:#7a8899; stroke-width:1.4; fill:none; }
+    </style>
+    <marker id="arw" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#7a8899"/>
+    </marker>
+  </defs>
+  <rect width="840" height="400" fill="#ffffff"/>
+  <text class="hd" x="16" y="24">LazyColumn：只测量看得见的那几项</text>
+
+  <!-- viewport -->
+  <rect class="win" x="16" y="40" width="180" height="250" rx="8"/>
+  <text class="note" x="24" y="34">屏幕可视区</text>
+
+  <rect class="buf" x="16" y="40" width="180" height="34" rx="0"/>
+  <text class="lbl" x="28" y="62">缓冲项（上方）</text>
+
+  <rect class="vis" x="16" y="74" width="180" height="90" rx="0"/>
+  <text class="lbl" x="28" y="100" font-weight="600">可见项 3</text>
+  <text class="lbl" x="28" y="126">可见项 4</text>
+  <text class="lbl" x="28" y="152">可见项 5</text>
+
+  <rect class="buf" x="16" y="164" width="180" height="34" rx="0"/>
+  <text class="lbl" x="28" y="186">缓冲项（下方）</text>
+
+  <rect class="off" x="16" y="198" width="180" height="92" rx="0"/>
+  <text class="note" x="28" y="222">未测量 · 未创建</text>
+  <text class="note" x="28" y="246">只有滚到这里才 measure</text>
+  <text class="note" x="28" y="270">滚走就回收</text>
+
+  <!-- 右侧说明 -->
+  <rect class="vis" x="224" y="40" width="290" height="110" rx="8"/>
+  <text class="lbl" x="240" y="64" font-weight="600">与 Column 的差别</text>
+  <text class="code" x="240" y="90">Column   { 1000 个子项 }</text>
+  <text class="note" x="240" y="112">全部 measure、全部占内存</text>
+  <text class="code" x="240" y="138">LazyColumn { 1000 个声明 }</text>
+  <text class="note" x="240" y="160">只有可见那几个是真实节点</text>
+
+  <rect class="buf" x="224" y="164" width="290" height="126" rx="8"/>
+  <text class="lbl" x="240" y="188" font-weight="600">为什么缓冲区不可省</text>
+  <text class="note" x="240" y="212">手指还没抬起，滚动已经开始。若上下不留缓冲，</text>
+  <text class="note" x="240" y="232">用户会看到「空白区」——那是来不及测量的部分。</text>
+  <text class="note" x="240" y="256">Compose 默认按视口尺寸的上下各留一段，</text>
+  <text class="note" x="240" y="276">可以按需调大，但别取消。</text>
+
+  <!-- key 说明 -->
+  <text class="hd" x="16" y="316">key 决定「身份」，缺了会错位</text>
+
+  <rect class="bad" x="16" y="328" width="400" height="60" rx="6"/>
+  <text class="code" x="30" y="350">items(list) { ... }</text>
+  <text class="note" x="30" y="372">按【位置】复用槽位 → 删掉第 1 项后，</text>
+  <text class="note" x="30" y="386">原第 2 项的展开状态会「跑到」第 1 项上</text>
+
+  <rect class="ok" x="436" y="328" width="388" height="60" rx="6"/>
+  <text class="code" x="450" y="350">items(list, key = { it.id }) { ... }</text>
+  <text class="note" x="450" y="372">按【身份】移动 → Compose 记得每一项是谁，</text>
+  <text class="note" x="450" y="386">插删排序后状态仍然跟着正确的项走</text>
+
+  <text class="note" x="16" y="396">何时必须给：列表会增删重排 / 子项有内部状态 / 项类型不唯一。仅追加且无状态时可省略以省开销。</text>
+</svg>

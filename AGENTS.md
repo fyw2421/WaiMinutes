@@ -172,7 +172,6 @@ git push origin develop
 | 下载类链接行为 | `layouts/_default/_markup/render-link.html` |
 | favicon、PWA manifest | `layouts/partials/favicons.html` |
 | 首页注入脚本 | `layouts/partials/extend-head-uncached.html` |
-| 面包屑（子专题页的返回入口） | `layouts/partials/breadcrumbs.html` |
 | 任何样式 | `assets/css/custom.css`（主题的 Tailwind 是预编译提交的，站点新类只能写这里） |
 | 工具清单 | `data/tools.yaml` |
 | 站点图标 | 改 `scripts/make-icons.py` 后重跑，**不要手改 `static/` 下的 PNG** |

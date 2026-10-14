@@ -206,7 +206,83 @@ public class Config {
 
 注意这个实现**在多线程下不安全**——两个线程可能同时通过 `instance == null` 检查。正确写法见《JavaNotes14 : 多线程》里的双重检查锁定。
 
-# 六、equals 与 hashCode
+# 六、作用域
+
+## (一) 四种作用域
+
+| 名称 | 声明位置 | 可见范围 | 生命周期 |
+| --- | --- | --- | --- |
+| 局部变量 | 方法/构造器/代码块内 | **所在的 `{ }` 块内**，出块即失效 | 每次进入块时创建 |
+| 成员变量（实例字段） | 类里、不带 `static` | **该类的所有实例**上 | 随对象创建到回收 |
+| 静态字段 | 类里、带 `static` | **整个类**（单例，全类共享一份） | 类加载到卸载 |
+| 类 | 类声明 | 所在**包**内的所有类 | 同类加载期 |
+
+后两种常被忽略：`static` 字段是**全类一份**，实例字段才是**每个对象一份**——这是上一节 `Counter` 里 `total` 与 `count` 的区别。
+
+## (二) 块级作用域
+
+局部变量的边界是**代码块**，不是方法：
+
+```java
+void run() {
+    int x = 1;
+    if (true) {
+        int y = 2;
+        System.out.println(x + y);   // OK：x 在外层，y 在本层
+    }
+    // System.out.println(y);        // 编译错误：y 已出块，不可见
+}
+```
+
+`for` 循环的变量同样只在循环体内有效，这是经典面试题：
+
+```java
+for (int i = 0; i < 3; i++) { }
+// System.out.println(i);     // 编译错误：i 的作用域就是那个 for 块
+
+int j = 0;
+for (; j < 3; j++) { }
+System.out.println(j);         // 3：把 j 声明在外面才能带出来
+```
+
+## (三) 遮蔽（shadowing）
+
+局部变量与同名字段**重名**时，方法内指的是局部变量——字段被"遮住"了：
+
+```java
+class User {
+    private String name = "字段";      // 实例字段
+
+    void run(String name) {            // 局部变量同名
+        System.out.println(name);      // 输出"局部变量"，不是"字段"
+        System.out.println(this.name);// ★要明确用 this 取字段
+    }
+}
+```
+
+两种情况：
+
+- **局部遮蔽成员变量**：如上，加 `this.` 即可访问字段。`static` 方法里没有 `this`，只能遮蔽静态字段
+- **子类遮蔽父类字段**：两者**同时存在、互不影响**，`super.name` 访问父类的
+
+## (四) 类的作用域与 import
+
+类名本身也在作用域里，这决定了 `import` 怎么写：
+
+```java
+// 同包内的类：直接写类名，不用 import
+public class Main {
+    void use(User u) { }              // User 与 Main 同包
+}
+
+// 不同包的类：必须 import，或写全限定名
+import com.example.model.User;        // 导入后写 User
+// com.example.model.User u;         // 或者不 import，直接写全名
+```
+
+`import` **不是**"把类复制进来"，只是给编译器一个**名字到类型的映射**，让短名可用。同一个包里多余的 `import` 完全没必要，写了也只是噪音。
+
+# 七、equals 与 hashCode
 
 这是最容易出错的一对方法，必须一起重写。
 
@@ -233,7 +309,7 @@ public int hashCode() {
 
 **只重写 `equals` 不重写 `hashCode`** 是最常见的错误——对象放进 `HashSet` 后就再也 `contains` 不到自己。
 
-# 七、包装类型
+# 八、包装类型
 
 八个基本类型各有对应的包装类，用于泛型、集合等引用类型场景。
 
@@ -279,7 +355,7 @@ Integer b = null;
 
 拆箱 null 会抛 `NullPointerException`，这是集合遍历里非常隐蔽的崩溃来源。
 
-# 八、内部类
+# 九、内部类
 
 ```java
 public class Outer {
@@ -309,7 +385,7 @@ public class Outer {
 
 需要持有外部状态用成员内部类/匿名类；只是把一段逻辑封装成类型用静态嵌套类。
 
-# 九、参考资料
+# 十、参考资料
 
 - [Java 官方教程：面向对象](https://docs.oracle.com/javase/tutorial/java/language_basics/objects.html) — 类、对象、继承的官方说明
 - [Java 语言规范 JLS（SE 22）](https://docs.oracle.com/javase/specs/jls/se22/html/index.html) — 第 8 章「Types and Inheritance」、第 15.20.2 节 `instanceof` 的模式匹配形式
