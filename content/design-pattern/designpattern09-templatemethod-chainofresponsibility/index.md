@@ -1,6 +1,6 @@
 ---
 title: "Design Pattern09 : Behavioral4-4"
-weight: 9
+weight: 10
 description: "Template-Method-Pattern Chain-of-Responsibility-Pattern"
 date: 2018-05-28
 tags: ["Design Pattern"]

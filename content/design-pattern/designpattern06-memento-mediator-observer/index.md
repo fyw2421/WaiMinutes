@@ -1,6 +1,6 @@
 ---
 title: "Design Pattern06 : Behavioral4-1"
-weight: 6
+weight: 7
 description: "Memento-Pattern Mediator-Pattern Observer-Pattern"
 date: 2018-05-28
 tags: ["Design Pattern"]

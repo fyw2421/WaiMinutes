@@ -1,6 +1,6 @@
 ---
 title: "Design Pattern02 : Creational2-1"
-weight: 2
+weight: 3
 description: "Simple-Factory-Pattern Factory-Method-Pattern Abstract-Factory-Pattern"
 date: 2018-05-28
 tags: ["Design Pattern"]

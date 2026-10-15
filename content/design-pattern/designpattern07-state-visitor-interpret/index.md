@@ -1,6 +1,6 @@
 ---
 title: "Design Pattern07 : Behavioral4-2"
-weight: 7
+weight: 8
 description: "State-Pattern Visitor-Pattern Interpreter-Pattern"
 date: 2018-05-28
 tags: ["Design Pattern"]

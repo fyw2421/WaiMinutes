@@ -1,6 +1,6 @@
 ---
 title: "Design Pattern01 : Summarize"
-weight: 1
+weight: 2
 description: "Design Principles And Pattern Types"
 date: 2018-05-28
 tags: ["Design Pattern"]

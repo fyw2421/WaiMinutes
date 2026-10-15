@@ -1,6 +1,6 @@
 ---
 title: "Design Pattern05 : Structural2-2"
-weight: 5
+weight: 6
 description: "Composite-Pattern Decorator-Pattern Flyweight-Pattern Proxy-Pattern"
 date: 2018-05-28
 tags: ["Design Pattern"]

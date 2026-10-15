@@ -1,6 +1,6 @@
 ---
 title: "Design Pattern08 : Behavioral4-3"
-weight: 8
+weight: 9
 description: "Iterator-Pattern Strategy-Pattern Command-Pattern"
 date: 2018-05-28
 tags: ["Design Pattern"]
