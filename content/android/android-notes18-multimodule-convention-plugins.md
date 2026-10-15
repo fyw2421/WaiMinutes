@@ -1,6 +1,6 @@
 ---
 title: "AndroidNotes18 : 多模块与约定插件"
-weight: 18
+weight: 19
 description: "Android 项目多模块化最佳实践：按功能拆分、依赖方向管理、版本集中管理、约定插件编写、发布插件应用以及 Gradle 配置技巧，提升构建速度和团队协作效率。"
 featureimage: "covers/android-engineering.svg"
 date: 2026-10-14

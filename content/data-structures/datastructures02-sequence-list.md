@@ -1,6 +1,6 @@
 ---
 title: "Data Structures02 : Sequence List"
-weight: 2
+weight: 3
 description: "顺序表的存储结构、基本操作与 C++ 实现"
 date: 2026-09-24
 tags: ["Data Structure"]

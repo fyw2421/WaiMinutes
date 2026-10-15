@@ -1,6 +1,6 @@
 ---
 title: "十一、变量声明"
-weight: 11
+weight: 12
 description: "本章介绍 变量声明。"
 date: 2026-09-28
 tags: ["TypeScript"]

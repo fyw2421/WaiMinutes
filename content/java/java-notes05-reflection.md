@@ -1,6 +1,6 @@
 ---
 title: "JavaNotes05 : 反射"
-weight: 5
+weight: 6
 description: "Class 类的本质、获取 Class 对象、访问字段与方法、构造对象、动态代理的实现原理，以及反射的性能代价与适用边界。"
 featureimage: "covers/java-basics.svg"
 date: 2026-10-13

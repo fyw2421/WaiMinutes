@@ -1,6 +1,6 @@
 ---
 title: "JavaNotes13 : 加密与安全"
-weight: 13
+weight: 14
 description: "摘要与加密的区别、常用加密算法选型、密码存储的正确做法、随机数与安全随机、TLS 与消息摘要的应用，以及 Java 安全类库中容易误用的地方。"
 featureimage: "covers/java-advanced.svg"
 date: 2026-10-13

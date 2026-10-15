@@ -1,6 +1,6 @@
 ---
 title: "AndroidNotes17 : 依赖注入 Hilt"
-weight: 17
+weight: 18
 description: "Hilt 在 Android 中的完整用法：依赖图与作用域、限定符绑定 Dispatcher、@HiltViewModel 与 hiltViewModel、自定义组件与@EntryPoint、模块拆分与 KSP 迁移，以及 Field Injection 与构造注入的取舍和常见编译错误。"
 featureimage: "covers/android-engineering.svg"
 date: 2026-10-13

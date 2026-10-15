@@ -1,6 +1,6 @@
 ---
 title: "JavaNotes19 : 函数式编程"
-weight: 19
+weight: 20
 description: "Lambda 与函数式接口、方法引用四种形式、Optional 的正确用法、Stream 的惰性求值与操作分类、Collectors 收集器、并行流的陷阱，以及何时不该用函数式。"
 featureimage: "covers/java-practice.svg"
 date: 2026-10-13

@@ -1,6 +1,6 @@
 ---
 title: "Design Pattern03 : Creational2-2"
-weight: 3
+weight: 4
 description: "Builder-Pattern Prototype-Pattern Singleton-Pattern"
 date: 2018-05-28
 tags: ["Design Pattern"]

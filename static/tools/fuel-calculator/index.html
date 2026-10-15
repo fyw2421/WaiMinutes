@@ -290,10 +290,10 @@
             vertical-align: middle;
             box-shadow: 0 1px 3px rgba(13,148,136,0.2);
             transition: background 0.15s, box-shadow 0.15s;
+            /* 可点区 45px 高。向上只扩 8px：.price-table 有 overflow:hidden，
+               再往上会被裁掉。 */
+            position: relative;
         }
-        /* 可点区 45px 高。向上只扩 8px：.price-table 有 overflow:hidden，
-           再往上会被裁掉。 */
-        .history-btn { position: relative; }
         .history-btn::after { content: ""; position: absolute; inset: -8px -5px; }
         .history-btn:hover { background: #0f766e; box-shadow: 0 2px 6px rgba(13,148,136,0.3); }
         .history-btn:active { background: #0f5c52; }
@@ -480,7 +480,7 @@
     </div>
 
     <div class="cal-mask" id="calMask">
-        <div class="cal-box">
+        <div class="cal-box" role="dialog" aria-modal="true" aria-labelledby="calTitle">
             <div class="cal-head">
                 <button type="button" class="cal-nav" id="calPrev" aria-label="上一个月">‹</button>
                 <span class="cal-title" id="calTitle"></span>
@@ -499,8 +499,7 @@
 
     <script>
 let tankCapacity = 68;
-let mode = 'amount';
-const gaugePercent = document.getElementById('gaugePercent');
+        const gaugePercent = document.getElementById('gaugePercent');
 const gaugeDetail = document.getElementById('gaugeDetail');
 const gaugeLiters = document.getElementById('gaugeLiters');
 const tankInput = document.getElementById('tankCapacity');
@@ -509,6 +508,22 @@ const dateBadge = document.getElementById('dateBadge');
 const dateText = dateBadge.querySelector('.date-text');
 let adjustSchedule = new Set();
 let selectedDate = null;
+
+// 今日油价（xxapi）与下轮预测（apizero）是两条独立请求，谁先到不确定；
+// 而预测行要用到今日油价（从 priceNow 的文本读）。预测先到就只能显示「待公布」，
+// 原先没有任何地方在油价落地后补渲染，于是两个接口都成功却显示「待公布」。
+// 这里缓存预测 payload，油价落地后补渲染一次。
+let latestForecast = null;
+// 用户手动改过油价后，接口回填不再覆盖——fetchJSON 最坏要 8s 超时 ×3 次重试
+// + 指数退避，期间手输的值不能被迟到的响应抹掉。
+let oilPriceTouched = false;
+// 调价窗口按年份缓存：日历能翻到任意年，但没必要一次全拉，翻回去也不再发请求。
+let scheduleCacheByYear = new Map();
+// 未完成的加载请求数。CSS 里 .price-table.loading 会同时给「今日」和「下轮」
+// 两行上 shimmer，所以任一未完成都得保持 loading——原先只等 schedule 那条，
+// 会出现今日行数据还没到、闪烁却先停了。
+let pendingLoads = 0;
+
 const WEEKDAYS = ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'];
 
         // ====================================================================
@@ -569,15 +584,9 @@ const WEEKDAYS = ['星期日', '星期一', '星期二', '星期三', '星期四
             function attempt() {
                 let controller = new AbortController();
                 let timeoutId = setTimeout(function() { controller.abort(); }, timeoutMs);
-                let response;
-                try {
-                    response = fetch(url, { cache: 'no-store', signal: controller.signal });
-                } catch (err) {
-                    clearTimeout(timeoutId);
-                    if (retryCount < maxRetries) return retryLater('network');
-                    throw err;
-                }
-                return response.then(function(res) {
+                // fetch 对合法 URL 不会同步抛错，只会返回 rejected promise，
+                // 所以这里不需要 try/catch；失败统一由末尾的 .catch 处理。
+                return fetch(url, { cache: 'no-store', signal: controller.signal }).then(function(res) {
                     if (res.status === 429) return retryLater('HTTP 429');
                     return res.json().then(function(json) {
                         if (isThrottled(json)) return retryLater('code ' + json.code);
@@ -634,7 +643,10 @@ const WEEKDAYS = ['星期日', '星期一', '星期二', '星期三', '星期四
             if (!p95) return false;
             let priceText = p95.toFixed(2);
 
-            document.getElementById('oilPrice').value = priceText;
+            // 用户手动改过油价就不要再回填，否则迟到的响应会抹掉正在输入的值
+            if (!oilPriceTouched) {
+                document.getElementById('oilPrice').value = priceText;
+            }
             document.getElementById('priceNow').textContent = priceText;
             let now = new Date();
             document.getElementById('priceDate').textContent =
@@ -651,13 +663,16 @@ const WEEKDAYS = ['星期日', '星期一', '星期二', '星期三', '星期四
                 diffEl.textContent = '';
                 diffEl.className = 'price-diff clickable';
             }
+
+            // 预测早就到了、只是当时 priceNow 还是 '--'：现在补渲染一次
+            if (latestForecast) renderNextFromForecast(latestForecast);
             return true;
         }
 
         // Clicking 今日's change value opens a search for today's price, matching
         // what openDetail() does for the next-round prediction.
         function openTodayDetail() {
-            window.open('https://www.baidu.com/s?wd=长沙95号汽油今日油价', '_blank');
+            window.open('https://www.baidu.com/s?wd=长沙95号汽油今日油价', '_blank', 'noopener');
         }
 
         function parseYMD(str) {
@@ -701,7 +716,16 @@ const WEEKDAYS = ['星期日', '星期一', '星期二', '星期三', '星期四
             }
 
             let parts = d.next_adjust_date.split('-');
-            if (parts.length < 3) return;
+            if (parts.length < 3) {
+                // 与上面两个错误分支保持一致：整行重置。只return 会留下
+                // 上一次的旧值，pageshow 重入时就会显示脏数据。
+                dateEl.textContent = '--';
+                weekEl.textContent = '';
+                priceEl.textContent = '--';
+                diffEl.textContent = '';
+                return;
+            }
+
             let eff = effectiveDate(d.next_adjust_date);
             let curYear = new Date().getFullYear();
             let fullDate = (eff.getFullYear() !== curYear ? eff.getFullYear() + '-' : '') + formatMD(eff);
@@ -719,8 +743,8 @@ const WEEKDAYS = ['星期日', '星期一', '星期二', '星期三', '星期四
                 return;
             }
 
-            let change = d.prediction.estimated_change_per_liter;
-            if (change === null || isNaN(change)) {
+            let change = resolveChange(d.prediction);
+            if (change === null) {
                 priceEl.textContent = '--';
                 diffEl.textContent = '待公布';
                 return;
@@ -733,13 +757,53 @@ const WEEKDAYS = ['星期日', '星期一', '星期二', '星期三', '星期四
             diffEl.className = 'price-diff clickable' + (change > 0 ? ' up' : (change < 0 ? ' down' : ''));
         }
 
+        // ★符号必须从 per_ton（或 direction）取，不能直接用 estimated_change_per_liter。
+        //
+        // 接口这几个字段是互相矛盾的——实测某次返回：
+        //     direction: "下跌"  per_ton: -456  analysis: "预计下调"
+        //     per_liter: +0.338              ← 符号丢了（取了绝对值）
+        // 幅度 0.338 = 456 / 1350 是对的，只有符号错。而原实现只用 per_liter，
+        // 于是把「下调 456 元/吨」显示成「上调 0.34 元/升」，反了整整一轮。
+        //
+        // 这里保留 per_liter 的幅度（沿用数据源自己的吨/升换算系数，不另立标准），
+        // 只把符号换成 per_ton 的；per_ton 缺失时退回 direction 字段。
+        function resolveChange(pred) {
+            if (!pred) return null;
+
+            const perLiter = Number(pred.estimated_change_per_liter);
+            const perTon = Number(pred.estimated_change_per_ton);
+
+            let sign = null;
+            if (!isNaN(perTon) && perTon !== 0) {
+                sign = Math.sign(perTon);
+            } else if (typeof pred.direction === 'string') {
+                if (pred.direction.indexOf('跌') >= 0) sign = -1;
+                else if (pred.direction.indexOf('涨') >= 0) sign = 1;
+            }
+
+            if (sign === null) {
+                // 两个符号来源都不可用，只能信per_liter 本身
+                return isNaN(perLiter) ? null : perLiter;
+            }
+            if (isNaN(perLiter)) {
+                // 有方向但没幅度：用吨数换算（汽油约 1350 升/吨）
+                return sign * Math.round(perTon / 1350 * 100) / 100;
+            }
+            return sign * Math.abs(perLiter);
+        }
+
         // 调价日历的窗口日期取自 apizero 的 schedule 接口 —— 这部分它是准的，
         // 已与新浪财经 / 央视公布的 2026 全年窗口日历核对一致。
-        function loadAdjustSchedule() {
-            let year = new Date().getFullYear();
-            let priceTable = document.getElementById('priceTable');
+        function loadAdjustSchedule(year) {
+            let targetYear = year || new Date().getFullYear();
 
-            return apizeroJSON('https://v1.apizero.cn/api/oil-price-forecast?action=schedule&year=' + year)
+            // 已经拉过就直接回填缓存，翻回旧年份不再发请求
+            if (scheduleCacheByYear.has(targetYear)) {
+                scheduleCacheByYear.get(targetYear).forEach(function(d) { adjustSchedule.add(d); });
+                return Promise.resolve();
+            }
+
+            return apizeroJSON('https://v1.apizero.cn/api/oil-price-forecast?action=schedule&year=' + targetYear)
                 .then(function(sj) {
                     if (sj && sj.code === 0 && sj.data && sj.data.schedule) {
                         let shifted = sj.data.schedule.map(function(item) {
@@ -749,6 +813,7 @@ const WEEKDAYS = ['星期日', '星期一', '星期二', '星期三', '星期四
                                 String(d.getMonth() + 1).padStart(2, '0') + '-' +
                                 String(d.getDate()).padStart(2, '0');
                         });
+                        scheduleCacheByYear.set(targetYear, shifted);
                         shifted.forEach(function(d) { adjustSchedule.add(d); });
                         if (document.getElementById('calMask').classList.contains('show')) {
                             renderCalendar();
@@ -757,14 +822,25 @@ const WEEKDAYS = ['星期日', '星期一', '星期二', '星期三', '星期四
                         console.warn('schedule api unexpected', sj);
                     }
                 })
-                .catch(function(err) { console.error('调价日历获取失败:', err); })
-                .finally(function() {
-                    if (priceTable) priceTable.classList.remove('loading');
-                });
+                .catch(function(err) { console.error('调价日历获取失败:', err); });
+        }
+
+        // 加载态由「今日油价」和「下轮预测」两条请求共同决定——CSS 的 shimmer
+        // 覆盖了表里两行的全部字段，任一未完成就必须保持 loading。
+        function beginLoad() {
+            pendingLoads++;
+            document.getElementById('priceTable').classList.add('loading');
+        }
+        function endLoad() {
+            pendingLoads = Math.max(0, pendingLoads - 1);
+            if (pendingLoads === 0) {
+                document.getElementById('priceTable').classList.remove('loading');
+            }
         }
 
         // 今日油价 + 下轮预测，全部从 API 自动获取，无需手动维护。
         function fetchOilPrice() {
+            beginLoad();
             fetchJSON('https://v2.xxapi.cn/api/oilPrice')
                 .then(function(json) {
                     applyTodayPrice(json);
@@ -778,15 +854,21 @@ const WEEKDAYS = ['星期日', '星期一', '星期二', '星期三', '星期四
                         diffEl.textContent = '加载失败';
                         diffEl.className = 'price-diff clickable';
                     }
-                });
+                })
+                .finally(endLoad);
 
+            beginLoad();
             apizeroJSON('https://v1.apizero.cn/api/oil-price-forecast?action=forecast&province=%E6%B9%96%E5%8D%97')
                 .then(function(json) {
+                    // 先缓存再渲染：若此刻 priceNow 还是 '--'，applyTodayPrice
+                    // 完成后会拿这份数据补渲染一次，两种到达顺序都能显示预测值。
+                    latestForecast = json;
                     renderNextFromForecast(json);
                 })
                 .catch(function(err) {
                     console.error('下轮油价获取失败:', err);
-                });
+                })
+                .finally(endLoad);
         }
 
         function useNowPrice() {
@@ -798,7 +880,7 @@ const WEEKDAYS = ['星期日', '星期一', '星期二', '星期三', '星期四
         }
 
         function openDetail() {
-            window.open('https://www.baidu.com/s?wd=下一轮国内成品油油价调整', '_blank');
+            window.open('https://www.baidu.com/s?wd=下一轮国内成品油油价调整', '_blank', 'noopener');
         }
 
         function getMode() {
@@ -806,7 +888,6 @@ const WEEKDAYS = ['星期日', '星期一', '星期二', '星期三', '星期四
         }
 
         function setMode(newMode) {
-            mode = newMode;
             const label = document.getElementById('fuelLabel');
             const affix = document.getElementById('fuelAffix');
             const input = document.getElementById('fuelValue');
@@ -834,15 +915,10 @@ const WEEKDAYS = ['星期日', '星期一', '星期二', '星期三', '星期四
                 quickRow.style.display = 'flex';
                 percentRow.style.display = 'none';
             }
-            const ref = getRefPrice();
-            if (ref && ref !== '--' && !isNaN(parseFloat(ref))) {
-                document.getElementById('oilPrice').value = ref;
-            }
+            // 原先这里会用 priceNow 把油价重置成接口值，但工具本来就提供了手动输入、
+            // 清除按钮和「当前油价」按钮，手动覆盖是设计内的。切换模式静默抹掉它、
+            // 又没有任何提示和撤销入口，已移除。需要取回接口价请点「当前油价」。
             resetGauge();
-        }
-
-        function getRefPrice() {
-            return document.getElementById('priceNow').textContent.trim();
         }
 
         function updateTankCapacity() {
@@ -924,7 +1000,11 @@ const WEEKDAYS = ['星期日', '星期一', '星期二', '星期三', '星期四
             gaugeDetail.classList.remove('show');
         }
 
-        document.getElementById('oilPrice').addEventListener('input', handleInput);
+        // 手动改过油价就打标记，之后接口回填不再覆盖这个值
+        document.getElementById('oilPrice').addEventListener('input', function() {
+            oilPriceTouched = true;
+            handleInput();
+        });
         document.getElementById('fuelValue').addEventListener('input', handleInput);
         tankInput.addEventListener('input', function() { updateTankCapacity(); handleInput(); });
         // 0 / 负数 / 空 / 非法输入都会被 updateTankCapacity 兜底成 68，但它不回写输入框，
@@ -956,6 +1036,9 @@ const WEEKDAYS = ['星期日', '星期一', '星期二', '星期三', '星期四
         }
 
         document.getElementById('clearOilPrice').addEventListener('click', function() {
+            // 手动清空也算用户动作：value 是程序赋值的不会触发 input 事件，
+            // 得在这里补上标记，否则迟到的响应会把价格填回去。
+            oilPriceTouched = true;
             document.getElementById('oilPrice').value = '';
             handleInput();
         });
@@ -976,12 +1059,22 @@ const WEEKDAYS = ['星期日', '星期一', '星期二', '星期三', '星期四
         document.getElementById('modePercent').addEventListener('click', function() { setMode('percent'); });
 
         let calYear, calMonth;
+        // 打开日历前的焦点元素，关闭后还回去（无障碍基本要求）
+        let lastFocusedBeforeCal = null;
         function getToday() {
             return new Date();
         }
 
+        // 日历翻到哪年，就确保那年的调价窗口已加载；已缓存的直接命中，不重复发请求。
+        // renderCalendar 每次导航都会调用，而 loadAdjustSchedule 成功回调里又会
+        // 调 renderCalendar —— 因为 set 发生在回调之前，这里不会形成递归。
+        function ensureScheduleFor(year) {
+            if (!scheduleCacheByYear.has(year)) loadAdjustSchedule(year);
+        }
+
         function renderCalendar() {
             let today = getToday();
+            ensureScheduleFor(calYear);
             document.getElementById('calTitle').textContent = calYear + '年' + (calMonth + 1) + '月';
             let first = new Date(calYear, calMonth, 1).getDay();
             let total = new Date(calYear, calMonth + 1, 0).getDate();
@@ -1012,7 +1105,7 @@ const WEEKDAYS = ['星期日', '星期一', '星期二', '星期三', '星期四
             let m = d.getMonth() + 1;
             let dd = d.getDate();
             dateText.textContent = m + '月' + dd + '日';
-            document.getElementById('calMask').classList.remove('show');
+            closeCalendar();
         }
 
         function openCalendar() {
@@ -1024,7 +1117,21 @@ const WEEKDAYS = ['星期日', '星期一', '星期二', '星期三', '星期四
                 calMonth = getToday().getMonth();
             }
             renderCalendar();
+            lastFocusedBeforeCal = document.activeElement;
             document.getElementById('calMask').classList.add('show');
+            // 焦点移进对话框。否则 Tab 会跑到背后的卡片上，键盘用户等于没打开弹窗。
+            document.getElementById('calClose').focus();
+        }
+
+        // 关闭统一走这里：移除类 + 把焦点还给触发元素（Esc、点遮罩、× 三条路径共用）
+        function closeCalendar() {
+            const mask = document.getElementById('calMask');
+            if (!mask.classList.contains('show')) return;
+            mask.classList.remove('show');
+            if (lastFocusedBeforeCal && document.contains(lastFocusedBeforeCal)) {
+                lastFocusedBeforeCal.focus();
+            }
+            lastFocusedBeforeCal = null;
         }
 
         document.getElementById('calPrev').addEventListener('click', function() {
@@ -1037,9 +1144,7 @@ const WEEKDAYS = ['星期日', '星期一', '星期二', '星期三', '星期四
             if (calMonth > 11) { calMonth = 0; calYear++; }
             renderCalendar();
         });
-        document.getElementById('calClose').addEventListener('click', function() {
-            document.getElementById('calMask').classList.remove('show');
-        });
+        document.getElementById('calClose').addEventListener('click', closeCalendar);
         document.getElementById('calToday').addEventListener('click', function() {
             calYear = getToday().getFullYear();
             calMonth = getToday().getMonth();
@@ -1050,17 +1155,32 @@ const WEEKDAYS = ['星期日', '星期一', '星期二', '星期三', '星期四
             if (span) selectDate(parseInt(span.getAttribute('data-day')));
         });
         document.getElementById('calMask').addEventListener('click', function(e) {
-            if (e.target === this) document.getElementById('calMask').classList.remove('show');
+            if (e.target === this) closeCalendar();
+        });
+        // 焦点陷阱：对话框打开时 Tab 应在框内循环，不该跑到背后的卡片上
+        document.getElementById('calMask').addEventListener('keydown', function(e) {
+            if (e.key !== 'Tab') return;
+            const focusables = this.querySelectorAll('button');
+            if (!focusables.length) return;
+            const first = focusables[0];
+            const last = focusables[focusables.length - 1];
+            if (e.shiftKey && document.activeElement === first) {
+                e.preventDefault();
+                last.focus();
+            } else if (!e.shiftKey && document.activeElement === last) {
+                e.preventDefault();
+                first.focus();
+            }
         });
 
         document.getElementById('priceDiff').addEventListener('click', openDetail);
         document.getElementById('priceNowDiff').addEventListener('click', openTodayDetail);
         document.getElementById('historyBtn').addEventListener('click', function() {
-            window.open('https://www.baidu.com/s?wd=长沙95号汽油历史油价', '_blank');
+            window.open('https://www.baidu.com/s?wd=长沙95号汽油历史油价', '_blank', 'noopener');
         });
         document.addEventListener('keydown', function(e) {
             if (e.key === 'Escape') {
-                document.getElementById('calMask').classList.remove('show');
+                closeCalendar();
                 return;
             }
             if (e.key === 'Enter' || e.key === ' ') {
@@ -1072,12 +1192,12 @@ const WEEKDAYS = ['星期日', '星期一', '星期二', '星期三', '星期四
             }
         });
         // 优先读取同级文件（static/tools/fuel-calculator/VERSION），保证与发版号一致；
-        // 静态托管可能取不到（路径/离线），此时回退到哨兵值 V1.0.0 ——
-        // 页脚显示 V1.0.0 即代表读取失败，便于排查。
+        // 静态托管可能取不到（路径/离线），此时**显式标注读取失败**。
+        // 原先的哨兵值 'V1.0.0' 不可靠——真出现 VERSION=1.0.0 时就与失败态无法分辨。
         function loadVersion() {
             let el = document.getElementById('versionDisplay');
-            let fallback = 'V1.0.0';
-            el.textContent = fallback;
+            el.textContent = 'V?';
+            let failed = 'V?（版本号读取失败）';
 
             let path = new URL('VERSION', window.location.href).href;
 
@@ -1085,9 +1205,9 @@ const WEEKDAYS = ['星期日', '星期一', '星期二', '星期三', '星期四
                 .then(function(res) { return res.ok ? res.text() : null; })
                 .then(function(text) {
                     let v = text ? text.trim() : '';
-                    if (v) el.textContent = 'V' + v;
+                    el.textContent = v ? 'V' + v : failed;
                 })
-                .catch(function() { el.textContent = fallback; });
+                .catch(function() { el.textContent = failed; });
         }
 
         updateTankCapacity();
@@ -1100,22 +1220,21 @@ const WEEKDAYS = ['星期日', '星期一', '星期二', '星期三', '星期四
 
         window.addEventListener('pageshow', function(e) {
             if (e.persisted) {
-                mode = 'amount';
+                // 从 bfcache 恢复：状态全部回到初始值再重新拉数据。
+                // 注意 mode 变量已删除（真正生效的是 getMode() 读的 DOM class），
+                // 下面用 setMode('amount') 统一复位，别再单独维护第二份状态。
                 tankCapacity = 68;
                 selectedDate = null;
                 calYear = getToday().getFullYear();
                 calMonth = getToday().getMonth();
                 adjustSchedule = new Set();
+                scheduleCacheByYear = new Map();   // 缓存是旧的，必须一并清掉
+                latestForecast = null;
+                oilPriceTouched = false;
+                pendingLoads = 0;
                 apizeroQueue = Promise.resolve();
                 tankInput.value = '68';
-                document.getElementById('fuelLabel').textContent = '加油金额';
-                document.getElementById('fuelAffix').textContent = '元';
-                document.getElementById('fuelValue').placeholder = '0.00';
-                document.getElementById('fuelValue').value = '';
-                document.getElementById('modeAmount').classList.add('active');
-                document.getElementById('modePercent').classList.remove('active');
-                document.getElementById('quickRow').style.display = 'flex';
-                document.getElementById('percentRow').style.display = 'none';
+                setMode('amount');
                 dateText.textContent = formatDate();
                 loadVersion();
                 resetGauge();

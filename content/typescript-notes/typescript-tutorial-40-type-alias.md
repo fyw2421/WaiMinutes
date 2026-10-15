@@ -1,6 +1,6 @@
 ---
 title: "四十、type 别名"
-weight: 40
+weight: 41
 description: "本章介绍 type 别名。"
 date: 2026-09-28
 tags: ["TypeScript"]

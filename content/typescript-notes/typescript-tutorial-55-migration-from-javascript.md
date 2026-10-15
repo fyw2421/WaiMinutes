@@ -1,6 +1,6 @@
 ---
 title: "五十五、从 JavaScript 迁移"
-weight: 55
+weight: 56
 description: "本章介绍 从 JavaScript 迁移。"
 date: 2026-09-28
 tags: ["TypeScript"]

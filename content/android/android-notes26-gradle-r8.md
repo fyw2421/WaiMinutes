@@ -1,6 +1,6 @@
 ---
 title: "AndroidNotes26 : Gradle 构建与 R8"
-weight: 26
+weight: 27
 description: "Android Gradle 构建系统与 R8 优化器的深入使用：构建流程分析、依赖管理、版本目录、构建变种、签名配置、R8 压缩与混淆、构建性能优化、缓存策略以及自定义插件开发。"
 featureimage: "covers/android-engineering.svg"
 date: 2026-10-14

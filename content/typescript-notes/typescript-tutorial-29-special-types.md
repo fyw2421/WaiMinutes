@@ -1,6 +1,6 @@
 ---
 title: "二十九、特殊类型"
-weight: 29
+weight: 30
 description: "本章介绍 特殊类型。"
 date: 2026-09-28
 tags: ["TypeScript"]

@@ -1,6 +1,6 @@
 ---
 title: "JavaNotes15 : Maven 基础"
-weight: 15
+weight: 16
 description: "Maven 的坐标与仓库机制、pom.xml 各元素的作用、依赖的传递与冲突解决、生命周期与插件、常用命令、多模块工程，以及 Gradle 的差异。"
 featureimage: "covers/java-practice.svg"
 date: 2026-10-13

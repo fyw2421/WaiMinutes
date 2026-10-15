@@ -1,8 +1,8 @@
 ---
 title: "AndroidNotes24 : 权限与安全"
-weight: 24
+weight: 25
 description: "Android 权限系统与安全最佳实践：运行时权限申请流程、权限组与使用说明、敏感权限处理、签名与加密、网络安全、组件安全、数据存储安全以及与现代架构的协同使用。"
-featureimage: "covers/android-system.svg"
+featureimage: "covers/android-engineering.svg"
 date: 2026-10-14
 tags: ["Android"]
 ---

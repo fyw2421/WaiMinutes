@@ -1,6 +1,6 @@
 ---
 title: "JavaNotes10 : 日期与时间"
-weight: 10
+weight: 11
 description: "java.time 体系的设计动机、LocalDateTime 与 ZonedDateTime、Instant 与时间戳、DateTimeFormatter 格式化，以及时区与夏令时的正确处理。"
 featureimage: "covers/java-advanced.svg"
 date: 2026-10-13

@@ -1,6 +1,6 @@
 ---
 title: "四十二、抽象类"
-weight: 42
+weight: 43
 description: "本章介绍 抽象类。"
 date: 2026-09-28
 tags: ["TypeScript"]

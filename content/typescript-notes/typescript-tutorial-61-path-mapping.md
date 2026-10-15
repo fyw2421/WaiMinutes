@@ -1,6 +1,6 @@
 ---
 title: "六十一、路径映射"
-weight: 61
+weight: 62
 description: "本章介绍 路径映射。"
 date: 2026-09-28
 tags: ["TypeScript"]

@@ -1,6 +1,6 @@
 ---
 title: "四十六、类型守卫"
-weight: 46
+weight: 47
 description: "本章介绍 类型守卫。"
 date: 2026-09-28
 tags: ["TypeScript"]

@@ -1,6 +1,6 @@
 ---
 title: "AndroidNotes15 : 协程与 Flow"
-weight: 15
+weight: 16
 description: "Android 侧的协程与 Flow：Dispatchers 注入与作用域选择、collectAsStateWithLifecycle 的正确用法、stateIn 与 shareIn 的语义差异与参数选择、Flow 的异常处理与重试、并发原语 Mutex 与 Flow 的背压，以及协程测试的调度控制。"
 featureimage: "covers/android-engineering.svg"
 date: 2026-10-13

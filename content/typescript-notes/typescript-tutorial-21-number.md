@@ -1,6 +1,6 @@
 ---
 title: "二十一、Number"
-weight: 21
+weight: 22
 description: "本章介绍 Number。"
 date: 2026-09-28
 tags: ["TypeScript"]

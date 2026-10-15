@@ -1,6 +1,6 @@
 ---
 title: "JavaNotes02 : 快速入门"
-weight: 2
+weight: 3
 description: "开发环境搭建、第一个程序、程序结构、八种基本类型与类型转换、字符串、流程控制、数组操作与命令行参数，含完整可运行示例。"
 featureimage: "covers/java-basics.svg"
 date: 2026-10-13

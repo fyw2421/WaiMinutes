@@ -1,6 +1,6 @@
 ---
 title: "AndroidNotes12 : 自适应与大屏"
-weight: 12
+weight: 13
 description: "Compose 的自适应布局：window size class 的五档宽度断点与 currentWindowAdaptiveInfoV2、list-detail 与双栏导航、三种导航形态的自动切换、折叠屏姿态与铰链处理，以及响应式栅格与可拖拽窗口的适配要点。"
 featureimage: "covers/android-ui.svg"
 date: 2026-10-13

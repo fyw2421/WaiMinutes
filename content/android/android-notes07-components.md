@@ -1,6 +1,6 @@
 ---
 title: "AndroidNotes07 : 组件与交互"
-weight: 7
+weight: 8
 description: "Compose 常用组件与交互反馈：按钮与图标按钮、文本输入与表单校验、对话框与底部弹窗、Snackbar 与 FAB、下拉菜单与卡片，以及状态、禁用与加载态的正确处理方式。"
 featureimage: "covers/android-ui.svg"
 date: 2026-10-13

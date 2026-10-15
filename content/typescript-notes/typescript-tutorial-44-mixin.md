@@ -1,6 +1,6 @@
 ---
 title: "四十四、混入（Mixin）"
-weight: 44
+weight: 45
 description: "本章介绍 混入（Mixin）。"
 date: 2026-09-28
 tags: ["TypeScript"]

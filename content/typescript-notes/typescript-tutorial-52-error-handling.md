@@ -1,6 +1,6 @@
 ---
 title: "五十二、错误处理"
-weight: 52
+weight: 53
 description: "本章介绍 错误处理。"
 date: 2026-09-28
 tags: ["TypeScript"]

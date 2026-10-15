@@ -1,6 +1,6 @@
 ---
 title: "四十七、可选链"
-weight: 47
+weight: 48
 description: "本章介绍 可选链。"
 date: 2026-09-28
 tags: ["TypeScript"]

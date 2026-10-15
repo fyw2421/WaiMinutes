@@ -1,6 +1,6 @@
 ---
 title: "AndroidNotes05 : 列表与滚动"
-weight: 5
+weight: 6
 description: "Compose 列表与滚动：LazyColumn 与 LazyRow 的惰性测量、item 与 key 的用法、分组与粘性头、滚动控制与 snapshotFlow、嵌套滚动冲突的处理、网格布局、手写分页加载，以及与 Paging 3 的集成取舍。"
 featureimage: "covers/android-basics.svg"
 date: 2026-10-13

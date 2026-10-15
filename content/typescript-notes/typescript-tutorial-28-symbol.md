@@ -1,6 +1,6 @@
 ---
 title: "二十八、Symbol"
-weight: 28
+weight: 29
 description: "本章介绍 Symbol。"
 date: 2026-09-28
 tags: ["TypeScript"]

@@ -1,6 +1,6 @@
 ---
 title: "三十七、命名空间"
-weight: 37
+weight: 38
 description: "本章介绍 命名空间。"
 date: 2026-09-28
 tags: ["TypeScript"]

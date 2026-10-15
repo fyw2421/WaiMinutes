@@ -1,6 +1,6 @@
 ---
 title: "六十五、综合项目实战"
-weight: 65
+weight: 66
 description: "本章介绍 综合项目实战。"
 date: 2026-09-28
 tags: ["TypeScript"]

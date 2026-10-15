@@ -1,6 +1,6 @@
 ---
 title: "AndroidNotes06 : Material 3 与主题"
-weight: 6
+weight: 7
 description: "Jetpack Compose 的 Material 3 主题体系：ColorScheme 与语义色槽位、动态取色、自定义配色方案、Typography 排版体系、Shapes 形状与 Elevation 层级，以及 Theme 的正确组织方式与深色模式。"
 featureimage: "covers/android-ui.svg"
 date: 2026-10-13

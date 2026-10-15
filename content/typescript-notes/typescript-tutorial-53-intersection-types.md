@@ -1,6 +1,6 @@
 ---
 title: "五十三、交叉类型"
-weight: 53
+weight: 54
 description: "本章介绍 交叉类型。"
 date: 2026-09-28
 tags: ["TypeScript"]

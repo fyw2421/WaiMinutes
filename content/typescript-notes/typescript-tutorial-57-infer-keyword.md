@@ -1,6 +1,6 @@
 ---
 title: "五十七、infer 关键字"
-weight: 57
+weight: 58
 description: "本章介绍 infer 关键字。"
 date: 2026-09-28
 tags: ["TypeScript"]

@@ -1,6 +1,6 @@
 ---
 title: "JavaNotes17 : XML 与 JSON"
-weight: 17
+weight: 18
 description: "XML 的 DOM、SAX 与 StAX 三种解析方式、JSON 的 Jackson 用法与注解、XML 与 JSON 的选型对比、常见序列化陷阱，以及字符编码与安全问题。"
 featureimage: "covers/java-practice.svg"
 date: 2026-10-13

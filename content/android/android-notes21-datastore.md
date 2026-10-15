@@ -1,8 +1,8 @@
 ---
 title: "AndroidNotes21 : DataStore 偏好存储"
-weight: 21
+weight: 22
 description: "Android DataStore 现代化数据存储解决方案：SharedPreferences 的替代品、Proto DataStore 与 Preferences DataStore 的选择、异步 API 与 Flow 集成、序列化与迁移策略、错误处理与测试以及与 Hilt 的协同使用。"
-featureimage: "covers/android-system.svg"
+featureimage: "covers/android-engineering.svg"
 date: 2026-10-14
 tags: ["Android"]
 ---

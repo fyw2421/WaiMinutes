@@ -1,6 +1,6 @@
 ---
 title: "六十七、Vue3 实战"
-weight: 67
+weight: 68
 description: "本章介绍 Vue3 实战。"
 date: 2026-09-28
 tags: ["TypeScript"]

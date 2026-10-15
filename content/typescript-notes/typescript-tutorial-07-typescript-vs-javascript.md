@@ -1,6 +1,6 @@
 ---
 title: "七、TypeScript vs JavaScript"
-weight: 7
+weight: 8
 description: "本章介绍 TypeScript vs JavaScript。"
 date: 2026-09-28
 tags: ["TypeScript"]

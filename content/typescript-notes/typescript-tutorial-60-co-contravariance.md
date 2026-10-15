@@ -1,6 +1,6 @@
 ---
 title: "六十、协变与逆变"
-weight: 60
+weight: 61
 description: "本章介绍 协变与逆变。"
 date: 2026-09-28
 tags: ["TypeScript"]

@@ -1,6 +1,6 @@
 ---
 title: "十八、迭代器"
-weight: 18
+weight: 19
 description: "本章介绍 迭代器。"
 date: 2026-09-28
 tags: ["TypeScript"]

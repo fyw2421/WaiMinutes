@@ -1,6 +1,6 @@
 ---
 title: "四十五、装饰器"
-weight: 45
+weight: 46
 description: "本章介绍 装饰器。"
 date: 2026-09-28
 tags: ["TypeScript"]

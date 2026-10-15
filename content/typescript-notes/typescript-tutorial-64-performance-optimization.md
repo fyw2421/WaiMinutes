@@ -1,6 +1,6 @@
 ---
 title: "六十四、性能优化"
-weight: 64
+weight: 65
 description: "本章介绍 性能优化。"
 date: 2026-09-28
 tags: ["TypeScript"]

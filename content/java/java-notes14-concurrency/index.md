@@ -1,6 +1,6 @@
 ---
 title: "JavaNotes14 : 多线程"
-weight: 14
+weight: 15
 description: "线程与进程的区别、线程状态与生命周期、创建线程的三种方式、锁机制与线程安全、线程池参数、并发工具类，以及 CompletableFuture 与虚拟线程。"
 featureimage: "covers/java-practice.svg"
 date: 2026-10-13

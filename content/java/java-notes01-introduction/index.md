@@ -1,6 +1,6 @@
 ---
 title: "JavaNotes01 : 简介"
-weight: 1
+weight: 2
 description: "Java 的设计目标、字节码与 JVM 运行机制、版本与 LTS 节奏、编译期与运行期的差异，以及编写第一个程序前需要知道的规则。"
 featureimage: "covers/java-basics.svg"
 date: 2026-10-13

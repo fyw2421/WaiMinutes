@@ -1,6 +1,6 @@
 ---
 title: "五十、映射类型"
-weight: 50
+weight: 51
 description: "本章介绍 映射类型。"
 date: 2026-09-28
 tags: ["TypeScript"]

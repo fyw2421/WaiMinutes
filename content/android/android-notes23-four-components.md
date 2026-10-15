@@ -1,8 +1,8 @@
 ---
 title: "AndroidNotes23 : 四大组件"
-weight: 23
+weight: 24
 description: "Android 四大组件（Activity、Service、BroadcastReceiver、ContentProvider）的完整用法：生命周期管理、启动模式、任务返回栈、后台服务类型、广播注册与过滤、数据共享与URI权限以及与现代架构的协同使用。"
-featureimage: "covers/android-system.svg"
+featureimage: "covers/android-engineering.svg"
 date: 2026-10-14
 tags: ["Android"]
 ---

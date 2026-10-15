@@ -1,6 +1,6 @@
 ---
 title: "Design Pattern04 : Structural2-1"
-weight: 4
+weight: 5
 description: "Adapter-Pattern Facade-Pattern Bridge-Pattern"
 date: 2018-05-28
 tags: ["Design Pattern"]

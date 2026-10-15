@@ -1,6 +1,6 @@
 ---
 title: "Data Structures06 : Threaded Binary Tree"
-weight: 6
+weight: 7
 description: "线索二叉树的构建、中序/先序/后序线索化遍历与 C++ 实现"
 date: 2026-09-24
 tags: ["Data Structure"]

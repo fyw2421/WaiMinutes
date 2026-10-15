@@ -1,6 +1,6 @@
 ---
 title: "AndroidNotes04 : 布局与状态提升"
-weight: 4
+weight: 5
 description: "Compose 布局体系与状态提升：Column/Row/Box 与权重分配、对齐与自适应尺寸、IntrinsicMeasurement 与自定义 Layout、状态的所有权与提升原则、回调命名规范，以及无状态与有状态组件的分工。"
 featureimage: "covers/android-basics.svg"
 date: 2026-10-13

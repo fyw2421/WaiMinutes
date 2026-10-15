@@ -1,6 +1,6 @@
 ---
 title: "十五、函数"
-weight: 15
+weight: 16
 description: "本章介绍 函数。"
 date: 2026-09-28
 tags: ["TypeScript"]

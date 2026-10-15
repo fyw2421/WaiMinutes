@@ -1,6 +1,6 @@
 ---
 title: "Data Structures08 : Huffman Coding"
-weight: 8
+weight: 9
 description: "哈夫曼编码的构建原理、最优前缀码与 C++ 实现"
 date: 2026-09-24
 tags: ["Data Structure"]

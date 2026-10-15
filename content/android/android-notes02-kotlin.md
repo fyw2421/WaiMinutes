@@ -1,6 +1,6 @@
 ---
 title: "AndroidNotes02 : Kotlin 速览"
-weight: 2
+weight: 3
 description: "面向 Android 的 Kotlin 要点：空安全与 elvis、字符串模板与默认参数、数据类与密封类、作用域函数与返回值对照、集合操作式写法、协程与 Flow、扩展函数与内联、SAM 转换，以及与 Java 互操作的注解桥接。"
 featureimage: "covers/android-basics.svg"
 date: 2026-10-13

@@ -1,6 +1,6 @@
 ---
 title: "JavaNotes03 : 面向对象编程"
-weight: 3
+weight: 4
 description: "类与对象、方法重载与构造、继承与多态、抽象类与接口、静态成员、内部类、作用域，以及 equals/hashCode 与包装类型等易错点。"
 featureimage: "covers/java-basics.svg"
 date: 2026-10-13

@@ -1,6 +1,6 @@
 ---
 title: "十三、条件语句"
-weight: 13
+weight: 14
 description: "本章介绍 条件语句。"
 date: 2026-09-28
 tags: ["TypeScript"]

@@ -1,6 +1,6 @@
 ---
 title: "JavaNotes20 : 设计模式"
-weight: 20
+weight: 21
 description: "GoF 二十三种模式的分类与适用场景、创建型与结构型常用模式的 Java 实现、行为型模式的对比选型，以及模式使用中常见的过度设计问题。"
 featureimage: "covers/java-practice.svg"
 date: 2026-10-13

@@ -1,6 +1,6 @@
 ---
 title: "十七、箭头函数"
-weight: 17
+weight: 18
 description: "本章介绍 箭头函数。"
 date: 2026-09-28
 tags: ["TypeScript"]

@@ -1,6 +1,6 @@
 ---
 title: "六、基本结构"
-weight: 6
+weight: 7
 description: "本章介绍 基本结构。"
 date: 2026-09-28
 tags: ["TypeScript"]

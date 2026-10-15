@@ -1,6 +1,6 @@
 ---
 title: "五十九、递归类型"
-weight: 59
+weight: 60
 description: "本章介绍 递归类型。"
 date: 2026-09-28
 tags: ["TypeScript"]

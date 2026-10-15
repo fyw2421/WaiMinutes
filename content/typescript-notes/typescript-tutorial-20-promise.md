@@ -1,6 +1,6 @@
 ---
 title: "二十、Promise"
-weight: 20
+weight: 21
 description: "本章介绍 Promise。"
 date: 2026-09-28
 tags: ["TypeScript"]

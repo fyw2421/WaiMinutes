@@ -1,6 +1,6 @@
 ---
 title: "四十三、访问修饰符"
-weight: 43
+weight: 44
 description: "本章介绍 访问修饰符。"
 date: 2026-09-28
 tags: ["TypeScript"]

@@ -1,6 +1,6 @@
 ---
 title: "五十八、索引类型"
-weight: 58
+weight: 59
 description: "本章介绍 索引类型。"
 date: 2026-09-28
 tags: ["TypeScript"]
