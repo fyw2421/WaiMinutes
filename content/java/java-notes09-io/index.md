@@ -1,6 +1,6 @@
 ---
 title: "JavaNotes09 : IO 与 NIO"
-weight: 9
+weight: 10
 description: "字节流与字符流的体系、File 与 Path、缓冲的作用、NIO 的 Channel 与 Buffer、Files 工具类、序列化的原理与替代方案。"
 featureimage: "covers/java-advanced.svg"
 date: 2026-10-13

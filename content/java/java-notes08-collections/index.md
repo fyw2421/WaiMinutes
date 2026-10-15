@@ -1,6 +1,6 @@
 ---
 title: "JavaNotes08 : 集合框架"
-weight: 8
+weight: 9
 description: "Collection 与 Map 两大体系、各实现类的底层结构与选型依据、equals 与 hashCode 的契约、迭代器机制、Collections 工具方法，以及集合常见坑。"
 featureimage: "covers/java-advanced.svg"
 date: 2026-10-13

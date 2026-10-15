@@ -1,6 +1,6 @@
 ---
 title: "JavaNotes04 : 异常处理"
-weight: 4
+weight: 5
 description: "异常层次结构、捕获与抛出、自定义异常、try-with-resources 自动关闭资源、断言，以及日志框架的选型与常见误用。"
 featureimage: "covers/java-basics.svg"
 date: 2026-10-13

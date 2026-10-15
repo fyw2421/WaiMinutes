@@ -1,6 +1,6 @@
 ---
 title: "JavaNotes16 : 网络编程"
-weight: 16
+weight: 17
 description: "TCP 与 UDP 的差异、Socket 编程的核心类、HTTP 客户端调用与连接池、JSON over HTTP 的常见约定、资源关闭与超时设置，以及网络安全要点。"
 featureimage: "covers/java-practice.svg"
 date: 2026-10-13

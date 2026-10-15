@@ -1,6 +1,6 @@
 ---
 title: "JavaNotes07 : 泛型"
-weight: 7
+weight: 8
 description: "泛型的动机与基本用法、类型参数与通配符、类型擦除机制及其后果，以及泛型与反射、数组的交互规则。"
 featureimage: "covers/java-basics.svg"
 date: 2026-10-13

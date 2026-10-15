@@ -1,6 +1,6 @@
 ---
 title: "JavaNotes06 : 注解"
-weight: 6
+weight: 7
 description: "注解的本质与保留期限、内置注解、定义与参数、使用注解与运行时处理注解，以及反射读取注解的完整示例。"
 featureimage: "covers/java-basics.svg"
 date: 2026-10-13

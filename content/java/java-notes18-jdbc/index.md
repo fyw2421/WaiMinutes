@@ -1,6 +1,6 @@
 ---
 title: "JavaNotes18 : JDBC 编程"
-weight: 18
+weight: 19
 description: "JDBC 的六步流程、连接池原理与配置、PreparedStatement 与 SQL 注入防护、事务与隔离级别、批处理、生成键读取，以及 ORM 之前必须掌握的知识。"
 featureimage: "covers/java-practice.svg"
 date: 2026-10-13

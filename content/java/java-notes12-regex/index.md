@@ -1,6 +1,6 @@
 ---
 title: "JavaNotes12 : 正则表达式"
-weight: 12
+weight: 13
 description: "Java 正则的语法要点、Pattern 与 Matcher 的使用方式、贪婪与非贪婪匹配、分组与捕获、替换、断言与环视，以及常见性能陷阱。"
 featureimage: "covers/java-advanced.svg"
 date: 2026-10-13

@@ -1,6 +1,6 @@
 ---
 title: "JavaNotes11 : 单元测试"
-weight: 11
+weight: 12
 description: "JUnit 5 的结构化生命周期、断言方法、Fixture 与 BeforeEach/AfterEach、异常测试、条件测试与参数化测试，以及测试设计的实用原则。"
 featureimage: "covers/java-advanced.svg"
 date: 2026-10-13
