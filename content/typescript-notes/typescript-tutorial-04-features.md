@@ -1,6 +1,6 @@
 ---
 title: "四、TypeScript 特性"
-weight: 4
+weight: 5
 description: "本章介绍 TypeScript 特性。"
 date: 2026-09-28
 tags: ["TypeScript"]

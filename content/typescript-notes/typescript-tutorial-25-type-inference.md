@@ -1,6 +1,6 @@
 ---
 title: "二十五、类型推断"
-weight: 25
+weight: 26
 description: "本章介绍 类型推断。"
 date: 2026-09-28
 tags: ["TypeScript"]

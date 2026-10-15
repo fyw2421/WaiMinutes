@@ -1,6 +1,6 @@
 ---
 title: "六十三、Monorepo 配置"
-weight: 63
+weight: 64
 description: "本章介绍 Monorepo 配置。"
 date: 2026-09-28
 tags: ["TypeScript"]

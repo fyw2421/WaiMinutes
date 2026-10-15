@@ -1,6 +1,6 @@
 ---
 title: "十九、async/await"
-weight: 19
+weight: 20
 description: "本章介绍 async/await。"
 date: 2026-09-28
 tags: ["TypeScript"]

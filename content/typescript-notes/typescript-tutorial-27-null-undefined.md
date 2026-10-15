@@ -1,6 +1,6 @@
 ---
 title: "二十七、null 和 undefined"
-weight: 27
+weight: 28
 description: "本章介绍 null 和 undefined。"
 date: 2026-09-28
 tags: ["TypeScript"]

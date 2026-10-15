@@ -1,6 +1,6 @@
 ---
 title: "二十六、类型断言"
-weight: 26
+weight: 27
 description: "本章介绍 类型断言。"
 date: 2026-09-28
 tags: ["TypeScript"]

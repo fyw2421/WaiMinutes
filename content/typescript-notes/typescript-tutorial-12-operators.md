@@ -1,6 +1,6 @@
 ---
 title: "十二、运算符"
-weight: 12
+weight: 13
 description: "本章介绍 运算符。"
 date: 2026-09-28
 tags: ["TypeScript"]

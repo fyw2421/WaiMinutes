@@ -1,6 +1,6 @@
 ---
 title: "三、VS Code"
-weight: 3
+weight: 4
 description: "本章介绍 VS Code。"
 date: 2026-09-28
 tags: ["TypeScript"]

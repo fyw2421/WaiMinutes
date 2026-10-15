@@ -1,6 +1,6 @@
 ---
 title: "一、TypeScript 简介"
-weight: 1
+weight: 2
 description: "本章介绍 TypeScript 简介。"
 date: 2026-09-28
 tags: ["TypeScript"]

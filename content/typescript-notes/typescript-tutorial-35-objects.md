@@ -1,6 +1,6 @@
 ---
 title: "三十五、对象"
-weight: 35
+weight: 36
 description: "本章介绍 对象。"
 date: 2026-09-28
 tags: ["TypeScript"]

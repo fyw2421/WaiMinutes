@@ -1,6 +1,6 @@
 ---
 title: "十、基础类型"
-weight: 10
+weight: 11
 description: "本章介绍 基础类型。"
 date: 2026-09-28
 tags: ["TypeScript"]

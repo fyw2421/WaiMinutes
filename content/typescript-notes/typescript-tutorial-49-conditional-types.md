@@ -1,6 +1,6 @@
 ---
 title: "四十九、条件类型"
-weight: 49
+weight: 50
 description: "本章介绍 条件类型。"
 date: 2026-09-28
 tags: ["TypeScript"]

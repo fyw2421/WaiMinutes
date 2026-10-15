@@ -1,6 +1,6 @@
 ---
 title: "三十一、元组"
-weight: 31
+weight: 32
 description: "本章介绍 元组。"
 date: 2026-09-28
 tags: ["TypeScript"]

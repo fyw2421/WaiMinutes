@@ -1,6 +1,6 @@
 ---
 title: "八、tsconfig.json"
-weight: 8
+weight: 9
 description: "本章介绍 tsconfig.json。"
 date: 2026-09-28
 tags: ["TypeScript"]

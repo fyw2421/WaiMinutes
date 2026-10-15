@@ -1,6 +1,6 @@
 ---
 title: "三十四、类"
-weight: 34
+weight: 35
 description: "本章介绍 类。"
 date: 2026-09-28
 tags: ["TypeScript"]

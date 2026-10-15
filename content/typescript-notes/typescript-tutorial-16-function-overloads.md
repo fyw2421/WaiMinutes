@@ -1,6 +1,6 @@
 ---
 title: "十六、函数重载"
-weight: 16
+weight: 17
 description: "本章介绍 函数重载。"
 date: 2026-09-28
 tags: ["TypeScript"]

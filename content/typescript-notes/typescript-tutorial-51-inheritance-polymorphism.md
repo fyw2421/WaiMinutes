@@ -1,6 +1,6 @@
 ---
 title: "五十一、类继承与多态"
-weight: 51
+weight: 52
 description: "本章介绍 类继承与多态。"
 date: 2026-09-28
 tags: ["TypeScript"]

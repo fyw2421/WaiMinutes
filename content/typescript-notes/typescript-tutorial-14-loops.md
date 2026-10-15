@@ -1,6 +1,6 @@
 ---
 title: "十四、循环"
-weight: 14
+weight: 15
 description: "本章介绍 循环。"
 date: 2026-09-28
 tags: ["TypeScript"]

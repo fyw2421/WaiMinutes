@@ -1,6 +1,6 @@
 ---
 title: "三十八、模块"
-weight: 38
+weight: 39
 description: "本章介绍 模块。"
 date: 2026-09-28
 tags: ["TypeScript"]

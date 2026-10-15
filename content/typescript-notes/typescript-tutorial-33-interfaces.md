@@ -1,6 +1,6 @@
 ---
 title: "三十三、接口"
-weight: 33
+weight: 34
 description: "本章介绍 接口。"
 date: 2026-09-28
 tags: ["TypeScript"]

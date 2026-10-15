@@ -1,6 +1,6 @@
 ---
 title: "四十一、字面量类型"
-weight: 41
+weight: 42
 description: "本章介绍 字面量类型。"
 date: 2026-09-28
 tags: ["TypeScript"]

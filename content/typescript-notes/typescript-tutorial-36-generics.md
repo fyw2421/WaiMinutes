@@ -1,6 +1,6 @@
 ---
 title: "三十六、泛型"
-weight: 36
+weight: 37
 description: "本章介绍 泛型。"
 date: 2026-09-28
 tags: ["TypeScript"]

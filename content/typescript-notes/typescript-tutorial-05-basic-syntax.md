@@ -1,6 +1,6 @@
 ---
 title: "五、基础语法"
-weight: 5
+weight: 6
 description: "本章介绍 基础语法。"
 date: 2026-09-28
 tags: ["TypeScript"]

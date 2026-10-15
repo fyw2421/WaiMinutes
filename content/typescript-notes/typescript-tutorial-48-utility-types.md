@@ -1,6 +1,6 @@
 ---
 title: "四十八、工具类型"
-weight: 48
+weight: 49
 description: "本章介绍 工具类型。"
 date: 2026-09-28
 tags: ["TypeScript"]

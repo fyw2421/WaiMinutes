@@ -1,6 +1,6 @@
 ---
 title: "五十四、模板字面量"
-weight: 54
+weight: 55
 description: "本章介绍 模板字面量。"
 date: 2026-09-28
 tags: ["TypeScript"]

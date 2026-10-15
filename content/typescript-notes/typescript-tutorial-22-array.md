@@ -1,6 +1,6 @@
 ---
 title: "二十二、Array"
-weight: 22
+weight: 23
 description: "本章介绍 Array。"
 date: 2026-09-28
 tags: ["TypeScript"]

@@ -1,6 +1,6 @@
 ---
 title: "三十二、联合类型"
-weight: 32
+weight: 33
 description: "本章介绍 联合类型。"
 date: 2026-09-28
 tags: ["TypeScript"]

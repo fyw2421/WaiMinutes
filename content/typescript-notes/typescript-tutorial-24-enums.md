@@ -1,6 +1,6 @@
 ---
 title: "二十四、枚举"
-weight: 24
+weight: 25
 description: "本章介绍 枚举。"
 date: 2026-09-28
 tags: ["TypeScript"]

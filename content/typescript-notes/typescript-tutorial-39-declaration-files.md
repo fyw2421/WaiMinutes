@@ -1,6 +1,6 @@
 ---
 title: "三十九、声明文件"
-weight: 39
+weight: 40
 description: "本章介绍 声明文件。"
 date: 2026-09-28
 tags: ["TypeScript"]

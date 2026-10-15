@@ -1,6 +1,6 @@
 ---
 title: "二、TypeScript 安装"
-weight: 2
+weight: 3
 description: "本章介绍 TypeScript 安装。"
 date: 2026-09-28
 tags: ["TypeScript"]

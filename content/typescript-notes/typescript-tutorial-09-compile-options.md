@@ -1,6 +1,6 @@
 ---
 title: "九、编译选项"
-weight: 9
+weight: 10
 description: "本章介绍 编译选项。"
 date: 2026-09-28
 tags: ["TypeScript"]

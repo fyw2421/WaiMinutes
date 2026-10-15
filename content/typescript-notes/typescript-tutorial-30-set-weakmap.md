@@ -1,6 +1,6 @@
 ---
 title: "三十、Set / WeakMap"
-weight: 30
+weight: 31
 description: "本章介绍 Set / WeakMap。"
 date: 2026-09-28
 tags: ["TypeScript"]

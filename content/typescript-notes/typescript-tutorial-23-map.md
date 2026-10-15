@@ -1,6 +1,6 @@
 ---
 title: "二十三、Map"
-weight: 23
+weight: 24
 description: "本章介绍 Map。"
 date: 2026-09-28
 tags: ["TypeScript"]
