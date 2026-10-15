@@ -1,6 +1,6 @@
 ---
 title: "AndroidNotes01 : 起步"
-weight: 1
+weight: 2
 description: "Android 开发环境与工程结构：Compose-first 时代的技术选型、Android Studio 与 SDK 安装、Gradle 工程与模块划分、Manifest 与资源体系、第一个可运行的应用，以及构建产物与常见构建错误排查。"
 featureimage: "covers/android-basics.svg"
 date: 2026-10-13

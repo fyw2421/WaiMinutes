@@ -1,6 +1,6 @@
 ---
 title: "AndroidNotes27 : 性能优化"
-weight: 27
+weight: 28
 description: "Android 性能优化全面指南：启动时间优化、布局和渲染优化、内存管理、电池续航、网络性能、GPU 渲染、存储 I/O以及性能监控与分析工具。"
 featureimage: "covers/android-engineering.svg"
 date: 2026-10-14

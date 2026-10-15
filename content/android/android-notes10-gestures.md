@@ -1,6 +1,6 @@
 ---
 title: "AndroidNotes10 : 手势"
-weight: 10
+weight: 11
 description: "Compose 手势处理：pointerInput 与 awaitPointerEventScope、点击与长按与双击、拖拽与滑动的自定义识别、与 Modifier.clickable 的冲突处理、anchoredDraggable 抽屉，以及手势与滚动的手势竞争。"
 featureimage: "covers/android-ui.svg"
 date: 2026-10-13

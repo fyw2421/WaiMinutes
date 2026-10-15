@@ -1,8 +1,8 @@
 ---
 title: "AndroidNotes22 : WorkManager 后台任务"
-weight: 22
+weight: 23
 description: "Android WorkManager 后台任务调度库：可保证执行的异步任务、约束条件与触发器、指数退避重试策略、唯一工作与链式工作、与协程与 Flow 的集成、测试策略以及与其他架构组件的协同使用。"
-featureimage: "covers/android-system.svg"
+featureimage: "covers/android-engineering.svg"
 date: 2026-10-14
 tags: ["Android"]
 ---

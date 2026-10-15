@@ -1,6 +1,6 @@
 ---
 title: "AndroidNotes08 : 图片与资源"
-weight: 8
+weight: 9
 description: "Compose 的图片与资源处理：painterResource 与资源目录、网络图片 Coil 3 的用法与缓存、ContentScale 的选择、矢量图标与 ImageVector 的自绘，以及深色模式与多语言资源目录的组织。"
 featureimage: "covers/android-ui.svg"
 date: 2026-10-13

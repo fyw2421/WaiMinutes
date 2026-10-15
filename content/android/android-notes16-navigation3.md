@@ -1,6 +1,6 @@
 ---
 title: "AndroidNotes16 : Navigation 3"
-weight: 16
+weight: 17
 description: "Navigation 3 的核心模型：应用自己拥有 back stack、类型安全的 key、NavDisplay 与 entryProvider、SceneStrategy 实现多窗格、entry scoped 与 ViewModel 的作用域、深链接与状态保存，以及与 Navigation 组件的差异和迁移取舍。"
 featureimage: "covers/android-engineering.svg"
 date: 2026-10-13

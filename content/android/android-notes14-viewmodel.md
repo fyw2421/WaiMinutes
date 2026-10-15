@@ -1,6 +1,6 @@
 ---
 title: "AndroidNotes14 : ViewModel"
-weight: 14
+weight: 15
 description: "ViewModel 的完整用法：viewModelScope 与生命周期、参数注入与 SavedStateHandle、状态容器与配置变更的保存时机、onEvent 事件入口、ViewModel 的测试方法，以及 Factory 与 assisted injection 的取舍。"
 featureimage: "covers/android-engineering.svg"
 date: 2026-10-13

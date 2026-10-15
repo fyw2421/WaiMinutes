@@ -1,8 +1,8 @@
 ---
 title: "AndroidNotes20 : Room 数据库"
-weight: 20
+weight: 21
 description: "Android Room 持久化库的完整用法：实体定义、DAO 接口、数据库构建、类型转换器、关系映射、事务处理、迁移策略、协程与 Flow 集成、测试策略以及与 LiveData 的协同使用。"
-featureimage: "covers/android-system.svg"
+featureimage: "covers/android-engineering.svg"
 date: 2026-10-14
 tags: ["Android"]
 ---

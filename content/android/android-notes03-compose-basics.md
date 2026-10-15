@@ -1,6 +1,6 @@
 ---
 title: "AndroidNotes03 : Compose 基础"
-weight: 3
+weight: 4
 description: "Jetpack Compose 的声明式思维：@Composable 与组合、重组机制与跳过规则、remember 与派生状态、Modifier 链的顺序语义与自定义、副作用 API 的取舍，以及 @Preview 实时预览。"
 featureimage: "covers/android-basics.svg"
 date: 2026-10-13

@@ -1,6 +1,6 @@
 ---
 title: "AndroidNotes28 : 发布与上架"
-weight: 28
+weight: 29
 description: "Android 应用发布和上架完整流程：版本管理、签名配置、多渠道打包、测试发布、生产发布、监控与反馈、崩溃分析、性能监控以及应用商店优化（ASO）。"
 featureimage: "covers/android-engineering.svg"
 date: 2026-10-14

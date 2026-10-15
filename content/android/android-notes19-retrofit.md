@@ -1,8 +1,8 @@
 ---
 title: "AndroidNotes19 : Retrofit 网络层"
-weight: 19
+weight: 20
 description: "Android 网络请求库 Retrofit 的完整用法：REST API 接口定义、异步处理与协程集成、数据转换器配置、拦截器与日志、错误处理与重试机制、动态 URL 与查询参数、文件上传下载以及与其他库的协同使用。"
-featureimage: "covers/android-system.svg"
+featureimage: "covers/android-engineering.svg"
 date: 2026-10-14
 tags: ["Android"]
 ---

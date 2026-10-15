@@ -1,6 +1,6 @@
 ---
 title: "AndroidNotes09 : 动画与转场"
-weight: 9
+weight: 10
 description: "Compose 动画体系：animateDpAsState 与动画类型的选择、AnimatedVisibility 的进出动画、AnimatedContent 与 SharedTransition 的内容切换、spring 与 tween 规格、Transition 与 updateTransition 的多属性联动，以及动画的性能与无障碍处理。"
 featureimage: "covers/android-ui.svg"
 date: 2026-10-13

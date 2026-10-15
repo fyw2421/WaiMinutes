@@ -1,6 +1,6 @@
 ---
 title: "AndroidNotes25 : 测试"
-weight: 25
+weight: 26
 description: "Android 应用测试完整指南：单元测试、仪器化测试、UI 测试、测试驱动开发（TDD）、Mock 框架、协程测试、测试覆盖率、持续集成以及与现代架构的协同使用。"
 featureimage: "covers/android-engineering.svg"
 date: 2026-10-14

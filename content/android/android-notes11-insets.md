@@ -1,6 +1,6 @@
 ---
 title: "AndroidNotes11 : 边缘到边缘与 insets"
-weight: 11
+weight: 12
 description: "targetSdk 35+ 的边缘到边缘要求：enableEdgeToEdge 的调用时机与参数、WindowInsets 的四类来源与消费、Scaffold 的 innerPadding 机制、手势导航条与显示切口适配，以及 InputModifier 键盘避让的标准写法。"
 featureimage: "covers/android-ui.svg"
 date: 2026-10-13

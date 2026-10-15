@@ -1,6 +1,6 @@
 ---
 title: "AndroidNotes13 : 分层与 UDF"
-weight: 13
+weight: 14
 description: "Android 推荐架构：UI 层与数据层的职责边界、UDF 单向数据流的输入输出与事件处理、状态建模与不可变数据结构、Repository 模式与数据源分层、依赖倒置的真实收益，以及各层之间该传什么不该传什么。"
 featureimage: "covers/android-engineering.svg"
 date: 2026-10-13
