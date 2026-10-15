@@ -1,6 +1,6 @@
 ---
 title: "Data Structures01 : Summarize"
-weight: 1
+weight: 2
 description: "Structure-Elements Algorithm-Analysis"
 date: 2018-08-07
 tags: ["Data Structure"]

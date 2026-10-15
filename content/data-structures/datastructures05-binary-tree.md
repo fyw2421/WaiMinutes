@@ -1,6 +1,6 @@
 ---
 title: "Data Structures05 : Binary Tree"
-weight: 5
+weight: 6
 description: "二叉树的存储结构、遍历算法（递归/非递归）与 C++ 实现"
 date: 2026-09-24
 tags: ["Data Structure"]

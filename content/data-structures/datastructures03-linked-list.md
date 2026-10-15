@@ -1,6 +1,6 @@
 ---
 title: "Data Structures03 : Linked List"
-weight: 3
+weight: 4
 description: "单链表、双链表、循环链表的存储结构与 C++ 实现"
 date: 2026-09-24
 tags: ["Data Structure"]

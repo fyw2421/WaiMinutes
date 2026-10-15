@@ -1,6 +1,6 @@
 ---
 title: "Data Structures04 : Stack and Queue"
-weight: 4
+weight: 5
 description: "栈与队列的顺序存储、链式存储及 C++ 实现"
 date: 2026-09-24
 tags: ["Data Structure"]
