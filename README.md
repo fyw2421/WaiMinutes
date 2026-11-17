@@ -18,10 +18,10 @@
 # 二、目录结构
 
 ```
-content/            188 篇文章（11 个专题目录，46 篇是 leaf bundle，自带配图）
+content/            189 篇文章（11 个专题目录，46 篇是 leaf bundle，自带配图）
 assets/
   css/custom.css    站点全部自定义样式（背景、卡片、主题覆盖都在这里）
-  covers/           78 张专题封面 SVG（与文章同名；TypeScript 68 章共用一张，Android 按总目录/起步/界面与架构/数据与工程四张，Java 按总目录/基础/进阶/实战四张）
+  covers/           79 张专题封面 SVG（与文章同名；TypeScript 68 章共用一张，Android 按总目录/起步/界面与架构/数据与工程四张，Java 按总目录/基础/进阶/实战四张）
   icons/            站点自有的图标（覆盖主题同名文件）
   js/               站点自有的脚本（tools-modal.js、footer-extra.js）
   design-pattern/   设计模式专题的可下载 C++ 源码（56 个 .h/.cpp 文件）
@@ -82,11 +82,11 @@ themes/blowfish/    Blowfish 主题，已整目录提交进本仓库（不要修
 | Java | 21 篇 | `java/` |
 | JavaScript | 14 篇 | `javascript/` |
 | Markdown | 6 篇 | `markdown-notes/` |
-| 产品手册 | 5 篇 | `manuals/` |
+| 产品手册 | 6 篇 | `manuals/` |
 | 软件配置 | 10 篇 | `software-config/` |
 | TypeScript | 69 篇 | `typescript-notes/` |
 
-合计 188 篇（Android 29 篇 = 总目录 1 + 起步 5 + UI 7 + 架构 6 + 数据与系统 6 + 工程 4；TypeScript 69 篇 = 68 章 + 1 张章节目录页 `typescript-tutorial.md`；Java 21 篇 = 总目录 1 + 基础 7 + 进阶 6 + 实战 7）。
+合计 189 篇（Android 29 篇 = 总目录 1 + 起步 5 + UI 7 + 架构 6 + 数据与系统 6 + 工程 4；TypeScript 69 篇 = 68 章 + 1 张章节目录页 `typescript-tutorial.md`；Java 21 篇 = 总目录 1 + 基础 7 + 进阶 6 + 实战 7；产品手册 6 篇 = 5 篇既有 + 米家高速水离子吹风机 Pro）。
 
 ## (一) 标题编号规则
 
